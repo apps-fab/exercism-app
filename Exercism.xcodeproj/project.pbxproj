@@ -12,6 +12,7 @@
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
 		E0C9673728732A45004CE7E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
+		FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F30DF28DCE330007B98DB /* DashBoard.swift */; };
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
 		FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDEC77022892FC2A0093F764 /* ExercismSwift */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,7 @@
 		E0C9673828732A45004CE7E6 /* Exercism.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Exercism.entitlements; sourceTree = "<group>"; };
 		E0C9673F28732C49004CE7E6 /* ExercismSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ExercismSwift; path = ../../ExercismSwift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
+		FD8F30DF28DCE330007B98DB /* DashBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoard.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
 				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
 				E0C9673128732A44004CE7E6 /* ContentView.swift */,
+				FD8F30DF28DCE330007B98DB /* DashBoard.swift */,
 				E0C9673328732A45004CE7E6 /* Assets.xcassets */,
 				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
 				E0C9673528732A45004CE7E6 /* Preview Content */,
@@ -158,6 +161,7 @@
 			files = (
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */,
+				FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

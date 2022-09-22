@@ -16,9 +16,13 @@ struct ExercismTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty { placeholder }
-            TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
+            TextField("",
+                      text: $text,
+                      onEditingChanged: editingChanged,
+                      onCommit: commit)
         }.foregroundColor(.gray)
         .padding()
+        .textFieldStyle(.plain)
     }
 }
 
