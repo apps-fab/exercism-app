@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 struct ContentView: View {
     @State private var textInput: String = ""
+    @State private var showAlert = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -59,7 +61,7 @@ struct ContentView: View {
                     .padding(.trailing, 26)
                     Spacer()
                     Button(action: {
-                        print("Log in tapped")
+                        validateToken()
                     }) {
                         Text("Log in")
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
@@ -82,7 +84,23 @@ struct ContentView: View {
                 .background(.white)
                 .foregroundColor(.black)
             }.background(.white)
+                .alert("Important message", isPresented: $showAlert) {
+                    Button("OK", role: .cancel) { }
+                }
         }
+    }
+
+    func validateToken() {
+        // show the error message in the alert
+        let client = ExercismClient(apiToken: textInput)
+        client.validateToken(completed: { response in
+            switch response {
+            case .success(let success):
+                print("This was a success")
+            case .failure(let failure):
+                showAlert = true
+            }
+        })
     }
 }
 
