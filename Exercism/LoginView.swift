@@ -12,7 +12,7 @@ struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var showDashboard = false
-
+    
     var body: some View {
         NavigationView {
             NavigationLink("Dashboard",
@@ -72,7 +72,7 @@ struct LoginView: View {
                             Text("Log In")
                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                                 .foregroundColor(.white)
-
+                            
                         }
                         .frame(height: 40)
                         .background(Color("purple"))
@@ -80,12 +80,12 @@ struct LoginView: View {
                         .padding()
                         Text("You can find your token on your [settings page](https://exercism.org/settings)")
                             .padding()
-
+                        
                         Text("Important: The token above should be treated like a password and not be shared with anyone!")
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
                         Spacer()
-
+                        
                     }.frame(width: geometry.size.width * 0.33,
                             height: geometry.size.height)
                     .background(.white)
@@ -97,7 +97,7 @@ struct LoginView: View {
             }
         }
     }
-
+    
     func validateToken() {
         // show the error message in the alert
         let client = ExercismClient(apiToken: textInput)
