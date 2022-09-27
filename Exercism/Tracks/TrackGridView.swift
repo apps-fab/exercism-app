@@ -48,7 +48,7 @@ struct TrackGridView: View {
                 if track.isJoined {
                     VStack {
                         // get correct date here
-                        Text("Last touched \(3) months ago")
+                        Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
                         let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
                         ProgressView(value: value)
                     }
