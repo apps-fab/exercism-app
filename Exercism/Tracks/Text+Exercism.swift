@@ -8,10 +8,11 @@
 import SwiftUI
 
 extension Label {
-    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .clear, cornerRadius: CGFloat = 20) -> some View {
-        self.padding().background(
+    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .clear) -> some View {
+        self.padding([.leading, .trailing], 10)
+            .padding([.top, .bottom], 5)
+            .background(
             Capsule().strokeBorder(lineColor, lineWidth: 1)
-                .frame(height: cornerRadius)
                 .background(backgroundColor)
         ).clipShape(Capsule())
     }

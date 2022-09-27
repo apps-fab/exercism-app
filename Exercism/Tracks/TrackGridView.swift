@@ -13,17 +13,12 @@ struct TrackGridView: View {
     var track: Track
     
     var body: some View {
-        HStack(alignment: .top) {
-            AsyncImage(url: URL(string: track.iconUrl)) { phase in
-                if let image = phase.image {
-                    image // Displays the loaded image.
-                } else if phase.error != nil {
-                    Color.red // Indicates an error.
-                } else {
-                    Color.blue // Acts as a placeholder.
-                }
-            }.padding([.top, .leading], 10)
+        HStack(alignment: .top, spacing: 10) {
+            Image("mainLogo")
+                .resizable().frame(alignment: .leading)
+                .padding([.top, .leading], 10)
                 .frame(width: 50, height: 50)
+
             VStack(alignment: .leading) {
                 HStack() {
                     Text(track.title).bold()
@@ -40,6 +35,7 @@ struct TrackGridView: View {
                     }
                     
                     if track.isJoined {
+                        Spacer()
                         Label("Joined", systemImage: "checkmark")
                             .roundEdges(backgroundColor: .blue.opacity(0.5))
                             .font(.system(size: 12, weight: .semibold))
@@ -51,6 +47,7 @@ struct TrackGridView: View {
                 }
                 if track.isJoined {
                     VStack {
+                        // get correct date here
                         Text("Last touched \(3) months ago")
                         let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
                         ProgressView(value: value)
@@ -62,7 +59,8 @@ struct TrackGridView: View {
                         }
                     }
                 }
-            }
+            }.frame(width: 350, height: 100)
+            .padding()
         }.frame(width: 450, height: 150)
             .background(.primary)
             .padding()
