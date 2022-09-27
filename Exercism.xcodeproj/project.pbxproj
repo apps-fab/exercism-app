@@ -16,6 +16,7 @@
 		FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksView.swift */; };
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C728E1E7360078A062 /* TracksViewModel.swift */; };
+		FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C928E33B740078A062 /* Text+Exercism.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
 		FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDEC77022892FC2A0093F764 /* ExercismSwift */; };
@@ -34,6 +35,7 @@
 		FD93F5C128E1E3260078A062 /* TracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksView.swift; sourceTree = "<group>"; };
 		FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackGridView.swift; sourceTree = "<group>"; };
 		FD93F5C728E1E7360078A062 /* TracksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewModel.swift; sourceTree = "<group>"; };
+		FD93F5C928E33B740078A062 /* Text+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Exercism.swift"; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				FD93F5C128E1E3260078A062 /* TracksView.swift */,
 				FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */,
 				FD93F5C728E1E7360078A062 /* TracksViewModel.swift */,
+				FD93F5C928E33B740078A062 /* Text+Exercism.swift */,
 			);
 			path = Tracks;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
+				FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */,
 				E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */,
 				FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */,

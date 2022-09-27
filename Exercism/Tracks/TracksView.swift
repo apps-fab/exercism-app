@@ -9,17 +9,28 @@ import SwiftUI
 
 struct TracksView: View {
     @ObservedObject var viewModel = TracksViewModel()
+    @State private var searchText = ""
+
     let rows = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
+        GridItem(.fixed(500)),
+        GridItem(.fixed(500))
     ]
 
     var body: some View {
         GeometryReader { geometryReader in
             ScrollView {
-                LazyVGrid(columns: rows, spacing: 20) {
-                    ForEach(viewModel.tracks) { track in
-                        TrackGridView(track: track)
+                LazyVStack {
+                    Text("61 languages for you to master")
+                    Text("Become fluent in your chosen programming languages by completing these tracks created by our [awesome team of contributors](https://exercism.org/contributing/contributors)")
+                    LazyVGrid(columns: rows, spacing: 10) {
+                        ForEach(viewModel.joinedTracks) { track in
+                            TrackGridView(track: track)
+                        }
+                    }
+                    LazyVGrid(columns: rows, spacing: 10) {
+                        ForEach(viewModel.unJoinedTracks) { track in
+                            TrackGridView(track: track)
+                        }
                     }
                 }.onAppear(perform: viewModel.fetchTracks)
             }
