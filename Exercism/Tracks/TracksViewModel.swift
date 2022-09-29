@@ -13,7 +13,7 @@ class TracksViewModel: ObservableObject {
     @Published var unJoinedTracks = [Track]()
 
     func fetchTracks() {
-        let client = ExercismClient(apiToken: "502b615d-d14b-44d1-907f-950bcacb3621")
+        let client = ExercismClient(apiToken: ExercismKeychain.shared.get(for: "token") ?? "")
         client.tracks { response in
             switch response {
             case .success(let fetchedTracks):

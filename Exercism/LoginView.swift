@@ -17,7 +17,7 @@ struct LoginView: View {
         NavigationView {
             NavigationLink("Dashboard",
                            isActive: $showDashboard) {
-                DashBoard()
+                TracksView()
             }
             GeometryReader { geometry in
                 HStack() {
@@ -103,10 +103,10 @@ struct LoginView: View {
         let client = ExercismClient(apiToken: textInput)
         client.validateToken(completed: { response in
             switch response {
-            case .success(let success):
+            case .success(_):
+                ExercismKeychain.shared.set(textInput, for: "token")
                 showDashboard = true
-                print("This was a success")
-            case .failure(let failure):
+            case .failure(_):
                 showAlert = true
             }
         })
