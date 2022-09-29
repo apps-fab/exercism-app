@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ExercismSwift
+import SDWebImageSwiftUI
 
 struct TrackGridView: View {
     @EnvironmentObject var modelData: TracksViewModel
@@ -14,11 +15,12 @@ struct TrackGridView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            Image("mainLogo")
-                .resizable().frame(alignment: .leading)
+            WebImage(url: URL(string: track.iconUrl))
+                .resizable()
+                .frame(alignment: .leading)
                 .padding([.top, .leading], 10)
-                .frame(width: 50, height: 50)
-
+                .frame(width: 100, height: 100)
+            
             VStack(alignment: .leading) {
                 HStack() {
                     Text(track.title).bold()
@@ -29,8 +31,13 @@ struct TrackGridView: View {
                     }
                     
                     if track.isNew && !track.isJoined {
-                        Label("New", image: "stars")
-                            .roundEdges(backgroundColor: .blue.opacity(0.5))
+                        Label(title: {
+                            Text("New")
+                        }, icon: {
+                            Image("stars")
+                                .renderingMode(.template)
+                                .foregroundColor(.yellow)
+                        }).roundEdges(backgroundColor: .blue.opacity(0.5))
                             .font(.system(size: 12, weight: .semibold))
                     }
                     
@@ -41,9 +48,22 @@ struct TrackGridView: View {
                             .font(.system(size: 12, weight: .semibold))
                     }
                 }
-                HStack(spacing: 20) {
-                    Label("\(track.numExercises) exercises", image: "exercise")
-                    Label("\(track.numConcepts) concepts", image: "concept")
+                HStack(spacing: 50) {
+                    Label(title: {
+                        Text("\(track.numExercises)")
+                    }, icon: {
+                        Image("exercise")
+                            .renderingMode(.template)
+                            .foregroundColor(.white)
+                    })
+
+                    Label(title: {
+                        Text("\(track.numConcepts)")
+                    }, icon: {
+                        Image("concept")
+                            .renderingMode(.template)
+                            .foregroundColor(.white)
+                    })
                 }
                 if track.isJoined {
                     VStack {
@@ -59,8 +79,8 @@ struct TrackGridView: View {
                     }
                 }
             }.frame(width: 350, height: 100)
-            .padding()
-        }.frame(width: 450, height: 150)
+                .padding()
+        }.frame(width: 500, height: 200)
             .border(.gray, width: 1)
             .background(Color("secondaryBackground"))
             .padding()
