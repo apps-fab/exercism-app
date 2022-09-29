@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ExercismSwift
+import KeychainSwift
 
 struct LoginView: View {
     @State private var textInput: String = ""
@@ -103,13 +104,18 @@ struct LoginView: View {
         let client = ExercismClient(apiToken: textInput)
         client.validateToken(completed: { response in
             switch response {
-            case .success(let success):
+            case .success(_):
+                storeToken(textInput)
                 showDashboard = true
-                print("This was a success")
-            case .failure(let failure):
+            case .failure(_):
                 showAlert = true
             }
         })
+    }
+
+    func storeToken(_ token: String) {
+        let keychain = KeychainSwift()
+        keychain.set(token, forKey: "token")
     }
 }
 

@@ -33,7 +33,7 @@ struct TracksView: View {
                         }
                     }
                 }.onAppear(perform: viewModel.fetchTracks)
-            }
+            }.background(Color("darkBackground"))
         }
     }
 }

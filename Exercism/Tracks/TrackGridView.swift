@@ -60,9 +60,9 @@ struct TrackGridView: View {
                     }
                 }
             }.frame(width: 350, height: 100)
-            .padding()
+                .padding()
         }.frame(width: 450, height: 150)
-            .background(.primary)
+            .border(.gray, width: 1)
             .padding()
     }
 }
