@@ -29,7 +29,7 @@ struct TrackGridView: View {
                     }
                     
                     if track.isNew && !track.isJoined {
-                        Label("Course", image: "stars")
+                        Label("New", image: "stars")
                             .roundEdges(backgroundColor: .blue.opacity(0.5))
                             .font(.system(size: 12, weight: .semibold))
                     }
@@ -47,7 +47,6 @@ struct TrackGridView: View {
                 }
                 if track.isJoined {
                     VStack {
-                        // get correct date here
                         Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
                         let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
                         ProgressView(value: value)
@@ -62,7 +61,8 @@ struct TrackGridView: View {
             }.frame(width: 350, height: 100)
             .padding()
         }.frame(width: 450, height: 150)
-            .background(.primary)
+            .border(.gray, width: 1)
+            .background(Color("secondaryBackground"))
             .padding()
     }
 }

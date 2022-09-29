@@ -17,7 +17,6 @@ struct TracksView: View {
     ]
 
     var body: some View {
-        GeometryReader { geometryReader in
             ScrollView {
                 LazyVStack {
                     Text("61 languages for you to master")
@@ -34,7 +33,6 @@ struct TracksView: View {
                     }
                 }.onAppear(perform: viewModel.fetchTracks)
             }
-        }
     }
 }
 
