@@ -13,12 +13,13 @@ struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var showDashboard = false
+    @State private var error: String?
     
     var body: some View {
         NavigationView {
             NavigationLink("Dashboard",
                            isActive: $showDashboard) {
-                DashBoard()
+                TracksView()
             }
             GeometryReader { geometry in
                 HStack() {
@@ -92,9 +93,6 @@ struct LoginView: View {
                     .background(.white)
                     .foregroundColor(.black)
                 }.background(.white)
-                    .alert("Important message", isPresented: $showAlert) {
-                        Button("OK", role: .cancel) { }
-                    }
             }
         }
     }
@@ -105,17 +103,12 @@ struct LoginView: View {
         client.validateToken(completed: { response in
             switch response {
             case .success(_):
-                storeToken(textInput)
+                ExercismKeychain.shared.set(textInput, for: "token")
                 showDashboard = true
             case .failure(_):
                 showAlert = true
             }
         })
-    }
-
-    func storeToken(_ token: String) {
-        let keychain = KeychainSwift()
-        keychain.set(token, forKey: "token")
     }
 }
 

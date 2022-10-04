@@ -12,12 +12,11 @@ struct TracksView: View {
     @State private var searchText = ""
 
     let rows = [
-        GridItem(.fixed(500)),
-        GridItem(.fixed(500))
+        GridItem(.fixed(600)),
+        GridItem(.fixed(600))
     ]
 
     var body: some View {
-        GeometryReader { geometryReader in
             ScrollView {
                 LazyVStack {
                     Text("61 languages for you to master")
@@ -33,8 +32,7 @@ struct TracksView: View {
                         }
                     }
                 }.onAppear(perform: viewModel.fetchTracks)
-            }.background(Color("darkBackground"))
-        }
+            }
     }
 }
 

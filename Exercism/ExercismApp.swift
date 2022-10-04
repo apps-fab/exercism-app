@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import SDWebImage
+import SDWebImageSVGCoder
 
 @main
 struct ExercismApp: App {
+    init() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

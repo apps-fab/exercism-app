@@ -7,11 +7,15 @@
 
 import SwiftUI
 import ExercismSwift
+import KeychainSwift
 
 struct ContentView: View {
-    // check if we are logged in, if not then go to dashboard screen 
     var body: some View {
-        TracksView()
+        if let _ = ExercismKeychain.shared.get(for: "token") {
+            TracksView()
+        } else {
+            LoginView()
+        }
     }
 }
 

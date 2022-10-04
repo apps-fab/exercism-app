@@ -19,6 +19,11 @@
 		FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C928E33B740078A062 /* Text+Exercism.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
+		FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F11E28E5DA9200488CE9 /* KeychainSwift */; };
+		FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */; };
+		FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12328E5E6C800488CE9 /* SDWebImage */; };
+		FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */; };
+		FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */; };
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
 		FDD5B46228E4C626008A6F4D /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDD5B46128E4C626008A6F4D /* KeychainSwift */; };
 		FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDEC77022892FC2A0093F764 /* ExercismSwift */; };
@@ -40,6 +45,7 @@
 		FD93F5C928E33B740078A062 /* Text+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Exercism.swift"; sourceTree = "<group>"; };
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,8 +54,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDD5B46228E4C626008A6F4D /* KeychainSwift in Frameworks */,
+				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
+				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
+				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
 				FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */,
+				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +95,7 @@
 				E0C9673528732A45004CE7E6 /* Preview Content */,
 				FDD4575028DA474200B3834F /* Color.xcassets */,
 				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
+				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -128,7 +138,10 @@
 			name = Exercism;
 			packageProductDependencies = (
 				FDEC77022892FC2A0093F764 /* ExercismSwift */,
-				FDD5B46128E4C626008A6F4D /* KeychainSwift */,
+				FDC9F11E28E5DA9200488CE9 /* KeychainSwift */,
+				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
+				FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */,
+				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -160,7 +173,10 @@
 			mainGroup = E0C9672328732A44004CE7E6;
 			packageReferences = (
 				FDEC77012892FC2A0093F764 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
-				FDD5B46028E4C626008A6F4D /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -194,6 +210,7 @@
 				E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */,
 				FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */,
+				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
 				FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
@@ -411,9 +428,33 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FDD5B46028E4C626008A6F4D /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+		FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -430,10 +471,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FDD5B46128E4C626008A6F4D /* KeychainSwift */ = {
+		FDC9F11E28E5DA9200488CE9 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FDD5B46028E4C626008A6F4D /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			package = FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		FDC9F12328E5E6C800488CE9 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		FDEC77022892FC2A0093F764 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
