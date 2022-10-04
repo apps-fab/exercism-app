@@ -50,7 +50,7 @@ struct TrackGridView: View {
                 }
                 HStack(spacing: 50) {
                     Label(title: {
-                        Text("\(track.numExercises)")
+                        track.isJoined ? Text("\(track.numCompletedExercises)/\(track.numExercises) exercises") : Text("\(track.numExercises) exercises")
                     }, icon: {
                         Image("exercise")
                             .renderingMode(.template)
@@ -58,7 +58,7 @@ struct TrackGridView: View {
                     })
 
                     Label(title: {
-                        Text("\(track.numConcepts)")
+                        Text("\(track.numConcepts) concepts")
                     }, icon: {
                         Image("concept")
                             .renderingMode(.template)

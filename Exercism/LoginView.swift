@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var showDashboard = false
+    @State private var error: String?
     
     var body: some View {
         NavigationView {
@@ -91,9 +92,6 @@ struct LoginView: View {
                     .background(.white)
                     .foregroundColor(.black)
                 }.background(.white)
-                    .alert("Important message", isPresented: $showAlert) {
-                        Button("OK", role: .cancel) { }
-                    }
             }
         }
     }
