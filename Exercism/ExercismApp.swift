@@ -11,6 +11,8 @@ import SDWebImageSVGCoder
 
 @main
 struct ExercismApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }

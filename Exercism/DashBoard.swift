@@ -25,26 +25,31 @@ struct DashboardSections: Identifiable {
 }
 
 struct DashBoard: View {
+    @State var searchText: String = ""
 
-    private var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "All tracks"), DashboardItem(name: "Solutions"),
+    private var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "All tracks"),
+                                                                       DashboardItem(name: "Solutions"),
                                                                        DashboardItem(name: "Badges")]),
                              DashboardSections(type: .recentTrack, items:  [DashboardItem(name: "Elixir"),
                                                                             DashboardItem(name: "Rust")])]
 
     var body: some View {
-        List() {
-            ForEach(itemNames) { name in
-                Section(header: Text(name.type.rawValue)) {
-                    ForEach(name.items) { name in
-                        HStack {
-                            Image(systemName: name.image)
-                                .renderingMode(.template)
-                                .foregroundColor(.blue)
-                            Text(name.name)
+        NavigationView {
+            List() {
+                ForEach(itemNames) { name in
+                    Section(header: Text(name.type.rawValue)) {
+                        ForEach(name.items) { item in
+                            HStack {
+                                Image(systemName: item.image)
+                                    .renderingMode(.template)
+                                    .foregroundColor(.blue)
+                                Text(item.name)
+                            }
                         }
                     }
                 }
             }
+            TracksView()
         }
     }
 }
