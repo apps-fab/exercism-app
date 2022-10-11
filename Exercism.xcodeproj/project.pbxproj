@@ -12,6 +12,7 @@
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
 		E0C9673728732A45004CE7E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */; };
 		FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B06F028F592E000FCA956 /* AppDelegate.swift */; };
+		FD0B071228F5F77300FCA956 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B071128F5F77300FCA956 /* FilterView.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F30DF28DCE330007B98DB /* DashBoard.swift */; };
 		FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksView.swift */; };
@@ -38,6 +39,7 @@
 		E0C9673828732A45004CE7E6 /* Exercism.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Exercism.entitlements; sourceTree = "<group>"; };
 		E0C9673F28732C49004CE7E6 /* ExercismSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ExercismSwift; path = ../../ExercismSwift; sourceTree = "<group>"; };
 		FD0B06F028F592E000FCA956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FD0B071128F5F77300FCA956 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD8F30DF28DCE330007B98DB /* DashBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoard.swift; sourceTree = "<group>"; };
 		FD93F5C128E1E3260078A062 /* TracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
 				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
 				FD0B06F028F592E000FCA956 /* AppDelegate.swift */,
+				FD0B071128F5F77300FCA956 /* FilterView.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD0B071228F5F77300FCA956 /* FilterView.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */,

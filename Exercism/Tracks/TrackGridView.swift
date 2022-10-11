@@ -82,7 +82,6 @@ struct TrackGridView: View {
                 .padding()
         }.frame(width: 500, height: 200)
             .border(.gray, width: 1)
-            .background(Color("secondaryBackground"))
             .padding()
     }
 }

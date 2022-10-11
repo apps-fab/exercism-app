@@ -48,9 +48,10 @@ struct DashBoard: View {
                         }
                     }
                 }
-            }
+            }.frame(minWidth: 200)
             TracksView()
-        }
+        }.frame(minHeight: 600, maxHeight: .infinity)
+            .frame(minWidth: 600, maxWidth: .infinity)
     }
 }
 
