@@ -1,3 +1,4 @@
 # exercism-app
 Mac and iPad app for exercism 
-[Exercism.pdf](https://github.com/apps-fab/exercism-app/files/9801088/Exercism.pdf)
+
+![Exercism](https://user-images.githubusercontent.com/23118371/196192017-dfd2f5e2-a14b-4a95-bf4d-a44d822b28ab.png)
