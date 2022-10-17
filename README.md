@@ -1,4 +1,4 @@
 # exercism-app
 Mac and iPad app for exercism 
+![Exercism](https://user-images.githubusercontent.com/23118371/196192446-afc28329-f37e-4755-b50a-11cf314aa778.png)
 
-![Exercism](https://user-images.githubusercontent.com/23118371/196192017-dfd2f5e2-a14b-4a95-bf4d-a44d822b28ab.png)
