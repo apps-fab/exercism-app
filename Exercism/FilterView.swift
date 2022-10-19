@@ -10,12 +10,13 @@ import ExercismSwift
 
 struct FilterView: View {
     @State private var showingSheet = false
+    @State private var searchText = ""
 
     var body: some View {
             HStack(spacing: 0) {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField("", text: .constant("Search language filters"))
+                    TextField("Search language filters", text: $searchText)
                         .textFieldStyle(.plain).onSubmit(search)
                 }.padding()
                     .background(RoundedRectangle(cornerRadius: 14)
@@ -37,13 +38,8 @@ struct FilterView: View {
 
                 RoundedRectButton(labelText: "Sort by last touched",
                                   systemImage: "chevron.down") {
-                    showingSheet.toggle()
-                }.popover(isPresented: $showingSheet) {
-//                                        FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
+                    print("Sort by last touched")
                 }
-//                sheet(isPresented: $showingSheet) {
-//                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
-//                }
         }
     }
 
