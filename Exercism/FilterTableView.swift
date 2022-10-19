@@ -39,7 +39,7 @@ struct FilterTableView: View {
                     isPresented = false
                 }.frame(height: 50)
             }.frame(alignment: .bottomLeading)
-        }.padding(.horizontal, 10)
+        }.padding()
     }
 
     func applyFilters() {

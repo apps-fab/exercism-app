@@ -16,7 +16,7 @@ struct FilterView: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                     TextField("", text: .constant("Search language filters"))
-                        .textFieldStyle(.plain)
+                        .textFieldStyle(.plain).onSubmit(search)
                 }.padding()
                     .background(RoundedRectangle(cornerRadius: 14)
                         .fill(.black))
@@ -24,9 +24,9 @@ struct FilterView: View {
                 RoundedRectButton(labelText: "Show Filters",
                                   systemImage: "line.3.horizontal.decrease.circle") {
                     showingSheet.toggle()
-                }.sheet(isPresented: $showingSheet) {
-                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet).frame(minHeight: 500)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }.popover(isPresented: $showingSheet) {
+                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
+                        .interactiveDismissDisabled(false)
                 }
 
                 Text("Showing all 26 tracks")
@@ -38,10 +38,17 @@ struct FilterView: View {
                 RoundedRectButton(labelText: "Sort by last touched",
                                   systemImage: "chevron.down") {
                     showingSheet.toggle()
-                }.sheet(isPresented: $showingSheet) {
-                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
+                }.popover(isPresented: $showingSheet) {
+//                                        FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
                 }
+//                sheet(isPresented: $showingSheet) {
+//                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
+//                }
         }
+    }
+
+    func search() {
+
     }
 }
 
