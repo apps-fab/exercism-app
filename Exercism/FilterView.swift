@@ -6,54 +6,66 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 struct FilterView: View {
+    @State private var showingSheet = false
+
     var body: some View {
-        HStack(spacing: 0) {
-            HStack {
-                Image(systemName: "magnifyingglass")
-                TextField("", text: .constant("Search language filters"))
-                    .textFieldStyle(.plain)
-            }.padding()
-                .background(RoundedRectangle(cornerRadius: 14)
-                    .fill(.black))
+            HStack(spacing: 0) {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("", text: .constant("Search language filters"))
+                        .textFieldStyle(.plain)
+                }.padding()
+                    .background(RoundedRectangle(cornerRadius: 14)
+                        .fill(.black))
 
-            Button {
-                showFilters()
-            } label: {
-                Label("Show Filters", systemImage: "line.3.horizontal.decrease.circle")
+                RoundedRectButton(labelText: "Show Filters",
+                                  systemImage: "line.3.horizontal.decrease.circle") {
+                    showingSheet.toggle()
+                }.sheet(isPresented: $showingSheet) {
+                    FilterTableView(tags: Tag.loadTags()).frame(minHeight: 500)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+
+                Text("Showing all 26 tracks")
                     .padding()
                     .frame(minHeight: 0, maxHeight: .infinity)
-                    .background(.black)
-            }.buttonStyle(.plain)
-                .cornerRadius(10)
-                .padding(.horizontal, 10)
+                    .background(RoundedRectangle(cornerRadius: 14)
+                        .fill(.black))
 
-            Text("Showing all 26 tracks")
-                .padding()
-                .frame(minHeight: 0, maxHeight: .infinity)
-                .background(RoundedRectangle(cornerRadius: 14)
-                .fill(.black))
-            Button {
-                showFilters()
-            } label: {
-                Label("Sort by last touched", systemImage: "chevron.down")
-                    .padding()
-                    .frame(minHeight: 0, maxHeight: .infinity)
-                    .background(.black)
-            }.buttonStyle(.plain)
-                .cornerRadius(10)
-                .padding(.horizontal, 10)
+                RoundedRectButton(labelText: "Sort by last touched",
+                                  systemImage: "chevron.down") {
+                    showingSheet.toggle()
+                }.sheet(isPresented: $showingSheet) {
+                    FilterTableView(tags: Tag.loadTags())
+                }
         }
-    }
-
-    func showFilters() {
-        fatalError()
     }
 }
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView()
+    }
+}
+
+struct RoundedRectButton: View {
+    var labelText: String
+    var systemImage: String
+    var action: () -> Void
+
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Label(labelText, systemImage: systemImage)
+                .padding()
+                .frame(minHeight: 0, maxHeight: .infinity)
+                .background(.black)
+        }.buttonStyle(.plain)
+            .cornerRadius(10)
+            .padding(.horizontal, 10)
     }
 }

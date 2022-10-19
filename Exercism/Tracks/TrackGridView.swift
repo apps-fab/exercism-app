@@ -10,7 +10,6 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct TrackGridView: View {
-    @EnvironmentObject var modelData: TracksViewModel
     var track: Track
     
     var body: some View {
