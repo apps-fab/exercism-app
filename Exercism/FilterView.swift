@@ -25,7 +25,7 @@ struct FilterView: View {
                                   systemImage: "line.3.horizontal.decrease.circle") {
                     showingSheet.toggle()
                 }.sheet(isPresented: $showingSheet) {
-                    FilterTableView(tags: Tag.loadTags()).frame(minHeight: 500)
+                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet).frame(minHeight: 500)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
 
@@ -39,7 +39,7 @@ struct FilterView: View {
                                   systemImage: "chevron.down") {
                     showingSheet.toggle()
                 }.sheet(isPresented: $showingSheet) {
-                    FilterTableView(tags: Tag.loadTags())
+                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
                 }
         }
     }
@@ -54,6 +54,7 @@ struct FilterView_Previews: PreviewProvider {
 struct RoundedRectButton: View {
     var labelText: String
     var systemImage: String
+    var background = Color.black
     var action: () -> Void
 
     var body: some View {
@@ -63,7 +64,7 @@ struct RoundedRectButton: View {
             Label(labelText, systemImage: systemImage)
                 .padding()
                 .frame(minHeight: 0, maxHeight: .infinity)
-                .background(.black)
+                .background(background)
         }.buttonStyle(.plain)
             .cornerRadius(10)
             .padding(.horizontal, 10)
