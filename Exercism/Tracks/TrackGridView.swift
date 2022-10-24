@@ -10,7 +10,6 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct TrackGridView: View {
-    @EnvironmentObject var modelData: TracksViewModel
     var track: Track
     
     var body: some View {
@@ -82,7 +81,6 @@ struct TrackGridView: View {
                 .padding()
         }.frame(width: 500, height: 200)
             .border(.gray, width: 1)
-            .background(Color("secondaryBackground"))
             .padding()
     }
 }

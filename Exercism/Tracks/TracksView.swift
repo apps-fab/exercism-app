@@ -17,22 +17,21 @@ struct TracksView: View {
     ]
 
     var body: some View {
-            ScrollView {
-                LazyVStack {
-                    Text("61 languages for you to master")
-                    Text("Become fluent in your chosen programming languages by completing these tracks created by our [awesome team of contributors](https://exercism.org/contributing/contributors)")
-                    LazyVGrid(columns: rows) {
-                        ForEach(viewModel.joinedTracks) { track in
-                            TrackGridView(track: track)
-                        }
+        ScrollView {
+            LazyVStack {
+                FilterView().padding()
+                LazyVGrid(columns: rows) {
+                    ForEach(viewModel.joinedTracks) { track in
+                        TrackGridView(track: track)
                     }
-                    LazyVGrid(columns: rows) {
-                        ForEach(viewModel.unJoinedTracks) { track in
-                            TrackGridView(track: track)
-                        }
+                }
+                LazyVGrid(columns: rows) {
+                    ForEach(viewModel.unJoinedTracks) { track in
+                        TrackGridView(track: track)
                     }
-                }.onAppear(perform: viewModel.fetchTracks)
+                }
             }
+        }.onAppear(perform: viewModel.fetchTracks)
     }
 }
 

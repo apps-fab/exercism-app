@@ -12,7 +12,7 @@ import KeychainSwift
 struct ContentView: View {
     var body: some View {
         if let _ = ExercismKeychain.shared.get(for: "token") {
-            TracksView()
+            DashBoard()
         } else {
             LoginView()
         }
