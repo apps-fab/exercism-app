@@ -9,28 +9,26 @@ import ExercismSwift
 import Foundation
 
 class TracksViewModel: ObservableObject {
-    @Published var joinedTracks = [Track]()
-    @Published var unJoinedTracks = [Track]()
+    @Published var tracks = [Track]()
 
-    func fetchTracks() {
+    init() {
+        fetchTracks()
+    }
+
+    var joinedTracks: [Track] {
+        tracks.filter { $0.isJoined }
+    }
+
+    var unJoinedTracks: [Track] {
+        tracks.filter { !$0.isJoined }
+    }
+
+    func fetchTracks()  {
         let client = ExercismClient(apiToken: ExercismKeychain.shared.get(for: "token") ?? "")
         client.tracks { response in
             switch response {
             case .success(let fetchedTracks):
-                var sortedArray = fetchedTracks.results
-                var joinedArray = [Track]()
-                // This only works for as long as the array is sorted with the joined prefixed
-                for track in sortedArray {
-                    if track.isJoined {
-                        joinedArray.append(track)
-                        sortedArray.remove(at: 0)
-                    } else {
-                        self.joinedTracks = joinedArray
-                        self.unJoinedTracks = sortedArray
-                        break
-                    }
-                }
-
+                self.tracks = fetchedTracks.results
             case .failure(let error):
                 print("These are the errors: \(error)")
             }

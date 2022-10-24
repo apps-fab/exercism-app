@@ -27,11 +27,20 @@ struct TracksView: View {
                 }
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.unJoinedTracks) { track in
-                        TrackGridView(track: track)
+                        TrackGridView(track: track).accessibilityElement(children: .contain)
                     }
                 }
             }
-        }.onAppear(perform: viewModel.fetchTracks)
+        }.accessibilityLabel("All Tracks")
+            .accessibilityChildren {
+                HStack {
+                    ForEach(viewModel.tracks) { track in
+                        Rectangle()
+                            .accessibilityLabel(track.id)
+                            .accessibilityValue("\(track.numExercises) exercises")
+                    }
+                }
+            }
     }
 }
 

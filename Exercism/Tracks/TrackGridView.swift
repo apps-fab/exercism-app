@@ -86,9 +86,7 @@ struct TrackGridView: View {
 }
 
 struct TrackGridView_Previews: PreviewProvider {
-    static let viewModel = TracksViewModel()
-    
     static var previews: some View {
-        TrackGridView(track: viewModel.joinedTracks[0])
+        TrackGridView(track: TracksViewModel().joinedTracks[0])
     }
 }
