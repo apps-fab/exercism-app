@@ -19,6 +19,7 @@ struct TrackGridView: View {
                 .frame(alignment: .leading)
                 .padding([.top, .leading], 10)
                 .frame(width: 100, height: 100)
+                .accessibilityHidden(true)
             
             VStack(alignment: .leading) {
                 HStack() {
