@@ -29,18 +29,17 @@ struct TracksView: View {
                     ForEach(viewModel.unJoinedTracks) { track in
                         TrackGridView(track: track).accessibilityElement(children: .contain)
                     }
-                }
+                }.accessibilityChildren {
+                                HStack {
+                                    ForEach(viewModel.tracks) { track in
+                                        Rectangle()
+                                            .accessibilityLabel(track.id)
+                                            .accessibilityValue("\(track.numExercises) exercises")
+                                    }
+                                }
+                            }
             }
         }.accessibilityLabel("All Tracks")
-            .accessibilityChildren {
-                HStack {
-                    ForEach(viewModel.tracks) { track in
-                        Rectangle()
-                            .accessibilityLabel(track.id)
-                            .accessibilityValue("\(track.numExercises) exercises")
-                    }
-                }
-            }
     }
 }
 

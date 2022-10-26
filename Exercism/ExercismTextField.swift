@@ -23,6 +23,7 @@ struct ExercismTextField: View {
         }.foregroundColor(.gray)
         .padding()
         .textFieldStyle(.plain)
+        .accessibilityLabel(text)
     }
 }
 
