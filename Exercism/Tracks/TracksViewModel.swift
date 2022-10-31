@@ -9,7 +9,7 @@ import ExercismSwift
 import Foundation
 
 enum Keys: String {
-    case Token
+    case token
 }
 
 class TracksViewModel: ObservableObject {
@@ -25,7 +25,7 @@ class TracksViewModel: ObservableObject {
 
     func fetchTracks() {
         // this should never happen since we never get to this screen without a token
-        guard let token = ExercismKeychain.shared.get(for: Keys.Token.rawValue) else
+        guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else
         { return }
         let client = ExercismClient(apiToken: token)
         client.tracks { response in

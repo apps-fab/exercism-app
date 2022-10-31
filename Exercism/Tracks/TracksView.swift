@@ -24,24 +24,17 @@ struct TracksView: View {
                     ForEach(viewModel.joinedTracks) { track in
                         TrackGridView(track: track)
                     }
-                }
+                }.accessibilityLabel("Joined Tracks")
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.unJoinedTracks) { track in
                         TrackGridView(track: track).accessibilityElement(children: .contain)
                     }
-                }.accessibilityChildren {
-                                HStack {
-                                    ForEach(viewModel.tracks) { track in
-                                        Rectangle()
-                                            .accessibilityLabel(track.id)
-                                            .accessibilityValue("\(track.numExercises) exercises")
-                                    }
-                                }
-                            }
-            }.task {
+                }.accessibilityLabel("Unjoined tracks")
+            }.accessibilityHidden(true)
+        }.accessibilityLabel("All Tracks")
+            .task {
                 viewModel.fetchTracks()
             }
-        }.accessibilityLabel("All Tracks")
     }
 }
 

@@ -49,8 +49,9 @@ struct DashBoard: View {
                         }
                     }
                 }
-            }.frame(minWidth: 200)
-            TracksView()
+            }.accessibilityLabel("The dashboard")
+            .frame(minWidth: 200)
+            TracksView().accessibilityLabel("Tracks View")
         }.frame(minHeight: 600, maxHeight: .infinity)
             .frame(minWidth: 600, maxWidth: .infinity)
     }
