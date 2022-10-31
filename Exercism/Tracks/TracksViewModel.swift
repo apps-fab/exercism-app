@@ -8,12 +8,12 @@
 import ExercismSwift
 import Foundation
 
+enum Keys: String {
+    case Token
+}
+
 class TracksViewModel: ObservableObject {
     @Published var tracks = [Track]()
-
-    init() {
-        fetchTracks()
-    }
 
     var joinedTracks: [Track] {
         tracks.filter { $0.isJoined }
@@ -23,14 +23,18 @@ class TracksViewModel: ObservableObject {
         tracks.filter { !$0.isJoined }
     }
 
-    func fetchTracks()  {
-        let client = ExercismClient(apiToken: ExercismKeychain.shared.get(for: "token") ?? "")
+    func fetchTracks() {
+        // this should never happen since we never get to this screen without a token
+        guard let token = ExercismKeychain.shared.get(for: Keys.Token.rawValue) else
+        { return }
+        let client = ExercismClient(apiToken: token)
         client.tracks { response in
             switch response {
             case .success(let fetchedTracks):
                 self.tracks = fetchedTracks.results
             case .failure(let error):
-                print("These are the errors: \(error)")
+                // implement error handling
+                print("This is the error: \(error)")
             }
         }
     }

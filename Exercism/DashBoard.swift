@@ -27,6 +27,7 @@ struct DashboardSections: Identifiable {
 struct DashBoard: View {
     @State var searchText: String = ""
 
+    // To Do: Get the actual recent tracks and the profile items to be shown 
     private var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "All tracks"),
                                                                        DashboardItem(name: "Solutions"),
                                                                        DashboardItem(name: "Badges")]),

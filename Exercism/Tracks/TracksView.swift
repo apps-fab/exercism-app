@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TracksView: View {
-    @ObservedObject var viewModel = TracksViewModel()
+    @StateObject var viewModel = TracksViewModel()
     @State private var searchText = ""
 
     let rows = [
@@ -38,6 +38,8 @@ struct TracksView: View {
                                     }
                                 }
                             }
+            }.task {
+                viewModel.fetchTracks()
             }
         }.accessibilityLabel("All Tracks")
     }
