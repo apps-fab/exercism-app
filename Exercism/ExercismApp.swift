@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ExercismApp: App {
+    @StateObject private var settings = SettingData()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(settings)
         }
+            .windowStyle(HiddenTitleBarWindowStyle())
     }
 }

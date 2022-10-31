@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */; };
+		8480F81F9F5140CC9D27E0BD /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F02086E415F1B9F5DFD5 /* SettingData.swift */; };
+		8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F60001E12133BDACC877 /* ExerciseItem.swift */; };
+		8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */; };
+		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
+		E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
+		E049F21D28E4D7FA0022CECD /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = E049F21C28E4D7FA0022CECD /* CodeEditor */; };
+		E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22128E576510022CECD /* ExerciseNavigatorView.swift */; };
+		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
+		E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */; };
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
 		E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9673128732A44004CE7E6 /* ContentView.swift */; };
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
@@ -24,6 +34,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8480F02086E415F1B9F5DFD5 /* SettingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
+		8480F0B036F1420E0B72C7BC /* ViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
+		8480F60001E12133BDACC877 /* ExerciseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
+		8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
+		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
+		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
+		E049F22128E576510022CECD /* ExerciseNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigatorView.swift; sourceTree = "<group>"; };
+		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
+		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
 		E0C9672C28732A44004CE7E6 /* Exercism.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercism.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C9672F28732A44004CE7E6 /* ExercismApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismApp.swift; sourceTree = "<group>"; };
 		E0C9673128732A44004CE7E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E049F21D28E4D7FA0022CECD /* CodeEditor in Frameworks */,
 				FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,6 +74,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8480FA93EBE24774C8AC6D8E /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */,
+				E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */,
+				E049F22128E576510022CECD /* ExerciseNavigatorView.swift */,
+				E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */,
+				8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */,
+				8480F60001E12133BDACC877 /* ExerciseItem.swift */,
+				8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */,
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
 		E0C9672328732A44004CE7E6 = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +118,9 @@
 				E0C9673528732A45004CE7E6 /* Preview Content */,
 				FDD4575028DA474200B3834F /* Color.xcassets */,
 				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
+				8480FA93EBE24774C8AC6D8E /* Exercises */,
+				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
+				8480F02086E415F1B9F5DFD5 /* SettingData.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -126,6 +163,7 @@
 			name = Exercism;
 			packageProductDependencies = (
 				FDEC77022892FC2A0093F764 /* ExercismSwift */,
+				E049F21C28E4D7FA0022CECD /* CodeEditor */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -157,6 +195,7 @@
 			mainGroup = E0C9672328732A44004CE7E6;
 			packageReferences = (
 				FDEC77012892FC2A0093F764 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
+				E049F21B28E4D7FA0022CECD /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -185,16 +224,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */,
 				E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */,
 				FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */,
+				E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */,
 				FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
+				E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 				FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */,
+				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
+				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
+				8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */,
+				8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */,
+				8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */,
+				8480F81F9F5140CC9D27E0BD /* SettingData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +379,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = S82GZQ59NS;
+				DEVELOPMENT_TEAM = 8H5CXHXJFN;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -363,7 +411,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = S82GZQ59NS;
+				DEVELOPMENT_TEAM = 8H5CXHXJFN;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -407,6 +455,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E049F21B28E4D7FA0022CECD /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		FDEC77012892FC2A0093F764 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
@@ -418,6 +474,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E049F21C28E4D7FA0022CECD /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E049F21B28E4D7FA0022CECD /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
+		};
 		FDEC77022892FC2A0093F764 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FDEC77012892FC2A0093F764 /* XCRemoteSwiftPackageReference "ExercismSwift" */;

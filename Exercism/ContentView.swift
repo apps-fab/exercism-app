@@ -11,12 +11,14 @@ import ExercismSwift
 struct ContentView: View {
     // check if we are logged in, if not then go to dashboard screen 
     var body: some View {
-        TracksView()
+//        TracksView()
+        ExerciseEditorWindowView()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(SettingData())
     }
 }

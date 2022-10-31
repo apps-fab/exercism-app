@@ -1,0 +1,39 @@
+//
+//  ExerciseRightSidebarView.swift
+//  Exercism
+//
+//  Created by Kirk Agbenyegah on 29/09/2022.
+//
+
+import SwiftUI
+
+struct ExerciseRightSidebarView: View {
+    @EnvironmentObject var exerciseObject: ExerciseViewModel
+    var instruction: String? {
+        exerciseObject.instruction
+    }
+    var body: some View {
+        VStack {
+            HStack {
+                if (instruction != nil) {
+                    Image(systemName: "checklist")
+                }
+
+                Image(systemName: "text.badge.checkmark")
+            }
+            Divider()
+
+            if (instruction != nil) {
+                Text(instruction!)
+            }
+
+            Spacer()
+        }
+    }
+}
+
+struct ExerciseRightSidebarView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExerciseRightSidebarView()
+    }
+}
