@@ -13,7 +13,6 @@
 		8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
 		E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
-		E049F21D28E4D7FA0022CECD /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = E049F21C28E4D7FA0022CECD /* CodeEditor */; };
 		E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22128E576510022CECD /* ExerciseNavigatorView.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */; };
@@ -32,6 +31,7 @@
 		FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C728E1E7360078A062 /* TracksViewModel.swift */; };
 		FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C928E33B740078A062 /* Text+Exercism.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
+		FD9A187729113DFB006A28E7 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD9A187629113DFB006A28E7 /* CodeEditor */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
 		FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F11E28E5DA9200488CE9 /* KeychainSwift */; };
 		FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */; };
@@ -80,11 +80,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E049F21D28E4D7FA0022CECD /* CodeEditor in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
 				FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */,
+				FD9A187729113DFB006A28E7 /* CodeEditor in Frameworks */,
 				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,11 +186,11 @@
 			name = Exercism;
 			packageProductDependencies = (
 				FDEC77022892FC2A0093F764 /* ExercismSwift */,
-				E049F21C28E4D7FA0022CECD /* CodeEditor */,
 				FDC9F11E28E5DA9200488CE9 /* KeychainSwift */,
 				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
 				FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */,
 				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
+				FD9A187629113DFB006A28E7 /* CodeEditor */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -222,11 +222,11 @@
 			mainGroup = E0C9672328732A44004CE7E6;
 			packageReferences = (
 				FDEC77012892FC2A0093F764 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
-				E049F21B28E4D7FA0022CECD /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				FD9A187529113DFB006A28E7 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -415,7 +415,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = 8H5CXHXJFN;
+				DEVELOPMENT_TEAM = QJZFLHT2R4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -448,7 +448,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = 8H5CXHXJFN;
+				DEVELOPMENT_TEAM = QJZFLHT2R4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -493,13 +493,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E049F21B28E4D7FA0022CECD /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+		FD9A187529113DFB006A28E7 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git"; 
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				};
+				minimumVersion = 1.0.0;
 			};
+		};
 		FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -524,7 +525,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-
 		FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -544,11 +544,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E049F21C28E4D7FA0022CECD /* CodeEditor */ = {
+		FD9A187629113DFB006A28E7 /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E049F21B28E4D7FA0022CECD /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			package = FD9A187529113DFB006A28E7 /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
-			};
+		};
 		FDC9F11E28E5DA9200488CE9 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */;
