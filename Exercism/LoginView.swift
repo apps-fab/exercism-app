@@ -7,17 +7,19 @@
 
 import SwiftUI
 import ExercismSwift
+import KeychainSwift
 
 struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var showDashboard = false
+    @State private var error: String?
     
     var body: some View {
         NavigationView {
             NavigationLink("Dashboard",
                            isActive: $showDashboard) {
-                DashBoard()
+                TracksView()
             }
             GeometryReader { geometry in
                 HStack() {
@@ -25,6 +27,7 @@ struct LoginView: View {
                         Spacer()
                         Image("mainLogo")
                             .resizable()
+                            .accessibilityHidden(true)
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 365, height: 208)
                         Spacer()
@@ -40,6 +43,7 @@ struct LoginView: View {
                         Spacer()
                         Image("trackImages")
                             .resizable()
+                            .accessibilityHidden(true)
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 450, height: 66)
                         Spacer()
@@ -54,7 +58,7 @@ struct LoginView: View {
                                 .font(.largeTitle)
                                 .bold()
                                 .padding(.bottom, 5)
-                        }
+                        }.accessibilityAddTraits(.isHeader)
                         Text("Code practice and mentorship for everyone")
                             .font(.title2)
                             .bold()
@@ -91,9 +95,6 @@ struct LoginView: View {
                     .background(.white)
                     .foregroundColor(.black)
                 }.background(.white)
-                    .alert("Important message", isPresented: $showAlert) {
-                        Button("OK", role: .cancel) { }
-                    }
             }
         }
     }
@@ -103,10 +104,10 @@ struct LoginView: View {
         let client = ExercismClient(apiToken: textInput)
         client.validateToken(completed: { response in
             switch response {
-            case .success(let success):
+            case .success(_):
+                ExercismKeychain.shared.set(textInput, for: "token")
                 showDashboard = true
-                print("This was a success")
-            case .failure(let failure):
+            case .failure(_):
                 showAlert = true
             }
         })

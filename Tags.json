@@ -1,0 +1,26 @@
+[
+    {
+        "type": "Paradigm",
+        "tags": ["Declarative", "Functional", "Imperative", "Logic", "Object-oriented", "Procedural"]
+    },
+    {
+        "type": "Typing",
+        "tags": ["Static", "Dynamic", "Strong", "Weak"]
+    },
+    {
+        "type": "Execution Mode",
+        "tags": ["Compiled", "Interpreted"]
+    },
+    {
+        "type": "Platform",
+        "tags": ["Windows", "Mac OSX", "Linux", "iOS", "Android", "Web Browser"]
+    },
+    {
+        "type": "Runtime",
+        "tags": ["Standalone executable", "Language-specific runtime", "Common Language Runtime (.NET)", "JVM (Java)", "BEAM (Erlang)"]
+    },
+    {
+        "type": "Used for",
+        "tags": ["Artificial Intelligence", "Backends", "Cross-platform development", "Embedded systems", "Financial systems", "Frontends", "Games", "GUIs", "Mobile", "Robotics", "Scientific calculations", "Scripts", "Web development"]
+    }
+]

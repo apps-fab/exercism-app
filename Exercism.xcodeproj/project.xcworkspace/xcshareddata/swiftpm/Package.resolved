@@ -1,21 +1,39 @@
 {
   "pins" : [
     {
-      "identity" : "codeeditor",
+      "identity" : "keychain-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZeeZide/CodeEditor.git",
+      "location" : "https://github.com/evgenyneu/keychain-swift.git",
       "state" : {
-        "revision" : "180bde07b44dea839b32873bd8586ba146fa9106",
-        "version" : "1.2.2"
+        "branch" : "master",
+        "revision" : "32a99b537d1c6f3529a08257c28a5feb70c0c5af"
       }
     },
     {
-      "identity" : "highlightr",
+      "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/raspu/Highlightr",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
-        "version" : "2.1.2"
+        "branch" : "master",
+        "revision" : "ddcf347c7dfaad3e8d6d81ac79e72b99118b48eb"
+      }
+    },
+    {
+      "identity" : "sdwebimagesvgcoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
+      "state" : {
+        "revision" : "afbe025cbdae37c20c144956fbabc07ddd5c0fc2",
+        "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "sdwebimageswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "ed288667c909c89127ab1b690113a3e397af3098"
       }
     }
   ],
