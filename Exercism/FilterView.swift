@@ -71,5 +71,6 @@ struct RoundedRectButton: View {
         }.buttonStyle(.plain)
             .cornerRadius(10)
             .padding(.horizontal, 10)
+            .accessibilityLabel(labelText)
     }
 }

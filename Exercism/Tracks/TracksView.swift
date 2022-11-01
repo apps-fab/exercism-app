@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TracksView: View {
-    @ObservedObject var viewModel = TracksViewModel()
+    @StateObject var viewModel = TracksViewModel()
     @State private var searchText = ""
 
     let rows = [
@@ -24,14 +24,17 @@ struct TracksView: View {
                     ForEach(viewModel.joinedTracks) { track in
                         TrackGridView(track: track)
                     }
-                }
+                }.accessibilityLabel("Joined Tracks")
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.unJoinedTracks) { track in
-                        TrackGridView(track: track)
+                        TrackGridView(track: track).accessibilityElement(children: .contain)
                     }
-                }
+                }.accessibilityLabel("Unjoined tracks")
+            }.accessibilityHidden(true)
+        }.accessibilityLabel("All Tracks")
+            .task {
+                viewModel.fetchTracks()
             }
-        }.onAppear(perform: viewModel.fetchTracks)
     }
 }
 

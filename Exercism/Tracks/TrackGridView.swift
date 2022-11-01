@@ -19,6 +19,7 @@ struct TrackGridView: View {
                 .frame(alignment: .leading)
                 .padding([.top, .leading], 10)
                 .frame(width: 100, height: 100)
+                .accessibilityHidden(true)
             
             VStack(alignment: .leading) {
                 HStack() {
@@ -67,28 +68,27 @@ struct TrackGridView: View {
                 if track.isJoined {
                     VStack {
                         Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
+                    }.accessibilityChildren {
                         let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
-                        ProgressView(value: value)
+                        ProgressView(value: value).accessibilityHidden(true)
                     }
                 } else {
-                    HStack() {
-                        ForEach(track.tags.prefix(3), id: \.self) { track in
-                            Text(track).bold().roundEdges(lineColor: .white)
-                        }
+                HStack() {
+                    ForEach(track.tags.prefix(3), id: \.self) { track in
+                        Text(track).bold().roundEdges(lineColor: .white)
                     }
                 }
-            }.frame(width: 350, height: 100)
-                .padding()
-        }.frame(width: 500, height: 200)
-            .border(.gray, width: 1)
+            }
+        }.frame(width: 350, height: 100)
             .padding()
-    }
+    }.frame(width: 500, height: 200)
+        .border(.gray, width: 1)
+        .padding()
+}
 }
 
 struct TrackGridView_Previews: PreviewProvider {
-    static let viewModel = TracksViewModel()
-    
     static var previews: some View {
-        TrackGridView(track: viewModel.joinedTracks[0])
+        TrackGridView(track: TracksViewModel().joinedTracks[0])
     }
 }
