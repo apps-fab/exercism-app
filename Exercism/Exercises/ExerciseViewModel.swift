@@ -38,7 +38,7 @@ class ExerciseViewModel: ObservableObject {
             ExerciseFile.fromURL(url)
         }
         self.exercise = ExerciseItem(name: exercise, language: track, files: solutionFiles)
-        selectFile(solutionFiles.first!)
+        selectFile(solutionFiles.first)
     }
 
     private func getOrCreateSolutionDir(track: String = "rust", exercise: String = "hello-world") -> URL? {
@@ -68,8 +68,10 @@ class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func selectFile(_ file: ExerciseFile) {
-        selectedFile = file
+    func selectFile(_ file: ExerciseFile?) {
+        if let file = file {
+            selectedFile = file
+        }
         selectedCode = getSelectedCode() ?? ""
     }
 

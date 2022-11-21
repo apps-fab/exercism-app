@@ -10,7 +10,7 @@ import ExercismSwift
 
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel()
-    @State var showInspector = true
+    @State private var showInspector = true
     var body: some View {
         NavigationView {
             ExerciseNavigatorView()
@@ -74,8 +74,6 @@ struct ExerciseEditorWindowView: View {
     private func toggleSidebar() { // 2
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
-
-
 }
 
 struct ExerciseEditorWindowView_Previews: PreviewProvider {

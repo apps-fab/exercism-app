@@ -12,21 +12,15 @@ struct ExerciseRightSidebarView: View {
     var instruction: String? {
         exerciseObject.instruction
     }
+
     var body: some View {
         VStack {
-            HStack {
-                if (instruction != nil) {
-                    Image(systemName: "checklist")
-                }
-
-                Image(systemName: "text.badge.checkmark")
-            }
+            instruction != nil ? Image(systemName: "checklist") :
+            Image(systemName: "text.badge.checkmark")
             Divider()
-
-            if (instruction != nil) {
-                Text(instruction!)
+            if let instruction = instruction {
+                Text(instruction)
             }
-
             Spacer()
         }
     }
