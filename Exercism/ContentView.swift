@@ -11,13 +11,11 @@ import KeychainSwift
 
 struct ContentView: View {
     var body: some View {
-//        TracksView()
-        ExerciseEditorWindowView()
-//        if let _ = ExercismKeychain.shared.get(for: "token") {
-//            DashBoard()
-//        } else {
-//            LoginView()
-//        }
+        if let _ = ExercismKeychain.shared.get(for: "token") {
+            DashBoard()
+        } else {
+            LoginView()
+        }
     }
 }
 

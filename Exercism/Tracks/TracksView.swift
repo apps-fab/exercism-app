@@ -6,23 +6,28 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 struct TracksView: View {
     @StateObject var viewModel = TracksViewModel()
     @State private var searchText = ""
-
+    @State var coordinator: AppCoordinator
+    
     let rows = [
         GridItem(.fixed(600)),
         GridItem(.fixed(600))
     ]
-
+    
     var body: some View {
         ScrollView {
-            LazyVStack {
+            VStack {
                 FilterView().padding()
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.joinedTracks) { track in
-                        TrackGridView(track: track)
+                        TrackGridView(track: track).accessibilityElement(children: .contain)
+                            .onTapGesture {
+                                coordinator.goToTrack(track)
+                            }
                     }
                 }.accessibilityLabel("Joined Tracks")
                 LazyVGrid(columns: rows) {
@@ -38,8 +43,9 @@ struct TracksView: View {
     }
 }
 
+
 struct TracksView_Previews: PreviewProvider {
     static var previews: some View {
-        TracksView()
+        TracksView(coordinator: AppCoordinator())
     }
 }

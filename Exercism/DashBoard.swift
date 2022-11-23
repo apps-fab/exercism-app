@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 enum ItemType: String {
     case recentTrack = "Tracks"
@@ -26,16 +27,18 @@ struct DashboardSections: Identifiable {
 
 struct DashBoard: View {
     @State var searchText: String = ""
-
-    // To Do: Get the actual recent tracks and the profile items to be shown 
+    @StateObject private var coordinator = AppCoordinator()
+    
+    
+    // To Do: Get the actual recent tracks and the profile items to be shown
     private var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "All tracks"),
                                                                        DashboardItem(name: "Solutions"),
                                                                        DashboardItem(name: "Badges")]),
                              DashboardSections(type: .recentTrack, items:  [DashboardItem(name: "Elixir"),
                                                                             DashboardItem(name: "Rust")])]
-
+    
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             List() {
                 ForEach(itemNames) { name in
                     Section(header: Text(name.type.rawValue)) {
@@ -50,10 +53,24 @@ struct DashBoard: View {
                     }
                 }
             }.accessibilityLabel("The dashboard")
-            .frame(minWidth: 200)
-            TracksView().accessibilityLabel("Tracks View")
-        }.frame(minHeight: 600, maxHeight: .infinity)
-            .frame(minWidth: 600, maxWidth: .infinity)
+                .frame(minWidth: 200)
+        } detail: {
+            NavigationStack(path: $coordinator.path) {
+                TracksView(coordinator: coordinator)
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case let .Exercise(exercise):
+                            ExerciseEditorWindowView()
+
+                        case let .Track(track):
+                            ExercisesList(viewModel: ExerciseListViewModel(trackName: track.slug))
+
+                        case .Dashboard:
+                            LoginView()
+                        }
+                    }
+            }
+        }
     }
 }
 
