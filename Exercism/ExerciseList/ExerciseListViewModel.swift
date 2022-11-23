@@ -9,11 +9,13 @@ import Foundation
 import ExercismSwift
 
 class ExerciseListViewModel: ObservableObject {
-    var trackName: String
     @Published var exercisesList = [Exercise]()
+    let trackName: String
+    let coordinator: AppCoordinator
 
-    init(trackName: String) {
+    init(trackName: String, coordinator: AppCoordinator) {
         self.trackName = trackName
+        self.coordinator = coordinator
     }
 
     func fetchExerciseList() {
@@ -28,6 +30,9 @@ class ExerciseListViewModel: ObservableObject {
                 print("This is \(error)")
             }
         }
+    }
 
+    func goToExercise(_ exercise: String) {
+        coordinator.goToEditor(trackName, exercise)
     }
 }

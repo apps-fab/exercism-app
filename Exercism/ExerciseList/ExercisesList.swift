@@ -11,20 +11,20 @@ struct ExercisesList: View {
     @StateObject var viewModel: ExerciseListViewModel
 
     var body: some View {
-        NavigationSplitView {
             List(viewModel.exercisesList, id: \.self) { exercise in
-                Text(exercise.slug)
+                Button {
+                    viewModel.goToExercise(exercise.slug)
+                } label: {
+                    Text(exercise.slug)
+                }
             }.task {
                 viewModel.fetchExerciseList()
             }
-        } detail: {
-            ExerciseEditorWindowView()
         }
-    }
 }
 
 struct ExercisesList_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesList(viewModel: ExerciseListViewModel(trackName: "Python"))
+        ExercisesList(viewModel: ExerciseListViewModel(trackName: "Python", coordinator: AppCoordinator()))
     }
 }

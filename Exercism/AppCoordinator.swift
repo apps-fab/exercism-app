@@ -11,7 +11,7 @@ import ExercismSwift
 
 enum Route: Hashable {
     case Track(Track)
-    case Exercise(Exercise)
+    case Exercise(String, String)
     case Dashboard
 }
 
@@ -26,8 +26,8 @@ class AppCoordinator: ObservableObject {
         path.append(Route.Track(track))
     }
 
-    func goToEditor(_ exercise: Exercise) {
-        path.append(Route.Exercise(exercise))
+    func goToEditor(_ track: String, _ exercise: String) {
+        path.append(Route.Exercise(track, exercise))
     }
 
     func goBack() {

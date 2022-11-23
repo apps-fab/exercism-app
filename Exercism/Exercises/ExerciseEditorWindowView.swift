@@ -11,6 +11,8 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel()
     @State private var showInspector = true
+    let exercise: String
+    let track: String
     var body: some View {
         NavigationView {
             ExerciseNavigatorView()
@@ -66,7 +68,7 @@ struct ExerciseEditorWindowView: View {
             }
             .navigationViewStyle(.columns)
             .onAppear {
-                viewModel.getDocument()
+                viewModel.getDocument(track: track, exercise: exercise)
             }
             .navigationTitle(Text(viewModel.getTitle()))
     }
@@ -78,6 +80,6 @@ struct ExerciseEditorWindowView: View {
 
 struct ExerciseEditorWindowView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseEditorWindowView()
+        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world")
     }
 }

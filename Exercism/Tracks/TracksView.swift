@@ -12,12 +12,12 @@ struct TracksView: View {
     @StateObject var viewModel = TracksViewModel()
     @State private var searchText = ""
     @State var coordinator: AppCoordinator
-    
+
     let rows = [
         GridItem(.fixed(600)),
         GridItem(.fixed(600))
     ]
-    
+
     var body: some View {
         ScrollView {
             VStack {

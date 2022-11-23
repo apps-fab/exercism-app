@@ -27,7 +27,7 @@ struct TrackGridView: View {
             .border(.gray, width: 1)
             .padding()
     }
-    
+
     var trackView: some View {
         VStack(alignment: .leading) {
             HStack() {
@@ -37,7 +37,7 @@ struct TrackGridView: View {
                         .roundEdges(backgroundColor: Color("purple"))
                         .font(.system(size: 12, weight: .semibold))
                 }
-                
+
                 if track.isNew && !track.isJoined {
                     Label(title: {
                         Text("New")
@@ -48,7 +48,7 @@ struct TrackGridView: View {
                     }).roundEdges(backgroundColor: .blue.opacity(0.5))
                         .font(.system(size: 12, weight: .semibold))
                 }
-                
+
                 if track.isJoined {
                     Spacer()
                     Label("Joined", systemImage: "checkmark")
@@ -64,7 +64,7 @@ struct TrackGridView: View {
                         .renderingMode(.template)
                         .foregroundColor(.white)
                 })
-                
+
                 Label(title: {
                     Text("\(track.numConcepts) concepts")
                 }, icon: {

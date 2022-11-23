@@ -24,11 +24,11 @@ class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func getDocument(track: String = "rust", exercise: String = "hello-world") {
+    func getDocument(track: String, exercise: String) {
         getLocalExercise(track: track, exercise: exercise)
     }
 
-    private func getLocalExercise(track: String = "rust", exercise: String = "hello-world") {
+    private func getLocalExercise(track: String, exercise: String) {
         guard let solutionDir = getOrCreateSolutionDir(track: track, exercise: exercise) else {
             return
         }
@@ -41,7 +41,7 @@ class ExerciseViewModel: ObservableObject {
         selectFile(solutionFiles.first)
     }
 
-    private func getOrCreateSolutionDir(track: String = "rust", exercise: String = "hello-world") -> URL? {
+    private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
         let fileManager = FileManager.default
         do {
             let docsFolder = try fileManager.url(

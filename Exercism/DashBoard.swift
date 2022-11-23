@@ -28,42 +28,42 @@ struct DashboardSections: Identifiable {
 struct DashBoard: View {
     @State var searchText: String = ""
     @StateObject private var coordinator = AppCoordinator()
-    
-    
+
+
     // To Do: Get the actual recent tracks and the profile items to be shown
     private var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "All tracks"),
                                                                        DashboardItem(name: "Solutions"),
                                                                        DashboardItem(name: "Badges")]),
                              DashboardSections(type: .recentTrack, items:  [DashboardItem(name: "Elixir"),
                                                                             DashboardItem(name: "Rust")])]
-    
+
     var body: some View {
-        NavigationSplitView {
-            List() {
-                ForEach(itemNames) { name in
-                    Section(header: Text(name.type.rawValue)) {
-                        ForEach(name.items) { item in
-                            HStack {
-                                Image(systemName: item.image)
-                                    .renderingMode(.template)
-                                    .foregroundColor(.blue)
-                                Text(item.name)
+        NavigationStack(path: $coordinator.path) {
+            NavigationSplitView {
+                List() {
+                    ForEach(itemNames) { name in
+                        Section(header: Text(name.type.rawValue)) {
+                            ForEach(name.items) { item in
+                                HStack {
+                                    Image(systemName: item.image)
+                                        .renderingMode(.template)
+                                        .foregroundColor(.blue)
+                                    Text(item.name)
+                                }
                             }
                         }
                     }
-                }
-            }.accessibilityLabel("The dashboard")
-                .frame(minWidth: 200)
-        } detail: {
-            NavigationStack(path: $coordinator.path) {
+                }.accessibilityLabel("The dashboard")
+                    .frame(minWidth: 200)
+            } detail: {
                 TracksView(coordinator: coordinator)
                     .navigationDestination(for: Route.self) { route in
                         switch route {
-                        case let .Exercise(exercise):
-                            ExerciseEditorWindowView()
+                        case let .Exercise(track, exercise):
+                            ExerciseEditorWindowView(exercise: exercise, track: track)
 
                         case let .Track(track):
-                            ExercisesList(viewModel: ExerciseListViewModel(trackName: track.slug))
+                            ExercisesList(viewModel: ExerciseListViewModel(trackName: track.slug, coordinator: coordinator))
 
                         case .Dashboard:
                             LoginView()
