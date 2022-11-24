@@ -13,6 +13,7 @@ struct FilterView: View {
     @Binding var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
+    var sortAction: () -> Void
 
     var body: some View {
         HStack(spacing: 0) {
@@ -42,7 +43,7 @@ struct FilterView: View {
 
             RoundedRectButton(labelText: "Sort by last touched",
                               systemImage: "chevron.down") {
-                print("Sort by last touched")
+                sortAction()
             }
         }
     }
@@ -52,7 +53,9 @@ struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView(results: .constant(10),
                    searchText: .constant(""),
-                   filters: .constant([""]))
+                   filters: .constant([""])) {
+            print("this is it")
+        }
     }
 }
 

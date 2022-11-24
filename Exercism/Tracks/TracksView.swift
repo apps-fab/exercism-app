@@ -25,7 +25,10 @@ struct TracksView: View {
             VStack {
                 FilterView(results: $resultsCount,
                            searchText: $searchText,
-                           filters: $filters).padding()
+                           filters: $filters) {
+                    viewModel.filteredTracks.sort { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() }
+                }
+                .padding()
 
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.joinedTracks) { track in
