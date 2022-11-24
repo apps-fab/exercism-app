@@ -38,4 +38,13 @@ class TracksViewModel: ObservableObject {
             }
         }
     }
+
+    func filter(_ filters: Set<String>) {
+        self.tracks = tracks.filter { $0.tags.contains(filters) }
+
+    }
+
+    func search(_ searchText: String) {
+        self.tracks = tracks.filter { $0.title.contains(searchText) }
+    }
 }

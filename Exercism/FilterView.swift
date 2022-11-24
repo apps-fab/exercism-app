@@ -10,47 +10,46 @@ import ExercismSwift
 
 struct FilterView: View {
     @State private var showingSheet = false
-    @State private var searchText = ""
+    @Binding var searchText: String
+    @Binding var filters: Set<String>
 
     var body: some View {
-            HStack(spacing: 0) {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search language filters", text: $searchText)
-                        .textFieldStyle(.plain).onSubmit(search)
-                }.padding()
-                    .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(.black))
+        HStack(spacing: 0) {
+            HStack {
+                Image(systemName: "magnifyingglass")
+                TextField("Search language filters", text: $searchText)
+                    .textFieldStyle(.plain)
+            }.padding()
+                .background(RoundedRectangle(cornerRadius: 14)
+                    .fill(.black))
 
-                RoundedRectButton(labelText: "Show Filters",
-                                  systemImage: "line.3.horizontal.decrease.circle") {
-                    showingSheet.toggle()
-                }.popover(isPresented: $showingSheet) {
-                    FilterTableView(tags: Tag.loadTags(), isPresented: $showingSheet)
-                        .interactiveDismissDisabled(false)
-                }
+            RoundedRectButton(labelText: "Show Filters",
+                              systemImage: "line.3.horizontal.decrease.circle") {
+                showingSheet.toggle()
+            }.popover(isPresented: $showingSheet) {
+                FilterTableView(tags: Tag.loadTags(),
+                                selectedTags: $filters,
+                                isPresented: $showingSheet)
+                .interactiveDismissDisabled(false)
+            }
 
-                Text("Showing all 26 tracks")
-                    .padding()
-                    .frame(minHeight: 0, maxHeight: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(.black))
+            Text("Showing all 26 tracks")
+                .padding()
+                .frame(minHeight: 0, maxHeight: .infinity)
+                .background(RoundedRectangle(cornerRadius: 14)
+                    .fill(.black))
 
-                RoundedRectButton(labelText: "Sort by last touched",
-                                  systemImage: "chevron.down") {
-                    print("Sort by last touched")
-                }
+            RoundedRectButton(labelText: "Sort by last touched",
+                              systemImage: "chevron.down") {
+                print("Sort by last touched")
+            }
         }
-    }
-
-    func search() {
-
     }
 }
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView()
+        FilterView(searchText: .constant(""), filters: .constant([""]))
     }
 }
 
