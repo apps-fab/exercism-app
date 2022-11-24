@@ -10,6 +10,7 @@ import ExercismSwift
 
 struct TracksView: View {
     @StateObject var viewModel = TracksViewModel()
+    @State private var resultsCount = 0
     @State private var searchText = ""
     @State private var filters = Set<String>()
     var coordinator: AppCoordinator
@@ -22,7 +23,8 @@ struct TracksView: View {
     var body: some View {
         ScrollView {
             VStack {
-                FilterView(searchText: $searchText,
+                FilterView(results: $resultsCount,
+                           searchText: $searchText,
                            filters: $filters).padding()
 
                 LazyVGrid(columns: rows) {
@@ -42,10 +44,13 @@ struct TracksView: View {
         }.accessibilityLabel("All Tracks")
             .task {
                 viewModel.fetchTracks()
+                resultsCount = viewModel.tracks.count
             }.onChange(of: searchText) { newSearch in
                 viewModel.search(newSearch)
+                resultsCount = viewModel.filteredTracks.count
             }.onChange(of: filters) { newFilters in
                 viewModel.filter(newFilters)
+                resultsCount = viewModel.filteredTracks.count
             }
     }
 }

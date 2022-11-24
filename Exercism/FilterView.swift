@@ -10,6 +10,7 @@ import ExercismSwift
 
 struct FilterView: View {
     @State private var showingSheet = false
+    @Binding var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
 
@@ -33,7 +34,7 @@ struct FilterView: View {
                 .interactiveDismissDisabled(false)
             }
 
-            Text("Showing all 26 tracks")
+            Text("Showing all \(results) tracks")
                 .padding()
                 .frame(minHeight: 0, maxHeight: .infinity)
                 .background(RoundedRectangle(cornerRadius: 14)
@@ -49,7 +50,9 @@ struct FilterView: View {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView(searchText: .constant(""), filters: .constant([""]))
+        FilterView(results: .constant(10),
+                   searchText: .constant(""),
+                   filters: .constant([""]))
     }
 }
 
