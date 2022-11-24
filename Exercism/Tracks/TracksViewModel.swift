@@ -14,13 +14,14 @@ enum Keys: String {
 
 class TracksViewModel: ObservableObject {
     @Published var tracks = [Track]()
+    @Published var filteredTracks = [Track]()
 
     var joinedTracks: [Track] {
-        tracks.filter { $0.isJoined }
+        filteredTracks.filter { $0.isJoined }
     }
 
     var unJoinedTracks: [Track] {
-        tracks.filter { !$0.isJoined }
+        filteredTracks.filter { !$0.isJoined }
     }
 
     func fetchTracks() {
@@ -32,6 +33,7 @@ class TracksViewModel: ObservableObject {
             switch response {
             case .success(let fetchedTracks):
                 self.tracks = fetchedTracks.results
+                self.filteredTracks = fetchedTracks.results
             case .failure(let error):
                 // implement error handling
                 print("This is the error: \(error)")
@@ -40,11 +42,11 @@ class TracksViewModel: ObservableObject {
     }
 
     func filter(_ filters: Set<String>) {
-        self.tracks = tracks.filter { $0.tags.contains(filters) }
-
+        self.filteredTracks = tracks.filter { $0.tags.contains(filters) }
     }
 
     func search(_ searchText: String) {
-        self.tracks = tracks.filter { $0.title.contains(searchText) }
+        let filtered = tracks.filter { $0.title.lowercased().contains(searchText) }
+        self.filteredTracks = searchText.isEmpty ? tracks : filtered
     }
 }
