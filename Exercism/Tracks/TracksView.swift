@@ -40,7 +40,9 @@ struct TracksView: View {
                 }.accessibilityLabel("Joined Tracks")
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.unJoinedTracks) { track in
-                        TrackGridView(track: track).accessibilityElement(children: .contain)
+                        TrackGridView(track: track).accessibilityElement(children: .contain)    .onTapGesture {
+                            coordinator.goToTrack(track)
+                        }
                     }
                 }.accessibilityLabel("Unjoined tracks")
             }.accessibilityHidden(true)
