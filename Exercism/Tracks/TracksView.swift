@@ -15,7 +15,7 @@ struct TracksView: View {
     @State private var filters = Set<String>()
     var coordinator: AppCoordinator
 
-    let rows = [
+    let columns = [
         GridItem(.fixed(600)),
         GridItem(.fixed(600))
     ]
@@ -30,7 +30,7 @@ struct TracksView: View {
                 }
                 .padding()
 
-                LazyVGrid(columns: rows) {
+                LazyVGrid(columns: columns) {
                     ForEach(viewModel.joinedTracks) { track in
                         TrackGridView(track: track).accessibilityElement(children: .contain)
                             .onTapGesture {
@@ -38,7 +38,7 @@ struct TracksView: View {
                             }
                     }
                 }.accessibilityLabel("Joined Tracks")
-                LazyVGrid(columns: rows) {
+                LazyVGrid(columns: columns) {
                     ForEach(viewModel.unJoinedTracks) { track in
                         TrackGridView(track: track).accessibilityElement(children: .contain)    .onTapGesture {
                             coordinator.goToTrack(track)
