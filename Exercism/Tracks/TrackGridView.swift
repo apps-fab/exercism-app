@@ -20,71 +20,75 @@ struct TrackGridView: View {
                 .padding([.top, .leading], 10)
                 .frame(width: 100, height: 100)
                 .accessibilityHidden(true)
-            
-            VStack(alignment: .leading) {
-                HStack() {
-                    Text(track.title).bold()
-                    if track.course && !track.isJoined {
-                        Label("Learning Mode", systemImage: "checkmark")
-                            .roundEdges(backgroundColor: Color("purple"))
-                            .font(.system(size: 12, weight: .semibold))
-                    }
-                    
-                    if track.isNew && !track.isJoined {
-                        Label(title: {
-                            Text("New")
-                        }, icon: {
-                            Image("stars")
-                                .renderingMode(.template)
-                                .foregroundColor(.yellow)
-                        }).roundEdges(backgroundColor: .blue.opacity(0.5))
-                            .font(.system(size: 12, weight: .semibold))
-                    }
-                    
-                    if track.isJoined {
-                        Spacer()
-                        Label("Joined", systemImage: "checkmark")
-                            .roundEdges(backgroundColor: .blue.opacity(0.5))
-                            .font(.system(size: 12, weight: .semibold))
-                    }
-                }
-                HStack(spacing: 50) {
-                    Label(title: {
-                        track.isJoined ? Text("\(track.numCompletedExercises)/\(track.numExercises) exercises") : Text("\(track.numExercises) exercises")
-                    }, icon: {
-                        Image("exercise")
-                            .renderingMode(.template)
-                            .foregroundColor(.white)
-                    })
+            trackView
+                .frame(width: 350, height: 100)
+                .padding()
+        }.frame(width: 500, height: 200)
+            .border(.gray, width: 1)
+            .padding()
+    }
 
-                    Label(title: {
-                        Text("\(track.numConcepts) concepts")
-                    }, icon: {
-                        Image("concept")
-                            .renderingMode(.template)
-                            .foregroundColor(.white)
-                    })
+    var trackView: some View {
+        VStack(alignment: .leading) {
+            HStack() {
+                Text(track.title).bold()
+                if track.course && !track.isJoined {
+                    Label("Learning Mode", systemImage: "checkmark")
+                        .roundEdges(backgroundColor: Color("purple"))
+                        .font(.system(size: 12, weight: .semibold))
                 }
+
+                if track.isNew && !track.isJoined {
+                    Label(title: {
+                        Text("New")
+                    }, icon: {
+                        Image("stars")
+                            .renderingMode(.template)
+                            .foregroundColor(.yellow)
+                    }).roundEdges(backgroundColor: .blue.opacity(0.5))
+                        .font(.system(size: 12, weight: .semibold))
+                }
+
                 if track.isJoined {
-                    VStack {
-                        Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
-                    }.accessibilityChildren {
-                        let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
-                        ProgressView(value: value).accessibilityHidden(true)
-                    }
-                } else {
+                    Spacer()
+                    Label("Joined", systemImage: "checkmark")
+                        .roundEdges(backgroundColor: .blue.opacity(0.5))
+                        .font(.system(size: 12, weight: .semibold))
+                }
+            }
+            HStack(spacing: 50) {
+                Label(title: {
+                    track.isJoined ? Text("\(track.numCompletedExercises)/\(track.numExercises) exercises") : Text("\(track.numExercises) exercises")
+                }, icon: {
+                    Image("exercise")
+                        .renderingMode(.template)
+                        .foregroundColor(.white)
+                })
+
+                Label(title: {
+                    Text("\(track.numConcepts) concepts")
+                }, icon: {
+                    Image("concept")
+                        .renderingMode(.template)
+                        .foregroundColor(.white)
+                })
+            }
+            if track.isJoined {
+                VStack {
+                    Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
+                }.accessibilityChildren {
+                    let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
+                    ProgressView(value: value).accessibilityHidden(true)
+                }
+            } else {
                 HStack() {
                     ForEach(track.tags.prefix(3), id: \.self) { track in
                         Text(track).bold().roundEdges(lineColor: .white)
                     }
                 }
             }
-        }.frame(width: 350, height: 100)
-            .padding()
-    }.frame(width: 500, height: 200)
-        .border(.gray, width: 1)
-        .padding()
-}
+        }
+    }
 }
 
 struct TrackGridView_Previews: PreviewProvider {

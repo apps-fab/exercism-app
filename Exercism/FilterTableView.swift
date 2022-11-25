@@ -10,7 +10,7 @@ import ExercismSwift
 
 struct FilterTableView: View {
     @State var tags = [Tag]()
-    @State private var selectedTags = Set<String>()
+    @Binding var selectedTags: Set<String>
     @Binding var isPresented: Bool
 
     var body: some View {
@@ -28,22 +28,18 @@ struct FilterTableView: View {
                         }
                     }
                 }
-
             }
             HStack(spacing: 5) {
                 RoundedRectButton(labelText: "Apply", systemImage: "", background: Color("purple")) {
-                    applyFilters()
+                    isPresented = false
                 }.frame(height: 50)
 
                 RoundedRectButton(labelText: "Close", systemImage: "") {
+                    selectedTags.removeAll()
                     isPresented = false
                 }.frame(height: 50)
             }.frame(alignment: .bottomLeading)
         }.padding()
-    }
-
-    func applyFilters() {
-
     }
 
     func toggle(_ tag: String) {
@@ -57,6 +53,6 @@ struct FilterTableView: View {
 
 struct FilterTableView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterTableView(isPresented: .constant(false))
+        FilterTableView(selectedTags: .constant(["Functional"]), isPresented: .constant(false))
     }
 }

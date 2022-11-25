@@ -12,14 +12,17 @@ import SDWebImageSVGCoder
 @main
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    @StateObject private var settings = SettingData()
+    
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.windowStyle(.hiddenTitleBar)
+                .environmentObject(settings)
+        }
+        .windowStyle(HiddenTitleBarWindowStyle())
     }
 }
