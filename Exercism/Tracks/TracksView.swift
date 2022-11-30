@@ -28,35 +28,35 @@ struct TracksView: View {
                            filters: $filters) {
                     viewModel.filteredTracks.sort { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() }
                 }
-                .padding()
+                           .padding()
 
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.joinedTracks) { track in
-                        TrackGridView(track: track).accessibilityElement(children: .contain)
-                            .onTapGesture {
-                                coordinator.goToTrack(track)
-                            }
+                        Button {
+                            coordinator.goToTrack(track)
+                        } label: {
+                            TrackGridView(track: track).accessibilityElement(children: .contain)
+                        }.buttonStyle(.plain)
                     }
-                }.accessibilityLabel("Joined Tracks")
-                LazyVGrid(columns: columns) {
+                    Spacer()
                     ForEach(viewModel.unJoinedTracks) { track in
                         TrackGridView(track: track).accessibilityElement(children: .contain)    .onTapGesture {
                             coordinator.goToTrack(track)
                         }
                     }
-                }.accessibilityLabel("Unjoined tracks")
-            }.accessibilityHidden(true)
-        }.accessibilityLabel("All Tracks")
-            .task {
-                viewModel.fetchTracks()
-                resultsCount = viewModel.tracks.count
-            }.onChange(of: searchText) { newSearch in
-                viewModel.search(newSearch)
-                resultsCount = viewModel.filteredTracks.count
-            }.onChange(of: filters) { newFilters in
-                viewModel.filter(newFilters)
-                resultsCount = viewModel.filteredTracks.count
-            }
+                }.accessibilityHidden(true)
+            }.accessibilityLabel("All Tracks")
+                .task {
+                    viewModel.fetchTracks()
+                    resultsCount = viewModel.tracks.count
+                }.onChange(of: searchText) { newSearch in
+                    viewModel.search(newSearch)
+                    resultsCount = viewModel.filteredTracks.count
+                }.onChange(of: filters) { newFilters in
+                    viewModel.filter(newFilters)
+                    resultsCount = viewModel.filteredTracks.count
+                }
+        }
     }
 }
 

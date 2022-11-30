@@ -18,11 +18,22 @@ enum ExerciseCategory : String, CaseIterable {
 struct ExercisesList: View {
     @StateObject var viewModel: ExerciseListViewModel
     @State var segmentationSelection: ExerciseCategory = .AllExercises
-    let columns = [GridItem(.flexible(minimum: 300, maximum: 600)), GridItem(.flexible(minimum: 200, maximum: 600))]
+    @State private var searchText = ""
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         ScrollView {
             VStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search language filters", text: $searchText)
+                        .textFieldStyle(.plain)
+                        .onSubmit {
+                            viewModel.filter(searchText)
+                        }
+                }.padding()
+                    .background(RoundedRectangle(cornerRadius: 14)
+                        .fill(.black))
                 Picker("Some Picker", selection: $segmentationSelection) {
                     ForEach(ExerciseCategory.allCases, id: \.self) { option in
                         Text(option.rawValue)

@@ -34,6 +34,10 @@ class ExerciseListViewModel: ObservableObject {
         }
     }
 
+    func filter(_ searchText: String) {
+        exercisesList = allExercises.filter { $0.slug.contains(searchText)}
+    }
+
     func toggleSelection(_ selection: ExerciseCategory) {
         // Not the correct parameters
         switch selection {

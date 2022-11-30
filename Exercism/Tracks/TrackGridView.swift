@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 
 struct TrackGridView: View {
     var track: Track
+    @State var isHover = false
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -26,6 +27,11 @@ struct TrackGridView: View {
         }.frame(width: 500, height: 200)
             .border(.gray, width: 1)
             .padding()
+            .scaleEffect(isHover ? 1.1 : 1)
+            .animation(.spring())
+            .onHover { hover in
+                isHover = hover
+            }
     }
 
     var trackView: some View {
@@ -56,7 +62,7 @@ struct TrackGridView: View {
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
-            HStack(spacing: 50) {
+            HStack() {
                 Label(title: {
                     track.isJoined ? Text("\(track.numCompletedExercises)/\(track.numExercises) exercises") : Text("\(track.numExercises) exercises")
                 }, icon: {

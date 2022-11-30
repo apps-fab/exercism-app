@@ -13,21 +13,36 @@ struct ExerciseGridView: View {
     var exercise: Exercise
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
+        HStack(alignment: .top, spacing: 0) {
             WebImage(url: URL(string: exercise.iconUrl))
                 .resizable()
-                .clipped()
                 .frame(width: 64, height: 64)
-                .frame(alignment: .leading)
+                .padding([.top, .leading], 10)
             VStack(alignment: .leading) {
-                Text(exercise.slug)
-                Label("Learning Mode", systemImage: "checkmark")
-                    .roundEdges(backgroundColor: Color("purple"))
-                    .font(.system(size: 12, weight: .semibold))
+                Text(exercise.slug.capitalized)
+                    .bold()
+                    .font(.title3)
+                HStack {
+                if exercise.isRecommended {
+                    Text("Recommended")
+                        .roundEdges(backgroundColor: Color("purple"))
+                        .font(.system(size: 12, weight: .semibold))
+                    }
+                    if !exercise.isUnlocked {
+                        Label("Locked", systemImage: "lock")
+                            .roundEdges(backgroundColor: .blue.opacity(0.2))
+                            .font(.system(size: 12, weight: .semibold))
+                    }
+                    Text(exercise.type)
+                        .roundEdges(backgroundColor: Color("purple"))
+                        .font(.system(size: 12, weight: .semibold))
+                }
                 Text(exercise.blurb)
-            }
-        }.frame(width: 400, height: 100)
+            }.padding()
+            Spacer()
+        }.frame(width: 500, height: 150)
                 .border(.gray, width: 1)
+                .padding()
     }
 }
 
