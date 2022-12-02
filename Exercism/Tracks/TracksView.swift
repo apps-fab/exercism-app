@@ -9,11 +9,10 @@ import SwiftUI
 import ExercismSwift
 
 struct TracksView: View {
-    @StateObject var viewModel = TracksViewModel()
+    @StateObject var viewModel: TracksViewModel
     @State private var resultsCount = 0
     @State private var searchText = ""
     @State private var filters = Set<String>()
-    var coordinator: AppCoordinator
 
     let columns = [
         GridItem(.fixed(600)),
@@ -33,16 +32,18 @@ struct TracksView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.joinedTracks) { track in
                         Button {
-                            coordinator.goToTrack(track)
+                            viewModel.goToExercises(track)
                         } label: {
                             TrackGridView(track: track).accessibilityElement(children: .contain)
                         }.buttonStyle(.plain)
                     }
                     Spacer()
                     ForEach(viewModel.unJoinedTracks) { track in
-                        TrackGridView(track: track).accessibilityElement(children: .contain)    .onTapGesture {
-                            coordinator.goToTrack(track)
-                        }
+                        Button {
+                            viewModel.goToExercises(track)
+                        } label: {
+                            TrackGridView(track: track).accessibilityElement(children: .contain)
+                        }.buttonStyle(.plain)
                     }
                 }.accessibilityHidden(true)
             }.accessibilityLabel("All Tracks")
@@ -63,6 +64,6 @@ struct TracksView: View {
 
 struct TracksView_Previews: PreviewProvider {
     static var previews: some View {
-        TracksView(coordinator: AppCoordinator())
+        TracksView(viewModel: TracksViewModel(coordinator: AppCoordinator()))
     }
 }

@@ -10,6 +10,7 @@ import ExercismSwift
 
 struct ExerciseNavigatorView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
+    
     var files: [ExerciseFile] {
         exerciseObject.exercise?.files ?? []
     }

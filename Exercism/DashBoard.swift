@@ -56,7 +56,7 @@ struct DashBoard: View {
                 }.accessibilityLabel("The dashboard")
                     .frame(minWidth: 200)
             } detail: {
-                TracksView(coordinator: coordinator)
+                TracksView(viewModel: TracksViewModel(coordinator: coordinator))
                     .navigationDestination(for: Route.self) { route in
                         switch route {
                         case let .Exercise(track, exercise):
