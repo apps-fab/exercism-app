@@ -15,6 +15,7 @@ enum Keys: String {
 class TracksViewModel: ObservableObject {
     @Published var tracks = [Track]()
     @Published var filteredTracks = [Track]()
+    let coordinator: AppCoordinator
 
     var joinedTracks: [Track] {
         filteredTracks.filter { $0.isJoined }
@@ -22,6 +23,10 @@ class TracksViewModel: ObservableObject {
 
     var unJoinedTracks: [Track] {
         filteredTracks.filter { !$0.isJoined }
+    }
+
+    init(coordinator: AppCoordinator) {
+        self.coordinator = coordinator
     }
 
     func fetchTracks() {
@@ -48,5 +53,9 @@ class TracksViewModel: ObservableObject {
     func search(_ searchText: String) {
         let filtered = tracks.filter { $0.title.lowercased().contains(searchText) }
         self.filteredTracks = searchText.isEmpty ? tracks : filtered
+    }
+
+    func goToExercises(_ track: Track) {
+        coordinator.goToTrack(track)
     }
 }

@@ -34,6 +34,7 @@ class ExerciseViewModel: ObservableObject {
         }
         let doc = ExerciseDocument(exerciseDirectory: solutionDir)
         exerciseDoc = doc
+        downloadSolutions(track, exercise)
         let solutionFiles = doc.solutions.map { url in
             ExerciseFile.fromURL(url)
         }
@@ -41,7 +42,7 @@ class ExerciseViewModel: ObservableObject {
         selectFile(solutionFiles.first)
     }
 
-    private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
+     private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
         let fileManager = FileManager.default
         do {
             let docsFolder = try fileManager.url(
@@ -65,6 +66,20 @@ class ExerciseViewModel: ObservableObject {
         } catch {
             print("URL error: \(error.localizedDescription)")
             return nil
+        }
+    }
+
+    func downloadSolutions(_ track: String, _ exercise: String) {
+        guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else
+        { return }
+        let client = ExercismClient(apiToken: token)
+        client.downloadSolution(for: track, exercise: exercise) { result in
+            switch result {
+            case .success(let document):
+                self.exerciseDoc = document
+            case .failure(let error):
+                print("This is the error: \(error)")
+            }
         }
     }
 
@@ -120,5 +135,4 @@ class ExerciseViewModel: ObservableObject {
 
         return false
     }
-
 }
