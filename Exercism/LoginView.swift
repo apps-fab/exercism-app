@@ -12,31 +12,31 @@ import KeychainSwift
 struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
-    @State private var showDashboard = false
     @State private var error: String?
+    @Namespace var mainNamespace
+    @StateObject var coordinator: AppCoordinator
 
     var body: some View {
-            NavigationLink {
-                DashBoard()
-            } label: {
-                Text("Dashboard")
-            }
-
-            GeometryReader { geometry in
-                HStack() {
-                    leftView
-                        .frame(width: geometry.size.width * 0.66,
-                               height: geometry.size.height)
-                        .background(Color("purple"))
-                    rightView
-                        .frame(width: geometry.size.width * 0.33,
-                               height: geometry.size.height)
-                        .background(.white)
-                        .foregroundColor(.black)
-                }.background(.white)
-            }
+        GeometryReader { geometry in
+            HStack() {
+                leftView
+                    .frame(width: geometry.size.width * 0.66,
+                           height: geometry.size.height)
+                    .background(Color("purple"))
+                rightView
+                    .frame(width: geometry.size.width * 0.33,
+                           height: geometry.size.height)
+                    .background(.white)
+                    .foregroundColor(.black)
+            }.background(.white)
+                .alert("Error logging in", isPresented: $showAlert, actions: {
+                    // actions
+                }, message: {
+                    Text(error ?? "")
+                })
         }
-
+    }
+    
     var leftView: some View {
         VStack() {
             Spacer()
@@ -64,7 +64,7 @@ struct LoginView: View {
             Spacer()
         }
     }
-
+    
     var rightView: some View {
         VStack(alignment: .center) {
             Spacer()
@@ -79,12 +79,14 @@ struct LoginView: View {
                 .font(.title2)
                 .bold()
             Spacer()
-            ExercismTextField(placeholder: Text("Enter your token"),
-                              text: $textInput)
-            .frame(height: 28)
-            .border(.gray)
-            .padding(.leading, 26)
-            .padding(.trailing, 26)
+            ExercismTextField(text: $textInput,
+                              placeholder: Text("Enter your token")).onSubmit {
+                validateToken()
+            }
+                              .frame(height: 28)
+                              .border(.gray)
+                              .padding(.leading, 26)
+                              .padding(.trailing, 26)
             Spacer()
             Button(action: {
                 validateToken()
@@ -92,7 +94,7 @@ struct LoginView: View {
                 Text("Log In")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .foregroundColor(.white)
-
+                
             }
             .frame(height: 40)
             .background(Color("purple"))
@@ -100,33 +102,36 @@ struct LoginView: View {
             .padding()
             Text("You can find your token on your [settings page](https://exercism.org/settings)")
                 .padding()
-
+            
             Text("Important: The token above should be treated like a password and not be shared with anyone!")
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
             Spacer()
-
+            
         }
     }
-
-func validateToken() {
-    // show the error message in the alert
-    let client = ExercismClient(apiToken: textInput)
-    client.validateToken(completed: { response in
-        switch response {
-        case .success(_):
-            ExercismKeychain.shared.set(textInput, for: "token")
-            showDashboard = true
-        case .failure(_):
-            showAlert = true
-        }
-    })
-}
+    
+    func validateToken() {
+        // show the error message in the alert
+        let client = ExercismClient(apiToken: textInput)
+        client.validateToken(completed: { response in
+            switch response {
+            case .success(_):
+                ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
+                coordinator.goToDashboard()
+            case .failure(let error):
+                if case ExercismClientError.apiError(_, _, let message) = error {
+                    self.error = message
+                }
+                showAlert = true
+            }
+        })
+    }
 }
 
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(coordinator: AppCoordinator())
     }
 }

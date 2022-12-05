@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ExercismTextField: View {
-    var placeholder: Text
     @Binding var text: String
+    var placeholder: Text
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
 
