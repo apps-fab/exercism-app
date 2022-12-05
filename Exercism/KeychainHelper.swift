@@ -18,6 +18,10 @@ class ExercismKeychain {
     func get(for key: String) -> String? {
         keychain.get(key)
     }
+
+    func removeItem(for key: String) {
+        keychain.delete(key)
+    }
 }
 
 
