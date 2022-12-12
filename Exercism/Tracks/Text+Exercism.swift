@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Label {
-    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .clear) -> some View {
+    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .white) -> some View {
         self.padding([.leading, .trailing], 10)
             .padding([.top, .bottom], 5)
             .background(
@@ -19,7 +19,7 @@ extension Label {
 }
 
 extension Text {
-    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .clear, cornerRadius: CGFloat = 20) -> some View {
+    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .white, cornerRadius: CGFloat = 20) -> some View {
         self.padding().background(
             Capsule().strokeBorder(lineColor, lineWidth: 1)
                 .frame(height: cornerRadius)
