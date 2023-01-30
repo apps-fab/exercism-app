@@ -18,4 +18,10 @@ extension View {
             self
         }
     }
+
+    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .white, cornerRadius: CGFloat = 20) -> some View {
+        modifier(RoundedRect(radius: cornerRadius,
+                             borderColor: lineColor,
+                             backgroundColor: backgroundColor))
+    }
 }

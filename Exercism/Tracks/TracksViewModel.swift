@@ -56,6 +56,10 @@ class TracksViewModel: ObservableObject {
     }
 
     func goToExercises(_ track: Track) {
-        coordinator.goToTrack(track)
+        if track.isJoined {
+            coordinator.goToTrack(track)
+        } else {
+            // show alert to join track on web or show join track in app 
+        }
     }
 }

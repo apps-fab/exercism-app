@@ -31,10 +31,11 @@ struct ExerciseGridView: View {
             .border(.gray, width: 1)
             .padding()
             .scaleEffect(isHover ? 1.1 : 1)
-            .animation(.spring())
             .onHover { hover in
                 if exercise.isUnlocked {
-                    isHover = hover
+                    withAnimation {
+                        isHover = hover
+                    }
                 }
             }
     }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ExercismSwift
-import KeychainSwift
 
 struct ContentView: View {
     var body: some View {

@@ -28,9 +28,12 @@ struct TrackGridView: View {
             .border(.gray, width: 1)
             .padding()
             .scaleEffect(isHover ? 1.1 : 1)
-            .animation(.spring())
             .onHover { hover in
-                isHover = hover
+                if track.isJoined {
+                    withAnimation {
+                        isHover = hover
+                    }
+                }
             }
     }
 
