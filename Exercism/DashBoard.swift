@@ -65,7 +65,9 @@ struct DashBoard: View {
     }
 
     func logout() {
-        ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
+        DispatchQueue.global().async {
+            ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
+        }
         coordinator.goToLogin()
     }
 }

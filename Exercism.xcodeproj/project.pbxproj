@@ -24,6 +24,7 @@
 		FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B06F028F592E000FCA956 /* AppDelegate.swift */; };
 		FD0B071228F5F77300FCA956 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B071128F5F77300FCA956 /* FilterView.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
+		FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedButton.swift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
 		FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F30DF28DCE330007B98DB /* DashBoard.swift */; };
@@ -31,7 +32,6 @@
 		FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksView.swift */; };
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C728E1E7360078A062 /* TracksViewModel.swift */; };
-		FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C928E33B740078A062 /* Text+Exercism.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
 		FD9A187729113DFB006A28E7 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD9A187629113DFB006A28E7 /* CodeEditor */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
@@ -66,6 +66,7 @@
 		FD0B06F028F592E000FCA956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD0B071128F5F77300FCA956 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
+		FD4A77642987E18E00E29436 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		FD8F30DF28DCE330007B98DB /* DashBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoard.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		FD93F5C128E1E3260078A062 /* TracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksView.swift; sourceTree = "<group>"; };
 		FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackGridView.swift; sourceTree = "<group>"; };
 		FD93F5C728E1E7360078A062 /* TracksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewModel.swift; sourceTree = "<group>"; };
-		FD93F5C928E33B740078A062 /* Text+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Exercism.swift"; sourceTree = "<group>"; };
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
 		FDABC23B292BCDA100A2AB72 /* ExerciseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewModel.swift; sourceTree = "<group>"; };
@@ -154,6 +154,7 @@
 				FD9262FB28F6DAE700C9476C /* FilterTableView.swift */,
 				FDABC23D292BCDC000A2AB72 /* ExerciseList */,
 				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
+				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -172,7 +173,6 @@
 				FD93F5C128E1E3260078A062 /* TracksView.swift */,
 				FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */,
 				FD93F5C728E1E7360078A062 /* TracksViewModel.swift */,
-				FD93F5C928E33B740078A062 /* Text+Exercism.swift */,
 				FD93F5D628E398770078A062 /* Date+Exercism.swift */,
 			);
 			path = Tracks;
@@ -281,12 +281,12 @@
 				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
-				FD93F5CA28E33B740078A062 /* Text+Exercism.swift in Sources */,
 				E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksView.swift in Sources */,
 				FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */,
 				E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */,
 				FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */,
+				FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */,
 				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
 				FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,

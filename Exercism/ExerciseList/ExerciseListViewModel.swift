@@ -54,7 +54,11 @@ class ExerciseListViewModel: ObservableObject {
         }
     }
 
-    func goToExercise(_ exercise: String) {
-        coordinator.goToEditor(trackName, exercise)
+    func goToExercise(_ exercise: Exercise) {
+        if exercise.isUnlocked {
+            coordinator.goToEditor(trackName, exercise.slug)
+        } else {
+            // show alert to user 
+        }
     }
 }

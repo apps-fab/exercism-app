@@ -15,49 +15,50 @@ struct TracksView: View {
     @State private var filters = Set<String>()
 
     let columns = [
-        GridItem(.fixed(600)),
-        GridItem(.fixed(600))
+        GridItem(.adaptive(minimum: 500, maximum: 700))
     ]
 
     var body: some View {
-        ScrollView {
-            VStack {
-                FilterView(results: $resultsCount,
-                           searchText: $searchText,
-                           filters: $filters) {
-                    viewModel.filteredTracks.sort { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() }
-                }
-                           .padding()
-
-                LazyVGrid(columns: columns) {
-                    ForEach(viewModel.joinedTracks) { track in
-                        Button {
-                            viewModel.goToExercises(track)
-                        } label: {
-                            TrackGridView(track: track).accessibilityElement(children: .contain)
-                        }.buttonStyle(.plain)
+        VStack {
+            FilterView(results: $resultsCount,
+                       searchText: $searchText,
+                       filters: $filters) {
+                viewModel.filteredTracks.sort { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() }
+            }.frame(maxHeight: 50)
+                       .padding()
+            ScrollView {
+                VStack {
+                    LazyVGrid(columns: columns) {
+                        ForEach(viewModel.joinedTracks) { track in
+                            Button {
+                                viewModel.goToExercises(track)
+                            } label: {
+                                TrackGridView(track: track).accessibilityElement(children: .contain)
+                            }.buttonStyle(.plain)
+                        }
+                        Spacer()
+                        ForEach(viewModel.unJoinedTracks) { track in
+                            Button {
+                                viewModel.goToExercises(track)
+                            } label: {
+                                TrackGridView(track: track).accessibilityElement(children: .contain)
+                            }.buttonStyle(.plain)
+                        }
                     }
-                    Spacer()
-                    ForEach(viewModel.unJoinedTracks) { track in
-                        Button {
-                            viewModel.goToExercises(track)
-                        } label: {
-                            TrackGridView(track: track).accessibilityElement(children: .contain)
-                        }.buttonStyle(.plain)
-                    }
-                }.accessibilityHidden(true)
-            }.accessibilityLabel("All Tracks")
-                .task {
-                    viewModel.fetchTracks()
-                    resultsCount = viewModel.tracks.count
-                }.onChange(of: searchText) { newSearch in
-                    viewModel.search(newSearch)
-                    resultsCount = viewModel.filteredTracks.count
-                }.onChange(of: filters) { newFilters in
-                    viewModel.filter(newFilters)
-                    resultsCount = viewModel.filteredTracks.count
-                }
-        }
+                }.padding()
+                .accessibilityHidden(true)
+            }
+        }.accessibilityLabel("All Tracks")
+            .task {
+                viewModel.fetchTracks()
+                resultsCount = viewModel.tracks.count
+            }.onChange(of: searchText) { newSearch in
+                viewModel.search(newSearch)
+                resultsCount = viewModel.filteredTracks.count
+            }.onChange(of: filters) { newFilters in
+                viewModel.filter(newFilters)
+                resultsCount = viewModel.filteredTracks.count
+            }
     }
 }
 

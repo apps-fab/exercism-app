@@ -25,24 +25,18 @@ class ExerciseViewModel: ObservableObject {
     }
 
     func getDocument(track: String, exercise: String) {
-        getLocalExercise(track: track, exercise: exercise)
+        downloadSolutions(track, exercise)
     }
 
     private func getLocalExercise(track: String, exercise: String) {
-        guard let solutionDir = getOrCreateSolutionDir(track: track, exercise: exercise) else {
-            return
-        }
-        let doc = ExerciseDocument(exerciseDirectory: solutionDir)
-        exerciseDoc = doc
-        downloadSolutions(track, exercise)
-        let solutionFiles = doc.solutions.map { url in
+        let solutionFiles = exerciseDoc!.solutions.map { url in
             ExerciseFile.fromURL(url)
         }
         self.exercise = ExerciseItem(name: exercise, language: track, files: solutionFiles)
         selectFile(solutionFiles.first)
     }
 
-     private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
+    private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
         let fileManager = FileManager.default
         do {
             let docsFolder = try fileManager.url(
@@ -75,8 +69,9 @@ class ExerciseViewModel: ObservableObject {
         let client = ExercismClient(apiToken: token)
         client.downloadSolution(for: track, exercise: exercise) { result in
             switch result {
-            case .success(let document):
-                self.exerciseDoc = document
+            case .success(let exerciseDoc):
+                self.exerciseDoc = exerciseDoc
+                self.getLocalExercise(track: track, exercise: exercise)
             case .failure(let error):
                 print("This is the error: \(error)")
             }
