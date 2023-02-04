@@ -15,7 +15,7 @@ struct TracksListView: View {
     @State private var filters = Set<String>()
 
     let columns = [
-        GridItem(.adaptive(minimum: 500, maximum: 700))
+        GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
 
     var body: some View {
@@ -24,16 +24,20 @@ struct TracksListView: View {
             Color.clear.onAppear(perform: viewModel.fetchTracks)
         case .Loaded(let tracks):
             VStack {
-                headerView.frame(maxWidth: 650, maxHeight: 160)
-                    .padding()
-                Divider().frame(height: 1)
-                FilterView(results: $resultsCount,
-                           searchText: $searchText,
-                           filters: $filters) {
-                    viewModel.sort()
-                }.frame(maxHeight: 50)
-                    .padding()
-                Divider().frame(height: 1)
+                VStack {
+                    headerView
+                        .background(.black)
+                        .frame(maxWidth: 650, maxHeight: 160)
+                        .padding()
+                    Divider().frame(height: 1)
+                    FilterView(results: $resultsCount,
+                               searchText: $searchText,
+                               filters: $filters) {
+                        viewModel.sort()
+                    }.frame(maxHeight: 50)
+                        .padding()
+                    Divider().frame(height: 1)
+                }.background(.black)
                 ScrollView {
                     VStack(alignment: .leading) {
                         Text("Joined Tracks")
@@ -64,8 +68,7 @@ struct TracksListView: View {
                     }.padding()
                         .accessibilityHidden(true)
                 }
-            }.background(.black)
-                .accessibilityLabel("All Tracks")
+            }.accessibilityLabel("All Tracks")
              .onChange(of: searchText) { newSearch in
                     viewModel.search(newSearch)
                  resultsCount = tracks.joinedTracks.count + tracks.unjoinedTracks.count

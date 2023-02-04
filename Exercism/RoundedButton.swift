@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct RoundedRect: ViewModifier {
+struct RoundedRect<background: View>: ViewModifier {
     let radius: CGFloat
     let borderColor: Color
-    let backgroundColor: Color
+    let backgroundColor: background
 
     func body(content: Content) -> some View {
         content
             .padding([.leading, .trailing], 10)
             .padding([.top, .bottom], 5)
-            .overlay {
+            .background {
                 RoundedRectangle(cornerRadius: radius, style: .circular)
                     .strokeBorder(borderColor, lineWidth: 1)
                     .background(backgroundColor)

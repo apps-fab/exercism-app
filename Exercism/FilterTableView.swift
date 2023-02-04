@@ -24,7 +24,8 @@ struct FilterTableView: View {
                                 toggle(tags)
                             } label: {
                                 Label(tags, systemImage: selectedTags.contains(tags) ? "checkmark.square" : "square")
-                            }.buttonStyle(.plain).padding(2)
+                            }.buttonStyle(.plain)
+                                .padding(2)
                         }
                     }
                 }
@@ -32,13 +33,15 @@ struct FilterTableView: View {
             HStack(spacing: 5) {
                 Button("Apply") {
                     isPresented = false
-                }.frame(height: 50)
-                    .roundEdges(backgroundColor: .purple)
+                }.frame(width: 100, height: 30)
+                    .buttonStyle(.plain)
+                    .roundEdges(backgroundColor: Color.purple)
                 Button("Close") {
                     selectedTags.removeAll()
                     isPresented = false
-                }.frame(height: 50)
-                    .roundEdges(backgroundColor: .purple)
+                }.frame(width: 100, height: 30)
+                    .buttonStyle(.plain)
+                    .roundEdges(backgroundColor: Color.purple)
             }.frame(alignment: .bottomLeading)
         }.padding()
     }
