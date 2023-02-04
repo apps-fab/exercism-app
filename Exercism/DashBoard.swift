@@ -60,7 +60,7 @@ struct DashBoard: View {
                 }.accessibilityLabel("The dashboard")
             }
         } detail: {
-            TracksView(viewModel: TracksViewModel(coordinator: coordinator))
+            TracksListView(viewModel: TracksViewModel(coordinator: coordinator))
         }
     }
 

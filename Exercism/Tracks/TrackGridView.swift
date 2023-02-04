@@ -85,7 +85,6 @@ struct TrackGridView: View {
             if track.isJoined {
                 VStack {
                     Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
-                }.accessibilityChildren {
                     let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
                     ProgressView(value: value).accessibilityHidden(true)
                 }
@@ -100,8 +99,8 @@ struct TrackGridView: View {
     }
 }
 
-struct TrackGridView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrackGridView(track: TracksViewModel(coordinator: AppCoordinator()).joinedTracks[0])
-    }
-}
+//struct TrackGridView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        TrackGridView(track: TracksViewModel(coordinator: AppCoordinator()).joinedTracks[0])
+//    }
+//}

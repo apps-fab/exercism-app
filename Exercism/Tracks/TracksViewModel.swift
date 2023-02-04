@@ -12,24 +12,25 @@ enum Keys: String {
     case token
 }
 
+enum ViewState {
+    case Idle
+    case loading
+    case Loaded((joinedTracks: [Track], unjoinedTracks: [Track]))
+    case Error(ExercismClientError)
+}
+
 class TracksViewModel: ObservableObject {
-    @Published var tracks = [Track]()
-    @Published var filteredTracks = [Track]()
+    @Published private(set) var state = ViewState.Idle
     let coordinator: AppCoordinator
-
-    var joinedTracks: [Track] {
-        filteredTracks.filter { $0.isJoined }
-    }
-
-    var unJoinedTracks: [Track] {
-        filteredTracks.filter { !$0.isJoined }
-    }
+    var joinedTracks = [Track]()
+    var unjoinedTracks = [Track]()
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
     }
 
     func fetchTracks() {
+        state = .Idle
         // this should never happen since we never get to this screen without a token
         guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else
         { return }
@@ -37,29 +38,46 @@ class TracksViewModel: ObservableObject {
         client.tracks { response in
             switch response {
             case .success(let fetchedTracks):
-                self.tracks = fetchedTracks.results
-                self.filteredTracks = fetchedTracks.results
+                self.joinedTracks = fetchedTracks.results.filter { $0.isJoined }
+                self.unjoinedTracks = fetchedTracks.results.filter { !$0.isJoined}
+                self.state = ViewState.Loaded((joinedTracks: self.joinedTracks, unjoinedTracks: self.unjoinedTracks))
             case .failure(let error):
-                // implement error handling
-                print("This is the error: \(error)")
+                self.state = ViewState.Error(error)
             }
         }
     }
 
     func filter(_ filters: Set<String>) {
-        self.filteredTracks = tracks.filter { $0.tags.contains(filters) }
+        if filters.isEmpty {
+            state = .Loaded((joinedTracks, unjoinedTracks))
+        } else {
+            let joined = joinedTracks.filter { $0.tags.contains(filters) }
+            let unjoined = unjoinedTracks.filter { $0.tags.contains(filters) }
+            state = .Loaded((joined, unjoined))
+        }
     }
 
     func search(_ searchText: String) {
-        let filtered = tracks.filter { $0.title.lowercased().contains(searchText) }
-        self.filteredTracks = searchText.isEmpty ? tracks : filtered
+        if searchText.isEmpty {
+            state = .Loaded((joinedTracks, unjoinedTracks))
+        } else {
+            let joined = joinedTracks.filter { $0.title.lowercased().contains(searchText) }
+            let unjoined = unjoinedTracks.filter { $0.title.lowercased().contains(searchText) }
+            state = .Loaded((joined, unjoined))
+        }
+    }
+
+    func sort() {
+        let joined = joinedTracks.sorted(by:  { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
+        let unjoined = unjoinedTracks.sorted(by:  { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
+        state = .Loaded((joined, unjoined))
     }
 
     func goToExercises(_ track: Track) {
         if track.isJoined {
             coordinator.goToTrack(track)
         } else {
-            // show alert to join track on web or show join track in app 
+            // show alert to join track on web or show join track in app
         }
     }
 }
