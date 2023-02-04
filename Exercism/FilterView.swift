@@ -16,35 +16,39 @@ struct FilterView: View {
     var sortAction: () -> Void
 
     var body: some View {
-        HStack(spacing: 0) {
+        HStack {
             HStack {
                 Image(systemName: "magnifyingglass")
                 TextField("Search language filters", text: $searchText)
                     .textFieldStyle(.plain)
             }.padding()
-                .background(RoundedRectangle(cornerRadius: 14)
-                    .fill(.black))
+                .roundEdges()
 
-            RoundedRectButton(labelText: "Show Filters",
-                              systemImage: "line.3.horizontal.decrease.circle") {
+            Button {
                 showingSheet.toggle()
-            }.popover(isPresented: $showingSheet) {
-                FilterTableView(tags: Tag.loadTags(),
-                                selectedTags: $filters,
-                                isPresented: $showingSheet)
-                .interactiveDismissDisabled(false)
-            }
+            } label: {
+                Label("Show Filters", systemImage: "line.3.horizontal.decrease.circle")
+            }.padding()
+                .roundEdges()
+                .buttonStyle(.plain)
+                .popover(isPresented: $showingSheet) {
+                    FilterTableView(tags: Tag.loadTags(),
+                                    selectedTags: $filters,
+                                    isPresented: $showingSheet)
+                    .interactiveDismissDisabled(false)
+                }
 
             Text("Showing all \(results) tracks")
                 .padding()
-                .frame(minHeight: 0, maxHeight: .infinity)
-                .background(RoundedRectangle(cornerRadius: 14)
-                    .fill(.black))
+                .roundEdges()
 
-            RoundedRectButton(labelText: "Sort by last touched",
-                              systemImage: "chevron.down") {
+            Button {
                 sortAction()
-            }
+            } label: {
+                Label("Sort by last touched", systemImage: "chevron.down")
+            }.padding()
+            .roundEdges()
+                .buttonStyle(.plain)
         }
     }
 }
@@ -54,28 +58,7 @@ struct FilterView_Previews: PreviewProvider {
         FilterView(results: .constant(10),
                    searchText: .constant(""),
                    filters: .constant([""])) {
-            print("this is it")
+            print("Filter View pressed")
         }
-    }
-}
-
-struct RoundedRectButton: View {
-    var labelText: String
-    var systemImage: String
-    var background = Color.black
-    var action: () -> Void
-
-    var body: some View {
-        Button {
-            action()
-        } label: {
-            Label(labelText, systemImage: systemImage)
-                .padding()
-                .frame(minHeight: 0, maxHeight: .infinity)
-                .background(background)
-        }.buttonStyle(.plain)
-            .cornerRadius(10)
-            .padding(.horizontal, 10)
-            .accessibilityLabel(labelText)
     }
 }

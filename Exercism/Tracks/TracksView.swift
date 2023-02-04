@@ -20,6 +20,9 @@ struct TracksView: View {
 
     var body: some View {
         VStack {
+            headerView.frame(maxHeight: 110)
+                .padding()
+            Divider().frame(height: 1).background(.gray)
             FilterView(results: $resultsCount,
                        searchText: $searchText,
                        filters: $filters) {
@@ -48,7 +51,8 @@ struct TracksView: View {
                 }.padding()
                 .accessibilityHidden(true)
             }
-        }.accessibilityLabel("All Tracks")
+        }.background(.black)
+        .accessibilityLabel("All Tracks")
             .task {
                 viewModel.fetchTracks()
                 resultsCount = viewModel.tracks.count
@@ -59,6 +63,16 @@ struct TracksView: View {
                 viewModel.filter(newFilters)
                 resultsCount = viewModel.filteredTracks.count
             }
+    }
+
+    var headerView: some View {
+        VStack {
+            Image("trackImages").resizable().frame(maxWidth: 170)
+            Text("66 languages for you to master").font(.largeTitle)
+            Text("Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors")
+                .font(.title)
+                .fixedSize(horizontal: true, vertical: false)
+        }
     }
 }
 

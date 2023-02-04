@@ -17,9 +17,9 @@ struct RoundedRect: ViewModifier {
             .padding([.leading, .trailing], 10)
             .padding([.top, .bottom], 5)
             .overlay {
-                Capsule()
+                RoundedRectangle(cornerRadius: radius, style: .circular)
                     .strokeBorder(borderColor, lineWidth: 1)
                     .background(backgroundColor)
-            }.clipShape(Capsule())
+            }.clipShape(RoundedRectangle(cornerRadius: radius))
     }
 }

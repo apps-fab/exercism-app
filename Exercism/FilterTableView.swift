@@ -30,14 +30,15 @@ struct FilterTableView: View {
                 }
             }
             HStack(spacing: 5) {
-                RoundedRectButton(labelText: "Apply", systemImage: "", background: Color("purple")) {
+                Button("Apply") {
                     isPresented = false
                 }.frame(height: 50)
-
-                RoundedRectButton(labelText: "Close", systemImage: "") {
+                    .roundEdges(backgroundColor: .purple)
+                Button("Close") {
                     selectedTags.removeAll()
                     isPresented = false
                 }.frame(height: 50)
+                    .roundEdges(backgroundColor: .purple)
             }.frame(alignment: .bottomLeading)
         }.padding()
     }
