@@ -19,11 +19,12 @@ struct FilterTableView: View {
                 ForEach(tags, id: \.self) { tag in
                     VStack(alignment: .leading) {
                         Text(tag.type).bold().padding(.vertical, 5)
-                        ForEach(tag.tags, id: \.self) { tags in
+                        ForEach(tag.tags, id: \.self) { tag in
                             Button {
-                                toggle(tags)
+                                toggle(tag)
                             } label: {
-                                Label(tags, systemImage: selectedTags.contains(tags) ? "checkmark.square" : "square")
+                                Label(tag,
+                                      systemImage: selectedTags.contains(tag) ? "checkmark.square" : "square")
                             }.buttonStyle(.plain)
                                 .padding(2)
                         }
@@ -35,13 +36,13 @@ struct FilterTableView: View {
                     isPresented = false
                 }.frame(width: 100, height: 30)
                     .buttonStyle(.plain)
-                    .roundEdges(backgroundColor: Color.purple)
+                    .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                 Button("Close") {
                     selectedTags.removeAll()
                     isPresented = false
                 }.frame(width: 100, height: 30)
                     .buttonStyle(.plain)
-                    .roundEdges(backgroundColor: Color.purple)
+                    .roundEdges(backgroundColor: Color.gray)
             }.frame(alignment: .bottomLeading)
         }.padding()
     }

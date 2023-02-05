@@ -9,21 +9,22 @@ import SwiftUI
 import ExercismSwift
 
 struct FilterView: View {
-    @State private var showingSheet = false
     @Binding var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
+    @State private var showingSheet = false
     var sortAction: () -> Void
 
     var body: some View {
         HStack {
-            HStack {
+            ZStack(alignment: .leading) {
                 Image(systemName: "magnifyingglass")
                 TextField("Search language filters", text: $searchText)
+                    .padding(.horizontal, 30)
                     .textFieldStyle(.plain)
             }.padding()
                 .roundEdges()
-
+             
             Button {
                 showingSheet.toggle()
             } label: {

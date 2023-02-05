@@ -43,6 +43,7 @@
 		FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */; };
 		FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */; };
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
+		FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */; };
 		FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDEC77022892FC2A0093F764 /* ExercismSwift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				FDABC23D292BCDC000A2AB72 /* ExerciseList */,
 				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
 				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
+				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */,
+				FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */,
 				FD0B071228F5F77300FCA956 /* FilterView.swift in Sources */,
 				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct RoundedRect<background: View>: ViewModifier {
     let radius: CGFloat
-    let borderColor: Color
+    var borderColor: Color
     let backgroundColor: background
 
     func body(content: Content) -> some View {
-        content
+        return content
             .padding([.leading, .trailing], 10)
             .padding([.top, .bottom], 5)
             .background {
