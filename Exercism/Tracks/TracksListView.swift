@@ -77,7 +77,7 @@ struct TracksListView: View {
                     resultsCount = tracks.joinedTracks.count + tracks.unjoinedTracks.count
                 }
         case .loading:
-            ProgressView()
+            ProgressView().frame(width: 20, height: 20)
         case .Error(let error):
             EmptyView()
         }
@@ -91,6 +91,7 @@ struct TracksListView: View {
                 .frame(maxWidth: 170)
             Text("66 languages for you to master").font(.largeTitle)
             Text("Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors")
+                .multilineTextAlignment(.center)
                 .font(.title2)
                 .fixedSize(horizontal: false, vertical: true)
         }

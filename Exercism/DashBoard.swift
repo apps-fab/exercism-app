@@ -63,7 +63,8 @@ struct DashBoard: View {
         } detail: {
             TracksListView(viewModel: TracksViewModel(coordinator: coordinator))
         }.toolbar {
-            ToolbarItem(placement: .navigation) {
+            ToolbarItemGroup {
+                Spacer()
                 Button {
                     showProfile.toggle()
                 } label: {

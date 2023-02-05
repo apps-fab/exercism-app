@@ -86,6 +86,11 @@ struct TrackGridView: View {
                     Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
                     let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
                     ProgressView(value: value)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .purple))
+                        .frame(height: 2)
+                        .background {
+                            LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing).opacity(0.8)
+                        }
                         .accessibilityHidden(true)
                 }
             } else {
