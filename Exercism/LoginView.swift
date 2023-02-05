@@ -100,7 +100,7 @@ struct LoginView: View {
             .background(Color("purple"))
             .cornerRadius(7).buttonStyle(.plain)
             .padding()
-            Text("You can find your token on your [settings page](https://exercism.org/settings)")
+            Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
                 .padding()
             
             Text("Important: The token above should be treated like a password and not be shared with anyone!")

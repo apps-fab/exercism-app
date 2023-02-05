@@ -24,6 +24,7 @@ struct ExerciseEditorView: View {
     @State var codeChanged = false
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var show = true
 
     var body: some View {
         VStack(spacing: 0) {
@@ -51,7 +52,6 @@ struct ExerciseEditorView: View {
 
             Divider()
 
-
             HStack {
                 Picker("Theme", selection: $settingData.theme) {
                     ForEach(CodeEditor.availableThemes) { theme in
@@ -62,6 +62,12 @@ struct ExerciseEditorView: View {
             }
                 .padding()
         }
+        .alert(String("Test submission"), isPresented: $exerciseObject.showTestSubmissionResponseMessage) {
+                Button("OK", role: .cancel) {
+                }
+            } message: {
+                Text(exerciseObject.testSubmissionResponseMessage)
+            }
     }
 }
 
