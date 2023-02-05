@@ -28,7 +28,7 @@ struct ProfileTableView: View {
                     Text("@AngieMugo")
                 }
                 Image(systemName: "rectangle.portrait.and.arrow.right")
-            }.padding()
+            }.padding([.leading, .top])
             List(ProfileItems.allCases) { item in
                 Text(item.rawValue)
             }

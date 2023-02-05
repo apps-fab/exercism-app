@@ -69,7 +69,7 @@ struct DashBoard: View {
                 } label: {
                     Label("", systemImage: "person.crop.circle.fill")
                 }   .popover(isPresented: $showProfile) {
-                    ProfileTableView().frame(width: 200, height: 200)
+                    ProfileTableView().frame(width: 180, height: 200)
                 }
             }
         }.navigationTitle("Exercism")
