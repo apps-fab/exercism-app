@@ -25,7 +25,7 @@ struct TrackGridView: View {
                 .frame(width: 450, height: 100)
                 .padding()
         }.frame(width: 600, height: 150)
-            .roundEdges(backgroundColor: Color.black, lineColor: .clear)
+            .roundEdges(backgroundColor: Color("darkBackground"), lineColor: .clear)
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
                 if track.isJoined {
@@ -70,7 +70,7 @@ struct TrackGridView: View {
                 }, icon: {
                     Image("exercise")
                         .renderingMode(.template)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primary)
                 })
 
                 Label(title: {
@@ -78,7 +78,7 @@ struct TrackGridView: View {
                 }, icon: {
                     Image("concept")
                         .renderingMode(.template)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primary)
                 })
             }
             if track.isJoined {
@@ -91,7 +91,7 @@ struct TrackGridView: View {
             } else {
                 HStack() {
                     ForEach(track.tags.prefix(3), id: \.self) { track in
-                        Text(track).bold().roundEdges(lineColor: .white)
+                        Text(track).bold().roundEdges()
                     }
                 }
             }

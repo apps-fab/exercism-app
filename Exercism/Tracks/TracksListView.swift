@@ -26,7 +26,7 @@ struct TracksListView: View {
             VStack {
                 VStack {
                     headerView
-                        .background(.black)
+                        .background(Color("darkBackground"))
                         .frame(maxWidth: 650, maxHeight: 160)
                         .padding()
                     Divider().frame(height: 1)
@@ -37,13 +37,13 @@ struct TracksListView: View {
                     }.frame(maxHeight: 50)
                         .padding()
                     Divider().frame(height: 1)
-                }.background(.black)
+                }.background(Color("darkBackground"))
                 ScrollView {
                     VStack(alignment: .leading) {
                         Text("Joined Tracks")
                             .font(.largeTitle)
                             .padding()
-                        LazyVGrid(columns: columns) {
+                        LazyVGrid(columns: columns, spacing: 30) {
                             ForEach(tracks.joinedTracks) { track in
                                 Button {
                                     viewModel.goToExercises(track)
@@ -56,7 +56,7 @@ struct TracksListView: View {
                         Text("Unjoined Tracks")
                             .font(.largeTitle)
                             .padding()
-                        LazyVGrid(columns: columns) {
+                        LazyVGrid(columns: columns, spacing: 30) {
                             ForEach(tracks.unjoinedTracks) { track in
                                 Button {
                                     viewModel.goToExercises(track)

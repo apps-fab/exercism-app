@@ -33,7 +33,7 @@ struct ExercisesList: View {
                         }
                 }.padding()
                     .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(.black))
+                        .fill(Color("darkBackground")))
                 Picker("Some Picker", selection: $segmentationSelection) {
                     ForEach(ExerciseCategory.allCases, id: \.self) { option in
                         Text(option.rawValue)

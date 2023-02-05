@@ -66,7 +66,7 @@ struct ExerciseGridView: View {
                         .font(.system(size: 12, weight: .semibold))
                 } else {
                     Label(exercise.difficulty, systemImage: "square.fill")
-                        .roundEdges(backgroundColor: Color.green.opacity(0.2), lineColor: .black)
+                        .roundEdges(backgroundColor: Color.green.opacity(0.2), lineColor: Color("darkBackground"))
                         .font(.system(size: 12, weight: .semibold))
                 }
             }

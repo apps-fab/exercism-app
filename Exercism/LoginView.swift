@@ -27,7 +27,7 @@ struct LoginView: View {
                     .frame(width: geometry.size.width * 0.33,
                            height: geometry.size.height)
                     .background(.white)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("darkBackground"))
             }.background(.white)
                 .alert("Error logging in", isPresented: $showAlert, actions: {
                     // actions
