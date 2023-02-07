@@ -23,6 +23,5 @@ struct ExercismApp: App {
             ContentView()
                 .environmentObject(settings)
         }
-        .windowStyle(HiddenTitleBarWindowStyle())
     }
 }
