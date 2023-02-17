@@ -69,12 +69,10 @@ struct TracksListView: View {
                         .accessibilityHidden(true)
                 }
             }.accessibilityLabel("All Tracks")
-             .onChange(of: searchText) { newSearch in
+                .onChange(of: searchText) { newSearch in
                     viewModel.search(newSearch)
-                 resultsCount = tracks.joinedTracks.count + tracks.unjoinedTracks.count
                 }.onChange(of: filters) { newFilters in
                     viewModel.filter(newFilters)
-                    resultsCount = tracks.joinedTracks.count + tracks.unjoinedTracks.count
                 }
         case .loading:
             ProgressView().frame(width: 20, height: 20)

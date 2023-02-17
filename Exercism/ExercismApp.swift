@@ -22,6 +22,7 @@ struct ExercismApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(settings)
+                .navigationTitle("Exercism")
         }
     }
 }

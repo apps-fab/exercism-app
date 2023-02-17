@@ -73,7 +73,7 @@ struct DashBoard: View {
                     ProfileTableView().frame(width: 180, height: 200)
                 }
             }
-        }.navigationTitle("Exercism")
+        }
     }
     
     func logout() {
