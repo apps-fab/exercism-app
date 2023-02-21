@@ -81,18 +81,17 @@ struct TrackGridView: View {
                         .foregroundColor(Color.primary)
                 })
             }
+            
             if track.isJoined {
-                VStack {
+                let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
+
+                let gradient = Gradient(colors: [.purple, .indigo, .purple])
+                Gauge(value: value) {
+                    //
+                } currentValueLabel: {
                     Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
-                    let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
-                    ProgressView(value: value)
-                        .progressViewStyle(LinearProgressViewStyle(tint: .purple))
-                        .frame(height: 2)
-                        .background {
-                            LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing).opacity(0.8)
-                        }
-                        .accessibilityHidden(true)
-                }
+                }.tint(gradient)
+                    .gaugeStyle(.accessoryLinearCapacity)
             } else {
                 HStack() {
                     ForEach(track.tags.prefix(3), id: \.self) { track in
