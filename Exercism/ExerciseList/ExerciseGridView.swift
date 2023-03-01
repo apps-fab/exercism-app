@@ -29,6 +29,7 @@ struct ExerciseGridView: View {
             Spacer()
         }.frame(width: 500, height: 150)
             .border(.gray, width: 1)
+            .roundEdges()
             .padding()
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
@@ -44,21 +45,21 @@ struct ExerciseGridView: View {
         HStack {
             if !exercise.isRecommended && exercise.isUnlocked {
                 Label("Completed", systemImage: "checkmark.circle.fill")
-                    .roundEdges(backgroundColor: .green.opacity(0.2), lineColor: .green)
+                    .roundEdges(backgroundColor: Color.green.opacity(0.2), lineColor: .green)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.green)
             }
             
             if exercise.isRecommended && exercise.isUnlocked {
                 Text("In-progress")
-                    .roundEdges(backgroundColor: .blue.opacity(0.2), lineColor: .blue)
+                    .roundEdges(backgroundColor: Color.blue.opacity(0.2), lineColor: .blue)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.blue)
             }
             
             if !exercise.isUnlocked {
                 Label("Locked", systemImage: "lock")
-                    .roundEdges(backgroundColor: .blue.opacity(0.2))
+                    .roundEdges(backgroundColor: Color.blue.opacity(0.2))
                     .font(.system(size: 12, weight: .semibold))
                 if exercise.type == "concept" {
                     Label("Learning Exercise", systemImage: "lightbulb")
@@ -66,7 +67,7 @@ struct ExerciseGridView: View {
                         .font(.system(size: 12, weight: .semibold))
                 } else {
                     Label(exercise.difficulty, systemImage: "square.fill")
-                        .roundEdges(backgroundColor: .green.opacity(0.2), lineColor: .black)
+                        .roundEdges(backgroundColor: Color.green.opacity(0.2), lineColor: Color("darkBackground"))
                         .font(.system(size: 12, weight: .semibold))
                 }
             }

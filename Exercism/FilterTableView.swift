@@ -19,30 +19,47 @@ struct FilterTableView: View {
                 ForEach(tags, id: \.self) { tag in
                     VStack(alignment: .leading) {
                         Text(tag.type).bold().padding(.vertical, 5)
-                        ForEach(tag.tags, id: \.self) { tags in
-                            Button {
-                                toggle(tags)
-                            } label: {
-                                Label(tags, systemImage: selectedTags.contains(tags) ? "checkmark.square" : "square")
-                            }.buttonStyle(.plain).padding(2)
+                        ForEach(tag.tags, id: \.self) { tag in
+                            setupTag(tag)
                         }
                     }
                 }
             }
             HStack(spacing: 5) {
-                RoundedRectButton(labelText: "Apply", systemImage: "", background: Color("purple")) {
+                Button("Apply") {
                     isPresented = false
-                }.frame(height: 50)
-
-                RoundedRectButton(labelText: "Close", systemImage: "") {
+                }.frame(width: 100, height: 30)
+                    .buttonStyle(.plain)
+                    .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
+                Button("Close") {
                     selectedTags.removeAll()
                     isPresented = false
-                }.frame(height: 50)
+                }.frame(width: 100, height: 30)
+                    .buttonStyle(.plain)
+                    .roundEdges(backgroundColor: Color.gray)
             }.frame(alignment: .bottomLeading)
         }.padding()
     }
 
-    func toggle(_ tag: String) {
+    func setupTag(_ tag: String) -> some View {
+        let button = Button {
+            toggleTags(tag)
+        } label: {
+            Label {
+                Text(tag)
+            } icon: {
+                if selectedTags.contains(tag) {
+                    Image(systemName: "checkmark.square.fill").renderingMode(.template).colorMultiply(.purple)
+                } else {
+                    Image(systemName: "square")
+                }
+            }
+        }.buttonStyle(.plain)
+            .padding(2)
+        return button
+    }
+
+    func toggleTags(_ tag: String) {
         if selectedTags.contains(tag) {
             selectedTags.remove(tag)
         } else {
