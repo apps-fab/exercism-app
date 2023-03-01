@@ -17,6 +17,8 @@ enum ProfileItems: String, CaseIterable, Identifiable {
 }
 
 struct ProfileTableView: View {
+    @State private var selection: ProfileItems = .Profile
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -29,8 +31,8 @@ struct ProfileTableView: View {
                 }
                 Image(systemName: "rectangle.portrait.and.arrow.right")
             }.padding([.leading, .top])
-            List(ProfileItems.allCases) { item in
-                Text(item.rawValue)
+            List(ProfileItems.allCases, selection: $selection) { item in
+                Text(item.rawValue).foregroundColor(selection == item ? .purple : .primary)
             }
         }
     }
