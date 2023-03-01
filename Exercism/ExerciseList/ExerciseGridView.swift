@@ -29,6 +29,7 @@ struct ExerciseGridView: View {
             Spacer()
         }.frame(width: 500, height: 150)
             .border(.gray, width: 1)
+            .roundEdges()
             .padding()
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in

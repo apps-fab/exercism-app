@@ -25,7 +25,7 @@ struct TrackGridView: View {
                 .frame(width: 450, height: 100)
                 .padding()
         }.frame(width: 600, height: 150)
-            .roundEdges(backgroundColor: Color("darkBackground"), lineColor: .clear)
+            .roundEdges(backgroundColor: Color("darkBackground"), lineColor: isHover ? .purple : .clear)
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
                 if track.isJoined {

@@ -20,13 +20,7 @@ struct FilterTableView: View {
                     VStack(alignment: .leading) {
                         Text(tag.type).bold().padding(.vertical, 5)
                         ForEach(tag.tags, id: \.self) { tag in
-                            Button {
-                                toggle(tag)
-                            } label: {
-                                Label(tag,
-                                      systemImage: selectedTags.contains(tag) ? "checkmark.square" : "square")
-                            }.buttonStyle(.plain)
-                                .padding(2)
+                            setupTag(tag)
                         }
                     }
                 }
@@ -47,7 +41,25 @@ struct FilterTableView: View {
         }.padding()
     }
 
-    func toggle(_ tag: String) {
+    func setupTag(_ tag: String) -> some View {
+        let button = Button {
+            toggleTags(tag)
+        } label: {
+            Label {
+                Text(tag)
+            } icon: {
+                if selectedTags.contains(tag) {
+                    Image(systemName: "checkmark.square.fill").renderingMode(.template).colorMultiply(.purple)
+                } else {
+                    Image(systemName: "square")
+                }
+            }
+        }.buttonStyle(.plain)
+            .padding(2)
+        return button
+    }
+
+    func toggleTags(_ tag: String) {
         if selectedTags.contains(tag) {
             selectedTags.remove(tag)
         } else {

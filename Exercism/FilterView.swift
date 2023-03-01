@@ -13,6 +13,7 @@ struct FilterView: View {
     @Binding var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
+    @FocusState private var fieldFocused: Bool
     var sortAction: () -> Void
 
     var body: some View {
@@ -23,14 +24,15 @@ struct FilterView: View {
                     .padding(.horizontal, 30)
                     .textFieldStyle(.plain)
             }.padding()
-                .roundEdges()
+                .roundEdges(lineColor: fieldFocused ? .purple : .gray)
+                .focused($fieldFocused)
              
             Button {
                 showingSheet.toggle()
             } label: {
                 Label("Show Filters", systemImage: "line.3.horizontal.decrease.circle")
             }.padding()
-                .roundEdges()
+                .roundEdges(lineColor: showingSheet ? .purple : .gray)
                 .buttonStyle(.plain)
                 .popover(isPresented: $showingSheet) {
                     FilterTableView(tags: Tag.loadTags(),
@@ -41,7 +43,7 @@ struct FilterView: View {
 
             Text("Showing all \(results) tracks")
                 .padding()
-                .roundEdges()
+                .roundEdges(backgroundColor: Color.primary.opacity(0.2))
 
             Button {
                 sortAction()
@@ -50,6 +52,8 @@ struct FilterView: View {
             }.padding()
             .roundEdges()
                 .buttonStyle(.plain)
+        }.onAppear {
+            fieldFocused = false
         }
     }
 }

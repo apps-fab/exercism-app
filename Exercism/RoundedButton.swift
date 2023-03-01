@@ -9,8 +9,9 @@ import SwiftUI
 
 struct RoundedRect<background: View>: ViewModifier {
     let radius: CGFloat
-    var borderColor: Color
+    let borderColor: Color
     let backgroundColor: background
+    @State private var highlight: Bool = false
 
     func body(content: Content) -> some View {
         return content
@@ -18,7 +19,7 @@ struct RoundedRect<background: View>: ViewModifier {
             .padding([.top, .bottom], 5)
             .background {
                 RoundedRectangle(cornerRadius: radius, style: .circular)
-                    .strokeBorder(borderColor, lineWidth: 1)
+                    .strokeBorder(highlight ? .purple : borderColor, lineWidth: 1)
                     .background(backgroundColor)
             }.clipShape(RoundedRectangle(cornerRadius: radius))
     }
