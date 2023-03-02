@@ -20,14 +20,18 @@ enum ExerciseCategory : String, CaseIterable, Identifiable {
 
 struct ExercisesList: View {
     @StateObject var viewModel: ExerciseListViewModel
-    @State var segmentationSelection: ExerciseCategory = .AllExercises
+    @State private var exerciseCategory: ExerciseCategory = .AllExercises
+    @State private var contentCategory: _Content = .Exercises
     @State private var searchText = ""
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         ScrollView {
             VStack {
-                ExerciseHeaderView(track: viewModel.track).padding()
+                ExerciseHeaderView(track: viewModel.track,
+                                   contentSelection: $contentCategory,
+                                   exerciseCategory: $exerciseCategory,
+                                   searchText: $searchText)
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.exercisesList, id: \.self) { exercise in
@@ -41,6 +45,14 @@ struct ExercisesList: View {
             }.task {
                 viewModel.fetchExerciseList()
             }
+        }.onChange(of: searchText) { newValue in
+            viewModel.filter(searchText)
+        }
+        .onChange(of: exerciseCategory) { newValue in
+            viewModel.toggleSelection(newValue)
+        }
+        .onChange(of: contentCategory) { newValue in
+//            viewModel.toggleSelection(newValue)
         }
     }
 }

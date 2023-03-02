@@ -17,13 +17,31 @@ enum _Content: String, CaseIterable, Identifiable {
     case buildStatus
 
     var id: Self { return self }
+
+    var icon: String {
+        switch self {
+        case .Exercises:
+            return "dumbbell.fill"
+        case .overview:
+            return "square.split.bottomrightquarter.fill"
+
+        case .syllabus:
+            return "scale.3d"
+
+        case .about:
+            return "exclamationmark.circle"
+
+        case .buildStatus:
+            return "hammer"
+        }
+    }
 }
 
 struct ExerciseHeaderView: View {
     let track: Track
-    @State var contentSelection: _Content = .Exercises
-    @State var exerciseCategory: ExerciseCategory = .AllExercises
-    @State private var searchText = ""
+    @Binding var contentSelection: _Content
+    @Binding var exerciseCategory: ExerciseCategory
+    @Binding var searchText: String
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -41,13 +59,13 @@ struct ExerciseHeaderView: View {
                 HStack {
                     ForEach(_Content.allCases) { content in
                         VStack {
-                            Label(content.rawValue, systemImage: "hammer")
+                            Label(content.rawValue, systemImage: content.icon)
                                 .foregroundColor(content == contentSelection ? .purple : .gray)
                             Divider()
                                 .frame(height: 2)
                                 .background(content == contentSelection ? .purple : .gray)
                         }.padding()
-                            .frame(maxWidth: 150)
+                        .frame(maxWidth: 150)
                             .onTapGesture {
                                 contentSelection = content
                             }
@@ -58,7 +76,7 @@ struct ExerciseHeaderView: View {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField("Search language filters", text: $searchText)
+                    TextField("Search by title", text: $searchText)
                         .textFieldStyle(.plain)
                         .onSubmit {
                             // what do when filtering
@@ -79,7 +97,7 @@ struct ExerciseHeaderView: View {
                         }
                     }
                 }.padding()
-            }
+            }.padding()
         }
 
     }
