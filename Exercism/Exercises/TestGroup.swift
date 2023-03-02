@@ -18,4 +18,10 @@ struct TestGroup: Identifiable {
         self.tests = tests
         self.testId = testId
     }
+
+    func passed(taskId: Int) -> Bool {
+        tests?.allSatisfy {
+            $0.test?.status == .pass
+        } ?? false
+    }
 }
