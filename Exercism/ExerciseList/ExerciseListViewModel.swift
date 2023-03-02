@@ -11,11 +11,11 @@ import ExercismSwift
 class ExerciseListViewModel: ObservableObject {
     @Published var exercisesList = [Exercise]()
     private var allExercises = [Exercise]()
-    let trackName: String
+    let track: Track
     let coordinator: AppCoordinator
 
-    init(trackName: String, coordinator: AppCoordinator) {
-        self.trackName = trackName
+    init(track: Track, coordinator: AppCoordinator) {
+        self.track = track
         self.coordinator = coordinator
     }
 
@@ -23,7 +23,7 @@ class ExerciseListViewModel: ObservableObject {
         guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else
         { return }
         let client = ExercismClient(apiToken: token)
-        client.exercises(for: trackName) { result in
+        client.exercises(for: track.slug) { result in
             switch result {
             case .success(let exerciseList):
                 self.allExercises = exerciseList.results
@@ -56,7 +56,7 @@ class ExerciseListViewModel: ObservableObject {
 
     func goToExercise(_ exercise: Exercise) {
         if exercise.isUnlocked {
-            coordinator.goToEditor(trackName, exercise.slug)
+            coordinator.goToEditor(track.slug, exercise.slug)
         } else {
             // show alert to user 
         }

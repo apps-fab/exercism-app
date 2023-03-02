@@ -27,9 +27,9 @@ struct ExerciseGridView: View {
                 Text(exercise.blurb)
             }.padding()
             Spacer()
+            Image(systemName: exercise.isUnlocked ? "chevron.right" : "lock")
         }.frame(width: 500, height: 150)
-            .border(.gray, width: 1)
-            .roundEdges()
+            .roundEdges(backgroundColor: Color("darkBackground"), lineColor: isHover ? .purple : .clear)
             .padding()
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
@@ -75,8 +75,8 @@ struct ExerciseGridView: View {
     }
 }
 
-struct ExerciseGridView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseGridView(exercise: ExerciseListViewModel(trackName: "Python", coordinator: AppCoordinator()).exercisesList[0])
-    }
-}
+//struct ExerciseGridView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        ExerciseGridView(exercise: ExerciseListViewModel(track: "Python", coordinator: AppCoordinator()).exercisesList[0])
+//    }
+//}

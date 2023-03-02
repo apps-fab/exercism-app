@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-enum ExerciseCategory : String, CaseIterable {
+enum ExerciseCategory : String, CaseIterable, Identifiable {
     case AllExercises
     case Completed
     case InProgress
     case Available
     case locked
+
+    var id: Self { return self }
+
 }
 
 struct ExercisesList: View {
@@ -24,25 +27,8 @@ struct ExercisesList: View {
     var body: some View {
         ScrollView {
             VStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search language filters", text: $searchText)
-                        .textFieldStyle(.plain)
-                        .onSubmit {
-                            viewModel.filter(searchText)
-                        }
-                }.padding()
-                    .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(Color("darkBackground")))
-                Picker("Some Picker", selection: $segmentationSelection) {
-                    ForEach(ExerciseCategory.allCases, id: \.self) { option in
-                        Text(option.rawValue)
-                    }
-                }.pickerStyle(.segmented)
-                    .padding()
-                    .onChange(of: segmentationSelection) { newValue in
-                        viewModel.toggleSelection(segmentationSelection)
-                    }
+                ExerciseHeaderView(track: viewModel.track).padding()
+                Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.exercisesList, id: \.self) { exercise in
                         Button {
@@ -59,8 +45,8 @@ struct ExercisesList: View {
     }
 }
 
-struct ExercisesList_Previews: PreviewProvider {
-    static var previews: some View {
-        ExercisesList(viewModel: ExerciseListViewModel(trackName: "Python", coordinator: AppCoordinator()))
-    }
-}
+//struct ExercisesList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExercisesList(viewModel: ExerciseListViewModel(trackName: , coordinator: AppCoordinator()))
+//    }
+//}

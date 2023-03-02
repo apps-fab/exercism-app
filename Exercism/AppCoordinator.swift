@@ -53,7 +53,7 @@ struct Coordinator: View {
                             ExerciseEditorWindowView(exercise: exercise, track: track)
 
                         case let .Track(track):
-                            ExercisesList(viewModel: ExerciseListViewModel(trackName: track.slug, coordinator: coordinator))
+                            ExercisesList(viewModel: ExerciseListViewModel(track: track, coordinator: coordinator))
 
                         case .Login:
                             LoginView(coordinator: coordinator)
