@@ -1,85 +1,19 @@
+// Display result of test run
 //
-//  ExerciseRightSidebarView.swift
-//  Exercism
-//
-//  Created by Kirk Agbenyegah on 29/09/2022.
+//  Created by Kirk Agbenyegah on 07/02/2023.
 //
 
 import SwiftUI
 import ExercismSwift
 
-struct ExerciseRightSidebarView: View {
-    @EnvironmentObject var exerciseObject: ExerciseViewModel
-    var instruction: String? {
-        exerciseObject.instruction
-    }
-
+struct TestRunResultView: View {
+    let testRun: TestRun
     var body: some View {
-        TabView {
-            if let instruction = instruction {
-
-                VStack {
-                    Text(instruction)
-                }
-                    .tabItem {
-                        TabLabel(imageName: "checklist", label: "Instructions")
-                    }
-            }
-            VStack(alignment: HorizontalAlignment.leading) {
-                if let averageTestDuration = exerciseObject.averageTestDuration {
-                    TestRunProgress(totalSecs: averageTestDuration)
-                } else {
-                    if let testRun = exerciseObject.testRun {
-                        TestRunResultView(testRun: testRun)
-                    } else {
-                        NoTestRun()
-                    }
-                }
-            }
-                .tabItem {
-                    TabLabel(imageName: "text.badge.checkmark", label: "Results")
-                }
-        }
-    }
-
-    struct TabLabel: View {
-        let imageName: String
-        let label: String
-
-        var body: some View {
-            HStack {
-                Image(systemName: imageName)
-                Text(label)
-            }
-        }
-    }
-
-    struct NoTestRun: View {
-        var body: some View {
-            VStack {
-                Image(systemName: "doc.badge.gearshape")
-                Text("Run tests to check your code")
-                Text("We'll run your code against tests to check whether it works, then give you the results here.")
-
-            }
-        }
-    }
-
-    struct TestRunProgress: View {
-        let totalSecs: Double
-        @State private var progress = 0.0
-        let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-
-        var body: some View {
-            VStack {
-                ProgressView("Running tests...", value: progress, total: 100)
-                    .onReceive(timer) { _ in
-                        if progress < 100 {
-                            progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
-                        }
-                    }
-                Text("Estimated running time ~ \(totalSecs)s")
-            }
+        if case let .pass = testRun.status {
+            TestPassed()
+        } else {
+            TestRunSummaryHeader(testRun: testRun)
+            TestGroupedByTaskList(testRun: testRun)
         }
     }
 
@@ -140,36 +74,58 @@ struct ExerciseRightSidebarView: View {
         let testRun: TestRun
         var body: some View {
             let testGroup = testRun.testGroupedByTaskList()
-            List(testGroup, children: \.tests) { group in
-                if let task = group.task {
-                    HStack {
-                        Text("Task \(String(describing: task.id))")
-                        Text(task.title)
+            VStack(alignment: .leading) {
+                CollapsibleTest(test: testGroup.first!.tests!.first!.test!, testId: 1, collapsed: true)
+                List(testGroup, children: \.tests) { group in
+                    if let task = group.task {
+                        HStack {
+                            Text("Task \(String(describing: task.id))")
+                                .fontWeight(.bold)
+                                .textCase(.uppercase)
+                                .textFieldStyle(.roundedBorder)
+                                .background(group.passed(taskId: task.id) ? Color.green : Color.lightGold)
+                                .foregroundColor(Color.white)
+                            Text(task.title)
+                                .fontWeight(.semibold)
+                        }
+                    }
+                    if let test = group.test {
+                        VStack(alignment: .leading) {
+                            CollapsibleTest(test: test, testId: test.index ?? group.testId!, collapsed: test.status == .fail)
+                        }
                     }
                 }
-                if let test = group.test {
-                    CollapsibleTest(test: test, testId: test.index ?? group.testId!).frame(width: 300.0)
-                }
             }
+                .padding()
         }
     }
 
     struct CollapsibleTest: View {
         let test: Test
         let testId: Int
-        @State private var collapsed: Bool = true
+        @State var collapsed: Bool = true
 
-        func statusLabel(status: TestStatus) -> String {
+        func statusLabel(status: TestStatus) -> some View {
             var label = ""
+            var color = Color.red
             switch status {
             case .pass:
                 label = "Passed"
+                color = .green
                 break
             default:
+                color = .red
                 label = "Failed"
             }
 
-            return label
+            return Label(
+                title: { Text(label) },
+                icon: {
+                    Image(systemName: "circle.fill")
+                        .imageScale(.small)
+                        .foregroundColor(color)
+                }
+            )
         }
 
         func messageLabel(status: TestStatus) -> String {
@@ -194,7 +150,7 @@ struct ExerciseRightSidebarView: View {
             DisclosureGroup(
                 isExpanded: $showContent,
                 content: {
-                    VStack {
+                    VStack(spacing: 0) {
                         if let testCode = test.testCode, !testCode.isEmpty {
                             Text("Code Run")
                             Text(testCode)
@@ -209,12 +165,12 @@ struct ExerciseRightSidebarView: View {
                             Text("Your Output")
                             Text(outputHtml)
                         }
-                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 },
 
                 label: {
-                    HStack {
-                        Text(statusLabel(status: test.status))
+                    HStack(alignment: .center) {
+                        statusLabel(status: test.status)
                         VStack {
                             Text("Test \(String(describing: testId))")
 
@@ -223,18 +179,15 @@ struct ExerciseRightSidebarView: View {
                     }
                         .padding(.bottom, 1)
                         .background(Color.white.opacity(0.01))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
 
                 }
             )
         }
     }
-
 }
 
-struct ExerciseRightSidebarView_Previews: PreviewProvider {
+struct TestRunResultView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseRightSidebarView()
+        TestRunResultView(testRun: PreviewData.shared.testRun())
     }
 }
