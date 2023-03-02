@@ -7,19 +7,20 @@
 
 import SwiftUI
 
-struct RoundedRect: ViewModifier {
+struct RoundedRect<background: View>: ViewModifier {
     let radius: CGFloat
     let borderColor: Color
-    let backgroundColor: Color
+    let backgroundColor: background
+    @State private var highlight: Bool = false
 
     func body(content: Content) -> some View {
-        content
+        return content
             .padding([.leading, .trailing], 10)
             .padding([.top, .bottom], 5)
-            .overlay {
-                Capsule()
-                    .strokeBorder(borderColor, lineWidth: 1)
+            .background {
+                RoundedRectangle(cornerRadius: radius, style: .circular)
+                    .strokeBorder(highlight ? .purple : borderColor, lineWidth: 1)
                     .background(backgroundColor)
-            }.clipShape(Capsule())
+            }.clipShape(RoundedRectangle(cornerRadius: radius))
     }
 }

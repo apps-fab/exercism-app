@@ -19,9 +19,11 @@ extension View {
         }
     }
 
-    func roundEdges(backgroundColor: Color = .clear, lineColor: Color = .white, cornerRadius: CGFloat = 20) -> some View {
-        modifier(RoundedRect(radius: cornerRadius,
+    func roundEdges(backgroundColor: some View = Color.clear, lineColor: Color = .gray, cornerRadius: CGFloat = 20) -> some View {
+      modifier(RoundedRect(radius: cornerRadius,
                              borderColor: lineColor,
                              backgroundColor: backgroundColor))
     }
+
+
 }

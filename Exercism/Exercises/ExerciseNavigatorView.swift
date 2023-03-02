@@ -17,13 +17,13 @@ struct ExerciseNavigatorView: View {
     var selected: ExerciseFile? {
         exerciseObject.selectedFile
     }
-
+    
     var body: some View {
         List {
             ForEach(files) { file in
-                    FileView(file: file, selected: selected == file).onTapGesture {
-                            exerciseObject.selectFile(file)
-                        }
+                FileView(file: file, selected: selected == file).onTapGesture {
+                    exerciseObject.selectFile(file)
+                }
             }
         }
     }

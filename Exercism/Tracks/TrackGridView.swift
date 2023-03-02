@@ -22,11 +22,10 @@ struct TrackGridView: View {
                 .frame(width: 100, height: 100)
                 .accessibilityHidden(true)
             trackView
-                .frame(width: 350, height: 100)
+                .frame(width: 450, height: 100)
                 .padding()
-        }.frame(width: 500, height: 200)
-            .border(.gray, width: 1)
-            .padding()
+        }.frame(width: 600, height: 150)
+            .roundEdges(backgroundColor: Color("darkBackground"), lineColor: isHover ? .purple : .clear)
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
                 if track.isJoined {
@@ -43,7 +42,7 @@ struct TrackGridView: View {
                 Text(track.title).bold()
                 if track.course && !track.isJoined {
                     Label("Learning Mode", systemImage: "checkmark")
-                        .roundEdges(backgroundColor: Color("purple"))
+                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
 
@@ -54,14 +53,14 @@ struct TrackGridView: View {
                         Image("stars")
                             .renderingMode(.template)
                             .foregroundColor(.yellow)
-                    }).roundEdges(backgroundColor: .blue.opacity(0.5))
+                    }).roundEdges(backgroundColor: Color.blue.opacity(0.5))
                         .font(.system(size: 12, weight: .semibold))
                 }
 
                 if track.isJoined {
                     Spacer()
                     Label("Joined", systemImage: "checkmark")
-                        .roundEdges(backgroundColor: .blue.opacity(0.5))
+                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
@@ -71,7 +70,7 @@ struct TrackGridView: View {
                 }, icon: {
                     Image("exercise")
                         .renderingMode(.template)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primary)
                 })
 
                 Label(title: {
@@ -79,20 +78,24 @@ struct TrackGridView: View {
                 }, icon: {
                     Image("concept")
                         .renderingMode(.template)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.primary)
                 })
             }
+            
             if track.isJoined {
-                VStack {
+                let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
+
+                let gradient = Gradient(colors: [.purple, .indigo, .purple])
+                Gauge(value: value) {
+                    //
+                } currentValueLabel: {
                     Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
-                }.accessibilityChildren {
-                    let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
-                    ProgressView(value: value).accessibilityHidden(true)
-                }
+                }.tint(gradient)
+                    .gaugeStyle(.accessoryLinearCapacity)
             } else {
                 HStack() {
                     ForEach(track.tags.prefix(3), id: \.self) { track in
-                        Text(track).bold().roundEdges(lineColor: .white)
+                        Text(track).bold().roundEdges()
                     }
                 }
             }
@@ -100,8 +103,8 @@ struct TrackGridView: View {
     }
 }
 
-struct TrackGridView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrackGridView(track: TracksViewModel(coordinator: AppCoordinator()).joinedTracks[0])
-    }
-}
+//struct TrackGridView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        TrackGridView(track: TracksViewModel(coordinator: AppCoordinator()).joinedTracks[0])
+//    }
+//}

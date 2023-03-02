@@ -34,9 +34,10 @@ var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "
                                                                 DashboardItem(name: "Rust", image: "folder.fill")])]
 
 struct DashBoard: View {
-    @State var searchText: String = ""
     @StateObject var coordinator: AppCoordinator
-
+    @State var searchText: String = ""
+    @State var showProfile = false
+    
     var body: some View {
         NavigationSplitView {
             List() {
@@ -60,10 +61,21 @@ struct DashBoard: View {
                 }.accessibilityLabel("The dashboard")
             }
         } detail: {
-            TracksView(viewModel: TracksViewModel(coordinator: coordinator))
+            TracksListView(viewModel: TracksViewModel(coordinator: coordinator))
+        }.toolbar {
+            ToolbarItemGroup {
+                Spacer()
+                Button {
+                    showProfile.toggle()
+                } label: {
+                    Label("", systemImage: "person.crop.circle.fill")
+                }   .popover(isPresented: $showProfile) {
+                    ProfileTableView().frame(width: 180, height: 200)
+                }
+            }
         }
     }
-
+    
     func logout() {
         DispatchQueue.global().async {
             ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
