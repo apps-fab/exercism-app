@@ -36,12 +36,25 @@ struct ExerciseHeaderView: View {
                     .bold()
                     .font(.title3)
             }
-            // will use custom view
-            Picker("Will change this", selection: $contentSelection) {
-                ForEach(_Content.allCases) { content in
-                    Label(content.rawValue, systemImage: "hammer")
+
+            CustomPicker(selected: $contentSelection) {
+                HStack {
+                    ForEach(_Content.allCases) { content in
+                        VStack {
+                            Label(content.rawValue, systemImage: "hammer")
+                                .foregroundColor(content == contentSelection ? .purple : .gray)
+                            Divider()
+                                .frame(height: 2)
+                                .background(content == contentSelection ? .purple : .gray)
+                        }.padding()
+                            .frame(maxWidth: 150)
+                            .onTapGesture {
+                                contentSelection = content
+                            }
+                    }
                 }
             }
+            Divider().frame(height: 2)
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -53,13 +66,19 @@ struct ExerciseHeaderView: View {
                 }.padding()
                     .background(RoundedRectangle(cornerRadius: 14)
                         .fill(Color("darkBackground")))
-                // will use custom
-                Picker("will change this", selection: $exerciseCategory) {
-                    ForEach(ExerciseCategory.allCases) { option in
-                        Text(option.rawValue)
+                CustomPicker(selected: $exerciseCategory) {
+                    HStack {
+                        ForEach(ExerciseCategory.allCases) { option in
+                            Text(option.rawValue)
+                                .padding()
+                                .frame(minWidth: 140, maxHeight: 40)
+                                .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+                                .onTapGesture {
+                                    exerciseCategory = option
+                                }
+                        }
                     }
-                }.pickerStyle(.segmented)
-                    .padding()
+                }.padding()
             }
         }
 
