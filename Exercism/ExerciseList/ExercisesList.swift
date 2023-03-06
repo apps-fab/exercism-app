@@ -22,6 +22,7 @@ struct ExercisesList: View {
     @StateObject var viewModel: ExerciseListViewModel
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var contentCategory: _Content = .Exercises
+    @State private var resultsCount = 0
     @State private var searchText = ""
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
@@ -31,7 +32,8 @@ struct ExercisesList: View {
                 ExerciseHeaderView(track: viewModel.track,
                                    contentSelection: $contentCategory,
                                    exerciseCategory: $exerciseCategory,
-                                   searchText: $searchText)
+                                   searchText: $searchText,
+                                   resultCount: $resultsCount)
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.exercisesList, id: \.self) { exercise in
@@ -44,6 +46,7 @@ struct ExercisesList: View {
                 }
             }.task {
                 viewModel.fetchExerciseList()
+                resultsCount = viewModel.exercisesList.count
             }
         }.onChange(of: searchText) { newValue in
             viewModel.filter(searchText)

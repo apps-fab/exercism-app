@@ -42,6 +42,7 @@ struct ExerciseHeaderView: View {
     @Binding var contentSelection: _Content
     @Binding var exerciseCategory: ExerciseCategory
     @Binding var searchText: String
+    @Binding var resultCount: Int
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -78,16 +79,13 @@ struct ExerciseHeaderView: View {
                     Image(systemName: "magnifyingglass")
                     TextField("Search by title", text: $searchText)
                         .textFieldStyle(.plain)
-                        .onSubmit {
-                            // what do when filtering
-                        }
                 }.padding()
                     .background(RoundedRectangle(cornerRadius: 14)
                         .fill(Color("darkBackground")))
                 CustomPicker(selected: $exerciseCategory) {
                     HStack {
                         ForEach(ExerciseCategory.allCases) { option in
-                            Text(option.rawValue)
+                            Text("\(option.rawValue) (\(resultCount))")
                                 .padding()
                                 .frame(minWidth: 140, maxHeight: 40)
                                 .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
