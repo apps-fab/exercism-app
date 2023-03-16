@@ -38,11 +38,11 @@ enum _Content: String, CaseIterable, Identifiable {
 }
 
 struct ExerciseHeaderView: View {
-    let track: Track
     @Binding var contentSelection: _Content
     @Binding var exerciseCategory: ExerciseCategory
     @Binding var searchText: String
-    @Binding var resultCount: Int
+    var resultCount: Int
+    let track: Track
 
     var body: some View {
         VStack(alignment: .leading) {

@@ -11,6 +11,8 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel()
     @State private var showInspector = true
+    @StateObject var coordinator: AppCoordinator
+
     let exercise: String
     let track: String
     var body: some View {
@@ -81,6 +83,6 @@ struct ExerciseEditorWindowView: View {
 
 struct ExerciseEditorWindowView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world")
+        ExerciseEditorWindowView(coordinator: AppCoordinator(), exercise: "Rust", track: "Hello-world")
     }
 }

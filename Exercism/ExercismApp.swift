@@ -10,11 +10,15 @@ import SDWebImage
 import SDWebImageSVGCoder
 import ExercismSwift
 
+enum Keys: String {
+    case token
+}
+
 @main
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var settings = SettingData()
-    
+
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }

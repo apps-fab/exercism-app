@@ -50,10 +50,10 @@ struct Coordinator: View {
                     .navigationDestination(for: Route.self) { route in
                         switch route {
                         case let .Exercise(track, exercise):
-                            ExerciseEditorWindowView(exercise: exercise, track: track)
+                            ExerciseEditorWindowView(coordinator: coordinator, exercise: exercise, track: track)
 
                         case let .Track(track):
-                            ExercisesList(viewModel: ExerciseListViewModel(track: track, coordinator: coordinator))
+                            ExercisesList(coordinator: coordinator, track: track)
 
                         case .Login:
                             LoginView(coordinator: coordinator)
@@ -62,7 +62,7 @@ struct Coordinator: View {
                             DashBoard(coordinator: coordinator)
                         }
                     }
-            }.task {
+            }.onAppear {
                 if let _ = ExercismKeychain.shared.get(for: "token") {
                     coordinator.goToDashboard()
                 } else {

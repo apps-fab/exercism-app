@@ -61,7 +61,7 @@ struct DashBoard: View {
                 }.accessibilityLabel("The dashboard")
             }
         } detail: {
-            TracksListView()
+            TracksListView(coordinator: coordinator)
         }.toolbar {
             ToolbarItemGroup {
                 Spacer()

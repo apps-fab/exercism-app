@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 enum ExerciseCategory : String, CaseIterable, Identifiable {
     case AllExercises
@@ -15,47 +16,46 @@ enum ExerciseCategory : String, CaseIterable, Identifiable {
     case locked
 
     var id: Self { return self }
-
 }
 
 struct ExercisesList: View {
-    @StateObject var viewModel: ExerciseListViewModel
+    @EnvironmentObject private var model: TrackModel
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var contentCategory: _Content = .Exercises
-    @State private var resultsCount = 0
     @State private var searchText = ""
+    @StateObject var coordinator: AppCoordinator
+    var track: Track
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         ScrollView {
             VStack {
-                ExerciseHeaderView(track: viewModel.track,
-                                   contentSelection: $contentCategory,
+                ExerciseHeaderView(contentSelection: $contentCategory,
                                    exerciseCategory: $exerciseCategory,
                                    searchText: $searchText,
-                                   resultCount: $resultsCount)
+                                   resultCount: model.exercises.count,
+                                   track: track)
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
-                    ForEach(viewModel.exercisesList, id: \.self) { exercise in
+                    ForEach(model.exercises, id: \.self) { exercise in
                         Button {
-                            viewModel.goToExercise(exercise)
+                            model.goToExercise(track, exercise, coordinator)
                         } label: {
                             ExerciseGridView(exercise: exercise)
                         }.buttonStyle(.plain)
                     }
                 }
             }.task {
-                viewModel.fetchExerciseList()
-                resultsCount = viewModel.exercisesList.count
+                await model.getExercises(track)
             }
         }.onChange(of: searchText) { newValue in
-            viewModel.filter(searchText)
+            model.filter(.SearchExercises(query: newValue))
         }
         .onChange(of: exerciseCategory) { newValue in
-            viewModel.toggleSelection(newValue)
+            model.toggleSelection(newValue)
         }
         .onChange(of: contentCategory) { newValue in
-//            viewModel.toggleSelection(newValue)
+            // need to implement
         }
     }
 }

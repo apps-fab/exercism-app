@@ -12,6 +12,7 @@ struct TracksListView: View {
     @EnvironmentObject private var model: TrackModel
     @State private var searchText = ""
     @State private var filters = Set<String>()
+    @StateObject var coordinator: AppCoordinator
 
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
@@ -41,7 +42,7 @@ struct TracksListView: View {
                     LazyVGrid(columns: columns, spacing: 30) {
                         ForEach(listData.0) { track in
                             Button {
-                                AppCoordinator().goToTrack(track)
+                                model.goToTrack(track, coordinator)
                             } label: {
                                 TrackGridView(track: track).accessibilityElement(children: .contain)
                             }.buttonStyle(.plain)
@@ -54,7 +55,7 @@ struct TracksListView: View {
                     LazyVGrid(columns: columns, spacing: 30) {
                         ForEach(listData.1) { track in
                             Button {
-                                AppCoordinator().goToTrack(track)
+                                model.goToTrack(track, coordinator)
                             } label: {
                                 TrackGridView(track: track).accessibilityElement(children: .contain)
                             }.buttonStyle(.plain)

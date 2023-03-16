@@ -36,7 +36,6 @@
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
 		FD9A187729113DFB006A28E7 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD9A187629113DFB006A28E7 /* CodeEditor */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
-		FDABC23C292BCDA100A2AB72 /* ExerciseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC23B292BCDA100A2AB72 /* ExerciseListViewModel.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
 		FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F11E28E5DA9200488CE9 /* KeychainSwift */; };
 		FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */; };
@@ -81,7 +80,6 @@
 		FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackGridView.swift; sourceTree = "<group>"; };
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
-		FDABC23B292BCDA100A2AB72 /* ExerciseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewModel.swift; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				FDABC239292BCC5200A2AB72 /* ExercisesList.swift */,
-				FDABC23B292BCDA100A2AB72 /* ExerciseListViewModel.swift */,
 				FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */,
 				FD36807D29B09995004D53C8 /* ExerciseHeaderView.swift */,
 				FD36807F29B1054E004D53C8 /* CustomPicker.swift */,
@@ -303,7 +300,6 @@
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FDDAEB5A29B6667300C6F938 /* TrackModel.swift in Sources */,
 				E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */,
-				FDABC23C292BCDA100A2AB72 /* ExerciseListViewModel.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 				FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */,
 				FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */,
