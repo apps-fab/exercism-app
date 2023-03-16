@@ -103,8 +103,10 @@ struct TrackGridView: View {
     }
 }
 
-//struct TrackGridView_Previews: PreviewProvider {
-//    static var previews: some View {
-////        TrackGridView(track: TracksViewModel(coordinator: AppCoordinator()).joinedTracks[0])
-//    }
-//}
+struct TrackGridView_Previews: PreviewProvider {
+    static var previews: some View {
+        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue))
+        TrackGridView(track: modelData.tracks[0])
+            .environmentObject(modelData)
+    }
+}

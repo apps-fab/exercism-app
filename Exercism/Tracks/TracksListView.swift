@@ -96,8 +96,8 @@ struct TracksListView: View {
 }
 
 
-//struct TracksView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TracksListView(viewModel: TracksViewModel(coordinator: AppCoordinator()))
-//    }
-//}
+struct TracksView_Previews: PreviewProvider {
+    static var previews: some View {
+        TracksListView(coordinator: AppCoordinator())
+    }
+}

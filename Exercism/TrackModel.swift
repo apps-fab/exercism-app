@@ -16,7 +16,7 @@ enum FilterState {
 }
 
 @MainActor
-class TrackModel: ObservableObject {
+final class TrackModel: ObservableObject {
     @Published var tracks = [Track]()
     @Published var exercises = [Exercise]()
     private var unfilteredTracks = [Track]()

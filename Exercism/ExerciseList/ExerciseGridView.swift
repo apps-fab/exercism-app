@@ -75,8 +75,10 @@ struct ExerciseGridView: View {
     }
 }
 
-//struct ExerciseGridView_Previews: PreviewProvider {
-//    static var previews: some View {
-////        ExerciseGridView(exercise: ExerciseListViewModel(track: "Python", coordinator: AppCoordinator()).exercisesList[0])
-//    }
-//}
+struct ExerciseGridView_Previews: PreviewProvider {
+    static var previews: some View {
+        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue))
+        ExerciseGridView(exercise: modelData.exercises[0])
+            .environmentObject(modelData)
+    }
+}

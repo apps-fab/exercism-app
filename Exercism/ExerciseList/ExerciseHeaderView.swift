@@ -102,8 +102,14 @@ struct ExerciseHeaderView: View {
     
 }
 
-//struct ExerciseHeaderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        //ExerciseHeaderView(track: )
-//    }
-//}
+struct ExerciseHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue))
+        ExerciseHeaderView(contentSelection: .constant(.Exercises),
+                           exerciseCategory: .constant(.AllExercises),
+                           searchText: .constant("Swift"),
+                           resultCount: 1,
+                           track: modelData.tracks[0])
+        .environmentObject(modelData)
+    }
+}

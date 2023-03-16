@@ -60,8 +60,8 @@ struct ExercisesList: View {
     }
 }
 
-//struct ExercisesList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExercisesList(viewModel: ExerciseListViewModel(trackName: , coordinator: AppCoordinator()))
-//    }
-//}
+struct ExercisesList_Previews: PreviewProvider {
+    static var previews: some View {
+        TracksListView(coordinator: AppCoordinator())
+    }
+}

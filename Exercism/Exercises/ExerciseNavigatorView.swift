@@ -45,10 +45,8 @@ struct FileView: View {
     }
 }
 
-//
-
-//struct ExerciseNavigatorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExerciseNavigatorView()
-//    }
-//}
+struct ExerciseNavigatorView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExerciseNavigatorView()
+    }
+}
