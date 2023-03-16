@@ -17,7 +17,6 @@
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */; };
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
-		E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9673128732A44004CE7E6 /* ContentView.swift */; };
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
 		E0C9673728732A45004CE7E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */; };
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
@@ -29,6 +28,7 @@
 		FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedButton.swift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
+		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F30DF28DCE330007B98DB /* DashBoard.swift */; };
 		FD9262FF28F6EA3300C9476C /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = FD9262FE28F6EA3300C9476C /* Tags.json */; };
 		FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksListView.swift */; };
@@ -60,7 +60,6 @@
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
 		E0C9672C28732A44004CE7E6 /* Exercism.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercism.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C9672F28732A44004CE7E6 /* ExercismApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismApp.swift; sourceTree = "<group>"; };
-		E0C9673128732A44004CE7E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E0C9673328732A45004CE7E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E0C9673828732A45004CE7E6 /* Exercism.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Exercism.entitlements; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		FD4A77642987E18E00E29436 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD8F30DF28DCE330007B98DB /* DashBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoard.swift; sourceTree = "<group>"; };
 		FD9262FB28F6DAE700C9476C /* FilterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableView.swift; sourceTree = "<group>"; };
 		FD9262FE28F6EA3300C9476C /* Tags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Tags.json; sourceTree = "<group>"; };
@@ -142,7 +142,6 @@
 				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
 				FD93F5BC28E1E0BD0078A062 /* Tracks */,
 				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
-				E0C9673128732A44004CE7E6 /* ContentView.swift */,
 				FD8F30DF28DCE330007B98DB /* DashBoard.swift */,
 				E0C9673328732A45004CE7E6 /* Assets.xcassets */,
 				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
@@ -161,6 +160,7 @@
 				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
 				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
+				FD73E10C29C3910E001B59D3 /* ContentView.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -289,7 +289,6 @@
 				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
-				E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */,
 				FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */,
 				E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */,
@@ -309,6 +308,7 @@
 				8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */,
 				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,
 				FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */,
+				FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */,
 				8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */,
 				8480F81F9F5140CC9D27E0BD /* SettingData.swift in Sources */,
 			);

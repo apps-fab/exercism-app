@@ -10,9 +10,9 @@ import ExercismSwift
 
 struct TracksListView: View {
     @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var coordinator: AppCoordinator
     @State private var searchText = ""
     @State private var filters = Set<String>()
-    @StateObject var coordinator: AppCoordinator
 
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
@@ -42,7 +42,7 @@ struct TracksListView: View {
                     LazyVGrid(columns: columns, spacing: 30) {
                         ForEach(listData.0) { track in
                             Button {
-                                model.goToTrack(track, coordinator)
+                                coordinator.goToTrack(track)
                             } label: {
                                 TrackGridView(track: track).accessibilityElement(children: .contain)
                             }.buttonStyle(.plain)
@@ -55,7 +55,7 @@ struct TracksListView: View {
                     LazyVGrid(columns: columns, spacing: 30) {
                         ForEach(listData.1) { track in
                             Button {
-                                model.goToTrack(track, coordinator)
+                                coordinator.goToTrack(track)
                             } label: {
                                 TrackGridView(track: track).accessibilityElement(children: .contain)
                             }.buttonStyle(.plain)
@@ -101,6 +101,6 @@ struct TracksListView: View {
 
 struct TracksView_Previews: PreviewProvider {
     static var previews: some View {
-        TracksListView(coordinator: AppCoordinator())
+        TracksListView()
     }
 }

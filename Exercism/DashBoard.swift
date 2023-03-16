@@ -34,10 +34,10 @@ var itemNames = [DashboardSections(type: .profile, items: [DashboardItem(name: "
                                                                 DashboardItem(name: "Rust", image: "folder.fill")])]
 
 struct DashBoard: View {
-    @StateObject var coordinator: AppCoordinator
     @State var searchText: String = ""
     @State var showProfile = false
-    
+    @EnvironmentObject private var coordinator: AppCoordinator
+
     var body: some View {
         NavigationSplitView {
             List() {
@@ -61,7 +61,7 @@ struct DashBoard: View {
                 }.accessibilityLabel("The dashboard")
             }
         } detail: {
-            TracksListView(coordinator: coordinator)
+            TracksListView()
         }.toolbar {
             ToolbarItemGroup {
                 Spacer()
@@ -77,7 +77,7 @@ struct DashBoard: View {
     }
     
     func logout() {
-        DispatchQueue.global().async {
+        Task {
             ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
         }
         coordinator.goToLogin()
@@ -86,6 +86,6 @@ struct DashBoard: View {
 
 struct DashBoard_Previews: PreviewProvider {
     static var previews: some View {
-        DashBoard(coordinator: AppCoordinator())
+        DashBoard()
     }
 }

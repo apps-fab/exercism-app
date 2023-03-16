@@ -15,16 +15,25 @@ enum FilterState {
     case SortTracks
 }
 
+enum ViewState {
+    case Idle
+    case loading
+    case Loaded((joinedTracks: [Track], unjoinedTracks: [Track]))
+    case Error(ExercismClientError)
+}
+
 @MainActor
 final class TrackModel: ObservableObject {
     @Published private(set) var tracks = [Track]()
     @Published private(set) var exercises = [Exercise]()
     private var unfilteredTracks = [Track]()
     private var unfilteredExercises = [Exercise]()
-    private var client: ExercismClient
+    private let client: ExercismClient
+    private let coordinator: AppCoordinator
 
-    init(client: ExercismClient) {
+    init(client: ExercismClient, coordinator: AppCoordinator) {
         self.client = client
+        self.coordinator = coordinator
     }
 
     @discardableResult
@@ -73,22 +82,6 @@ final class TrackModel: ObservableObject {
         case .SortTracks:
             tracks = tracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
 
-        }
-    }
-
-    func goToTrack(_ track: Track, _ coordinator: AppCoordinator) {
-        if track.isJoined {
-            coordinator.goToTrack(track)
-        } else {
-            // show alert to join track on web or show join track in app
-        }
-    }
-
-    func goToExercise(_ track: Track, _ exercise: Exercise, _ coordinator: AppCoordinator) {
-        if exercise.isUnlocked {
-            coordinator.goToEditor(track.slug, exercise.slug)
-        } else {
-            // show alert to user
         }
     }
 

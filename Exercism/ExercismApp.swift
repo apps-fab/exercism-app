@@ -26,8 +26,10 @@ struct ExercismApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(TrackModel(client: ExercismClient(apiToken: ExercismKeychain.shared.get(for: Keys.token.rawValue)!)))
+                .environmentObject(TrackModel(client: ExercismClient(apiToken: ExercismKeychain.shared.get(for: Keys.token.rawValue)!), coordinator: AppCoordinator()))
+                .environmentObject(AppCoordinator())
                 .navigationTitle("Exercism")
         }
     }
+
 }

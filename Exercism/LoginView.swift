@@ -14,7 +14,8 @@ struct LoginView: View {
     @State private var showAlert = false
     @State private var error: String?
     @Namespace var mainNamespace
-    @StateObject var coordinator: AppCoordinator
+    @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var coordinator: AppCoordinator
 
     var body: some View {
         GeometryReader { geometry in
@@ -132,6 +133,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(coordinator: AppCoordinator())
+        LoginView()
     }
 }

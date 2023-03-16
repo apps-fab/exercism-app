@@ -104,7 +104,7 @@ struct ExerciseHeaderView: View {
 
 struct ExerciseHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue))
+        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue), coordinator: AppCoordinator())
         ExerciseHeaderView(contentSelection: .constant(.Exercises),
                            exerciseCategory: .constant(.AllExercises),
                            searchText: .constant("Swift"),

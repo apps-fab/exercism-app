@@ -20,10 +20,10 @@ enum ExerciseCategory : String, CaseIterable, Identifiable {
 
 struct ExercisesList: View {
     @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var coordinator: AppCoordinator
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var contentCategory: _Content = .Exercises
     @State private var searchText = ""
-    @StateObject var coordinator: AppCoordinator
     var track: Track
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
@@ -39,7 +39,7 @@ struct ExercisesList: View {
                 LazyVGrid(columns: columns) {
                     ForEach(model.exercises, id: \.self) { exercise in
                         Button {
-                            model.goToExercise(track, exercise, coordinator)
+                            coordinator.goToEditor(track.slug, exercise.slug)
                         } label: {
                             ExerciseGridView(exercise: exercise)
                         }.buttonStyle(.plain)
@@ -66,6 +66,6 @@ struct ExercisesList: View {
 
 struct ExercisesList_Previews: PreviewProvider {
     static var previews: some View {
-        TracksListView(coordinator: AppCoordinator())
+        TracksListView()
     }
 }

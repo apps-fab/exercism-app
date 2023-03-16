@@ -39,36 +39,3 @@ class AppCoordinator: ObservableObject {
         path.removeLast()
     }
 }
-
-struct Coordinator: View {
-    @StateObject private var coordinator = AppCoordinator()
-
-    var body: some View {
-        NavigationStack(path: $coordinator.path) {
-            NavigationView {
-                EmptyView()
-                    .navigationDestination(for: Route.self) { route in
-                        switch route {
-                        case let .Exercise(track, exercise):
-                            ExerciseEditorWindowView(coordinator: coordinator, exercise: exercise, track: track)
-
-                        case let .Track(track):
-                            ExercisesList(coordinator: coordinator, track: track)
-
-                        case .Login:
-                            LoginView(coordinator: coordinator)
-
-                        case .Dashboard:
-                            DashBoard(coordinator: coordinator)
-                        }
-                    }
-            }.onAppear {
-                if let _ = ExercismKeychain.shared.get(for: "token") {
-                    coordinator.goToDashboard()
-                } else {
-                    coordinator.goToLogin()
-                }
-            }
-        }
-    }
-}

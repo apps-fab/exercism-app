@@ -105,7 +105,7 @@ struct TrackGridView: View {
 
 struct TrackGridView_Previews: PreviewProvider {
     static var previews: some View {
-        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue))
+        let modelData = TrackModel(client: ExercismClient(apiToken: Keys.token.rawValue), coordinator: AppCoordinator())
         TrackGridView(track: modelData.tracks[0])
             .environmentObject(modelData)
     }
