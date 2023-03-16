@@ -46,7 +46,11 @@ struct ExercisesList: View {
                     }
                 }
             }.task {
-                await model.getExercises(track)
+                do {
+                    try await model.getExercises(track)
+                } catch {
+                    //show error
+                }
             }
         }.onChange(of: searchText) { newValue in
             model.filter(.SearchExercises(query: newValue))

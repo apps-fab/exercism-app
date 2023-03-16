@@ -66,7 +66,11 @@ struct TracksListView: View {
             }
         }.accessibilityLabel("All Tracks")
             .task {
-                await model.getTracks()
+                do {
+                    try await model.getTracks()
+                } catch {
+                    //show error
+                }
             } .onChange(of: searchText) { newSearch in
                 model.filter(.SearchTracks(query: newSearch))
             }.onChange(of: filters) { newFilters in
@@ -92,7 +96,6 @@ struct TracksListView: View {
     var listData: ([Track], [Track]) {
         return (model.tracks.filter { $0.isJoined }, model.tracks.filter { !$0.isJoined })
     }
-
 }
 
 

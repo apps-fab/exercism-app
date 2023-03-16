@@ -17,8 +17,8 @@ enum FilterState {
 
 @MainActor
 final class TrackModel: ObservableObject {
-    @Published var tracks = [Track]()
-    @Published var exercises = [Exercise]()
+    @Published private(set) var tracks = [Track]()
+    @Published private(set) var exercises = [Exercise]()
     private var unfilteredTracks = [Track]()
     private var unfilteredExercises = [Exercise]()
     private var client: ExercismClient
@@ -28,8 +28,8 @@ final class TrackModel: ObservableObject {
     }
 
     @discardableResult
-    func getTracks() async -> [Track] {
-        await withCheckedContinuation { continuation in
+    func getTracks() async throws -> [Track] {
+        try await withCheckedThrowingContinuation { continuation in
             client.tracks { tracks in
                 switch tracks {
                 case .success(let tracks):
@@ -37,15 +37,15 @@ final class TrackModel: ObservableObject {
                     self.tracks = tracks.results
                     self.unfilteredTracks = self.tracks
                 case .failure(let error):
-                    print("This is the error: \(error)")
+                    continuation.resume(throwing: error)
                 }
             }
         }
     }
 
     @discardableResult
-    func getExercises(_ track: Track) async -> [Exercise] {
-        await withCheckedContinuation { continuation in
+    func getExercises(_ track: Track) async throws -> [Exercise] {
+        try await withCheckedThrowingContinuation { continuation in
             client.exercises(for: track.slug) { result in
                 switch result {
                 case .success(let exerciseList):
@@ -53,7 +53,7 @@ final class TrackModel: ObservableObject {
                     self.exercises = exerciseList.results
                     self.unfilteredExercises = self.exercises
                 case .failure(let error):
-                    print("This is \(error)")
+                    continuation.resume(throwing: error)
                 }
             }
         }
