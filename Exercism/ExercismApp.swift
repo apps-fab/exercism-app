@@ -8,6 +8,7 @@
 import SwiftUI
 import SDWebImage
 import SDWebImageSVGCoder
+import ExercismSwift
 
 @main
 struct ExercismApp: App {
@@ -21,7 +22,7 @@ struct ExercismApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(settings)
+                .environmentObject(TrackModel(client: ExercismClient(apiToken: ExercismKeychain.shared.get(for: Keys.token.rawValue)!)))
                 .navigationTitle("Exercism")
         }
     }

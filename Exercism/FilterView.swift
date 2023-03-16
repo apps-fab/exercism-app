@@ -10,12 +10,12 @@ import ExercismSwift
 
 struct FilterView: View {
     @State private var showingSheet = false
-    @Binding var results: Int
+     var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
     @FocusState private var fieldFocused: Bool
     var sortAction: () -> Void
-
+    
     var body: some View {
         HStack {
             ZStack(alignment: .leading) {
@@ -60,7 +60,7 @@ struct FilterView: View {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView(results: .constant(10),
+        FilterView(results: 10,
                    searchText: .constant(""),
                    filters: .constant([""])) {
             print("Filter View pressed")

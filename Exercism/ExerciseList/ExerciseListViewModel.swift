@@ -8,6 +8,11 @@
 import Foundation
 import ExercismSwift
 
+enum Keys: String {
+    case token
+}
+
+
 class ExerciseListViewModel: ObservableObject {
     @Published var exercisesList = [Exercise]()
     private var allExercises = [Exercise]()
