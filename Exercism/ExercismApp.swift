@@ -29,6 +29,7 @@ struct ExercismApp: App {
         let fetcher = Fetcher(client: client)
         return WindowGroup {
             ContentView()
+                .frame(minWidth: 800, minHeight: 800)
                 .environmentObject(TrackModel(fetcher: fetcher,
                                               coordinator: AppCoordinator()))
                 .environmentObject(AppCoordinator())

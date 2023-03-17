@@ -34,7 +34,7 @@ struct ContentView: View {
             if let _ = ExercismKeychain.shared.get(for: "token") {
                 coordinator.goToDashboard()
             } else {
-                coordinator.goToDashboard()
+                coordinator.goToLogin()
             }
         }
     }
