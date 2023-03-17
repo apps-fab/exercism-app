@@ -67,7 +67,7 @@ struct TracksListView: View {
         }.accessibilityLabel("All Tracks")
             .task {
                 do {
-                    try await model.getTracks()
+                    try await model.tracks()
                 } catch {
                     //show error
                 }

@@ -29,6 +29,7 @@
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
+		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
 		FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F30DF28DCE330007B98DB /* DashBoard.swift */; };
 		FD9262FF28F6EA3300C9476C /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = FD9262FE28F6EA3300C9476C /* Tags.json */; };
 		FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksListView.swift */; };
@@ -73,6 +74,7 @@
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		FD8F30DF28DCE330007B98DB /* DashBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoard.swift; sourceTree = "<group>"; };
 		FD9262FB28F6DAE700C9476C /* FilterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableView.swift; sourceTree = "<group>"; };
 		FD9262FE28F6EA3300C9476C /* Tags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Tags.json; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
 				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
+				FD73E10E29C451E8001B59D3 /* Fetcher.swift */,
 				FD73E10C29C3910E001B59D3 /* ContentView.swift */,
 			);
 			path = Exercism;
@@ -305,6 +308,7 @@
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
 				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
 				8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */,
+				FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */,
 				8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */,
 				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,
 				FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */,

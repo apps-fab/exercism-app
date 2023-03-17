@@ -24,9 +24,13 @@ struct ExercismApp: App {
     }
     
     var body: some Scene {
-        WindowGroup {
+        let token = ExercismKeychain.shared.get(for: Keys.token.rawValue)
+        let client = ExercismClient(apiToken: token!)
+        let fetcher = Fetcher(client: client)
+        return WindowGroup {
             ContentView()
-                .environmentObject(TrackModel(client: ExercismClient(apiToken: ExercismKeychain.shared.get(for: Keys.token.rawValue)!), coordinator: AppCoordinator()))
+                .environmentObject(TrackModel(fetcher: fetcher,
+                                              coordinator: AppCoordinator()))
                 .environmentObject(AppCoordinator())
                 .navigationTitle("Exercism")
         }

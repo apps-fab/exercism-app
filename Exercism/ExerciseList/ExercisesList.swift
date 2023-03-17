@@ -47,7 +47,7 @@ struct ExercisesList: View {
                 }
             }.task {
                 do {
-                    try await model.getExercises(track)
+                    try await model.exercises(for: track)
                 } catch {
                     //show error
                 }

@@ -28,44 +28,22 @@ final class TrackModel: ObservableObject {
     @Published private(set) var exercises = [Exercise]()
     private var unfilteredTracks = [Track]()
     private var unfilteredExercises = [Exercise]()
-    private let client: ExercismClient
     private let coordinator: AppCoordinator
+    private let fetcher: Fetcher
 
-    init(client: ExercismClient, coordinator: AppCoordinator) {
-        self.client = client
+    init(fetcher: Fetcher, coordinator: AppCoordinator) {
+        self.fetcher = fetcher
         self.coordinator = coordinator
     }
 
-    @discardableResult
-    func getTracks() async throws -> [Track] {
-        try await withCheckedThrowingContinuation { continuation in
-            client.tracks { tracks in
-                switch tracks {
-                case .success(let tracks):
-                    continuation.resume(returning: tracks.results)
-                    self.tracks = tracks.results
-                    self.unfilteredTracks = self.tracks
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func tracks() async throws {
+        tracks = try await fetcher.getTracks()
+        self.unfilteredTracks = self.tracks
     }
 
-    @discardableResult
-    func getExercises(_ track: Track) async throws -> [Exercise] {
-        try await withCheckedThrowingContinuation { continuation in
-            client.exercises(for: track.slug) { result in
-                switch result {
-                case .success(let exerciseList):
-                    continuation.resume(returning: exerciseList.results)
-                    self.exercises = exerciseList.results
-                    self.unfilteredExercises = self.exercises
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func exercises(for track: Track) async throws {
+        exercises = try await fetcher.getExercises(track)
+        self.unfilteredExercises = self.exercises
     }
 
     func filter(_ type: FilterState) {
@@ -84,6 +62,7 @@ final class TrackModel: ObservableObject {
 
         }
     }
+
 
     func toggleSelection(_ selection: ExerciseCategory) {
         // Not the correct parameters
