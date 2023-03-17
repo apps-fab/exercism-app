@@ -69,7 +69,7 @@ struct TracksListView: View {
                 do {
                     try await model.tracks()
                 } catch {
-                    //show error
+                    print("Error: \(error)")
                 }
             } .onChange(of: searchText) { newSearch in
                 model.filter(.SearchTracks(query: newSearch))

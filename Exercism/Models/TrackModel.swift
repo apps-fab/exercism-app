@@ -59,7 +59,6 @@ final class TrackModel: ObservableObject {
 
         case .SortTracks:
             tracks = tracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
-
         }
     }
 

@@ -141,29 +141,16 @@
 			isa = PBXGroup;
 			children = (
 				E0C9673F28732C49004CE7E6 /* ExercismSwift */,
-				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
-				FD93F5BC28E1E0BD0078A062 /* Tracks */,
-				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
-				FD8F30DF28DCE330007B98DB /* DashBoard.swift */,
-				E0C9673328732A45004CE7E6 /* Assets.xcassets */,
-				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
+				FDC8C07929C495E70079D5F3 /* Models */,
+				FDC8C07829C495AB0079D5F3 /* Common */,
 				E0C9673528732A45004CE7E6 /* Preview Content */,
-				FDD4575028DA474200B3834F /* Color.xcassets */,
-				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
-				8480FA93EBE24774C8AC6D8E /* Exercises */,
-				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
-				8480F02086E415F1B9F5DFD5 /* SettingData.swift */,
-				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
-				FD0B06F028F592E000FCA956 /* AppDelegate.swift */,
-				FD0B071128F5F77300FCA956 /* FilterView.swift */,
-				FD9262FB28F6DAE700C9476C /* FilterTableView.swift */,
 				FDABC23D292BCDC000A2AB72 /* ExerciseList */,
-				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
-				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
+				8480FA93EBE24774C8AC6D8E /* Exercises */,
+				FD93F5BC28E1E0BD0078A062 /* Tracks */,
+				FDC8C07A29C496160079D5F3 /* Util */,
+				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
+				FD8F30DF28DCE330007B98DB /* DashBoard.swift */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
-				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
-				FD73E10E29C451E8001B59D3 /* Fetcher.swift */,
-				FD73E10C29C3910E001B59D3 /* ContentView.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -179,6 +166,7 @@
 		FD93F5BC28E1E0BD0078A062 /* Tracks */ = {
 			isa = PBXGroup;
 			children = (
+				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
 				FD93F5C128E1E3260078A062 /* TracksListView.swift */,
 				FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */,
 				FD93F5D628E398770078A062 /* Date+Exercism.swift */,
@@ -195,6 +183,42 @@
 				FD36807F29B1054E004D53C8 /* CustomPicker.swift */,
 			);
 			path = ExerciseList;
+			sourceTree = "<group>";
+		};
+		FDC8C07829C495AB0079D5F3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
+				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
+				FD0B071128F5F77300FCA956 /* FilterView.swift */,
+				FD9262FB28F6DAE700C9476C /* FilterTableView.swift */,
+				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		FDC8C07929C495E70079D5F3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8480F02086E415F1B9F5DFD5 /* SettingData.swift */,
+				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
+				FD73E10E29C451E8001B59D3 /* Fetcher.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FDC8C07A29C496160079D5F3 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E0C9673328732A45004CE7E6 /* Assets.xcassets */,
+				FDD4575028DA474200B3834F /* Color.xcassets */,
+				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
+				FD0B06F028F592E000FCA956 /* AppDelegate.swift */,
+				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
+				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
+				FD73E10C29C3910E001B59D3 /* ContentView.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

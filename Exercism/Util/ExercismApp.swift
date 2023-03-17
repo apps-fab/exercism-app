@@ -30,11 +30,11 @@ struct ExercismApp: App {
         return WindowGroup {
             ContentView()
                 .frame(minWidth: 800, minHeight: 800)
+                .environmentObject(settings)
                 .environmentObject(TrackModel(fetcher: fetcher,
                                               coordinator: AppCoordinator()))
                 .environmentObject(AppCoordinator())
                 .navigationTitle("Exercism")
         }
     }
-
 }
