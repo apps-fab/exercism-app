@@ -28,6 +28,7 @@
 		FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedButton.swift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
+		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
 		FD8F30E028DCE330007B98DB /* DashBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F30DF28DCE330007B98DB /* DashBoard.swift */; };
@@ -73,6 +74,7 @@
 		FD4A77642987E18E00E29436 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		FD8F30DF28DCE330007B98DB /* DashBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoard.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
 				FD8F30DF28DCE330007B98DB /* DashBoard.swift */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
+				FD60950A29CC598000944379 /* SideBar.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -166,10 +169,8 @@
 		FD93F5BC28E1E0BD0078A062 /* Tracks */ = {
 			isa = PBXGroup;
 			children = (
-				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
 				FD93F5C128E1E3260078A062 /* TracksListView.swift */,
 				FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */,
-				FD93F5D628E398770078A062 /* Date+Exercism.swift */,
 			);
 			path = Tracks;
 			sourceTree = "<group>";
@@ -210,9 +211,11 @@
 		FDC8C07A29C496160079D5F3 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FD93F5D628E398770078A062 /* Date+Exercism.swift */,
 				E0C9673328732A45004CE7E6 /* Assets.xcassets */,
 				FDD4575028DA474200B3834F /* Color.xcassets */,
 				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
+				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
 				FD0B06F028F592E000FCA956 /* AppDelegate.swift */,
 				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
 				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
@@ -332,6 +335,7 @@
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
 				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
 				8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */,
+				FD60950B29CC598000944379 /* SideBar.swift in Sources */,
 				FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */,
 				8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */,
 				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,

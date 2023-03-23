@@ -40,7 +40,7 @@ struct TracksListView: View {
                         .font(.largeTitle)
                         .padding()
                     LazyVGrid(columns: columns, spacing: 30) {
-                        ForEach(listData.0) { track in
+                        ForEach(model.listData.0) { track in
                             Button {
                                 coordinator.goToTrack(track)
                             } label: {
@@ -53,7 +53,7 @@ struct TracksListView: View {
                         .font(.largeTitle)
                         .padding()
                     LazyVGrid(columns: columns, spacing: 30) {
-                        ForEach(listData.1) { track in
+                        ForEach(model.listData.1) { track in
                             Button {
                                 coordinator.goToTrack(track)
                             } label: {
@@ -65,13 +65,7 @@ struct TracksListView: View {
                     .accessibilityHidden(true)
             }
         }.accessibilityLabel("All Tracks")
-            .task {
-                do {
-                    try await model.tracks()
-                } catch {
-                    print("Error: \(error)")
-                }
-            } .onChange(of: searchText) { newSearch in
+             .onChange(of: searchText) { newSearch in
                 model.filter(.SearchTracks(query: newSearch))
             }.onChange(of: filters) { newFilters in
                 print(newFilters.count)
@@ -93,9 +87,7 @@ struct TracksListView: View {
         }
     }
 
-    var listData: ([Track], [Track]) {
-        return (model.tracks.filter { $0.isJoined }, model.tracks.filter { !$0.isJoined })
-    }
+
 }
 
 

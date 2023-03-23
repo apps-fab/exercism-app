@@ -31,6 +31,10 @@ final class TrackModel: ObservableObject {
     private let coordinator: AppCoordinator
     private let fetcher: Fetcher
 
+    var listData: ([Track], [Track]) {
+        return (tracks.filter { $0.isJoined }, tracks.filter { !$0.isJoined })
+    }
+
     init(fetcher: Fetcher, coordinator: AppCoordinator) {
         self.fetcher = fetcher
         self.coordinator = coordinator

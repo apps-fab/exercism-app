@@ -39,48 +39,19 @@ struct DashBoard: View {
     @EnvironmentObject private var coordinator: AppCoordinator
 
     var body: some View {
-        NavigationSplitView {
-            List() {
-                ForEach(itemNames) { name in
-                    Section(header: Text(name.type.rawValue)) {
-                        ForEach(name.items) { item in
-                            Button {
-                                if item.name == "Log Out" {
-                                    self.logout()
-                                }
-                            } label: {
-                                HStack {
-                                    Image(systemName: item.image)
-                                        .renderingMode(.template)
-                                        .foregroundColor(.blue)
-                                    Text(item.name)
-                                }
-                            }
-                        }
+        TracksListView()
+            .toolbar {
+                ToolbarItemGroup {
+                    Spacer()
+                    Button {
+                        showProfile.toggle()
+                    } label: {
+                        Label("", systemImage: "person.crop.circle.fill")
+                    }   .popover(isPresented: $showProfile) {
+                        ProfileTableView().frame(width: 180, height: 200)
                     }
-                }.accessibilityLabel("The dashboard")
-            }
-        } detail: {
-            TracksListView()
-        }.toolbar {
-            ToolbarItemGroup {
-                Spacer()
-                Button {
-                    showProfile.toggle()
-                } label: {
-                    Label("", systemImage: "person.crop.circle.fill")
-                }   .popover(isPresented: $showProfile) {
-                    ProfileTableView().frame(width: 180, height: 200)
                 }
             }
-        }
-    }
-    
-    func logout() {
-        Task {
-            ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
-        }
-        coordinator.goToLogin()
     }
 }
 

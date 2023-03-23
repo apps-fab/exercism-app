@@ -30,7 +30,7 @@ struct FilterView: View {
             Button {
                 showingSheet.toggle()
             } label: {
-                Label("Show Filters", systemImage: "line.3.horizontal.decrease.circle")
+                Label("Filter by", systemImage: "slider.horizontal.3")
             }.padding()
                 .roundEdges(lineColor: showingSheet ? .purple : .gray)
                 .buttonStyle(.plain)

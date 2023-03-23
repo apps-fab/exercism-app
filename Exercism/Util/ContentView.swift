@@ -11,9 +11,13 @@ struct ContentView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
 
     var body: some View {
-        NavigationStack(path: $coordinator.path) {
-            NavigationView {
-                EmptyView()
+            NavigationSplitView {
+                SideBar().frame(minWidth: 266)
+            } detail: {
+                NavigationStack(path: $coordinator.path) {
+                    NavigationView {
+                        EmptyView()
+                    }
                     .navigationDestination(for: Route.self) { route in
                         switch route {
                         case let .Exercise(track, exercise):
@@ -26,10 +30,10 @@ struct ContentView: View {
                             LoginView()
 
                         case .Dashboard:
-                            DashBoard()
+                            TracksListView()
                         }
                     }
-            }
+                }
         }.onAppear {
             if let _ = ExercismKeychain.shared.get(for: "token") {
                 coordinator.goToDashboard()
@@ -38,5 +42,4 @@ struct ContentView: View {
             }
         }
     }
-
 }
