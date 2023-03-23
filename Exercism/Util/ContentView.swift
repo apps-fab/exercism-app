@@ -16,7 +16,12 @@ struct ContentView: View {
             } detail: {
                 NavigationStack(path: $coordinator.path) {
                     NavigationView {
-                        EmptyView()
+                        if let _ = ExercismKeychain.shared.get(for: "token") {
+                            TracksListView()
+                        } else {
+                            LoginView()
+                        }
+
                     }
                     .navigationDestination(for: Route.self) { route in
                         switch route {
@@ -29,14 +34,14 @@ struct ContentView: View {
                         case .Login:
                             LoginView()
 
-                        case .Dashboard:
+                        case .TracksList:
                             TracksListView()
                         }
                     }
                 }
         }.onAppear {
             if let _ = ExercismKeychain.shared.get(for: "token") {
-                coordinator.goToDashboard()
+                coordinator.goToTracksList()
             } else {
                 coordinator.goToLogin()
             }

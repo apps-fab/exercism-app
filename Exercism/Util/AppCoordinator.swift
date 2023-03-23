@@ -13,14 +13,14 @@ enum Route: Hashable {
     case Track(Track)
     case Exercise(String, String)
     case Login
-    case Dashboard
+    case TracksList
 }
 
 class AppCoordinator: ObservableObject {
     @Published var path = [Route]()
 
-    func goToDashboard() {
-        path.append(Route.Dashboard)
+    func goToTracksList() {
+        path.append(Route.TracksList)
     }
 
     func goToTrack(_ track: Track) {

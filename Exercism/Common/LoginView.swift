@@ -119,7 +119,7 @@ struct LoginView: View {
             switch response {
             case .success(_):
                 ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
-                coordinator.goToDashboard()
+                coordinator.goToTracksList()
             case .failure(let error):
                 if case ExercismClientError.apiError(_, _, let message) = error {
                     self.error = message
