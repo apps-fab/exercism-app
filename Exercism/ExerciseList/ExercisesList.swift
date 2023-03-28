@@ -25,26 +25,18 @@ struct ExercisesList: View {
     @State private var contentCategory: _Content = .Exercises
     @State private var searchText = ""
     var track: Track
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+
+    let columns = [
+        GridItem(.adaptive(minimum: 600, maximum: 1000))
+    ]
 
     var body: some View {
         ScrollView {
             VStack {
                 ExerciseHeaderView(contentSelection: $contentCategory,
-                                   exerciseCategory: $exerciseCategory,
-                                   searchText: $searchText,
-                                   resultCount: model.exercises.count,
                                    track: track)
-                Divider().frame(height: 2)
-                LazyVGrid(columns: columns) {
-                    ForEach(model.exercises, id: \.self) { exercise in
-                        Button {
-                            coordinator.goToEditor(track.slug, exercise.slug)
-                        } label: {
-                            ExerciseGridView(exercise: exercise)
-                        }.buttonStyle(.plain)
-                    }
-                }
+                containedView()
+
             }.task {
                 do {
                     try await model.exercises(for: track)
@@ -52,14 +44,67 @@ struct ExercisesList: View {
                     //show error
                 }
             }
+
         }.onChange(of: searchText) { newValue in
             model.filter(.SearchExercises(query: newValue))
         }
         .onChange(of: exerciseCategory) { newValue in
             model.toggleSelection(newValue)
         }
-        .onChange(of: contentCategory) { newValue in
-            // need to implement
+    }
+
+    func exerciseList() -> some View {
+        VStack {
+            HStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search by title", text: $searchText)
+                        .textFieldStyle(.plain)
+                }.padding()
+                    .background(RoundedRectangle(cornerRadius: 14)
+                        .fill(Color("darkBackground")))
+                CustomPicker(selected: $exerciseCategory) {
+                    HStack {
+                        ForEach(ExerciseCategory.allCases) { option in
+                            Text("\(option.rawValue) (\(model.exercises.count))")
+                                .padding()
+                                .frame(minWidth: 140, maxHeight: 40)
+                                .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+                                .onTapGesture {
+                                    exerciseCategory = option
+                                }
+                        }
+                    }
+                }.padding()
+            }.padding()
+            Divider().frame(height: 2)
+            LazyVGrid(columns: columns) {
+                ForEach(model.exercises, id: \.self) { exercise in
+                    Button {
+                        coordinator.goToEditor(track.slug, exercise.slug)
+                    } label: {
+                        ExerciseGridView(exercise: exercise)
+                    }.buttonStyle(.plain)
+                }
+            }
+        }
+    }
+
+    func containedView() -> some View {
+        switch contentCategory {
+        case .Exercises:
+            let view = exerciseList()
+            return AnyView(view)
+        case .about:
+            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk/about").frame(width: 480, height: 600))
+        case .buildStatus:
+            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk/build").frame(width: 480, height: 600))
+
+        case .overview:
+            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk").frame(width: 480, height: 600))
+
+        case .syllabus:
+            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk").frame(width: 480, height: 600))
         }
     }
 }

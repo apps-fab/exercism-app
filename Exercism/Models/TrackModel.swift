@@ -56,7 +56,7 @@ final class TrackModel: ObservableObject {
             tracks = searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
 
         case .SearchExercises(let searchText):
-            exercises = exercises.filter { $0.slug.contains(searchText) }
+            exercises = searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) }
 
         case .FilterTags(let tags):
             tracks = unfilteredTracks.filter { $0.tags.contains(tags) }

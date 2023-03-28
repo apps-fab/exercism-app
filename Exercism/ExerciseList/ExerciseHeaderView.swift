@@ -39,9 +39,6 @@ enum _Content: String, CaseIterable, Identifiable {
 
 struct ExerciseHeaderView: View {
     @Binding var contentSelection: _Content
-    @Binding var exerciseCategory: ExerciseCategory
-    @Binding var searchText: String
-    var resultCount: Int
     let track: Track
 
     var body: some View {
@@ -74,32 +71,8 @@ struct ExerciseHeaderView: View {
                 }
             }
             Divider().frame(height: 2)
-            HStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search by title", text: $searchText)
-                        .textFieldStyle(.plain)
-                }.padding()
-                    .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(Color("darkBackground")))
-                CustomPicker(selected: $exerciseCategory) {
-                    HStack {
-                        ForEach(ExerciseCategory.allCases) { option in
-                            Text("\(option.rawValue) (\(resultCount))")
-                                .padding()
-                                .frame(minWidth: 140, maxHeight: 40)
-                                .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
-                                .onTapGesture {
-                                    exerciseCategory = option
-                                }
-                        }
-                    }
-                }.padding()
-            }.padding()
         }
-
     }
-    
 }
 
 struct ExerciseHeaderView_Previews: PreviewProvider {
@@ -110,9 +83,6 @@ struct ExerciseHeaderView_Previews: PreviewProvider {
         let modelData = TrackModel(fetcher: fetcher,
                                    coordinator: AppCoordinator())
         ExerciseHeaderView(contentSelection: .constant(.Exercises),
-                           exerciseCategory: .constant(.AllExercises),
-                           searchText: .constant("Swift"),
-                           resultCount: 1,
                            track: modelData.tracks[0])
         .environmentObject(modelData)
     }
