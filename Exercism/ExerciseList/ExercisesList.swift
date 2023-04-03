@@ -99,10 +99,8 @@ struct ExercisesList: View {
             return AnyView(WebView(urlString: "https://exercism.org/tracks/awk/about").frame(width: 480, height: 600))
         case .buildStatus:
             return AnyView(WebView(urlString: "https://exercism.org/tracks/awk/build").frame(width: 480, height: 600))
-
         case .overview:
             return AnyView(WebView(urlString: "https://exercism.org/tracks/awk").frame(width: 480, height: 600))
-
         case .syllabus:
             return AnyView(WebView(urlString: "https://exercism.org/tracks/awk").frame(width: 480, height: 600))
         }
