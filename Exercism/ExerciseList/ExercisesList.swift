@@ -24,6 +24,7 @@ struct ExercisesList: View {
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var contentCategory: _Content = .Exercises
     @State private var searchText = ""
+    @State private var webViewHeight: CGFloat = .zero
     var track: Track
 
     let columns = [
@@ -35,8 +36,7 @@ struct ExercisesList: View {
             VStack {
                 ExerciseHeaderView(contentSelection: $contentCategory,
                                    track: track)
-                containedView()
-
+                containedView().frame(height: webViewHeight)
             }.task {
                 do {
                     try await model.exercises(for: track)
@@ -93,16 +93,15 @@ struct ExercisesList: View {
     func containedView() -> some View {
         switch contentCategory {
         case .Exercises:
-            let view = exerciseList()
-            return AnyView(view)
+            return AnyView(exerciseList())
         case .about:
-            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk/about").frame(width: 480, height: 600))
+            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk/about"))
         case .buildStatus:
-            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk/build").frame(width: 480, height: 600))
+            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk/build"))
         case .overview:
-            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk").frame(width: 480, height: 600))
+            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk"))
         case .syllabus:
-            return AnyView(WebView(urlString: "https://exercism.org/tracks/awk").frame(width: 480, height: 600))
+            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk"))
         }
     }
 }
