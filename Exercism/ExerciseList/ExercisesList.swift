@@ -36,7 +36,7 @@ struct ExercisesList: View {
             VStack {
                 ExerciseHeaderView(contentSelection: $contentCategory,
                                    track: track)
-                containedView().frame(height: webViewHeight)
+                containedView()
             }.task {
                 do {
                     try await model.exercises(for: track)
@@ -93,15 +93,10 @@ struct ExercisesList: View {
     func containedView() -> some View {
         switch contentCategory {
         case .Exercises:
-            return AnyView(exerciseList())
-        case .about:
-            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk/about"))
-        case .buildStatus:
-            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk/build"))
-        case .overview:
-            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk"))
-        case .syllabus:
-            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: "https://exercism.org/tracks/awk"))
+            return AnyView(exerciseList()).frame(alignment: .top)
+
+        case .about, .buildStatus, .overview, .syllabus:
+            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: contentCategory.getUrl(track.slug.lowercased()))).frame(height: webViewHeight)
         }
     }
 }

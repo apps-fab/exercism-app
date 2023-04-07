@@ -13,7 +13,6 @@ struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var error: String?
-    @Namespace var mainNamespace
     @EnvironmentObject private var model: TrackModel
     @EnvironmentObject private var coordinator: AppCoordinator
 

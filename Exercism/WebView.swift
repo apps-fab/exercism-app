@@ -42,6 +42,9 @@ struct WebView: NSViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            webView.getCookies { cookies in
+                print("These are the cookies: \(cookies)")
+            }
             let removeElementIdScript = "document.getElementsByClassName(\"c-track-header\")[0].style.display='none';"
             DispatchQueue.main.async {
                 webView.evaluateJavaScript(removeElementIdScript) { (response, error) in
@@ -59,6 +62,27 @@ struct WebView: NSViewRepresentable {
                     self.parent.dynamicHeight = height as! CGFloat
                 }
             })
+        }
+    }
+}
+
+extension WKWebView {
+
+    private var httpCookieStore: WKHTTPCookieStore  { return WKWebsiteDataStore.default().httpCookieStore }
+
+    func getCookies(for domain: String? = nil, completion: @escaping ([String : Any])->())  {
+        var cookieDict = [String : AnyObject]()
+        httpCookieStore.getAllCookies { cookies in
+            for cookie in cookies {
+                if let domain = domain {
+                    if cookie.domain.contains(domain) {
+                        cookieDict[cookie.name] = cookie.properties as AnyObject?
+                    }
+                } else {
+                    cookieDict[cookie.name] = cookie.properties as AnyObject?
+                }
+            }
+            completion(cookieDict)
         }
     }
 }

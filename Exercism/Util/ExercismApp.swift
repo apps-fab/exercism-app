@@ -17,7 +17,6 @@ enum Keys: String {
 @main
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject private var settings = SettingData()
 
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -30,10 +29,6 @@ struct ExercismApp: App {
         return WindowGroup {
             ContentView()
                 .frame(minWidth: 800, minHeight: 800)
-                .environmentObject(settings)
-                .environmentObject(TrackModel(fetcher: fetcher,
-                                              coordinator: AppCoordinator()))
-                .environmentObject(AppCoordinator())
                 .navigationTitle("Exercism")
         }
     }

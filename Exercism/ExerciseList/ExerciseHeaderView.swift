@@ -35,6 +35,24 @@ enum _Content: String, CaseIterable, Identifiable {
             return "hammer"
         }
     }
+
+    func getUrl(_ track: String) -> String {
+        switch self {
+        case .Exercises:
+            return ""
+        case .overview:
+            return "https://exercism.org/tracks/\(track)"
+
+        case .syllabus:
+            return "https://exercism.org/tracks/\(track)"
+
+        case .about:
+            return "https://exercism.org/tracks/\(track)/about"
+
+        case .buildStatus:
+            return "https://exercism.org/tracks/\(track)/build"
+        }
+    }
 }
 
 struct ExerciseHeaderView: View {
