@@ -40,7 +40,7 @@ struct ExerciseEditorWindowView: View {
                 ToolbarItem(content: { Spacer() })
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        print("we hit it")
+                        viewModel.runTest()
 
                     }, label: { // 1
                         HStack {
