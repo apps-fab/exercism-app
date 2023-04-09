@@ -14,7 +14,7 @@ enum ExerciseCategory : String, CaseIterable, Identifiable {
     case InProgress
     case Available
     case locked
-
+    
     var id: Self { return self }
 }
 
@@ -22,29 +22,22 @@ struct ExercisesList: View {
     @EnvironmentObject private var model: TrackModel
     @EnvironmentObject private var coordinator: AppCoordinator
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
-    @State private var contentCategory: _Content = .Exercises
     @State private var searchText = ""
-    @State private var webViewHeight: CGFloat = .zero
     var track: Track
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-
+    
     var body: some View {
         ScrollView {
-            VStack {
-                ExerciseHeaderView(contentSelection: $contentCategory,
-                                   track: track)
-                containedView()
-            }.task {
-                do {
-                    try await model.exercises(for: track)
-                } catch {
-                    //show error
-                }
+            exerciseList()
+        }.task {
+            do {
+                try await model.exercises(for: track)
+            } catch {
+                //show error
             }
-
         }.onChange(of: searchText) { newValue in
             model.filter(.SearchExercises(query: newValue))
         }
@@ -52,9 +45,9 @@ struct ExercisesList: View {
             model.toggleSelection(newValue)
         }
     }
-
+    
     func exerciseList() -> some View {
-        VStack {
+        VStack() {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -63,6 +56,7 @@ struct ExercisesList: View {
                 }.padding()
                     .background(RoundedRectangle(cornerRadius: 14)
                         .fill(Color("darkBackground")))
+                    .frame(minWidth: 400)
                 CustomPicker(selected: $exerciseCategory) {
                     HStack {
                         ForEach(ExerciseCategory.allCases) { option in
@@ -87,16 +81,6 @@ struct ExercisesList: View {
                     }.buttonStyle(.plain)
                 }
             }
-        }
-    }
-
-    func containedView() -> some View {
-        switch contentCategory {
-        case .Exercises:
-            return AnyView(exerciseList()).frame(alignment: .top)
-
-        case .about, .buildStatus, .overview, .syllabus:
-            return AnyView(WebView(dynamicHeight: $webViewHeight, urlString: contentCategory.getUrl(track.slug.lowercased()))).frame(height: webViewHeight)
         }
     }
 }

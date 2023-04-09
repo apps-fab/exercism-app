@@ -13,11 +13,11 @@ struct TracksListView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @State private var searchText = ""
     @State private var filters = Set<String>()
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-
+    
     var body: some View {
         VStack {
             VStack {
@@ -48,7 +48,7 @@ struct TracksListView: View {
                             }.buttonStyle(.plain)
                         }
                     }
-
+                    
                     Text("Unjoined Tracks")
                         .font(.largeTitle)
                         .padding()
@@ -65,14 +65,14 @@ struct TracksListView: View {
                     .accessibilityHidden(true)
             }
         }.accessibilityLabel("All Tracks")
-             .onChange(of: searchText) { newSearch in
+            .onChange(of: searchText) { newSearch in
                 model.filter(.SearchTracks(query: newSearch))
             }.onChange(of: filters) { newFilters in
                 print(newFilters.count)
                 model.filter(.FilterTags(tags: newFilters))
             }
     }
-
+    
     var headerView: some View {
         VStack(alignment: .center) {
             Image("trackImages")
@@ -86,8 +86,6 @@ struct TracksListView: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
-
-
 }
 
 

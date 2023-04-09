@@ -80,8 +80,7 @@ struct ExerciseGridView_Previews: PreviewProvider {
         let token = ExercismKeychain.shared.get(for: Keys.token.rawValue)
         let client = ExercismClient(apiToken: token!)
         let fetcher = Fetcher(client: client)
-        let modelData = TrackModel(fetcher: fetcher,
-                                   coordinator: AppCoordinator())
+        let modelData = TrackModel(fetcher: fetcher)
         ExerciseGridView(exercise: modelData.exercises[0])
             .environmentObject(modelData)
     }

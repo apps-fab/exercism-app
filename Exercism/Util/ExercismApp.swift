@@ -17,18 +17,15 @@ enum Keys: String {
 @main
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
     
     var body: some Scene {
-        let token = ExercismKeychain.shared.get(for: Keys.token.rawValue)
-        let client = ExercismClient(apiToken: token!)
-        let fetcher = Fetcher(client: client)
-        return WindowGroup {
+        WindowGroup {
             ContentView()
-                .frame(minWidth: 800, minHeight: 800)
+                .environmentObject(AppCoordinator())
                 .navigationTitle("Exercism")
         }
     }

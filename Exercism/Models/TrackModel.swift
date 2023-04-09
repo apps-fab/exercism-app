@@ -28,16 +28,14 @@ final class TrackModel: ObservableObject {
     @Published private(set) var exercises = [Exercise]()
     private var unfilteredTracks = [Track]()
     private var unfilteredExercises = [Exercise]()
-    private let coordinator: AppCoordinator
     private let fetcher: Fetcher
 
     var listData: ([Track], [Track]) {
         return (tracks.filter { $0.isJoined }, tracks.filter { !$0.isJoined })
     }
 
-    init(fetcher: Fetcher, coordinator: AppCoordinator) {
+    init(fetcher: Fetcher) {
         self.fetcher = fetcher
-        self.coordinator = coordinator
     }
 
     func tracks() async throws {
@@ -65,7 +63,6 @@ final class TrackModel: ObservableObject {
             tracks = tracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
         }
     }
-
 
     func toggleSelection(_ selection: ExerciseCategory) {
         // Not the correct parameters

@@ -9,10 +9,10 @@ import SwiftUI
 import ExercismSwift
 
 struct ExerciseEditorWindowView: View {
+    @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject var viewModel = ExerciseViewModel()
     @State private var showInspector = true
-    @StateObject var coordinator: AppCoordinator
-
+    
     let exercise: String
     let track: String
     var body: some View {
@@ -30,52 +30,52 @@ struct ExerciseEditorWindowView: View {
                 }
             }
         }
-            .environmentObject(viewModel)
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button(action: toggleSidebar, label: { // 1
-                        Image(systemName: "sidebar.leading")
-                    })
-                }
-                ToolbarItem(content: { Spacer() })
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        viewModel.runTest()
-
-                    }, label: { // 1
-                        HStack {
-                            Image(systemName: "play.circle")
-                            Text("Run Tests")
-                        }
-                    })
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-
-                    }, label: { // 1
-                        HStack {
-                            Image(systemName: "paperplane.circle")
-                            Text("Submit")
-                        }
-                    })
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        withAnimation {
-                            showInspector.toggle()
-                        }
-                    }, label: { // 1
-                        Label("Toggle instructions", systemImage: "sidebar.trailing")
-                    })
-                }
+        .environmentObject(viewModel)
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: toggleSidebar, label: { // 1
+                    Image(systemName: "sidebar.leading")
+                })
             }
-            .navigationViewStyle(.columns)
-            .onAppear {
-                viewModel.getDocument(track: track, exercise: exercise)
+            ToolbarItem(content: { Spacer() })
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    viewModel.runTest()
+                    
+                }, label: { // 1
+                    HStack {
+                        Image(systemName: "play.circle")
+                        Text("Run Tests")
+                    }
+                })
             }
-            .navigationTitle(Text(viewModel.getTitle()))
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    
+                }, label: { // 1
+                    HStack {
+                        Image(systemName: "paperplane.circle")
+                        Text("Submit")
+                    }
+                })
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    withAnimation {
+                        showInspector.toggle()
+                    }
+                }, label: { // 1
+                    Label("Toggle instructions", systemImage: "sidebar.trailing")
+                })
+            }
+        }
+        .navigationViewStyle(.columns)
+        .onAppear {
+            viewModel.getDocument(track: track, exercise: exercise)
+        }
+        .navigationTitle(Text(viewModel.getTitle()))
     }
-
+    
     private func toggleSidebar() { // 2
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
@@ -83,6 +83,6 @@ struct ExerciseEditorWindowView: View {
 
 struct ExerciseEditorWindowView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseEditorWindowView(coordinator: AppCoordinator(), exercise: "Rust", track: "Hello-world")
+        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world")
     }
 }

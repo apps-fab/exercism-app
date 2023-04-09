@@ -15,7 +15,7 @@ struct LoginView: View {
     @State private var error: String?
     @EnvironmentObject private var model: TrackModel
     @EnvironmentObject private var coordinator: AppCoordinator
-
+    
     var body: some View {
         GeometryReader { geometry in
             HStack() {
@@ -118,7 +118,7 @@ struct LoginView: View {
             switch response {
             case .success(_):
                 ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
-                coordinator.goToTracksList()
+                coordinator.goToDashboard()
             case .failure(let error):
                 if case ExercismClientError.apiError(_, _, let message) = error {
                     self.error = message
