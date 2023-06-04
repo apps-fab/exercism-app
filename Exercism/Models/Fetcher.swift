@@ -10,8 +10,9 @@ import ExercismSwift
 actor Fetcher {
     private let client: ExercismClient
 
-    init(client: ExercismClient) {
-        self.client = client
+    init() {
+        let token = ExercismKeychain.shared.get(for: "token")
+        self.client = ExercismClient(apiToken: token ?? "")
     }
 
     func getTracks() async throws -> [Track] {

@@ -15,6 +15,7 @@ struct ExerciseEditorWindowView: View {
     
     let exercise: String
     let track: String
+
     var body: some View {
         NavigationView {
             ExerciseNavigatorView()

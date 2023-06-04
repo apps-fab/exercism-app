@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct Dashboard: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
-    @EnvironmentObject private var model: TrackModel
+    @State var coordinator: AppCoordinator
 
     var body: some View {
         NavigationSplitView {
-            SideBar().frame(minWidth: 200)
+            SideBar(coordinator: coordinator).frame(minWidth: 200)
         } detail: {
-            TracksListView()
+            TracksListView(coordinator: coordinator)
         }
     }
 }

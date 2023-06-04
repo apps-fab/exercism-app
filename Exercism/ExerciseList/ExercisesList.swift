@@ -19,74 +19,68 @@ enum ExerciseCategory : String, CaseIterable, Identifiable {
 }
 
 struct ExercisesList: View {
-    @EnvironmentObject private var model: TrackModel
-    @EnvironmentObject private var coordinator: AppCoordinator
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var searchText = ""
-    var track: Track
-    
+    @State var coordinator: AppCoordinator
+    let track: Track
+
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-    
+
     var body: some View {
-        ScrollView {
-            exerciseList()
-        }.task {
-            do {
-                try await model.exercises(for: track)
-            } catch {
-                //show error
-            }
-        }.onChange(of: searchText) { newValue in
-            model.filter(.SearchExercises(query: newValue))
-        }
-        .onChange(of: exerciseCategory) { newValue in
-            model.toggleSelection(newValue)
-        }
-    }
-    
-    func exerciseList() -> some View {
-        VStack() {
-            HStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search by title", text: $searchText)
-                        .textFieldStyle(.plain)
-                }.padding()
-                    .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(Color("darkBackground")))
-                    .frame(minWidth: 400)
-                CustomPicker(selected: $exerciseCategory) {
-                    HStack {
-                        ForEach(ExerciseCategory.allCases) { option in
-                            Text("\(option.rawValue) (\(model.exercises.count))")
-                                .padding()
-                                .frame(minWidth: 140, maxHeight: 40)
-                                .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
-                                .onTapGesture {
-                                    exerciseCategory = option
-                                }
-                        }
-                    }
-                }.padding()
-            }.padding()
-            Divider().frame(height: 2)
-            LazyVGrid(columns: columns) {
-                ForEach(model.exercises, id: \.self) { exercise in
-                    Button {
-                        coordinator.goToEditor(track.slug, exercise.slug)
-                    } label: {
-                        ExerciseGridView(exercise: exercise)
-                    }.buttonStyle(.plain)
-                }
-            }
-        }
+        EmptyView()
+//        AsyncResultView(source: AsyncModel(operation: TrackModel().getExercises(track) )) { exercises in
+//            Text(exercises[0].blurb)
+//        }
+        //        AsyncResultView(source: exerciseModel) { exercises in
+//            ScrollView {
+//                VStack {
+//                    HStack {
+//                        HStack {
+//                            Image(systemName: "magnifyingglass")
+//                            TextField("Search by title", text: $searchText)
+//                                .textFieldStyle(.plain)
+//                        }.padding()
+//                            .background(RoundedRectangle(cornerRadius: 14)
+//                                .fill(Color("darkBackground")))
+//                            .frame(minWidth: 400)
+//                        CustomPicker(selected: $exerciseCategory) {
+//                            HStack {
+//                                ForEach(ExerciseCategory.allCases) { option in
+//                                    Text("\(option.rawValue) (\(exercises.count))")
+//                                        .padding()
+//                                        .frame(minWidth: 140, maxHeight: 40)
+//                                        .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+//                                        .onTapGesture {
+//                                            exerciseCategory = option
+//                                        }
+//                                }
+//                            }
+//                        }.padding()
+//                    }.padding()
+//                    Divider().frame(height: 2)
+//                    LazyVGrid(columns: columns) {
+//                        ForEach(exercises, id: \.self) { exercise in
+//                            Button {
+//                                coordinator.goToEditor(track.slug, exercise)
+//                            } label: {
+//                                ExerciseGridView(exercise: exercise)
+//                            }.buttonStyle(.plain)
+//                        }
+//                    }
+//                }
+//            }
+            //            }.onChange(of: searchText) { newValue in
+            //                model.filter(.SearchExercises(query: newValue))
+            //            }.onChange(of: exerciseCategory) { newValue in
+            //                model.toggleSelection(newValue)
+            //            }
     }
 }
 
 struct ExercisesList_Previews: PreviewProvider {
     static var previews: some View {
-        TracksListView()
+        TracksListView(coordinator: AppCoordinator())
     }
 }

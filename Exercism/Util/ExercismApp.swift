@@ -17,6 +17,8 @@ enum Keys: String {
 @main
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var settingsData = SettingData()
+    @StateObject private var appCoordinator = AppCoordinator()
     
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -25,7 +27,8 @@ struct ExercismApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(AppCoordinator())
+                .environmentObject(appCoordinator)
+                .environmentObject(settingsData)
                 .navigationTitle("Exercism")
         }
     }
