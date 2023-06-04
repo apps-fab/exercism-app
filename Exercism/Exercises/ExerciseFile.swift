@@ -24,6 +24,6 @@ struct ExerciseFile: Identifiable, Equatable {
     }
 
     static func fromURL(_ url: URL) -> ExerciseFile {
-        ExerciseFile(url: url, id: url.relativeString, name: url.lastPathComponent, type: .solution)
+        ExerciseFile(url: url, id: url.relativeString, name: url.relativeString, type: .solution)
     }
 }
