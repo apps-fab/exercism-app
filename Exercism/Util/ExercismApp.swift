@@ -8,11 +8,17 @@
 import SwiftUI
 import SDWebImage
 import SDWebImageSVGCoder
+import ExercismSwift
+
+enum Keys: String {
+    case token
+}
 
 @main
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject private var settings = SettingData()
+    @StateObject private var settingsData = SettingData()
+    @StateObject private var model = TrackModel()
     
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -21,7 +27,9 @@ struct ExercismApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(settings)
+//                .environmentObject(coordinator)
+                .environmentObject(model)
+                .environmentObject(settingsData)
                 .navigationTitle("Exercism")
         }
     }

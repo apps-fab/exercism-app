@@ -6,61 +6,78 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
-enum ExerciseCategory : String, CaseIterable {
+enum ExerciseCategory : String, CaseIterable, Identifiable {
     case AllExercises
     case Completed
     case InProgress
     case Available
     case locked
+    
+    var id: Self { return self }
 }
 
 struct ExercisesList: View {
-    @StateObject var viewModel: ExerciseListViewModel
-    @State var segmentationSelection: ExerciseCategory = .AllExercises
+    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var model: TrackModel
+    @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var searchText = ""
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    let track: Track
+
+    let columns = [
+        GridItem(.adaptive(minimum: 600, maximum: 1000))
+    ]
 
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search language filters", text: $searchText)
-                        .textFieldStyle(.plain)
-                        .onSubmit {
-                            viewModel.filter(searchText)
+        AsyncResultView(source: AsyncModel(operation: { try await model.getExercises(track) })) { exercises in
+            ScrollView {
+                VStack {
+                    HStack {
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                            TextField("Search by title", text: $searchText)
+                                .textFieldStyle(.plain)
+                        }.padding()
+                            .background(RoundedRectangle(cornerRadius: 14)
+                                .fill(Color("darkBackground")))
+                            .frame(minWidth: 400)
+                        CustomPicker(selected: $exerciseCategory) {
+                            HStack {
+                                ForEach(ExerciseCategory.allCases) { option in
+                                    Text("\(option.rawValue) (\(exercises.count))")
+                                        .padding()
+                                        .frame(minWidth: 140, maxHeight: 40)
+                                        .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+                                        .onTapGesture {
+                                            exerciseCategory = option
+                                        }
+                                }
+                            }
+                        }.padding()
+                    }.padding()
+                    Divider().frame(height: 2)
+                    LazyVGrid(columns: columns) {
+                        ForEach(exercises, id: \.self) { exercise in
+                            Button {
+                                coordinator.goToEditor(track.slug, exercise)
+                            } label: {
+                                ExerciseGridView(exercise: exercise)
+                            }.buttonStyle(.plain)
                         }
-                }.padding()
-                    .background(RoundedRectangle(cornerRadius: 14)
-                        .fill(Color("darkBackground")))
-                Picker("Some Picker", selection: $segmentationSelection) {
-                    ForEach(ExerciseCategory.allCases, id: \.self) { option in
-                        Text(option.rawValue)
-                    }
-                }.pickerStyle(.segmented)
-                    .padding()
-                    .onChange(of: segmentationSelection) { newValue in
-                        viewModel.toggleSelection(segmentationSelection)
-                    }
-                LazyVGrid(columns: columns) {
-                    ForEach(viewModel.exercisesList, id: \.self) { exercise in
-                        Button {
-                            viewModel.goToExercise(exercise)
-                        } label: {
-                            ExerciseGridView(exercise: exercise, solution: viewModel.getSolution(for: exercise))
-                        }.buttonStyle(.plain)
                     }
                 }
-            }.task {
-                viewModel.fetchExerciseList()
-            }
+            }.padding()
+        }.onChange(of: searchText) { newValue in
+//
+        }.onChange(of: exerciseCategory) { newValue in
+            //
         }
     }
 }
 
-struct ExercisesList_Previews: PreviewProvider {
-    static var previews: some View {
-        ExercisesList(viewModel: ExerciseListViewModel(trackName: "Python", coordinator: AppCoordinator()))
-    }
-}
+//struct ExercisesList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExercisesList(coordinator: AppCoordinator(), track: Tr)
+//    }
+//}

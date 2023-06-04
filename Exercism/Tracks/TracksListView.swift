@@ -9,8 +9,8 @@ import SwiftUI
 import ExercismSwift
 
 struct TracksListView: View {
-    @StateObject var viewModel: TracksViewModel
-    @State private var resultsCount = 0
+    @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var coordinator: AppCoordinator
     @State private var searchText = ""
     @State private var filters = Set<String>()
 
@@ -19,10 +19,7 @@ struct TracksListView: View {
     ]
 
     var body: some View {
-        switch viewModel.state {
-        case .Idle:
-            Color.clear.onAppear(perform: viewModel.fetchTracks)
-        case .Loaded(let tracks):
+        AsyncResultView(source: AsyncModel(operation: TrackModel().getTracks )) { tracks in
             VStack {
                 VStack {
                     headerView
@@ -30,12 +27,12 @@ struct TracksListView: View {
                         .frame(maxWidth: 650, maxHeight: 160)
                         .padding()
                     Divider().frame(height: 1)
-                    FilterView(results: $resultsCount,
-                               searchText: $searchText,
-                               filters: $filters) {
-                        viewModel.sort()
-                    }.frame(maxHeight: 50)
-                        .padding()
+                    //                    FilterView(results: tracks.count,
+                    //                               searchText: $searchText,
+                    //                               filters: $filters) {
+                    //                        model.filter(.SortTracks)
+                    //                    }.frame(maxHeight: 50)
+                    //                        .padding()
                     Divider().frame(height: 1)
                 }.background(Color("darkBackground"))
                 ScrollView {
@@ -44,9 +41,9 @@ struct TracksListView: View {
                             .font(.largeTitle)
                             .padding()
                         LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(tracks.joinedTracks) { track in
+                            ForEach(tracks.filter { $0.isJoined }) { track in
                                 Button {
-                                    viewModel.goToExercises(track)
+                                    coordinator.goToTrack(track)
                                 } label: {
                                     TrackGridView(track: track).accessibilityElement(children: .contain)
                                 }.buttonStyle(.plain)
@@ -57,9 +54,9 @@ struct TracksListView: View {
                             .font(.largeTitle)
                             .padding()
                         LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(tracks.unjoinedTracks) { track in
+                            ForEach(tracks.filter { !$0.isJoined }) { track in
                                 Button {
-                                    viewModel.goToExercises(track)
+                                    coordinator.goToTrack(track)
                                 } label: {
                                     TrackGridView(track: track).accessibilityElement(children: .contain)
                                 }.buttonStyle(.plain)
@@ -68,19 +65,16 @@ struct TracksListView: View {
                     }.padding()
                         .accessibilityHidden(true)
                 }
-            }.accessibilityLabel("All Tracks")
-                .onChange(of: searchText) { newSearch in
-                    viewModel.search(newSearch)
-                }.onChange(of: filters) { newFilters in
-                    viewModel.filter(newFilters)
-                }
-        case .loading:
-            ProgressView().frame(width: 20, height: 20)
-        case .Error(let error):
-            EmptyView()
-        }
+            }
+        }.accessibilityLabel("All Tracks")
+        //            .onChange(of: searchText) { newSearch in
+        //                model.filter(.SearchTracks(query: newSearch))
+        //            }.onChange(of: filters) { newFilters in
+        //                print(newFilters.count)
+        //                model.filter(.FilterTags(tags: newFilters))
+        //            }
     }
-
+    
     var headerView: some View {
         VStack(alignment: .center) {
             Image("trackImages")
@@ -99,6 +93,6 @@ struct TracksListView: View {
 
 struct TracksView_Previews: PreviewProvider {
     static var previews: some View {
-        TracksListView(viewModel: TracksViewModel(coordinator: AppCoordinator()))
+        TracksListView()
     }
 }

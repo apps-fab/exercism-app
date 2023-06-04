@@ -14,20 +14,20 @@ extension TestRun {
             $0.taskId != nil
         }
     }
-
+    
     func numFailedTest() -> Int {
         tests.filter { test in
-                test.status == TestStatus.fail || test.status == TestStatus.error
-            }
-            .count
+            test.status == TestStatus.fail || test.status == TestStatus.error
+        }
+        .count
     }
-
+    
     func failedTest() -> [Test] {
         tests.filter { test in
             test.status == TestStatus.fail || test.status == TestStatus.error
         }
     }
-
+    
     func numFailedTasks() -> Int {
         Set(
             failedTest()
@@ -38,9 +38,9 @@ extension TestRun {
                     $0.taskId
                 }
         )
-            .count
+        .count
     }
-
+    
     func testGroupedByTaskList() -> [TestGroup] {
         if !hasTasks() {
             return tests.enumerated().map { i, test in
