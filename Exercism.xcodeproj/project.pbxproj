@@ -14,12 +14,17 @@
 		8480F982814F9B0C587D6D8D /* TestRunExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F2C5A207E6E66ADC6AAA /* TestRunExt.swift */; };
 		8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F60001E12133BDACC877 /* ExerciseItem.swift */; };
 		8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */; };
+		8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */; };
+		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FD5082E9C6333FE9A02E /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FFB139F58C2B35ADE425 /* ColorExt.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
 		E03B8C49298E909400380945 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B071128F5F77300FCA956 /* FilterView.swift */; };
 		E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
 		E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22128E576510022CECD /* ExerciseNavigatorView.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
+		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
+		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
+		E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0C29E0E40700E5C42A /* CodeEditor */; };
 		E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */; };
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
 		E0C9673228732A44004CE7E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9673128732A44004CE7E6 /* ContentView.swift */; };
@@ -39,7 +44,6 @@
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5C828E1E7360078A062 /* TracksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C728E1E7360078A062 /* TracksViewModel.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
-		FD9A187729113DFB006A28E7 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD9A187629113DFB006A28E7 /* CodeEditor */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDABC23C292BCDA100A2AB72 /* ExerciseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC23B292BCDA100A2AB72 /* ExerciseListViewModel.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
@@ -50,16 +54,17 @@
 		FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */; };
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
 		FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */; };
-		FDEC77032892FC2A0093F764 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDEC77022892FC2A0093F764 /* ExercismSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8480F02086E415F1B9F5DFD5 /* SettingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
 		8480F0B036F1420E0B72C7BC /* ViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
+		8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOutputFormat.swift; sourceTree = "<group>"; };
 		8480F2C5A207E6E66ADC6AAA /* TestRunExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRunExt.swift; sourceTree = "<group>"; };
 		8480F60001E12133BDACC877 /* ExerciseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		8480FA5128C6FD6ADC5F15ED /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
+		8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashCodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFB139F58C2B35ADE425 /* ColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
@@ -102,10 +107,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0F6E9BC298E94200079CC28 /* ExercismSwift in Frameworks */,
+				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
+				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
+				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
-				FD9A187729113DFB006A28E7 /* CodeEditor in Frameworks */,
 				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,6 +120,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8480F413C4C2527414F3D692 /* SyntaxHighlighter */ = {
+			isa = PBXGroup;
+			children = (
+				8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */,
+				8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */,
+			);
+			path = SyntaxHighlighter;
+			sourceTree = "<group>";
+		};
 		8480F5D1A601C379BA486A7D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +198,7 @@
 				8480F5D1A601C379BA486A7D /* Extensions */,
 				8480FA5128C6FD6ADC5F15ED /* PreviewData.swift */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
+				8480F413C4C2527414F3D692 /* SyntaxHighlighter */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -236,8 +253,10 @@
 				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
 				FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */,
 				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
-				FD9A187629113DFB006A28E7 /* CodeEditor */,
 				E0F6E9BB298E94200079CC28 /* ExercismSwift */,
+				E07F6B0629E0D04D00E5C42A /* MarkdownUI */,
+				E07F6B0929E0D5DA00E5C42A /* Splash */,
+				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -272,8 +291,10 @@
 				FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				FD9A187529113DFB006A28E7 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
+				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
+				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -305,7 +326,6 @@
 			files = (
 				E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */,
 				FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */,
-				FD0B071228F5F77300FCA956 /* FilterView.swift in Sources */,
 				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
@@ -337,6 +357,8 @@
 				8480F982814F9B0C587D6D8D /* TestRunExt.swift in Sources */,
 				8480F406F7F2974FC222D514 /* PreviewData.swift in Sources */,
 				8480FD5082E9C6333FE9A02E /* ColorExt.swift in Sources */,
+				8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */,
+				8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,20 +573,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JohnSundell/Splash";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.0;
+			};
+		};
+		E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
 			requirement = {
 				branch = main;
 				kind = branch;
-			};
-		};
-		FD9A187529113DFB006A28E7 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
 			};
 		};
 		FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
@@ -602,15 +640,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E07F6B0629E0D04D00E5C42A /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
+		E07F6B0929E0D5DA00E5C42A /* Splash */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */;
+			productName = Splash;
+		};
+		E07F6B0C29E0E40700E5C42A /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
+		};
 		E0F6E9BB298E94200079CC28 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
 			productName = ExercismSwift;
-		};
-		FD9A187629113DFB006A28E7 /* CodeEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FD9A187529113DFB006A28E7 /* XCRemoteSwiftPackageReference "CodeEditor" */;
-			productName = CodeEditor;
 		};
 		FDC9F11E28E5DA9200488CE9 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

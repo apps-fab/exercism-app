@@ -48,7 +48,7 @@ struct ExercisesList: View {
                         Button {
                             viewModel.goToExercise(exercise)
                         } label: {
-                            ExerciseGridView(exercise: exercise)
+                            ExerciseGridView(exercise: exercise, solution: viewModel.getSolution(for: exercise))
                         }.buttonStyle(.plain)
                     }
                 }

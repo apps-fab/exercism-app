@@ -42,15 +42,21 @@ extension TestRun {
     }
 
     func testGroupedByTaskList() -> [TestGroup] {
-        tasks.map { task in
-            let tests = tests.filter {
-                    $0.taskId == task.id
-                }
-                .enumerated()
-                .map { i, test in
-                    TestGroup(test: test, testId: i + 1)
-                }
-            return TestGroup(task: task, tests: tests)
+        if !hasTasks() {
+            return tests.enumerated().map { i, test in
+                TestGroup(test: test, testId: i + 1)
+            }
+        } else {
+            return tasks.map { task in
+                let tests = tests.filter {
+                        $0.taskId == task.id
+                    }
+                    .enumerated()
+                    .map { i, test in
+                        TestGroup(test: test, testId: i + 1)
+                    }
+                return TestGroup(task: task, tests: tests)
+            }
         }
     }
 }

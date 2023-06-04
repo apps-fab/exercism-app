@@ -14,6 +14,9 @@ class ExerciseViewModel: ObservableObject {
     @Published var testSubmissionResponseMessage = ""
     @Published var averageTestDuration: Double? = nil
     @Published var testRun: TestRun? = nil
+    @Published var showSolutionSubmissionResponseMessage = false
+    @Published var solutionSubmissionResponseMessage = ""
+    @Published var submissionLink: String? = nil
     private var codes = [String: String]()
 
     var instruction: String? {
@@ -136,6 +139,8 @@ class ExerciseViewModel: ObservableObject {
     }
 
     func runTest() {
+        // Update with latest code
+        let _ = updateFile()
         guard let client = getClient() else {
             return
         }
@@ -162,7 +167,7 @@ class ExerciseViewModel: ObservableObject {
                         self?.showTestSubmissionResponseMessage = true
                         break
                     case .queued:
-                        self?.getTestRun(link: submission.links.testRun)
+                        self?.getTestRun(links: submission.links)
                         break
                     default:
                         self?.testSubmissionResponseMessage = "This solution does not fully solve the latest version of this exercise"
@@ -180,24 +185,24 @@ class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func getTestRun(link: String) {
+    func getTestRun(links: SubmissionLinks) {
         guard let client = getClient() else {
             testSubmissionResponseMessage = "Test run failed. Try again."
             showTestSubmissionResponseMessage = true
             return
         }
 
-        client.getTestRun(withLink: link) { [weak self] result in
+        client.getTestRun(withLink: links.testRun) { [weak self] result in
             print(result)
             switch result {
             case .success(let testRunResponse):
                 if let testRun = testRunResponse.testRun {
                     self?.averageTestDuration = nil
-                    self?.processTestRun(testRun: testRun)
+                    self?.processTestRun(testRun: testRun, links: links)
                 } else {
                     self?.averageTestDuration = Double(testRunResponse.testRunner.averageTestDuration)
                     DispatchQueue.main.asyncAfter(deadline: .now() + (self?.averageTestDuration! ?? 5.0)!) {
-                        self?.getTestRun(link: link)
+                        self?.getTestRun(links: links)
                     }
                 }
             case .failure(_):
@@ -208,55 +213,50 @@ class ExerciseViewModel: ObservableObject {
         }
     }
 
-    private func processTestRun(testRun: TestRun) {
-        let hasTasks = testRun.version >= 3 && !testRun.tasks.isEmpty && testRun.tests.allSatisfy {
-            $0.taskId != nil
+    var canSubmitSolution: Bool {
+        submissionLink != nil
+    }
+
+    func submitSolution() {
+        if (!canSubmitSolution) {
+            solutionSubmissionResponseMessage = "You need to run the tests before submitting."
+            showSolutionSubmissionResponseMessage = true
+            return
         }
 
-        switch testRun.status {
+        guard let client = getClient() else {
+            solutionSubmissionResponseMessage = "Error submitting solution. Try again."
+            showSolutionSubmissionResponseMessage = true
+            return
+        }
 
-        case .fail:
-            self.testRun = testRun
-        case .pass:
-            print("handle pass")
-        case .error, .ops_error:
-            print("error")
-        case .timeout:
-            print("handle timeout")
-        default:
-            print("do nothing")
+        client.submitSolution(withLink: submissionLink!) { [weak self] result in
+            print(result)
+            switch result {
+            case .success(let response):
+                switch response.iteration.testsStatus {
+                case .passed:
+                    self?.solutionSubmissionResponseMessage = "This solution correctly solves the latest version of this exercise."
+                    self?.showSolutionSubmissionResponseMessage = true
+                    break
+                default:
+                    self?.solutionSubmissionResponseMessage = "This solution does not fully solve the latest version of this exercise"
+                    self?.showSolutionSubmissionResponseMessage = true
+                }
+            case .failure(_):
+                self?.solutionSubmissionResponseMessage = "Error submitting solution. Try again."
+                self?.showSolutionSubmissionResponseMessage = true
+            }
         }
 
     }
-//
-//    private func processFailedTestRun(testRun: TestRun, hasTasks: Bool) {
-//        numFailedTest = testRun.tests.filter { test in
-//            test.status == TestStatus.fail || test.status == TestStatus.error
-//        }
-//        if (hasTasks) {
-//            numFailedTasks = Set(
-//                failed
-//                    .filter {
-//                        $0.taskId != nil
-//                    }
-//                    .map {
-//                        $0.taskId
-//                    }
-//            )
-//                .count
-//
-//            let allTest = testRun.tests
-//            testGroupedByTaskList = testRun.tasks.map { task in
-//                let test = allTest.filter {
-//                    $0.taskId == task.id
-//                }
-//                return TestGroup(id: task.id, title: task.title, test: test)
-//            }
-//
-////            num = "\(testRun.tasks.count - numFailedTasks) / \(testRun.tasks.count) "
-//
-//        }
-//    }
+
+    private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
+        if (testRun.status == .pass) {
+            submissionLink = links.submit
+        }
+        self.testRun = testRun
+    }
 
     private func getClient() -> ExercismClient? {
         guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else {
