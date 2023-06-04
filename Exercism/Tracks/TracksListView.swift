@@ -9,7 +9,8 @@ import SwiftUI
 import ExercismSwift
 
 struct TracksListView: View {
-    @State var coordinator: AppCoordinator
+    @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var coordinator: AppCoordinator
     @State private var searchText = ""
     @State private var filters = Set<String>()
 
@@ -92,6 +93,6 @@ struct TracksListView: View {
 
 struct TracksView_Previews: PreviewProvider {
     static var previews: some View {
-        TracksListView(coordinator: AppCoordinator())
+        TracksListView()
     }
 }

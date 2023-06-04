@@ -10,11 +10,11 @@ import ExercismSwift
 import KeychainSwift
 
 struct LoginView: View {
+    @EnvironmentObject private var coordinator: AppCoordinator
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var error: String?
-    @State var coordinator: AppCoordinator
-    
+
     var body: some View {
         GeometryReader { geometry in
             HStack() {
@@ -131,6 +131,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(coordinator: AppCoordinator())
+        LoginView()
     }
 }

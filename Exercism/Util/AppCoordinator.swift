@@ -27,8 +27,8 @@ class AppCoordinator: ObservableObject {
         path.append(Route.Track(track))
     }
     
-    func goToEditor(_ track: String, _ exercise: String) {
-        path.append(Route.Exercise(track, exercise))
+    func goToEditor(_ track: String, _ exercise: Exercise) {
+        path.append(Route.Exercise(track, exercise.blurb))
     }
     
     func goToLogin() {

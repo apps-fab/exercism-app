@@ -9,8 +9,8 @@ import SwiftUI
 import ExercismSwift
 
 struct ExerciseEditorWindowView: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject var viewModel = ExerciseViewModel()
+    @EnvironmentObject var coordinator: AppCoordinator
     @State private var showInspector = true
     
     let exercise: String

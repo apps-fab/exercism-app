@@ -29,20 +29,39 @@ final class TrackModel: ObservableObject {
         let fetchedTracks = try await fetcher.getTracks()
         self.unfilteredTracks = fetchedTracks
         return fetchedTracks
-//        tracks = .success(fetchedTracks)
     }
 
     func getExercises(_ track: Track) async throws -> [Exercise] {
         let fetchedExercises = try await fetcher.getExercises(track)
         self.unfilteredExercises = fetchedExercises
         return fetchedExercises
-//        exercises = .success(fetchedExercises)
     }
 
-//    func filter(_ type: FilterState) -> [any]{
+    func filterTracks(_ searchText: String) -> [Track] {
+        let tracks: [Track] =  searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
+        return tracks
+    }
+
+    func filterExercises(_ searchText: String) -> [Exercise] {
+        let exercises: [Exercise] =  searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) }
+        return exercises
+    }
+
+    func filterTags(_ tags: [String]) -> [Track] {
+        let tracks: [Track] =  unfilteredTracks.filter { $0.tags.contains(tags) }
+        return tracks
+    }
+
+    func sortTracks() -> [Track] {
+        unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
+    }
+
+
+//    func filter(_ type: FilterState) -> [any] {
 //        switch type {
 //        case .SearchTracks(let searchText):
-//            tracks = .success(searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) })
+//            let tracks: [Track] =  searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
+//            return tracks
 //
 //        case .SearchExercises(let searchText):
 //            exercises = .success(searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) })

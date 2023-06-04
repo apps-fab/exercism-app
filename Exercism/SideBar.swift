@@ -10,10 +10,11 @@ import SDWebImageSwiftUI
 import ExercismSwift
 
 struct SideBar: View {
-    @State var coordinator: AppCoordinator
+    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var model: TrackModel
 
     var body: some View {
-        AsyncResultView(source: AsyncModel(operation: TrackModel().getTracks )) { tracks in
+        AsyncResultView(source: AsyncModel(operation: model.getTracks )) { tracks in
             VStack(alignment: .leading) {
                 Text("Joined tracks").padding()
                 List {
@@ -69,6 +70,6 @@ struct SideBar: View {
 
 struct SideBar_Previews: PreviewProvider {
     static var previews: some View {
-        SideBar(coordinator: AppCoordinator())
+        SideBar()
     }
 }

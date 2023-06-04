@@ -9,24 +9,28 @@ import SwiftUI
 import ExercismSwift
 
 struct ContentView: View {
-    @EnvironmentObject var coordinator: AppCoordinator
-    
+    @StateObject private var coordinator = AppCoordinator()
+
     var body: some View {
         return NavigationStack(path: $coordinator.path) {
             EmptyView()
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case let .Exercise(track, exercise):
-                        ExerciseEditorWindowView(exercise: exercise, track: track)
+                        ExerciseEditorWindowView(exercise: exercise, track: track)                .environmentObject(coordinator)
+
                         
                     case let .Track(track):
-                        ExercisesList(coordinator: coordinator, track: track)
+                        ExercisesList(track: track).environmentObject(coordinator)
+
                         
                     case .Login:
-                        LoginView(coordinator: coordinator)
+                        LoginView().environmentObject(coordinator)
+
                         
                     case .Dashboard:
-                        Dashboard(coordinator: coordinator).frame(minWidth: 800, minHeight: 800)
+                        Dashboard().frame(minWidth: 800, minHeight: 800)                .environmentObject(coordinator)
+
                     }
                 }
         }.onAppear {

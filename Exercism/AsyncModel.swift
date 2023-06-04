@@ -31,6 +31,8 @@ class AsyncModel<Value>: ObservableObject, LoadableObject {
 
     init(operation: @escaping AsyncOperation) {
         self.operation = operation
+
+        Task { await self.load() }
     }
 
     func load() async {
