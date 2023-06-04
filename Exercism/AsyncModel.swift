@@ -37,9 +37,9 @@ class AsyncModel<Value>: ObservableObject, LoadableObject {
         state = .loading
 
         do {
-            self.state = .success(try await operation() )
+            state = .success(try await operation() )
         } catch {
-            self.state = .failure(error)
+            state = .failure(error)
         }
     }
 

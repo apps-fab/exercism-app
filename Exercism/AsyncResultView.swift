@@ -24,13 +24,13 @@ struct AsyncResultView<Source: LoadableObject, Content: View>: View {
                 EmptyView()
             case .loading:
                 ProgressView()
-            case let failure(error):
-                Text(error.description)
-            case let success(output):
+            case .failure(let error):
+                Text(error.localizedDescription)
+            case .success(let output):
                 content(output)
             }
         }.task {
-            source.load()
+            await source.load()
         }
     }
 }
