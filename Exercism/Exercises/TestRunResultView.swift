@@ -8,29 +8,51 @@ import ExercismSwift
 
 struct TestRunResultView: View {
     let testRun: TestRun
+    let onSubmitTest: () -> Void
     var body: some View {
-        if case let .pass = testRun.status {
-            TestPassed()
-        } else {
+        switch testRun.status {
+        case .pass:
+            TestPassed(onSubmitTest: onSubmitTest)
+        case .error, .ops_error, .timeout:
+            TestErrored()
+        case .fail:
             TestRunSummaryHeader(testRun: testRun)
             TestGroupedByTaskList(testRun: testRun)
+        default:
+            TestRunSummaryHeader(testRun: testRun)
         }
     }
 
     struct TestPassed: View {
+        let onSubmitTest: () -> Void
         var body: some View {
             VStack {
                 Text("Sweet. Looks like you’ve solved the exercise!")
                 Text("""
-                      Good job! You can continue to improve your code or, if you're\n
-                     done, submit an iteration to get automated feedback and\n
-                     optionally request mentoring.
+                      Good job! You can continue to improve your code or, if you're 
+                     done, submit an iteration to get automated feedback and optionally request mentoring.
                      """)
                 Button(action: {
-                    print("submit")
+                    onSubmitTest()
                 }, label: { // 1
                     Label("Submit", systemImage: "play")
                 })
+            }
+        }
+    }
+
+    struct TestErrored: View {
+        var body: some View {
+            VStack {
+                Text("AN ERROR OCCURRED.")
+                    .foregroundColor(.red)
+                    .fontWeight(.bold)
+                Text("""
+                      An error occurred while running your tests. 
+                     This might mean that there was an issue in Exercism infrastructure, or it might mean that you have something in your code that's causing our systems to break.
+
+                     Please check your code, and if nothing seems to be wrong, try running the tests again.
+                     """)
             }
         }
     }
@@ -74,12 +96,14 @@ struct TestRunResultView: View {
         let testRun: TestRun
         var body: some View {
             let testGroup = testRun.testGroupedByTaskList()
+            let firstTest = testGroup.first!.tests
+            let title = firstTest != nil ? "Task" : "Test"
             VStack(alignment: .leading) {
-                CollapsibleTest(test: testGroup.first!.tests!.first!.test!, testId: 1, collapsed: true)
+                CollapsibleTest(test: firstTest?.first!.test! ?? testGroup.first!.test!, testId: 1, collapsed: true)
                 List(testGroup, children: \.tests) { group in
                     if let task = group.task {
                         HStack {
-                            Text("Task \(String(describing: task.id))")
+                            Text("\(title) \(String(describing: task.id))")
                                 .fontWeight(.bold)
                                 .textCase(.uppercase)
                                 .textFieldStyle(.roundedBorder)
@@ -188,6 +212,6 @@ struct TestRunResultView: View {
 
 struct TestRunResultView_Previews: PreviewProvider {
     static var previews: some View {
-        TestRunResultView(testRun: PreviewData.shared.testRun())
+        TestRunResultView(testRun: PreviewData.shared.testRun(), onSubmitTest: {})
     }
 }

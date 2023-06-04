@@ -11,6 +11,7 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel()
     @State private var showInspector = true
+    @State private var showSubmissionTooltip = false
     let exercise: String
     let track: String
     var body: some View {
@@ -49,14 +50,27 @@ struct ExerciseEditorWindowView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-
+                        viewModel.submitSolution()
                     }, label: { // 1
                         HStack {
                             Image(systemName: "paperplane.circle")
                             Text("Submit")
                         }
                     })
+                        .disabled(!viewModel.canSubmitSolution)
+                        .onTapGesture {
+                            if !viewModel.canSubmitSolution {
+                                showSubmissionTooltip = true
+                                print("showSubmissionTooltip: \($0)")
+                            }
+                        }
+                        .if(showSubmissionTooltip) { view in
+                            view
+                                .help("You need to run the tests before submitting.")
+                        }
+//                        .help("You need to run the tests before submitting.")
                 }
+
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
                         withAnimation {

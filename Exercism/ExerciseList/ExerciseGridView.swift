@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 
 struct ExerciseGridView: View {
     var exercise: Exercise
+    var solution: Solution?
     @State var isHover = false
     
     var body: some View {
@@ -43,14 +44,14 @@ struct ExerciseGridView: View {
     
     var tags: some View {
         HStack {
-            if !exercise.isRecommended && exercise.isUnlocked {
+            if solution?.status == .published {
                 Label("Completed", systemImage: "checkmark.circle.fill")
                     .roundEdges(backgroundColor: Color.green.opacity(0.2), lineColor: .green)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.green)
             }
             
-            if exercise.isRecommended && exercise.isUnlocked {
+            if (exercise.isRecommended && exercise.isUnlocked) || solution?.status == .iterated {
                 Text("In-progress")
                     .roundEdges(backgroundColor: Color.blue.opacity(0.2), lineColor: .blue)
                     .font(.system(size: 12, weight: .semibold))
