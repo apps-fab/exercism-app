@@ -9,7 +9,7 @@ import SwiftUI
 import ExercismSwift
 
 struct ContentView: View {
-    @StateObject private var coordinator = AppCoordinator()
+    @EnvironmentObject var coordinator: AppCoordinator
 
     var body: some View {
         return NavigationStack(path: $coordinator.path) {
