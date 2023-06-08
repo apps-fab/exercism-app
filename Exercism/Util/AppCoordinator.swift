@@ -34,8 +34,4 @@ class AppCoordinator: ObservableObject {
     func goToLogin() {
         path.append(Route.Login)
     }
-    
-    func goBack() {
-        path.removeLast()
-    }
 }

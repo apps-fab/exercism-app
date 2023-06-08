@@ -47,7 +47,7 @@ final class TrackModel: ObservableObject {
         return exercises
     }
 
-    func filterTags(_ tags: [String]) -> [Track] {
+    func filterTags(_ tags: Set<String>) -> [Track] {
         let tracks: [Track] =  unfilteredTracks.filter { $0.tags.contains(tags) }
         return tracks
     }
@@ -56,24 +56,6 @@ final class TrackModel: ObservableObject {
         unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
     }
 
-
-//    func filter(_ type: FilterState) -> [any] {
-//        switch type {
-//        case .SearchTracks(let searchText):
-//            let tracks: [Track] =  searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
-//            return tracks
-//
-//        case .SearchExercises(let searchText):
-//            exercises = .success(searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) })
-//
-//        case .FilterTags(let tags):
-//            tracks = .success(unfilteredTracks.filter { $0.tags.contains(tags) })
-//
-//        case .SortTracks:
-//            tracks = .success(unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() }))
-//        }
-//    }
-//
 //    func toggleSelection(_ selection: ExerciseCategory) {
 //        // Not the correct parameters
 //        switch selection {
