@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 struct Dashboard: View {
     @EnvironmentObject private var coordinator: AppCoordinator
+    @State var asyncModel: AsyncModel<[Track]>
 
     var body: some View {
         NavigationSplitView {
             SideBar().frame(minWidth: 200)
         } detail: {
-            TracksListView()
+            TracksListView(asyncModel: asyncModel)
         }
     }
 }

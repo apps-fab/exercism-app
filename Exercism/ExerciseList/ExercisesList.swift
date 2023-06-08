@@ -23,14 +23,15 @@ struct ExercisesList: View {
     @EnvironmentObject private var model: TrackModel
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var searchText = ""
-    let track: Track
+    @State var track: Track
+    @State var asyncModel: AsyncModel<[Exercise]>
 
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
 
     var body: some View {
-        AsyncResultView(source: AsyncModel(operation: { try await model.getExercises(track) })) { exercises in
+        AsyncResultView(source: asyncModel) { exercises in
             ScrollView {
                 VStack {
                     HStack {
@@ -69,9 +70,9 @@ struct ExercisesList: View {
                 }
             }.padding()
         }.onChange(of: searchText) { newValue in
-//
+            asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
         }.onChange(of: exerciseCategory) { newValue in
-            //
+            // implement this 
         }
     }
 }

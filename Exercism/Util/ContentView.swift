@@ -10,6 +10,7 @@ import ExercismSwift
 
 struct ContentView: View {
     @EnvironmentObject var coordinator: AppCoordinator
+    @EnvironmentObject var model: TrackModel
 
     var body: some View {
         return NavigationStack(path: $coordinator.path) {
@@ -21,15 +22,15 @@ struct ContentView: View {
 
                         
                     case let .Track(track):
-                        ExercisesList(track: track).environmentObject(coordinator)
+                        ExercisesList(track: track,
+                                      asyncModel: AsyncModel(operation: { try await model.getExercises(track) })).environmentObject(coordinator)
 
-                        
                     case .Login:
                         LoginView().environmentObject(coordinator)
 
                         
                     case .Dashboard:
-                        Dashboard().frame(minWidth: 800, minHeight: 800)                .environmentObject(coordinator)
+                        Dashboard(asyncModel: AsyncModel(operation: { try await model.getTracks()} )).frame(minWidth: 800, minHeight: 800)                .environmentObject(coordinator)
 
                     }
                 }

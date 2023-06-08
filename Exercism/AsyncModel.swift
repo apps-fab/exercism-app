@@ -26,8 +26,14 @@ protocol LoadableObject: ObservableObject {
 class AsyncModel<Value>: ObservableObject, LoadableObject {
     @Published private(set) var state: LoadingState<Value> = LoadingState.idle
     typealias AsyncOperation = () async throws -> Value
+    typealias syncOperation = () -> Value
 
     var operation: AsyncOperation
+    var filterOperations: syncOperation? {
+        didSet {
+            state = .success(filterOperations!())
+        }
+    }
 
     init(operation: @escaping AsyncOperation) {
         self.operation = operation
@@ -44,5 +50,4 @@ class AsyncModel<Value>: ObservableObject, LoadableObject {
             state = .failure(error)
         }
     }
-
 }
