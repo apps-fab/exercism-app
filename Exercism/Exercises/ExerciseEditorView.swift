@@ -28,8 +28,6 @@ struct ExerciseEditorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-
-
             #if os(macOS)
             CodeEditor(
                 source: $exerciseObject.selectedCode,
@@ -49,9 +47,7 @@ struct ExerciseEditorView: View {
             #else
             CodeEditor(source: source, language: language, theme: theme)
             #endif
-
             Divider()
-
             HStack {
                 Picker("Theme", selection: $settingData.theme) {
                     ForEach(CodeEditor.availableThemes) { theme in

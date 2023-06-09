@@ -12,11 +12,11 @@ actor Fetcher {
     
     init() {
         let token = ExercismKeychain.shared.get(for: "token")
-        self.client = ExercismClient(apiToken: token ?? "")
+        client = ExercismClient(apiToken: token ?? "")
     }
     
     func getTracks() async throws -> [Track] {
-        return try await withCheckedThrowingContinuation { continuation in
+        try await withCheckedThrowingContinuation { continuation in
             client.tracks { tracks in
                 switch tracks {
                 case .success(let tracks):
@@ -29,7 +29,7 @@ actor Fetcher {
     }
     
     func getExercises(_ track: Track) async throws -> [Exercise] {
-        return try await withCheckedThrowingContinuation { continuation in
+        try await withCheckedThrowingContinuation { continuation in
             client.exercises(for: track.slug) { result in
                 switch result {
                 case .success(let exerciseList):
@@ -40,13 +40,13 @@ actor Fetcher {
             }
         }
     }
-    
-    func getSolutions(_ track: Track) async throws -> [Solution] {
-        return try await withCheckedThrowingContinuation { continuation in
+
+    func fetchSolutions(_ track: Track) async throws -> [Solution] {
+        try await withCheckedThrowingContinuation { continuation in
             client.solutions(for: track.slug) { result in
                 switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions.results)
+                case .success(let solutionList):
+                    continuation.resume(returning: solutionList.results)
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }

@@ -32,7 +32,7 @@
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD36807F29B1054E004D53C8 /* CustomPicker.swift */; };
 		FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedButton.swift */; };
-		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
+		FD57BB502930C0C2006D0B9C /* ExerciseGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridItem.swift */; };
 		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
@@ -88,7 +88,7 @@
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD36807F29B1054E004D53C8 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		FD4A77642987E18E00E29436 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
+		FD57BB4F2930C0C2006D0B9C /* ExerciseGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridItem.swift; sourceTree = "<group>"; };
 		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				FDABC239292BCC5200A2AB72 /* ExercisesList.swift */,
-				FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */,
+				FD57BB4F2930C0C2006D0B9C /* ExerciseGridItem.swift */,
 				FD36807F29B1054E004D53C8 /* CustomPicker.swift */,
 			);
 			path = ExerciseList;
@@ -398,7 +398,7 @@
 				FD60950B29CC598000944379 /* SideBar.swift in Sources */,
 				FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */,
 				8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */,
-				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,
+				FD57BB502930C0C2006D0B9C /* ExerciseGridItem.swift in Sources */,
 				FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */,
 				FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */,
 				8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */,

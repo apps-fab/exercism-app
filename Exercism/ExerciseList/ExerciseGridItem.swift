@@ -1,5 +1,5 @@
 //
-//  ExerciseGridView.swift
+//  ExerciseGridItem.swift
 //  Exercism
 //
 //  Created by Angie Mugo on 25/11/2022.
@@ -9,7 +9,7 @@ import SwiftUI
 import ExercismSwift
 import SDWebImageSwiftUI
 
-struct ExerciseGridView: View {
+struct ExerciseGridItem: View {
     var exercise: Exercise
     var solution: Solution?
     @State var isHover = false

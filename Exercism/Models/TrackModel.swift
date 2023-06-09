@@ -13,6 +13,7 @@ final class TrackModel: ObservableObject {
     private var unfilteredTracks = [Track]()
     private var unfilteredExercises = [Exercise]()
     private let fetcher: Fetcher
+    private var solutions = [String: Solution]()
 
     init() {
         self.fetcher = Fetcher()
@@ -26,26 +27,42 @@ final class TrackModel: ObservableObject {
 
     func getExercises(_ track: Track) async throws -> [Exercise] {
         let fetchedExercises = try await fetcher.getExercises(track)
+        try await setSolutions(track)
         self.unfilteredExercises = fetchedExercises
         return fetchedExercises
     }
 
     func getSolutions(_ track: Track) async throws -> [Solution] {
-       return try await fetcher.getSolutions(track)
+        return try await fetcher.fetchSolutions(track)
+    }
+
+    func getSolution(for exercise: Exercise) -> Solution? {
+        solutions[exercise.slug]
+    }
+
+    private func setSolutions(_ track: Track) async throws {
+        let solutionList = try await fetcher.fetchSolutions(track)
+        solutions = Dictionary(uniqueKeysWithValues: solutionList.map({ ($0.exercise.slug, $0) }))
     }
 
     func filterTracks(_ searchText: String) -> [Track] {
-        let tracks: [Track] =  searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
+        let tracks: [Track] = searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter {
+            $0.title.lowercased().contains(searchText)
+        }
         return tracks
     }
 
     func filterExercises(_ searchText: String) -> [Exercise] {
-        let exercises: [Exercise] =  searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) }
+        let exercises: [Exercise] = searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter {
+            $0.slug.lowercased().contains(searchText)
+        }
         return exercises
     }
 
-    func filterTags(_ tags: Set<String>) -> [Track] {
-        let tracks: [Track] =  unfilteredTracks.filter { $0.tags.contains(tags) }
+    func filterTags(_ tags: [String]) -> [Track] {
+        let tracks: [Track] = unfilteredTracks.filter {
+            $0.tags.contains(tags)
+        }
         return tracks
     }
 
