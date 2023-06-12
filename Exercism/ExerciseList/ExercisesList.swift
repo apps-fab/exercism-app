@@ -150,18 +150,18 @@ struct ExercisesList: View {
 }
 
 enum ShareOptions: String, CaseIterable {
-    case Share = "Yes I'd like to share my solution with the community"
     case Complete = "No, I just want to mark the exercise as complete."
-}
+    case Share = "Yes I'd like to share my solution with the community"
 
-enum Iterations: String, CaseIterable {
-    case All = "All iterations"
-    case Single = "Single iteration"
+    enum Iterations: String, CaseIterable {
+        case All = "All iterations"
+        case Single = "Single iteration"
+    }
 }
 
 struct SubmitSolutionContentView: View {
     @State private var shareOption = ShareOptions.Share
-    @State private var shareIterationsOptions = Iterations.Single
+    @State private var shareIterationsOptions = ShareOptions.Iterations.Single
     @State private var selectedIteration = 1
     @State private var numberOfIterations = 4
     @Binding var isPresented: Bool
@@ -198,35 +198,35 @@ struct SubmitSolutionContentView: View {
     }
 
     var listItems: some View {
-        Picker("", selection: $shareOption) {
-            ForEach(ShareOptions.allCases, id: \.self) { option in
-                switch option {
-                case .Share:
-                    VStack(alignment: .leading) {
-                        Text(ShareOptions.Share.rawValue).bold()
-                        HStack(alignment: .top) {
-                            Picker("", selection: $shareIterationsOptions) {
-                                ForEach(Iterations.allCases, id: \.self) { iteration in
-                                    Text(iteration.rawValue)
-                                }
-                            }.pickerStyle(.radioGroup)
-                                .horizontalRadioGroupLayout()
-                            Menu {
-                                ForEach(1...numberOfIterations, id: \.self) { index in
-                                    Text("Iteration \(index)")
-                                }
-                            } label: {
-                                Text("Iteration \(selectedIteration)").roundEdges()
-                            }.opacity(shareIterationsOptions == .All ? 0 : 1)
-                                .frame(width: 100)
-                        }
-                    }
-
-                case .Complete:
-                    Text(ShareOptions.Complete.rawValue).bold()
+        VStack {
+            Picker("", selection: $shareOption) {
+                ForEach(ShareOptions.allCases, id: \.self) { option in
+                    Text(option.rawValue).bold()
                 }
+            }.pickerStyle(.radioGroup)
+
+            if shareOption == .Share {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        Picker("", selection: $shareIterationsOptions) {
+                            ForEach(ShareOptions.Iterations.allCases, id: \.self) { iteration in
+                                Text(iteration.rawValue)
+                            }
+                        }.pickerStyle(.radioGroup)
+                            .horizontalRadioGroupLayout()
+                        Menu {
+                            ForEach(1...numberOfIterations, id: \.self) { index in
+                                Text("Iteration \(index)")
+                            }
+                        } label: {
+                            Text("Iteration \(selectedIteration)").roundEdges()
+                        }.opacity(shareIterationsOptions == .All ? 0 : 1)
+                            .frame(width: 100)
+                    }
+                }.padding()
+
             }
-        }.pickerStyle(.radioGroup)
+        }
     }
 }
 
