@@ -169,7 +169,9 @@ struct SubmitSolutionContentView: View {
     var body: some View {
         HStack(alignment: .center) {
             VStack(alignment: .leading) {
-                Image("publishImage")
+                Image(systemName: "terminal")
+                    .frame(width: 50, height: 50)
+
                 Text("Publish your code and share your knowledge")
                     .multilineTextAlignment(.leading)
                     .font(.largeTitle)
