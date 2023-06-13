@@ -37,6 +37,11 @@ final class TrackModel: ObservableObject {
         return fetchedExercises
     }
 
+    func getSolutions(_ track: Track) async throws -> [Solution] {
+        let fetchedSolutions = try await fetcher.getSolutions(track)
+        return fetchedSolutions
+    }
+
     func filterTracks(_ searchText: String) -> [Track] {
         let tracks: [Track] =  searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
         return tracks
