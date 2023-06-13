@@ -62,7 +62,7 @@ struct ExercisesList: View {
                     LazyVGrid(columns: columns) {
                         ForEach(exercises, id: \.self) { exercise in
                             Button {
-                                coordinator.goToEditor(track.slug, exercise)
+                                coordinator.goToEditor(track.slug, exercise.slug)
                             } label: {
                                 ExerciseGridView(exercise: exercise, solution: getSolution(for: exercise))
                             }.buttonStyle(.plain)
