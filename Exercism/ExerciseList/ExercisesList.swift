@@ -178,6 +178,7 @@ struct SubmitSolutionContentView: View {
                     .padding()
                 Text("By publishing your code, you'll help others learn from your work. You can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time.")
                     .multilineTextAlignment(.leading)
+                    .padding()
                 listItems.padding()
                 HStack {
                     Button("Confirm") {
