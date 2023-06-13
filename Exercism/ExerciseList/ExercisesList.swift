@@ -25,6 +25,7 @@ struct ExercisesList: View {
     @State private var searchText = ""
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
+    @State private var solutions = [String: Solution]()
 
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
@@ -63,7 +64,7 @@ struct ExercisesList: View {
                             Button {
                                 coordinator.goToEditor(track.slug, exercise)
                             } label: {
-                                ExerciseGridView(exercise: exercise)
+                                ExerciseGridView(exercise: exercise, solution: getSolution(for: exercise))
                             }.buttonStyle(.plain)
                         }
                     }
@@ -72,13 +73,20 @@ struct ExercisesList: View {
         }.onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
         }.onChange(of: exerciseCategory) { newValue in
-            // implement this 
+            // implement this
+        }.task {
+            let solutionsList = try! await model.getSolutions(track) // we need to handle this error
+            self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
         }
+    }
+
+    func getSolution(for exercise: Exercise) -> Solution? {
+        solutions[exercise.slug]
     }
 }
 
-//struct ExercisesList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExercisesList(coordinator: AppCoordinator(), track: Tr)
-//    }
-//}
+    //struct ExercisesList_Previews: PreviewProvider {
+    //    static var previews: some View {
+    //        ExercisesList(coordinator: AppCoordinator(), track: Tr)
+    //    }
+    //}
