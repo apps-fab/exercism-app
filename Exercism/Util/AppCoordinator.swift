@@ -9,7 +9,9 @@ import Foundation
 import SwiftUI
 import ExercismSwift
 
-enum Route: Hashable {
+enum Route: Hashable, Identifiable {
+    var id: Self { return self }
+
     case Track(Track)
     case Exercise(String, String)
     case Login
@@ -17,7 +19,15 @@ enum Route: Hashable {
 }
 
 class AppCoordinator: ObservableObject {
-    @Published var path = [Route]()
+    @Published var path = NavigationPath()
+
+    init() {
+        if let _ = ExercismKeychain.shared.get(for: "token") {
+            path.append(Route.Dashboard)
+        } else {
+            path.append(Route.Login)
+        }
+    }
     
     func goToDashboard() {
         path.append(Route.Dashboard)
@@ -30,7 +40,7 @@ class AppCoordinator: ObservableObject {
     func goToEditor(_ track: String, _ exercise: String) {
         path.append(Route.Exercise(track, exercise))
     }
-    
+
     func goToLogin() {
         path.append(Route.Login)
     }

@@ -19,8 +19,7 @@ struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var settingsData = SettingData()
     @StateObject private var model = TrackModel()
-    @StateObject private var coordinator = AppCoordinator()
-    
+
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
@@ -28,7 +27,6 @@ struct ExercismApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(coordinator)
                 .environmentObject(model)
                 .environmentObject(settingsData)
                 .navigationTitle("Exercism")

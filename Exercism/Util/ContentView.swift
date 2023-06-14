@@ -9,12 +9,12 @@ import SwiftUI
 import ExercismSwift
 
 struct ContentView: View {
-    @EnvironmentObject var coordinator: AppCoordinator
+    @StateObject private var coordinator = AppCoordinator()
     @EnvironmentObject var model: TrackModel
 
     var body: some View {
         return NavigationStack(path: $coordinator.path) {
-            EmptyView()
+            EmptyView().environmentObject(coordinator)
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case let .Exercise(track, exercise):
@@ -31,15 +31,8 @@ struct ContentView: View {
                         
                     case .Dashboard:
                         Dashboard(asyncModel: AsyncModel(operation: { try await model.getTracks()} )).frame(minWidth: 800, minHeight: 800)                .environmentObject(coordinator)
-
                     }
                 }
-        }.onAppear {
-            if let _ = ExercismKeychain.shared.get(for: "token") {
-                coordinator.goToDashboard()
-            } else {
-                coordinator.goToLogin()
-            }
         }
     }
 }
