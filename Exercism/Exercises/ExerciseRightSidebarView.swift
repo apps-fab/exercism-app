@@ -32,20 +32,21 @@ struct ExerciseRightSidebarView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $exerciseObject.selectedTab) {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
                 Instruction(instruction: instruction, theme: theme, language: language)
                     .tabItem {
                         TabLabel(imageName: "checklist", label: "Instructions")
-                    }
+                    }.tag(0)
             }
             VStack(alignment: HorizontalAlignment.leading) {
                 if let averageTestDuration = exerciseObject.averageTestDuration {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
                     if let testRun = exerciseObject.testRun {
-                        TestRunResultView(testRun: testRun, language: language, theme: theme, onSubmitTest: { exerciseObject.submitSolution() })
+                        TestRunResultView(testRun: testRun, language: language, theme: theme, onSubmitTest: {
+                            exerciseObject.submitSolution() })
                     } else {
                         NoTestRun()
                     }
@@ -53,7 +54,7 @@ struct ExerciseRightSidebarView: View {
             }
                 .tabItem {
                     TabLabel(imageName: "text.badge.checkmark", label: "Results")
-                }
+                }.tag(1)
         }
     }
 
