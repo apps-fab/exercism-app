@@ -85,8 +85,8 @@ struct ExercisesList: View {
     }
 }
 
-    //struct ExercisesList_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        ExercisesList(coordinator: AppCoordinator(), track: Tr)
-    //    }
-    //}
+struct ExercisesList_Previews: PreviewProvider {
+    static var previews: some View {
+        ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
+    }
+}

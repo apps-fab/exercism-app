@@ -7,6 +7,10 @@ import Foundation
 import ExercismSwift
 
 extension TestRun {
+    var testsByStatus: [TestStatus: [Test]] {
+        Dictionary(grouping: tests, by: { $0.status })
+    }
+
     // Check if test run has tasks.
     // Depends on the version if the tests has task id
     func hasTasks() -> Bool {
@@ -40,22 +44,27 @@ extension TestRun {
         )
         .count
     }
-    
-    func testGroupedByTaskList() -> [TestGroup] {
+
+
+    func testGroupedByTaskList() -> [[TestGroup]] {
         if !hasTasks() {
-            return tests.enumerated().map { i, test in
-                TestGroup(test: test, testId: i + 1)
+            return testsByStatus.map { _, value in
+                value.enumerated().map { i, test in
+                    TestGroup(test: test, testId: i + 1)
+                }
             }
         } else {
             return tasks.map { task in
-                let tests = tests.filter {
+                let tests = testsByStatus.flatMap { _, value in
+                    value.filter {
                         $0.taskId == task.id
                     }
                     .enumerated()
                     .map { i, test in
                         TestGroup(test: test, testId: i + 1)
                     }
-                return TestGroup(task: task, tests: tests)
+                }
+                    return tests
             }
         }
     }

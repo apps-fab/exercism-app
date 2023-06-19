@@ -12,15 +12,30 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @SwiftUI.Environment(\.colorScheme) private var colorScheme
+
     var instruction: String? {
         exerciseObject.instruction
+    }
+
+    private var theme: Splash.Theme {
+        switch colorScheme {
+        case .dark:
+            return .wwdc18(withFont: .init(size: 16))
+        default:
+            return .sunset(withFont: .init(size: 16))
+        }
+    }
+
+    private var language: String {
+        return exerciseObject.exercise?.language ?? "text"
     }
 
     var body: some View {
         TabView {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
-                Instruction(instruction: instruction, colorScheme: ColorScheme.dark, language: exerciseObject.exercise?.language ?? "text")
+                Instruction(instruction: instruction, theme: theme, language: language)
                     .tabItem {
                         TabLabel(imageName: "checklist", label: "Instructions")
                     }
@@ -30,7 +45,7 @@ struct ExerciseRightSidebarView: View {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
                     if let testRun = exerciseObject.testRun {
-                        TestRunResultView(testRun: testRun, onSubmitTest: { exerciseObject.submitSolution() })
+                        TestRunResultView(testRun: testRun, language: language, theme: theme, onSubmitTest: { exerciseObject.submitSolution() })
                     } else {
                         NoTestRun()
                     }
@@ -44,8 +59,9 @@ struct ExerciseRightSidebarView: View {
 
     struct Instruction: View {
         let instruction: String
-        let colorScheme: ColorScheme
+        let theme: Splash.Theme
         let language: String
+
         var body: some View {
             VStack {
                 ScrollView {
@@ -56,14 +72,6 @@ struct ExerciseRightSidebarView: View {
             }
         }
 
-        private var theme: Splash.Theme {
-            switch colorScheme {
-            case .dark:
-                return .wwdc18(withFont: .init(size: 16))
-            default:
-                return .sunset(withFont: .init(size: 16))
-            }
-        }
     }
 
     struct TabLabel: View {
