@@ -26,6 +26,7 @@ struct ExercisesList: View {
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
     @State private var solutions = [String: Solution]()
+    @FocusState private var fieldFocused: Bool
 
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
@@ -41,6 +42,8 @@ struct ExercisesList: View {
         }.task {
             let solutionsList = try! await model.getSolutions(track) // we need to handle this error
             self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+        }.onAppear {
+            fieldFocused = false
         }
     }
 
@@ -54,9 +57,8 @@ struct ExercisesList: View {
                         TextField("Search by title", text: $searchText)
                             .textFieldStyle(.plain)
                     }.padding()
-                        .background(RoundedRectangle(cornerRadius: 14)
-                            .fill(Color("darkBackground")))
-                        .frame(minWidth: 400)
+                        .roundEdges(lineColor: fieldFocused ? .purple : .gray)
+                        .focused($fieldFocused)
                     CustomPicker(selected: $exerciseCategory) {
                         HStack {
                             ForEach(ExerciseCategory.allCases) { option in
@@ -71,6 +73,7 @@ struct ExercisesList: View {
                         }
                     }.padding()
                 }.padding()
+                .background(Color("darkBackground"))
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
                     ForEach(exercises, id: \.self) { exercise in
@@ -86,7 +89,7 @@ struct ExercisesList: View {
                     }
                 }
             }
-        }.padding()
+        }
     }
 
     func getSolution(for exercise: Exercise) -> Solution? {
