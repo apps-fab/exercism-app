@@ -108,7 +108,7 @@ struct ExerciseRightSidebarView: View {
                     .onReceive(timer) { _ in
                         if progress < 100 {
                             progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
-                        }
+                         }
                     }
                 Text("Estimated running time ~ \(totalSecs)s")
             }

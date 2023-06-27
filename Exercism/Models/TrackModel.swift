@@ -8,13 +8,6 @@
 import ExercismSwift
 import Foundation
 
-enum FilterState {
-    case SearchTracks(query: String)
-    case SearchExercises(query: String)
-    case FilterTags(tags: Set<String>)
-    case SortTracks
-}
-
 @MainActor
 final class TrackModel: ObservableObject {
     private var unfilteredTracks = [Track]()
@@ -38,8 +31,7 @@ final class TrackModel: ObservableObject {
     }
 
     func getSolutions(_ track: Track) async throws -> [Solution] {
-        let fetchedSolutions = try await fetcher.getSolutions(track)
-        return fetchedSolutions
+       return try await fetcher.getSolutions(track)
     }
 
     func filterTracks(_ searchText: String) -> [Track] {
