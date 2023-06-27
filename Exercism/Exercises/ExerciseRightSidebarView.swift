@@ -12,40 +12,57 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @SwiftUI.Environment(\.colorScheme) private var colorScheme
+    
     var instruction: String? {
         exerciseObject.instruction
     }
-
+    
+    private var theme: Splash.Theme {
+        switch colorScheme {
+        case .dark:
+            return .wwdc18(withFont: .init(size: 16))
+        default:
+            return .sunset(withFont: .init(size: 16))
+        }
+    }
+    
+    private var language: String {
+        return exerciseObject.exercise?.language ?? "text"
+    }
+    
     var body: some View {
-        TabView {
+        TabView(selection: $exerciseObject.selectedTab) {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
-                Instruction(instruction: instruction, colorScheme: ColorScheme.dark, language: exerciseObject.exercise?.language ?? "text")
+                Instruction(instruction: instruction, theme: theme, language: language)
                     .tabItem {
                         TabLabel(imageName: "checklist", label: "Instructions")
-                    }
+                    }.tag(0)
             }
             VStack(alignment: HorizontalAlignment.leading) {
                 if let averageTestDuration = exerciseObject.averageTestDuration {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
                     if let testRun = exerciseObject.testRun {
-                        TestRunResultView(testRun: testRun, onSubmitTest: { exerciseObject.submitSolution() })
+                        TestRunResultView(testRun: testRun, language: language, theme: theme, onSubmitTest: {
+                            exerciseObject.submitSolution() })
                     } else {
                         NoTestRun()
                     }
                 }
             }
-                .tabItem {
-                    TabLabel(imageName: "text.badge.checkmark", label: "Results")
-                }
+            .tabItem {
+                TabLabel(imageName: "text.badge.checkmark", label: "Results")
+            }.tag(1)
         }
     }
-
+    
     struct Instruction: View {
         let instruction: String
-        let colorScheme: ColorScheme
+        let theme: Splash.Theme
         let language: String
+        
         var body: some View {
             VStack {
                 ScrollView {
@@ -55,21 +72,13 @@ struct ExerciseRightSidebarView: View {
                 }
             }
         }
-
-        private var theme: Splash.Theme {
-            switch colorScheme {
-            case .dark:
-                return .wwdc18(withFont: .init(size: 16))
-            default:
-                return .sunset(withFont: .init(size: 16))
-            }
-        }
+        
     }
-
+    
     struct TabLabel: View {
         let imageName: String
         let label: String
-
+        
         var body: some View {
             HStack {
                 Image(systemName: imageName)
@@ -77,7 +86,7 @@ struct ExerciseRightSidebarView: View {
             }
         }
     }
-
+    
     struct NoTestRun: View {
         var body: some View {
             VStack {
@@ -87,12 +96,12 @@ struct ExerciseRightSidebarView: View {
             }
         }
     }
-
+    
     struct TestRunProgress: View {
         let totalSecs: Double
         @State private var progress = 0.0
         let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-
+        
         var body: some View {
             VStack {
                 ProgressView("Running tests...", value: progress, total: 100)

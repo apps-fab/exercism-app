@@ -219,4 +219,61 @@ class PreviewData {
                    """
         return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
     }
+
+    func getTrack() -> [Track] {
+        let data = """
+             [{
+                 "slug": "awk",
+                 "title": "AWK",
+                 "course": false,
+                 "num_concepts": 0,
+                 "num_exercises": 59,
+                 "web_url": "https://exercism.org/tracks/awk",
+                 "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/awk.svg",
+                 "tags": [
+                     "Scripts",
+                     "Procedural",
+                     "Interpreted",
+                     "Standalone executable",
+                     "Weak",
+                     "Linux",
+                     "Mac OSX",
+                     "Windows"
+                 ],
+                 "last_touched_at": "2023-06-14T18:41:26Z",
+                 "is_new": false,
+                 "links": {
+                     "self": "https://exercism.org/tracks/awk",
+                     "exercises": "https://exercism.org/tracks/awk/exercises",
+                     "concepts": "https://exercism.org/tracks/awk/concepts"
+                 },
+                 "is_joined": true,
+                 "num_learnt_concepts": 0,
+                 "num_completed_exercises": 0,
+                 "num_solutions": 2,
+                 "has_notifications": false
+             }]
+"""
+        return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
+    }
+
+    func getExercises() -> [Exercise] {
+        let data = """
+   [{
+       "slug": "hello-world",
+       "type": "tutorial",
+       "title": "Hello World",
+       "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
+       "difficulty": "easy",
+       "blurb": "The classical introductory exercise. Just say \"Hello, World!\".",
+       "is_external": false,
+       "is_unlocked": true,
+       "is_recommended": true,
+       "links": {
+         "self": "/tracks/awk/exercises/hello-world"
+       }
+     }]
+"""
+        return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
+    }
 }

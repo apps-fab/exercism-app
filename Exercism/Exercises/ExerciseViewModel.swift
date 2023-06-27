@@ -17,6 +17,7 @@ class ExerciseViewModel: ObservableObject {
     @Published var showSolutionSubmissionResponseMessage = false
     @Published var solutionSubmissionResponseMessage = ""
     @Published var submissionLink: String? = nil
+    @Published var selectedTab: Int = 0
     private var codes = [String: String]()
 
     var instruction: String? {
@@ -139,6 +140,8 @@ class ExerciseViewModel: ObservableObject {
     }
 
     func runTest() {
+        // move to tests tab immediately
+        selectedTab = 1
         // Update with latest code
         let _ = updateFile()
         guard let client = getClient() else {
