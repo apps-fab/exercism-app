@@ -57,6 +57,7 @@
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
 		FDDAEB5A29B6667300C6F938 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDAEB5929B6667300C6F938 /* TrackModel.swift */; };
 		FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */; };
+		FDE4EBFC2A4B009C007ED19E /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE4EBFB2A4B009C007ED19E /* EmptyStateView.swift */; };
 		FDEF2CDB2A2870F500965E8C /* AsyncModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEF2CDA2A2870F500965E8C /* AsyncModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		FDDAEB5929B6667300C6F938 /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableView.swift; sourceTree = "<group>"; };
+		FDE4EBFB2A4B009C007ED19E /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		FDEF2CDA2A2870F500965E8C /* AsyncModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +194,7 @@
 				FDEF2CDA2A2870F500965E8C /* AsyncModel.swift */,
 				FD7DC53829E2CA6700A1EBD9 /* AsyncResultView.swift */,
 				8480F413C4C2527414F3D692 /* SyntaxHighlighter */,
+				FDE4EBFB2A4B009C007ED19E /* EmptyStateView.swift */,
 			);
 			path = Exercism;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 			files = (
 				E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */,
 				FD7DC53329E0B03600A1EBD9 /* ColorExt.swift in Sources */,
+				FDE4EBFC2A4B009C007ED19E /* EmptyStateView.swift in Sources */,
 				FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */,
 				FDEF2CDB2A2870F500965E8C /* AsyncModel.swift in Sources */,
 				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,

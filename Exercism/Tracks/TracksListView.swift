@@ -21,61 +21,81 @@ struct TracksListView: View {
 
     var body: some View {
         AsyncResultView(source: asyncModel) { tracks in
+            tracksView(tracks)
+        }.accessibilityLabel("All Tracks")
+            .onChange(of: searchText) { newSearch in
+                asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
+            }.onChange(of: filters) { newFilters in
+                print(newFilters.count)
+                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+            }
+    }
+
+    @ViewBuilder
+    func tracksView(_ tracks: [Track]) ->  some View {
+        let joined = tracks.filter { $0.isJoined }
+        let unjoined = tracks.filter { !$0.isJoined }
+
+        VStack {
             VStack {
-                VStack {
-                    headerView
-                        .background(Color("darkBackground"))
-                        .frame(maxWidth: 650, maxHeight: 160)
-                        .padding()
-                    Divider().frame(height: 1)
-                    FilterView(results: tracks.count,
-                               searchText: $searchText,
-                               filters: $filters) {
-                        asyncModel.filterOperations = { self.model.sortTracks() }
-                    }.frame(maxHeight: 50)
-                        .padding()
-                    Divider().frame(height: 1)
-                }.background(Color("darkBackground"))
-                ScrollView {
-                    VStack(alignment: .leading) {
+                headerView
+                    .background(Color("darkBackground"))
+                    .frame(maxWidth: 650, maxHeight: 160)
+                    .padding()
+                Divider().frame(height: 1)
+                FilterView(results: tracks.count,
+                           searchText: $searchText,
+                           filters: $filters) {
+                    asyncModel.filterOperations = { self.model.sortTracks() }
+                }.frame(maxHeight: 50)
+                    .padding()
+                Divider().frame(height: 1)
+            }.background(Color("darkBackground"))
+            ScrollView {
+                VStack(alignment: .leading) {
                         Text("Joined Tracks")
                             .font(.largeTitle)
                             .padding()
+                            .if(joined.isEmpty) { text in
+                                text.hidden()
+                            }
                         LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(tracks.filter { $0.isJoined }) { track in
+                            ForEach(joined) { track in
                                 Button {
                                     coordinator.goToTrack(track)
                                 } label: {
                                     TrackGridView(track: track).accessibilityElement(children: .contain)
                                 }.buttonStyle(.plain)
                             }
-                        }
+                    }
 
                         Text("Unjoined Tracks")
                             .font(.largeTitle)
                             .padding()
+                            .if(unjoined.isEmpty) { text in
+                                text.hidden()
+                            }
                         LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(tracks.filter { !$0.isJoined }) { track in
+                            ForEach(unjoined) { track in
                                 Button {
                                     coordinator.goToTrack(track)
                                 } label: {
                                     TrackGridView(track: track).accessibilityElement(children: .contain)
                                 }.buttonStyle(.plain)
                             }
-                        }
-                    }.padding()
-                        .accessibilityHidden(true)
+                    }
+                }.padding()
+                    .accessibilityHidden(true)
+            }.if(tracks.isEmpty) { _ in
+                EmptyStateView {
+                    searchText = ""
+                    filters = []
                 }
             }
-        }.accessibilityLabel("All Tracks")
-                    .onChange(of: searchText) { newSearch in
-                        asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
-                    }.onChange(of: filters) { newFilters in
-                        print(newFilters.count)
-                        asyncModel.filterOperations = { self.model.filterTags(newFilters) }
-                    }
+        }
+        Spacer()
     }
-    
+
     var headerView: some View {
         VStack(alignment: .center) {
             Image("trackImages")
