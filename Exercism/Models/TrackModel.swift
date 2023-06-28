@@ -59,11 +59,8 @@ final class TrackModel: ObservableObject {
         return exercises
     }
 
-    func filterTags(_ tags: [String]) -> [Track] {
-        let tracks: [Track] = unfilteredTracks.filter {
-            $0.tags.contains(tags)
-        }
-        return tracks
+    func filterTags(_ tags: Set<String>) -> [Track] {
+        return unfilteredTracks.filter { $0.tags.contains(tags) }
     }
 
     func sortTracks() -> [Track] {

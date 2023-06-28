@@ -61,6 +61,7 @@ struct ExercisesList: View {
                             Image(systemName: "magnifyingglass")
                             TextField("Search by title", text: $searchText)
                                 .textFieldStyle(.plain)
+<<<<<<< HEAD
                         }.padding()
                             .roundEdges(lineColor: fieldFocused ? .purple : .gray)
                             .focused($fieldFocused)
@@ -75,11 +76,29 @@ struct ExercisesList: View {
                                                 exerciseCategory = option
                                             }
                                     }
+=======
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 14)
+                            .fill(Color("darkBackground")))
+                        .frame(minWidth: 400)
+                        CustomPicker(selected: $exerciseCategory) {
+                            HStack {
+                                ForEach(ExerciseCategory.allCases) { option in
+                                    Text("\(option.rawValue) (\(exercises.count))")
+                                        .padding()
+                                        .frame(minWidth: 140, maxHeight: 40)
+                                        .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+                                        .onTapGesture {
+                                            exerciseCategory = option
+                                        }
+                                }
+>>>>>>> ef82c52 (add complete pop up)
                             }
                         }
-                            .padding()
-                    }
                         .padding()
+                    }
+                    .padding()
                     Divider().frame(height: 2)
                     LazyVGrid(columns: columns) {
                         ForEach(exercises, id: \.self) { exercise in
@@ -93,16 +112,10 @@ struct ExercisesList: View {
                             } label: {
                                 ExerciseGridItem(exercise: exercise, solution: solution)
                                     .sheet(isPresented: $showSubmitSolutionAlert) {
-                                        SubmitSolutionContentView()
-//                                        Alert(
-//                                            title: Text("Publish your code and share your knowledge").font(.headline),
-//                                            message: SubmitSolutionContentView(),
-//                                            primaryButton: .default(Text("Publish"), action: { coordinator.goToEditor(track.slug, exercise) }),
-//                                            secondaryButton: .default(Text("Continue to Iterate"), action: { showSubmitSolutionAlert = false; coordinator.goToEditor(track.slug, exercise) })
-//                                        )
+                                        SubmitSolutionContentView(isPresented: $showSubmitSolutionAlert)
                                     }
                             }
-                                .buttonStyle(.plain)
+                            .buttonStyle(.plain)
                         }
                     }.padding()
                 }.padding()
@@ -122,12 +135,13 @@ struct ExercisesList: View {
                     }
                 }
             }
-                .padding()
+            .padding()
         }
-            .onChange(of: searchText) { newValue in
-            }
-            .onChange(of: exerciseCategory) { newValue in
-            }
+        .onChange(of: searchText) { newValue in
+            asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
+        }.onChange(of: exerciseCategory) { newValue in
+            // implement this
+        }
     }
 
     func getSolution(for exercise: Exercise) -> Solution? {
@@ -135,89 +149,96 @@ struct ExercisesList: View {
     }
 }
 
+enum ShareOptions: String, CaseIterable {
+    case Share = "Yes I'd like to share my solution with the community"
+    case Complete = "No, I just want to mark the exercise as complete."
+}
+
+enum Iterations: String, CaseIterable {
+    case All = "All iterations"
+    case Single = "Single iteration"
+}
+
 struct SubmitSolutionContentView: View {
-    @State private var shareSolution: Int = 0
-    @State private var markComplete: Bool = false
-    @State private var showSubOptions: Bool = false
-    @State private var selectedSubOption: Int = 0
-    @State private var selectedDropdownItem: Int = 0
-    private let dropdownItems = [
-        "Yes, I'd like to share my solution with the community.",
-        "No, I just want to mark the exercise as complete."
-    ]
+    @State private var shareOption = ShareOptions.Share
+    @State private var shareIterationsOptions = Iterations.Single
+    @State private var selectedIteration = 1
+    @State private var numberOfIterations = 4
+    @Binding var isPresented: Bool
 
     var body: some View {
-
-        VStack(alignment: .leading) {
-            Text("Publish your code and share your knowledge").font(.largeTitle)
-
-            Text("By publishing your code, you'll help others learn from your work. \n You can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time.").font(.title)
-
-            List(dropdownItems, id: \.self, selection: $shareSolution) { item in
-                Text(item).tag(dropdownItems.firstIndex(of: item))
-            }
-                .padding()
-
-            if shareSolution == 0 {
-                Divider()
-
-                Toggle("All iterations", isOn: $showSubOptions)
+        HStack(alignment: .center) {
+            VStack(alignment: .leading) {
+                Image("publishImage")
+                Text("Publish your code and share your knowledge")
+                    .multilineTextAlignment(.leading)
+                    .font(.largeTitle)
                     .padding()
+                Text("By publishing your code, you'll help others learn from your work. You can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time.")
+                    .multilineTextAlignment(.leading)
+                listItems.padding()
+                HStack {
+                    Button("Confirm") {
+                        print("confirm thing")
+                    }.frame(width: 100, height: 30)
+                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
+                        .buttonStyle(.plain)
+                    Button("Close") {
+                        isPresented = false
+                    }.frame(width: 100, height: 30)
+                        .buttonStyle(.plain)
+                        .roundEdges(backgroundColor: Color.gray)
+                }
+            }
+            Image("publishMan").frame(width: 300, height: 300)
+        }.padding()
+            .frame(width: 800, height: 400)
+    }
 
-                if showSubOptions {
-                    HStack {
-                        Picker(selection: $selectedSubOption, label: Text("")) {
-                            Text("All iterations").tag(0)
-                            Text("Single iteration").tag(1)
-                        }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .padding()
-
-                        if selectedSubOption == 0 {
-                            Divider()
-
-                            DropdownView(selectedItem: $selectedDropdownItem)
-                                .padding()
+    var listItems: some View {
+        Picker("", selection: $shareOption) {
+            ForEach(ShareOptions.allCases, id: \.self) { option in
+                switch option {
+                case .Share:
+                    VStack(alignment: .leading) {
+                        Text(ShareOptions.Share.rawValue).bold()
+                        HStack(alignment: .top) {
+                            Picker("", selection: $shareIterationsOptions) {
+                                ForEach(Iterations.allCases, id: \.self) { iteration in
+                                    Text(iteration.rawValue)
+                                }
+                            }.pickerStyle(.radioGroup)
+                                .horizontalRadioGroupLayout()
+                            Menu {
+                                ForEach(1...numberOfIterations, id: \.self) { index in
+                                    Text("Iteration \(index)")
+                                }
+                            } label: {
+                                Text("Iteration \(selectedIteration)").roundEdges()
+                            }.opacity(shareIterationsOptions == .All ? 0 : 1)
+                                .frame(width: 100)
                         }
                     }
-                }
-            }
 
-            HStack {
-                Button(action: {}) {
-                    Text("Publish")
-                        .foregroundColor(.white)
+                case .Complete:
+                    Text(ShareOptions.Complete.rawValue).bold()
                 }
-                    .padding()
-                    .frame(minWidth: 100, maxHeight: 40)
-                    .roundEdges(backgroundColor: Color("darkBackground"), lineColor: .clear)
-                Button(action: {}) {
-                    Text("Continue to Iterate")
-                        .foregroundColor(.white)
-                }
-                    .padding()
-                    .frame(minWidth: 100, maxHeight: 40)
-                    .roundEdges(backgroundColor: Color("darkBackground"), lineColor: .clear)
             }
-        }
-            .padding()
+        }.pickerStyle(.radioGroup)
     }
 }
 
-struct DropdownView: View {
-    @Binding var selectedItem: Int
-
-    var body: some View {
-        Picker(selection: $selectedItem, label: Text("")) {
-            Text("Item 1").tag(0)
-            Text("Item 2").tag(1)
-        }
-            .pickerStyle(MenuPickerStyle())
+struct SubmitSolutionContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        SubmitSolutionContentView(isPresented: .constant(true))
     }
 }
+<<<<<<< HEAD
 
 struct ExercisesList_Previews: PreviewProvider {
     static var previews: some View {
         ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
     }
 }
+=======
+>>>>>>> ef82c52 (add complete pop up)
