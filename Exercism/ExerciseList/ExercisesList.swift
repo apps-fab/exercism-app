@@ -19,7 +19,6 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
         return self
     }
 }
-
 struct ExercisesList: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @EnvironmentObject private var model: TrackModel
@@ -30,6 +29,7 @@ struct ExercisesList: View {
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
     @State private var showSubmitSolutionAlert = false
+    @State private var currentSolutionIteration: Iteration
 
 
     let columns = [
@@ -57,95 +57,53 @@ struct ExercisesList: View {
             VStack {
                 HStack {
                     HStack {
+                        Image(systemName: "magnifyingglass")
+                        TextField("Search by title", text: $searchText)
+                            .textFieldStyle(.plain)
+                    }.padding()
+                        .roundEdges(lineColor: fieldFocused ? .purple : .gray)
+                        .focused($fieldFocused)
+                    CustomPicker(selected: $exerciseCategory) {
                         HStack {
-                            Image(systemName: "magnifyingglass")
-                            TextField("Search by title", text: $searchText)
-                                .textFieldStyle(.plain)
-<<<<<<< HEAD
-                        }.padding()
-                            .roundEdges(lineColor: fieldFocused ? .purple : .gray)
-                            .focused($fieldFocused)
-                            CustomPicker(selected: $exerciseCategory) {
-                                HStack {
-                                    ForEach(ExerciseCategory.allCases) { option in
-                                        Text("\(option.rawValue) (\(exercises.count))")
-                                            .padding()
-                                            .frame(minWidth: 140, maxHeight: 40)
-                                            .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
-                                            .onTapGesture {
-                                                exerciseCategory = option
-                                            }
-                                    }
-=======
-                        }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 14)
-                            .fill(Color("darkBackground")))
-                        .frame(minWidth: 400)
-                        CustomPicker(selected: $exerciseCategory) {
-                            HStack {
-                                ForEach(ExerciseCategory.allCases) { option in
-                                    Text("\(option.rawValue) (\(exercises.count))")
-                                        .padding()
-                                        .frame(minWidth: 140, maxHeight: 40)
-                                        .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
-                                        .onTapGesture {
-                                            exerciseCategory = option
-                                        }
-                                }
->>>>>>> ef82c52 (add complete pop up)
-                            }
-                        }
-                        .padding()
-                    }
-                    .padding()
-                    Divider().frame(height: 2)
-                    LazyVGrid(columns: columns) {
-                        ForEach(exercises, id: \.self) { exercise in
-                            let solution = model.getSolution(for: exercise)
-                            Button {
-                                if (solution?.status == .iterated) {
-                                    showSubmitSolutionAlert = true
-                                } else {
-                                    coordinator.goToEditor(track.slug, exercise)
-                                }
-                            } label: {
-                                ExerciseGridItem(exercise: exercise, solution: solution)
-                                    .sheet(isPresented: $showSubmitSolutionAlert) {
-                                        SubmitSolutionContentView(isPresented: $showSubmitSolutionAlert)
+                            ForEach(ExerciseCategory.allCases) { option in
+                                Text("\(option.rawValue) (\(exercises.count))")
+                                    .padding()
+                                    .frame(minWidth: 140, maxHeight: 40)
+                                    .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+                                    .onTapGesture {
+                                        exerciseCategory = option
                                     }
                             }
-                            .buttonStyle(.plain)
                         }
                     }.padding()
                 }.padding()
-                .background(Color("darkBackground"))
+                    .background(Color("darkBackground"))
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
                     ForEach(exercises, id: \.self) { exercise in
+                        let solution = model.getSolution(for: exercise)
                         Button {
-                            coordinator.goToEditor(track.slug, exercise.slug)
+                            if (solution?.status == .iterated) {
+                                showSubmitSolutionAlert = true
+                            } else {
+                                coordinator.goToEditor(track.slug, exercise.slug)
+                            }
                         } label: {
-                            ExerciseGridItem(exercise: exercise, solution: getSolution(for: exercise))
+                            ExerciseGridItem(exercise: exercise, solution: solution)
+                                .sheet(isPresented: $showSubmitSolutionAlert) {
+                                    SubmitSolutionContentView(isPresented: $showSubmitSolutionAlert).task {
+                                         currentSolutionIteration = try! await model.getIteration(for: solution!.uuid)
+                                    print("current \(currentSolutionIteration)")
+                                }
                         }.buttonStyle(.plain)
                     }
                 }.if(exercises.isEmpty) { _ in
-                    EmptyStateView {
-                        searchText = ""
+                        EmptyStateView {
+                            searchText = ""
+                        }
                     }
-                }
             }
-            .padding()
         }
-        .onChange(of: searchText) { newValue in
-            asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
-        }.onChange(of: exerciseCategory) { newValue in
-            // implement this
-        }
-    }
-
-    func getSolution(for exercise: Exercise) -> Solution? {
-        solutions[exercise.slug]
     }
 }
 
@@ -236,12 +194,9 @@ struct SubmitSolutionContentView_Previews: PreviewProvider {
         SubmitSolutionContentView(isPresented: .constant(true))
     }
 }
-<<<<<<< HEAD
 
 struct ExercisesList_Previews: PreviewProvider {
     static var previews: some View {
         ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
     }
 }
-=======
->>>>>>> ef82c52 (add complete pop up)
