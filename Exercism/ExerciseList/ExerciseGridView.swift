@@ -44,14 +44,21 @@ struct ExerciseGridView: View {
     
     var tags: some View {
         HStack {
-            if solution?.status == .published {
+            if solution?.status == .published || solution?.status == .completed {
                 Label("Completed", systemImage: "checkmark.circle.fill")
                     .roundEdges(backgroundColor: Color.green.opacity(0.2), lineColor: .green)
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.green)
             }
+
+            if (solution?.numTterations ?? 0) > 0 {
+                // @Todo(Kirk) Convert this to stringdict for proper localisation)
+                let iterationText = "\(String(describing: solution!.numTterations)) \(solution!.numTterations == 1 ? "iteration" : "iterations")"
+                Label("\(iterationText)", systemImage: "arrow.2.squarepath")
+                    .font(.system(size: 12, weight: .semibold))
+            }
             
-            if (exercise.isRecommended && exercise.isUnlocked) || solution?.status == .iterated {
+            if (exercise.isRecommended && exercise.isUnlocked) || solution?.status == .iterated || solution?.status == .started {
                 Text("In-progress")
                     .roundEdges(backgroundColor: Color.blue.opacity(0.2), lineColor: .blue)
                     .font(.system(size: 12, weight: .semibold))

@@ -49,6 +49,8 @@ struct ExercisesList: View {
 
     @ViewBuilder
     func exerciseListView(_ exercises: [Exercise]) -> some View {
+        let groupedExercises = groupExercises(exercises)
+        let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
         ScrollView {
             VStack {
                 HStack {
@@ -62,7 +64,7 @@ struct ExercisesList: View {
                     CustomPicker(selected: $exerciseCategory) {
                         HStack {
                             ForEach(ExerciseCategory.allCases) { option in
-                                Text("\(option.rawValue) (\(exercises.count))")
+                                Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
                                     .padding()
                                     .frame(minWidth: 140, maxHeight: 40)
                                     .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
@@ -76,14 +78,14 @@ struct ExercisesList: View {
                 .background(Color("darkBackground"))
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
-                    ForEach(exercises, id: \.self) { exercise in
+                    ForEach(filteredExercises, id: \.self) { exercise in
                         Button {
                             coordinator.goToEditor(track.slug, exercise.slug)
                         } label: {
                             ExerciseGridView(exercise: exercise, solution: getSolution(for: exercise))
                         }.buttonStyle(.plain)
                     }
-                }.if(exercises.isEmpty) { _ in
+                }.if(filteredExercises.isEmpty) { _ in
                     EmptyStateView {
                         searchText = ""
                     }
@@ -94,6 +96,33 @@ struct ExercisesList: View {
 
     func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
+    }
+
+    /// Group exercises by category
+    /// - Parameter exercises:
+    /// - Returns: [ExerciseCategory: [Exercise]]
+    func groupExercises(_ exercises: [Exercise]) -> [ExerciseCategory: [Exercise]] {
+        var groupedExercises = [ExerciseCategory: [Exercise]]()
+        for category in ExerciseCategory.allCases {
+            groupedExercises[category] = filterExercises(by: category, exercises: exercises)
+        }
+        return groupedExercises
+    }
+
+
+    func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
+        switch category {
+        case .AllExercises:
+            return exercises
+        case .Completed:
+            return exercises.filter { getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published }
+        case .InProgress:
+            return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
+        case .Available:
+            return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
+        case .locked:
+            return exercises.filter { !$0.isUnlocked }
+        }
     }
 }
 
