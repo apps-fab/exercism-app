@@ -30,7 +30,7 @@ struct SideBar: View {
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(track.slug)
-                                    Label("\(track.numCompletedExercises)/\(track.numExercises) exercises", systemImage: "dumbbell")
+                                    Label("\(track.numCompletedExercises)/\(track.numExercises) exercises", systemImage: "dumbbell").foregroundColor(.primary)
                                     Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
                                 }
                             }

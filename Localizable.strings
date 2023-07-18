@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  Exercism
+
+  Created by Angie Mugo on 18/07/2023.
+  
+*/
+
+// Common
+"new" = "New";
+"joined" = "Joined";
+"joinedTracks" = "Joined Tracks";
+"unjoinedTracks" = "Unjoined Tracks";
+"exercises" = "%d Exercises";
+"concepts" = "%d Concepts";
+"CompletedExercises" = "%d/%d Exercises";
+"learningMode" = "Learning Mode";
+"lastTouched" = "Last touched %@ ago";
+"languageIntro" = "Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors";
+"languageNumber" = "66 languages for you to master";
+"searchLanguage" = "Search language filters";
+"filterBy" = "Filter by";
+"showingTracks" = "Showing all %d tracks";
+"sortBy" = "Sort by last touched";
+"all" = "All Tracks";
+ "apply" = "Apply";
+ "close" = "Close";

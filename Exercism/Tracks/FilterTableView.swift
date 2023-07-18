@@ -26,12 +26,12 @@ struct FilterTableView: View {
                 }
             }
             HStack(spacing: 5) {
-                Button("Apply") {
+                Button(Strings.apply.localized()) {
                     isPresented = false
                 }.frame(width: 100, height: 30)
                     .buttonStyle(.plain)
                     .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
-                Button("Close") {
+                Button(Strings.close.localized()) {
                     selectedTags.removeAll()
                     isPresented = false
                 }.frame(width: 100, height: 30)
@@ -49,9 +49,11 @@ struct FilterTableView: View {
                 Text(tag)
             } icon: {
                 if selectedTags.contains(tag) {
-                    Image(systemName: "checkmark.square.fill").renderingMode(.template).colorMultiply(.purple)
+                    Image(systemName: ExercismImages.checkmarkFill.rawValue)
+                        .renderingMode(.template)
+                        .colorMultiply(.purple)
                 } else {
-                    Image(systemName: "square")
+                    Image(systemName: ExercismImages.square.rawValue)
                 }
             }
         }.buttonStyle(.plain)

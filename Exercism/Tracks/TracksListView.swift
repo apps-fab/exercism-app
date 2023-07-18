@@ -53,36 +53,36 @@ struct TracksListView: View {
             }.background(Color("darkBackground"))
             ScrollView {
                 VStack(alignment: .leading) {
-                        Text("Joined Tracks")
-                            .font(.largeTitle)
-                            .padding()
-                            .if(joined.isEmpty) { text in
-                                text.hidden()
-                            }
-                        LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(joined) { track in
-                                Button {
-                                    coordinator.goToTrack(track)
-                                } label: {
-                                    TrackGridView(track: track).accessibilityElement(children: .contain)
-                                }.buttonStyle(.plain)
-                            }
+                    Text(Strings.joinedTracks.localized())
+                        .font(.largeTitle)
+                        .padding()
+                        .if(joined.isEmpty) { text in
+                            text.hidden()
+                        }
+                    LazyVGrid(columns: columns, spacing: 30) {
+                        ForEach(joined) { track in
+                            Button {
+                                coordinator.goToTrack(track)
+                            } label: {
+                                TrackGridView(track: track).accessibilityElement(children: .contain)
+                            }.buttonStyle(.plain)
+                        }
                     }
 
-                        Text("Unjoined Tracks")
-                            .font(.largeTitle)
-                            .padding()
-                            .if(unjoined.isEmpty) { text in
-                                text.hidden()
-                            }
-                        LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(unjoined) { track in
-                                Button {
-                                    coordinator.goToTrack(track)
-                                } label: {
-                                    TrackGridView(track: track).accessibilityElement(children: .contain)
-                                }.buttonStyle(.plain)
-                            }
+                    Text(Strings.unjoinedTracks.localized())
+                        .font(.largeTitle)
+                        .padding()
+                        .if(unjoined.isEmpty) { text in
+                            text.hidden()
+                        }
+                    LazyVGrid(columns: columns, spacing: 30) {
+                        ForEach(unjoined) { track in
+                            Button {
+                                coordinator.goToTrack(track)
+                            } label: {
+                                TrackGridView(track: track).accessibilityElement(children: .contain)
+                            }.buttonStyle(.plain)
+                        }
                     }
                 }.padding()
                     .accessibilityHidden(true)
@@ -98,12 +98,13 @@ struct TracksListView: View {
 
     var headerView: some View {
         VStack(alignment: .center) {
-            Image("trackImages")
+            ExercismImages.trackImages.image()
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 170)
-            Text("66 languages for you to master").font(.largeTitle)
-            Text("Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors")
+            Text(Strings.languageNumber.localized())
+                .font(.largeTitle)
+            Text(Strings.languageIntro.localized())
                 .multilineTextAlignment(.center)
                 .font(.title2)
                 .fixedSize(horizontal: false, vertical: true)

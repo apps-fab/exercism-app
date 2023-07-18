@@ -19,8 +19,9 @@ struct FilterView: View {
     var body: some View {
         HStack {
             ZStack(alignment: .leading) {
-                Image(systemName: "magnifyingglass")
-                TextField("Search language filters", text: $searchText)
+                Image(systemName: ExercismImages.magnifyingGlass.rawValue)
+                TextField(Strings.searched.localized(),
+                          text: $searchText)
                     .padding(.horizontal, 30)
                     .textFieldStyle(.plain)
             }.padding()
@@ -30,7 +31,8 @@ struct FilterView: View {
             Button {
                 showingSheet.toggle()
             } label: {
-                Label("Filter by", systemImage: "slider.horizontal.3")
+                Label(Strings.filterBy.localized(),
+                      systemImage: ExercismImages.slider.rawValue)
             }.padding()
                 .roundEdges(lineColor: showingSheet ? .purple : .gray)
                 .buttonStyle(.plain)
@@ -41,14 +43,15 @@ struct FilterView: View {
                     .interactiveDismissDisabled(false)
                 }
 
-            Text("Showing all \(results) tracks")
+            Text(String(format: Strings.showingTracks.localized(), results))
                 .padding()
                 .roundEdges(backgroundColor: Color.primary.opacity(0.2))
 
             Button {
                 sortAction()
             } label: {
-                Label("Sort by last touched", systemImage: "chevron.down")
+                Label(Strings.sortBy.localized(),
+                      systemImage: ExercismImages.chevron.rawValue)
             }.padding()
             .roundEdges()
                 .buttonStyle(.plain)

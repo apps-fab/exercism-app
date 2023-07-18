@@ -41,16 +41,16 @@ struct TrackGridView: View {
             HStack() {
                 Text(track.title).bold()
                 if track.course && !track.isJoined {
-                    Label("Learning Mode", systemImage: "checkmark")
+                    Label(Strings.learningMode.localized(), systemImage: "checkmark")
                         .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
 
                 if track.isNew && !track.isJoined {
                     Label(title: {
-                        Text("New")
+                        Text(Strings.new.localized())
                     }, icon: {
-                        Image("stars")
+                        ExercismImages.starsLogo.image()
                             .renderingMode(.template)
                             .foregroundColor(.yellow)
                     }).roundEdges(backgroundColor: Color.blue.opacity(0.5))
@@ -59,24 +59,24 @@ struct TrackGridView: View {
 
                 if track.isJoined {
                     Spacer()
-                    Label("Joined", systemImage: "checkmark")
+                    Label(Strings.joined.localized(), systemImage: "checkmark")
                         .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
             HStack() {
                 Label(title: {
-                    track.isJoined ? Text("\(track.numCompletedExercises)/\(track.numExercises) exercises") : Text("\(track.numExercises) exercises")
+                    track.isJoined ? Text(String(format: Strings.completedExercises.localized(), track.numCompletedExercises, track.numExercises)) : Text(String(format: Strings.exercises.localized(), track.numExercises))
                 }, icon: {
-                    Image("exercise")
+                    ExercismImages.exerciseLogo.image()
                         .renderingMode(.template)
                         .foregroundColor(Color.primary)
                 })
 
                 Label(title: {
-                    Text("\(track.numConcepts) concepts")
+                    Text(String(format: Strings.concepts.localized(), track.numConcepts))
                 }, icon: {
-                    Image("concept")
+                    ExercismImages.conceptLogo.image()
                         .renderingMode(.template)
                         .foregroundColor(Color.primary)
                 })
@@ -89,7 +89,8 @@ struct TrackGridView: View {
                 Gauge(value: value) {
                     //
                 } currentValueLabel: {
-                    Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
+                    let dateAgo = track.lastTouchedAt?.offsetFrom() ?? ""
+                    Text(String(format: Strings.lastTouched.localized(), dateAgo))
                 }.tint(gradient)
                     .gaugeStyle(.accessoryLinearCapacity)
             } else {
