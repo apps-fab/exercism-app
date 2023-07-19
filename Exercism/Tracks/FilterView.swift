@@ -10,7 +10,7 @@ import ExercismSwift
 
 struct FilterView: View {
     @State private var showingSheet = false
-     var results: Int
+    var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
     @FocusState private var fieldFocused: Bool
@@ -19,20 +19,23 @@ struct FilterView: View {
     var body: some View {
         HStack {
             ZStack(alignment: .leading) {
-                Image(systemName: ExercismImages.magnifyingGlass.rawValue)
+                Image.magnifyingGlass
                 TextField(Strings.searched.localized(),
                           text: $searchText)
-                    .padding(.horizontal, 30)
-                    .textFieldStyle(.plain)
+                .padding(.horizontal, 30)
+                .textFieldStyle(.plain)
             }.padding()
                 .roundEdges(lineColor: fieldFocused ? .purple : .gray)
                 .focused($fieldFocused)
-             
+            
             Button {
                 showingSheet.toggle()
             } label: {
-                Label(Strings.filterBy.localized(),
-                      systemImage: ExercismImages.slider.rawValue)
+                Label {
+                    Text(Strings.filterBy.localized())
+                } icon: {
+                    Image.slider
+                }
             }.padding()
                 .roundEdges(lineColor: showingSheet ? .purple : .gray)
                 .buttonStyle(.plain)
@@ -42,18 +45,21 @@ struct FilterView: View {
                                     isPresented: $showingSheet)
                     .interactiveDismissDisabled(false)
                 }
-
+            
             Text(String(format: Strings.showingTracks.localized(), results))
                 .padding()
                 .roundEdges(backgroundColor: Color.primary.opacity(0.2))
-
+            
             Button {
                 sortAction()
             } label: {
-                Label(Strings.sortBy.localized(),
-                      systemImage: ExercismImages.chevron.rawValue)
+                Label{
+                    Text(Strings.sortBy.localized())
+                } icon: {
+                    Image.chevronDown
+                }
             }.padding()
-            .roundEdges()
+                .roundEdges()
                 .buttonStyle(.plain)
         }.onAppear {
             fieldFocused = false

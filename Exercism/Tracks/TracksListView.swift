@@ -14,11 +14,11 @@ struct TracksListView: View {
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-
+    
     var body: some View {
         AsyncResultView(source: asyncModel) { tracks in
             tracksView(tracks)
@@ -30,12 +30,12 @@ struct TracksListView: View {
                 asyncModel.filterOperations = { self.model.filterTags(newFilters) }
             }
     }
-
+    
     @ViewBuilder
     func tracksView(_ tracks: [Track]) ->  some View {
         let joined = tracks.filter { $0.isJoined }
         let unjoined = tracks.filter { !$0.isJoined }
-
+        
         VStack {
             VStack {
                 headerView
@@ -68,7 +68,7 @@ struct TracksListView: View {
                             }.buttonStyle(.plain)
                         }
                     }
-
+                    
                     Text(Strings.unjoinedTracks.localized())
                         .font(.largeTitle)
                         .padding()
@@ -95,10 +95,10 @@ struct TracksListView: View {
         }
         Spacer()
     }
-
+    
     var headerView: some View {
         VStack(alignment: .center) {
-            ExercismImages.trackImages.image()
+            Image.trackImages
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 170)

@@ -17,7 +17,7 @@ enum LoadingState<Value> {
 @MainActor
 protocol LoadableObject: ObservableObject {
     associatedtype Value
-
+    
     var state: LoadingState<Value> { get }
     func load() async
 }
@@ -27,23 +27,23 @@ class AsyncModel<Value>: ObservableObject, LoadableObject {
     @Published private(set) var state: LoadingState<Value> = LoadingState.idle
     typealias AsyncOperation = () async throws -> Value
     typealias syncOperation = () -> Value
-
+    
     var operation: AsyncOperation
     var filterOperations: syncOperation? {
         didSet {
             state = .success(filterOperations!())
         }
     }
-
+    
     init(operation: @escaping AsyncOperation) {
         self.operation = operation
-
+        
         Task { await self.load() }
     }
-
+    
     func load() async {
         state = .loading
-
+        
         do {
             state = .success(try await operation() )
         } catch {

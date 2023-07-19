@@ -27,14 +27,14 @@ struct ExercisesList: View {
     @State var asyncModel: AsyncModel<[Exercise]>
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-
+    
     var body: some View {
         AsyncResultView(source: asyncModel) { exercises in
-                exerciseListView(exercises)
+            exerciseListView(exercises)
         }.onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
         }.onChange(of: exerciseCategory) { newValue in
@@ -46,7 +46,7 @@ struct ExercisesList: View {
             fieldFocused = false
         }
     }
-
+    
     @ViewBuilder
     func exerciseListView(_ exercises: [Exercise]) -> some View {
         let groupedExercises = groupExercises(exercises)
@@ -75,7 +75,7 @@ struct ExercisesList: View {
                         }
                     }.padding()
                 }.padding()
-                .background(Color("darkBackground"))
+                    .background(Color("darkBackground"))
                 Divider().frame(height: 2)
                 LazyVGrid(columns: columns) {
                     ForEach(filteredExercises, id: \.self) { exercise in
@@ -93,11 +93,11 @@ struct ExercisesList: View {
             }
         }
     }
-
+    
     func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
     }
-
+    
     /// Group exercises by category
     /// - Parameter exercises:
     /// - Returns: [ExerciseCategory: [Exercise]]
@@ -108,8 +108,8 @@ struct ExercisesList: View {
         }
         return groupedExercises
     }
-
-
+    
+    
     func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
         switch category {
         case .AllExercises:

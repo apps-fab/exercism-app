@@ -11,28 +11,28 @@ struct TestGroup: Identifiable, Hashable {
     let testId: Int?
     let task: Task?
     let tests: [[TestGroup]]?
-
+    
     init(test: Test? = nil, task: Task? = nil, tests: [[TestGroup]]? = nil, testId: Int? = nil) {
         self.test = test
         self.task = task
         self.tests = tests
         self.testId = testId
     }
-
+    
     func passed(taskId: Int) -> Bool {
         tests?.flatMap { $0 }.allSatisfy {
             $0.test?.status == .pass
         } ?? false
     }
-
-
+    
+    
     // Hashable & Identifiable
     static func == (lhs: TestGroup, rhs: TestGroup) -> Bool {
         return lhs.id == rhs.id
     }
-
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-
+    
 }

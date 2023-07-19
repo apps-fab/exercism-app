@@ -10,7 +10,7 @@ import ExercismSwift
 
 struct Dashboard: View {
     @State var asyncModel: AsyncModel<[Track]>
-
+    
     var body: some View {
         NavigationSplitView {
             SideBar().frame(minWidth: 200)

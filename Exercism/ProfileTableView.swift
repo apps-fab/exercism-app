@@ -9,7 +9,7 @@ import SwiftUI
 
 enum ProfileItems: String, CaseIterable, Identifiable {
     var id: String { UUID().uuidString }
-
+    
     case Profile = "Public profile"
     case Journey = "Your journey"
     case Settings
@@ -18,7 +18,7 @@ enum ProfileItems: String, CaseIterable, Identifiable {
 
 struct ProfileTableView: View {
     @State private var selection: ProfileItems = .Profile
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {

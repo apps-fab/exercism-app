@@ -37,15 +37,16 @@ struct TestRunResultView: View {
         let onSubmitTest: () -> Void
         var body: some View {
             VStack {
-                Text("Sweet. Looks like you’ve solved the exercise!")
-                Text("""
-                      Good job! You can continue to improve your code or, if you're
-                     done, submit an iteration to get automated feedback and optionally request mentoring.
-                     """)
+                Text(Strings.solvedExercise.localized())
+                Text(Strings.submitCode.localized())
                 Button(action: {
                     onSubmitTest()
                 }, label: { // 1
-                    Label("Submit", systemImage: "play")
+                    Label{
+                        Text(Strings.submit.localized())
+                    } icon: {
+                        Image.play
+                    }
                 })
             }
         }
@@ -57,12 +58,7 @@ struct TestRunResultView: View {
                 Text("AN ERROR OCCURRED.")
                     .foregroundColor(.red)
                     .fontWeight(.bold)
-                Text("""
-                      An error occurred while running your tests.
-                     This might mean that there was an issue in Exercism infrastructure, or it might mean that you have something in your code that's causing our systems to break.
-
-                     Please check your code, and if nothing seems to be wrong, try running the tests again.
-                     """)
+                Text(Strings.errorDescription.localized())
             }
         }
     }
@@ -78,29 +74,33 @@ struct TestRunResultView: View {
             switch testRun.status {
             case .fail:
                 if (testRun.hasTasks()) {
-                    headerText = "\(testRun.tasks.count - testRun.numFailedTasks()) / \(testRun.tasks.count) Tasks Completed"
+                    let taskRun = testRun.tasks.count - testRun.numFailedTasks()
+                    headerText = String(format: Strings.taskCompleted.localized(), taskRun, testRun.tasks.count)
                 } else {
                     if (testRun.version == 2 || testRun.version == 3) {
                         // @Todo (Kirk - 5/02/23: Convert this to stringdict for proper localisation)
                         headerText = "\(String(describing: self.testRun.numFailedTest())) test \(testRun.numFailedTest() == 1 ? "failure" : "failures")"
                     } else {
-                        headerText = "Tests failed"
+                        headerText = Strings.testFailed.localized()
                     }
                 }
             case .pass:
-                headerText = "All tasks passed"
+                headerText = Strings.taskPass.localized()
             case .error, .ops_error:
-                headerText = "An error occurred"
+                headerText = Strings.errorOccurred.localized()
             case .timeout:
-                headerText = "Your tests timed out"
+                headerText = Strings.testsTimedOut.localized()
             default:
                 print("do nothing")
             }
         }
 
         var body: some View {
-            Label(headerText, systemImage: "circle.fill")
-                .frame(maxWidth: .infinity)
+            Label {
+                Text(headerText)
+            } icon: {
+                Image.circleFill
+            }.frame(maxWidth: .infinity)
                 .padding()
                 .background(testRun.status == .pass ? .green : .red.opacity(0.2))
                 .foregroundColor(testRun.status == .pass ? .green : .red)
@@ -159,12 +159,12 @@ struct TestRunResultView: View {
             switch tests[0].test?.status  {
             case .pass:
                 title = "\(tests.count) \(tests.count > 1 ? "tests": "test") passed"
-                icon = Image(systemName: "checkmark.circle.fill")
+                icon = Image.checkmarkSquareFill
                 color = .green
 
             default:
                 title = "\(tests.count) \(tests.count > 1 ? "tests": "test") failed"
-                icon = Image(systemName: "x.circle")
+                icon = Image.xCircle
                 color = .red
 
             }
@@ -175,104 +175,104 @@ struct TestRunResultView: View {
                 icon.foregroundColor(color)
             }
         }
-}
+    }
 
-struct CollapsibleTestDetailView: View {
-    let test: Test
-    let testId: Int
-    let language: String
-    let theme: Splash.Theme
-    @State var collapsed: Bool = true
-    @State var showContent: Bool = false
+    struct CollapsibleTestDetailView: View {
+        let test: Test
+        let testId: Int
+        let language: String
+        let theme: Splash.Theme
+        @State var collapsed: Bool = true
+        @State var showContent: Bool = false
 
 
-    func statusLabel(status: TestStatus) -> some View {
-        var label = ""
-        var color = SwiftUI.Color.red
-        switch status {
-        case .pass:
-            label = "Passed"
-            color = .green
-            break
-        default:
-            color = .red
-            label = "Failed"
-        }
-
-        return Label(
-            title: { Text(label)
-                    .textCase(.uppercase)
-                    .foregroundColor(color)
-            },
-            icon: {
-                Image(systemName: "circle.fill")
-                    .imageScale(.small)
-                    .foregroundColor(color)
+        func statusLabel(status: TestStatus) -> some View {
+            var label = ""
+            var color = SwiftUI.Color.red
+            switch status {
+            case .pass:
+                label =  Strings.passed.localized()
+                color = .green
+                break
+            default:
+                color = .red
+                label = Strings.failed.localized()
             }
-        )
-    }
 
-    func messageLabel(status: TestStatus) -> String {
-        var label = ""
-        switch status {
-        case .fail:
-            label = "Test Failure"
-            break
-        case .error:
-            label = "Test Error"
-        case .pass:
-            label = ""
-        }
-
-        return label
-    }
-
-
-
-    var body: some View {
-        DisclosureGroup(
-            isExpanded: $showContent,
-            content: {
-                VStack(alignment: .leading, spacing: 0) {
-                    if let testCode = test.testCode, !testCode.isEmpty {
-                        Text("Code Run").textCase(.uppercase).bold()
-                        Markdown(testCode)
-                            .padding()
-                            .markdownTheme(.gitHub)
-                            .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
-                    }
-
-                    if let messageHtml = test.messageHtml, !messageHtml.isEmpty {
-                        Text(messageLabel(status: test.status))
-                            .textCase(.uppercase).bold()
-                        Markdown(messageHtml)
-                            .padding()
-                            .markdownTheme(.gitHub)
-                    }
-
-                    if let outputHtml = test.outputHtml, !outputHtml.isEmpty {
-                        Text("Your Output")
-                        Text(outputHtml)
-                    }
-                }.padding()
-            },
-
-            label: {
-                HStack(alignment: .center) {
-                    statusLabel(status: test.status)
-                    VStack(alignment: .leading) {
-                        Text("Test \(String(describing: testId))")
-                            .foregroundColor(.gray)
-                        Text(test.name)
-                    }
+            return Label(
+                title: { Text(label)
+                        .textCase(.uppercase)
+                        .foregroundColor(color)
+                },
+                icon: {
+                    Image.circleFill
+                        .imageScale(.small)
+                        .foregroundColor(color)
                 }
-                .padding(.bottom, 1)
-                .background(Color.white.opacity(0.01))
+            )
+        }
 
+        func messageLabel(status: TestStatus) -> String {
+            var label = ""
+            switch status {
+            case .fail:
+                label =  Strings.testFailure.localized()
+                break
+            case .error:
+                label = Strings.testError.localized()
+            case .pass:
+                label = ""
             }
-        ).roundEdges(cornerRadius: 4)
+
+            return label
+        }
+
+
+
+        var body: some View {
+            DisclosureGroup(
+                isExpanded: $showContent,
+                content: {
+                    VStack(alignment: .leading, spacing: 0) {
+                        if let testCode = test.testCode, !testCode.isEmpty {
+                            Text(Strings.codeRun.localized()).textCase(.uppercase).bold()
+                            Markdown(testCode)
+                                .padding()
+                                .markdownTheme(.gitHub)
+                                .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                        }
+
+                        if let messageHtml = test.messageHtml, !messageHtml.isEmpty {
+                            Text(messageLabel(status: test.status))
+                                .textCase(.uppercase).bold()
+                            Markdown(messageHtml)
+                                .padding()
+                                .markdownTheme(.gitHub)
+                        }
+
+                        if let outputHtml = test.outputHtml, !outputHtml.isEmpty {
+                            Text(Strings.output.localized())
+                            Text(outputHtml)
+                        }
+                    }.padding()
+                },
+
+                label: {
+                    HStack(alignment: .center) {
+                        statusLabel(status: test.status)
+                        VStack(alignment: .leading) {
+                            Text(String(format: Strings.testNumber.localized(), testId))
+                                .foregroundColor(.gray)
+                            Text(test.name)
+                        }
+                    }
+                    .padding(.bottom, 1)
+                    .background(Color.white.opacity(0.01))
+
+                }
+            ).roundEdges(cornerRadius: 4)
+        }
     }
-}
 }
 
 struct TestRunResultView_Previews: PreviewProvider {
