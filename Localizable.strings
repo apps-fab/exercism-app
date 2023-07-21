@@ -74,7 +74,7 @@
 "ok" = "OK";
 "correctSolution" =  "This solution correctly solves the latest version of this exercise.";
 "wrongSolution" = "This solution does not fully solve the latest version of this exercise";
-
+"searchString" = "Search by title";
 
 // Error strings
 "errorOccurred" = "An error occurred";

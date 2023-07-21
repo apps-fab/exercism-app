@@ -80,7 +80,8 @@ enum Strings: String {
     case errorSubmitting =  "errorSubmitting"
     case correctSolution = "correctSolution"
     case runFailed = "runFailed"
-    
+    case searchString = "searchString"
+
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")
     }
