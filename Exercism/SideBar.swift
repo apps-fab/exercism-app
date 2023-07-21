@@ -16,7 +16,10 @@ struct SideBar: View {
     var body: some View {
         AsyncResultView(source: AsyncModel(operation: model.getTracks )) { tracks in
             VStack(alignment: .leading) {
-                Text(Strings.joinedTracks.localized()).padding()
+                Text(Strings.joinedTracks.localized())
+                    .font(.title)
+                    .bold()
+                    .padding()
                 List {
                     ForEach(tracks.filter { $0.isJoined }) { track in
                         Button {
@@ -31,17 +34,21 @@ struct SideBar: View {
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(track.slug)
                                     Label {
-                                        Text(String(format: Strings.exerciseNumber.localized(), track.numCompletedExercises, track.numExercises))
+                                        Text(String(format: Strings.exerciseNumber.localized(),
+                                                    track.numCompletedExercises,
+                                                    track.numExercises))
                                     } icon: {
-                                            Image.dumbell
-                                    }.foregroundColor(.primary)
-                                    Text(String(format: Strings.lastTouched.localized(), track.lastTouchedAt?.offsetFrom() ?? ""))
+                                        Image.dumbell
+                                            .renderingMode(.template)
+                                            .foregroundColor(.primary)
+                                    }
+                                    Text(String(format: Strings.lastTouched.localized(),
+                                                track.lastTouchedAt?.offsetFrom() ?? ""))
                                 }
                             }
-                            
-                        }.listRowSeparator(.visible)
+                        }.padding()
+                            .listRowSeparator(.visible)
                             .buttonStyle(.plain)
-                            .padding()
                     }
                 }.listStyle(.bordered)
                 Spacer()

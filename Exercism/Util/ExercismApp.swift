@@ -29,7 +29,7 @@ struct ExercismApp: App {
             ContentView()
                 .environmentObject(model)
                 .environmentObject(settingsData)
-                .navigationTitle("Exercism")
+                .navigationTitle(Strings.exercismText.localized())
         }
     }
 }

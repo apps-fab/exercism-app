@@ -18,19 +18,25 @@ struct ContentView: View {
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case let .Exercise(track, exercise):
-                        ExerciseEditorWindowView(exercise: exercise, track: track)                .environmentObject(coordinator)
+                        ExerciseEditorWindowView(exercise: exercise,
+                                                 track: track)
+                        .environmentObject(coordinator)
                         
                         
                     case let .Track(track):
                         ExercisesList(track: track,
-                                      asyncModel: AsyncModel(operation: { try await model.getExercises(track) })).environmentObject(coordinator)
+                                      asyncModel: AsyncModel(operation: { try await model.getExercises(track) }))
+                        .environmentObject(coordinator)
                         
                     case .Login:
-                        LoginView().environmentObject(coordinator)
+                        LoginView()
+                            .environmentObject(coordinator)
                         
                         
                     case .Dashboard:
-                        Dashboard(asyncModel: AsyncModel(operation: { try await model.getTracks()} )).frame(minWidth: 800, minHeight: 800)                .environmentObject(coordinator)
+                        Dashboard(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
+                            .frame(minWidth: 800, minHeight: 800)
+                            .environmentObject(coordinator)
                     }
                 }
         }

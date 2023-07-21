@@ -166,14 +166,14 @@ class ExerciseViewModel: ObservableObject {
                 case .success(let submission):
                     switch submission.testsStatus {
                     case .passed:
-                        self?.testSubmissionResponseMessage = "This solution correctly solves the latest version of this exercise."
+                        self?.testSubmissionResponseMessage = Strings.correctSolution.localized()
                         self?.showTestSubmissionResponseMessage = true
                         break
                     case .queued:
                         self?.getTestRun(links: submission.links)
                         break
                     default:
-                        self?.testSubmissionResponseMessage = "This solution does not fully solve the latest version of this exercise"
+                        self?.testSubmissionResponseMessage = Strings.wrongSolution.localized()
                         self?.showTestSubmissionResponseMessage = true
                     }
                 case .failure(let error):
@@ -190,7 +190,7 @@ class ExerciseViewModel: ObservableObject {
     
     func getTestRun(links: SubmissionLinks) {
         guard let client = getClient() else {
-            testSubmissionResponseMessage = "Test run failed. Try again."
+            testSubmissionResponseMessage = Strings.runFailed.localized()
             showTestSubmissionResponseMessage = true
             return
         }
@@ -209,7 +209,7 @@ class ExerciseViewModel: ObservableObject {
                     }
                 }
             case .failure(_):
-                self?.testSubmissionResponseMessage = "Test run failed. Try again."
+                self?.testSubmissionResponseMessage = Strings.runFailed.localized()
                 self?.showTestSubmissionResponseMessage = true
                 self?.averageTestDuration = nil
             }
@@ -222,13 +222,13 @@ class ExerciseViewModel: ObservableObject {
     
     func submitSolution() {
         if (!canSubmitSolution) {
-            solutionSubmissionResponseMessage = "You need to run the tests before submitting."
+            solutionSubmissionResponseMessage = Strings.runTestsError.localized()
             showSolutionSubmissionResponseMessage = true
             return
         }
         
         guard let client = getClient() else {
-            solutionSubmissionResponseMessage = "Error submitting solution. Try again."
+            solutionSubmissionResponseMessage = Strings.errorSubmitting.localized()
             showSolutionSubmissionResponseMessage = true
             return
         }
@@ -239,15 +239,15 @@ class ExerciseViewModel: ObservableObject {
             case .success(let response):
                 switch response.iteration.testsStatus {
                 case .passed:
-                    self?.solutionSubmissionResponseMessage = "This solution correctly solves the latest version of this exercise."
+                    self?.solutionSubmissionResponseMessage = Strings.correctSolution.localized()
                     self?.showSolutionSubmissionResponseMessage = true
                     break
                 default:
-                    self?.solutionSubmissionResponseMessage = "This solution does not fully solve the latest version of this exercise"
+                    self?.solutionSubmissionResponseMessage = Strings.wrongSolution.localized()
                     self?.showSolutionSubmissionResponseMessage = true
                 }
             case .failure(_):
-                self?.solutionSubmissionResponseMessage = "Error submitting solution. Try again."
+                self?.solutionSubmissionResponseMessage = Strings.runFailed.localized()
                 self?.showSolutionSubmissionResponseMessage = true
             }
         }

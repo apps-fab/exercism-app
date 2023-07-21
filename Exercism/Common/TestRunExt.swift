@@ -10,7 +10,7 @@ extension TestRun {
     var testsByStatus: [TestStatus: [Test]] {
         Dictionary(grouping: tests, by: { $0.status })
     }
-
+    
     // Check if test run has tasks.
     // Depends on the version if the tests has task id
     func hasTasks() -> Bool {
@@ -44,8 +44,8 @@ extension TestRun {
         )
         .count
     }
-
-
+    
+    
     func testGroupedByTaskList() -> [[TestGroup]] {
         if !hasTasks() {
             return testsByStatus.map { _, value in
@@ -64,7 +64,7 @@ extension TestRun {
                         TestGroup(test: test, testId: i + 1)
                     }
                 }
-                    return tests
+                return tests
             }
         }
     }

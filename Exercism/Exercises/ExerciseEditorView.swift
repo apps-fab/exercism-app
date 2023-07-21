@@ -15,10 +15,10 @@ struct ExerciseEditorView: View {
     @AppStorage("fontsize") var fontSize = Int(NSFont.systemFontSize)
 #endif
     private var source: String {
-        exerciseObject.getSelectedCode() ?? "No file selected"
+        exerciseObject.getSelectedCode() ?? Strings.noFile.localized()
     }
     private var language: CodeEditor.Language {
-        CodeEditor.Language.init(rawValue: exerciseObject.exercise?.language ?? "text")
+        CodeEditor.Language.init(rawValue: exerciseObject.exercise?.language ?? Strings.text.localized())
     }
     
     @State var codeChanged = false
@@ -53,7 +53,7 @@ struct ExerciseEditorView: View {
             Divider()
             
             HStack {
-                Picker("Theme", selection: $settingData.theme) {
+                Picker(Strings.theme.localized(), selection: $settingData.theme) {
                     ForEach(CodeEditor.availableThemes) { theme in
                         Text("\(theme.rawValue.capitalized)")
                             .tag(theme)
@@ -62,8 +62,8 @@ struct ExerciseEditorView: View {
             }
             .padding()
         }
-        .alert(String("Test submission"), isPresented: $exerciseObject.showTestSubmissionResponseMessage) {
-            Button("OK", role: .cancel) {
+        .alert(String(Strings.submissionAlert.localized()), isPresented: $exerciseObject.showTestSubmissionResponseMessage) {
+            Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
             Text(exerciseObject.testSubmissionResponseMessage)

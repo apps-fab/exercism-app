@@ -56,7 +56,6 @@ enum Strings: String {
     case noResults = "noResults"
     case resetFilters =  "resetFilters"
     
-    // login
     case loginError = "loginError"
     case loginIntroTitle = "introTitle"
     case loginIntroSubtitle = "intoSubtitle"
@@ -65,6 +64,22 @@ enum Strings: String {
     case loginSettingsText = "settingsText"
     case loginImportantToken = "importantToken"
     case loginEnterToken = "enterToken"
+    case instructions = "instructions"
+    case results = "results"
+    case runTestsTitle = "runTestsTitle"
+    case runTestsDescription = "runTestsDescription"
+    case runningTests =  "runningTests"
+    case estimatedTime = "estimatedTime"
+    case text = "text"
+    case noFile = "noFile"
+    case theme = "theme"
+    case submissionAlert = "submissionAlert"
+    case ok = "ok"
+    case wrongSolution = "wrongSolution"
+    case runTestsError = "runTestsError"
+    case errorSubmitting =  "errorSubmitting"
+    case correctSolution = "correctSolution"
+    case runFailed = "runFailed"
     
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

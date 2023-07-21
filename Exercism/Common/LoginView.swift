@@ -21,12 +21,12 @@ struct LoginView: View {
                 leftView
                     .frame(width: geometry.size.width * 0.66,
                            height: geometry.size.height)
-                    .background(Color.purple)
+                    .background(Color.exercismPurple)
                 rightView
                     .frame(width: geometry.size.width * 0.33,
                            height: geometry.size.height)
                     .background(.white)
-                    .foregroundColor(Color.darkBackground)
+                    .foregroundColor(.darkBackground)
             }.background(.white)
                 .alert(Strings.loginError.localized(), isPresented: $showAlert, actions: {
                     // actions
@@ -45,7 +45,7 @@ struct LoginView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 365, height: 208)
             Spacer()
-
+            
             Text(Strings.loginIntroTitle.localized())
                 .font(.system(size: 26, weight: .semibold))
                 .multilineTextAlignment(.center)
@@ -97,7 +97,7 @@ struct LoginView: View {
                 
             }
             .frame(height: 40)
-            .background(Color.purple)
+            .background(Color.exercismPurple)
             .cornerRadius(7).buttonStyle(.plain)
             .padding()
             Text(Strings.loginSettingsText.localized())

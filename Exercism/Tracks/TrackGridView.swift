@@ -25,7 +25,8 @@ struct TrackGridView: View {
                 .frame(width: 450, height: 100)
                 .padding()
         }.frame(width: 600, height: 150)
-            .roundEdges(backgroundColor: Color.darkBackground, lineColor: isHover ? .purple : .clear)
+            .roundEdges(backgroundColor: Color.darkBackground,
+                        lineColor: isHover ? .purple : .clear)
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
                 if track.isJoined {
@@ -66,7 +67,9 @@ struct TrackGridView: View {
                         Text( Strings.joined.localized())
                     } icon: {
                         Image.checkmark
-                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
+                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                 startPoint: .leading, endPoint: .trailing),
+                                 lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
@@ -89,10 +92,11 @@ struct TrackGridView: View {
             }
             
             if track.isJoined {
-                let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
-                
+                let completedExercises = Float(track.numCompletedExercises)
+                let numberOfExercises = Float(track.numExercises)
+
                 let gradient = Gradient(colors: [.purple, .indigo, .purple])
-                Gauge(value: value) {
+                Gauge(value: completedExercises, in: completedExercises...numberOfExercises) {
                     //
                 } currentValueLabel: {
                     let dateAgo = track.lastTouchedAt?.offsetFrom() ?? ""

@@ -10,12 +10,14 @@ import SwiftUI
 
 extension Image {
     static let conceptLogo = Image("concept")
-    static let exerciseLogo = Image("Exercise")
+    static let exerciseLogo = Image("exercise")
     static let exercismLogo = Image("exercismLogo")
     static let exercismLogoSmall = Image("exercismLogoSmall")
     static let mainLogo = Image("mainLogo")
     static let starsLogo = Image("stars")
     static let trackImages = Image("trackImages")
+    
+    // System Images
     static let magnifyingGlass = Image(systemName: "magnifyingglass")
     static let slider = Image(systemName: "slider.horizontal.3")
     static let chevronDown = Image(systemName: "chevron.down")
@@ -37,6 +39,9 @@ extension Image {
     static let checkmark =  Image(systemName: "checkmark")
     static let profile = Image(systemName: "person.crop.circle.fill")
     static let logout = Image(systemName: "rectangle.portrait.and.arrow.right")
-    static let dumbell = Image(systemName: "dumbell")
+    static let dumbell = Image(systemName: "dumbbell")
     static let undo = Image(systemName: "arrow.uturn.backward.circle")
+    static let checklist = Image(systemName: "checklist")
+    static let textBadgeChecklist =  Image(systemName: "text.badge.checkmark")
+    static let gear = Image(systemName: "doc.badge.gearshape")
 }

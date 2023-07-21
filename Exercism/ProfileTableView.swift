@@ -22,14 +22,14 @@ struct ProfileTableView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "person.crop.circle.fill")
+                Image.profile
                     .resizable()
                     .frame(width: 32, height: 32)
                 VStack {
                     Text("Angie Mugo")
                     Text("@AngieMugo")
                 }
-                Image(systemName: "rectangle.portrait.and.arrow.right")
+                Image.logout
             }.padding([.leading, .top])
             List(ProfileItems.allCases, selection: $selection) { item in
                 Text(item.rawValue).foregroundColor(selection == item ? .purple : .primary)

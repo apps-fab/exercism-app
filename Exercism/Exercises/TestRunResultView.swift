@@ -12,7 +12,7 @@ struct TestRunResultView: View {
     let testRun: TestRun
     let language: String
     let theme: Splash.Theme
-
+    
     let onSubmitTest: () -> Void
     var body: some View {
         switch testRun.status {
@@ -27,12 +27,12 @@ struct TestRunResultView: View {
                     TestGroupedByTaskList(testRun: testRun, language: language, theme: theme)
                 }
             }
-
+            
         default:
             TestRunSummaryHeader(testRun: testRun)
         }
     }
-
+    
     struct TestPassed: View {
         let onSubmitTest: () -> Void
         var body: some View {
@@ -51,7 +51,7 @@ struct TestRunResultView: View {
             }
         }
     }
-
+    
     struct TestErrored: View {
         var body: some View {
             VStack {
@@ -62,15 +62,15 @@ struct TestRunResultView: View {
             }
         }
     }
-
+    
     struct TestRunSummaryHeader: View {
         let testRun: TestRun
         var headerText = ""
         var color = SwiftUI.Color.green
-
+        
         init(testRun: TestRun) {
             self.testRun = testRun
-
+            
             switch testRun.status {
             case .fail:
                 if (testRun.hasTasks()) {
@@ -94,7 +94,7 @@ struct TestRunResultView: View {
                 print("do nothing")
             }
         }
-
+        
         var body: some View {
             Label {
                 Text(headerText)
@@ -109,18 +109,18 @@ struct TestRunResultView: View {
                 .multilineTextAlignment(.center)
         }
     }
-
+    
     struct TestGroupedByTaskList: View {
         let testRun: TestRun
         let language: String
         let theme: Splash.Theme
         @State var collapsed: Bool = true
-
+        
         var body: some View {
             let testGroup = testRun.testGroupedByTaskList()
             let firstTest = testGroup.first?.first?.tests
             let title = firstTest != nil ? "Task" : "Test"
-
+            
             VStack(alignment: .leading) {
                 ForEach(testGroup, id: \.self) { groupArray in
                     DisclosureGroup {
@@ -138,7 +138,7 @@ struct TestRunResultView: View {
                                             .fontWeight(.semibold)
                                     }
                                 }
-
+                                
                                 if let test = group.test, let id = group.testId  {
                                     CollapsibleTestDetailView(test: test, testId: id, language: language, theme: theme)
                                 }
@@ -150,25 +150,25 @@ struct TestRunResultView: View {
                 }
             }.padding()
         }
-
+        
         func disclosureLabel(_ tests: [TestGroup]) -> some View {
             let title: String
             let icon: Image
             let color: SwiftUI.Color
-
+            
             switch tests[0].test?.status  {
             case .pass:
                 title = "\(tests.count) \(tests.count > 1 ? "tests": "test") passed"
                 icon = Image.checkmarkSquareFill
                 color = .green
-
+                
             default:
                 title = "\(tests.count) \(tests.count > 1 ? "tests": "test") failed"
                 icon = Image.xCircle
                 color = .red
-
+                
             }
-
+            
             return Label {
                 Text(title)
             } icon: {
@@ -176,7 +176,7 @@ struct TestRunResultView: View {
             }
         }
     }
-
+    
     struct CollapsibleTestDetailView: View {
         let test: Test
         let testId: Int
@@ -184,8 +184,8 @@ struct TestRunResultView: View {
         let theme: Splash.Theme
         @State var collapsed: Bool = true
         @State var showContent: Bool = false
-
-
+        
+        
         func statusLabel(status: TestStatus) -> some View {
             var label = ""
             var color = SwiftUI.Color.red
@@ -198,7 +198,7 @@ struct TestRunResultView: View {
                 color = .red
                 label = Strings.failed.localized()
             }
-
+            
             return Label(
                 title: { Text(label)
                         .textCase(.uppercase)
@@ -211,7 +211,7 @@ struct TestRunResultView: View {
                 }
             )
         }
-
+        
         func messageLabel(status: TestStatus) -> String {
             var label = ""
             switch status {
@@ -223,12 +223,12 @@ struct TestRunResultView: View {
             case .pass:
                 label = ""
             }
-
+            
             return label
         }
-
-
-
+        
+        
+        
         var body: some View {
             DisclosureGroup(
                 isExpanded: $showContent,
@@ -241,7 +241,7 @@ struct TestRunResultView: View {
                                 .markdownTheme(.gitHub)
                                 .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
                         }
-
+                        
                         if let messageHtml = test.messageHtml, !messageHtml.isEmpty {
                             Text(messageLabel(status: test.status))
                                 .textCase(.uppercase).bold()
@@ -249,14 +249,14 @@ struct TestRunResultView: View {
                                 .padding()
                                 .markdownTheme(.gitHub)
                         }
-
+                        
                         if let outputHtml = test.outputHtml, !outputHtml.isEmpty {
                             Text(Strings.output.localized())
                             Text(outputHtml)
                         }
                     }.padding()
                 },
-
+                
                 label: {
                     HStack(alignment: .center) {
                         statusLabel(status: test.status)
@@ -268,7 +268,7 @@ struct TestRunResultView: View {
                     }
                     .padding(.bottom, 1)
                     .background(Color.white.opacity(0.01))
-
+                    
                 }
             ).roundEdges(cornerRadius: 4)
         }
@@ -277,6 +277,8 @@ struct TestRunResultView: View {
 
 struct TestRunResultView_Previews: PreviewProvider {
     static var previews: some View {
-        TestRunResultView(testRun: PreviewData.shared.testRun(), language: "Swift", theme: .midnight(withFont: .init(size: 10)), onSubmitTest: {})
+        TestRunResultView(testRun: PreviewData.shared.testRun(),
+                          language: "Swift",
+                          theme: .midnight(withFont: .init(size: 10)), onSubmitTest: {})
     }
 }
