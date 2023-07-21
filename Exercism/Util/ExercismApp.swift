@@ -19,7 +19,7 @@ struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var settingsData = SettingData()
     @StateObject private var model = TrackModel()
-
+    
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
@@ -29,7 +29,7 @@ struct ExercismApp: App {
             ContentView()
                 .environmentObject(model)
                 .environmentObject(settingsData)
-                .navigationTitle("Exercism")
+                .navigationTitle(Strings.exercismText.localized())
         }
     }
 }

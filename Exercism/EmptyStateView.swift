@@ -9,20 +9,22 @@ import SwiftUI
 
 struct EmptyStateView: View {
     let reloadAction: () -> Void
-
+    
     var body: some View {
         Spacer()
         VStack {
-            Image("exercismLogoSmall")
-            Text("No results found")
+            Image.exercismLogoSmall
+            Text(Strings.noResults.localized())
                 .bold()
                 .foregroundColor(.secondary)
             Button {
                 reloadAction()
             } label: {
-                Label("Reset search and filters",
-                      systemImage: "arrow.uturn.backward.circle")
-                    .bold()
+                Label {
+                    Text(Strings.resetFilters.localized())
+                } icon: {
+                    Image.undo
+                }.bold()
             }
         }
         Spacer()

@@ -22,10 +22,11 @@ struct TrackGridView: View {
                 .frame(width: 100, height: 100)
                 .accessibilityHidden(true)
             trackView
-                .frame(width: 450, height: 100)
                 .padding()
-        }.frame(width: 600, height: 150)
-            .roundEdges(backgroundColor: Color("darkBackground"), lineColor: isHover ? .purple : .clear)
+        }.frame(width: 550, height: 150)
+            .roundEdges(backgroundColor: Color.darkBackground,
+                        lineColor: isHover ? .purple : .clear)
+            .padding()
             .scaleEffect(isHover ? 1.1 : 1)
             .onHover { hover in
                 if track.isJoined {
@@ -35,61 +36,71 @@ struct TrackGridView: View {
                 }
             }
     }
-
+    
     var trackView: some View {
         VStack(alignment: .leading) {
             HStack() {
                 Text(track.title).bold()
                 if track.course && !track.isJoined {
-                    Label("Learning Mode", systemImage: "checkmark")
-                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
+                    Label{
+                        Text( Strings.learningMode.localized())
+                    } icon: {
+                        Image.checkmark
+                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
-
+                
                 if track.isNew && !track.isJoined {
                     Label(title: {
-                        Text("New")
+                        Text(Strings.new.localized())
                     }, icon: {
-                        Image("stars")
+                        Image.starsLogo
                             .renderingMode(.template)
                             .foregroundColor(.yellow)
                     }).roundEdges(backgroundColor: Color.blue.opacity(0.5))
                         .font(.system(size: 12, weight: .semibold))
                 }
-
+                
                 if track.isJoined {
                     Spacer()
-                    Label("Joined", systemImage: "checkmark")
-                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
+                    Label {
+                        Text( Strings.joined.localized())
+                    } icon: {
+                        Image.checkmark
+                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                 startPoint: .leading, endPoint: .trailing),
+                                 lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
             HStack() {
                 Label(title: {
-                    track.isJoined ? Text("\(track.numCompletedExercises)/\(track.numExercises) exercises") : Text("\(track.numExercises) exercises")
+                    track.isJoined ? Text(String(format: Strings.completedExercises.localized(), track.numCompletedExercises, track.numExercises)) : Text(String(format: Strings.exercises.localized(), track.numExercises))
                 }, icon: {
-                    Image("exercise")
+                    Image.exerciseLogo
                         .renderingMode(.template)
                         .foregroundColor(Color.primary)
                 })
-
+                
                 Label(title: {
-                    Text("\(track.numConcepts) concepts")
+                    Text(String(format: Strings.concepts.localized(), track.numConcepts))
                 }, icon: {
-                    Image("concept")
+                    Image.conceptLogo
                         .renderingMode(.template)
                         .foregroundColor(Color.primary)
                 })
             }
             
             if track.isJoined {
-                let value = track.numCompletedExercises > 0 ? Float(track.numCompletedExercises) / Float(track.numExercises) :  0
+                let completedExercises = Float(track.numCompletedExercises)
+                let numberOfExercises = Float(track.numExercises)
 
                 let gradient = Gradient(colors: [.purple, .indigo, .purple])
-                Gauge(value: value) {
+                Gauge(value: completedExercises, in: completedExercises...numberOfExercises) {
                     //
                 } currentValueLabel: {
-                    Text("Last touched \(track.lastTouchedAt?.offsetFrom() ?? "") ago")
+                    let dateAgo = track.lastTouchedAt?.offsetFrom() ?? ""
+                    Text(String(format: Strings.lastTouched.localized(), dateAgo))
                 }.tint(gradient)
                     .gaugeStyle(.accessoryLinearCapacity)
             } else {

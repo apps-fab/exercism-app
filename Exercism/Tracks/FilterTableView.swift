@@ -12,7 +12,7 @@ struct FilterTableView: View {
     @State var tags = [Tag]()
     @Binding var selectedTags: Set<String>
     @Binding var isPresented: Bool
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
@@ -26,12 +26,12 @@ struct FilterTableView: View {
                 }
             }
             HStack(spacing: 5) {
-                Button("Apply") {
+                Button(Strings.apply.localized()) {
                     isPresented = false
                 }.frame(width: 100, height: 30)
                     .buttonStyle(.plain)
                     .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
-                Button("Close") {
+                Button(Strings.close.localized()) {
                     selectedTags.removeAll()
                     isPresented = false
                 }.frame(width: 100, height: 30)
@@ -40,7 +40,7 @@ struct FilterTableView: View {
             }.frame(alignment: .bottomLeading)
         }.padding()
     }
-
+    
     func setupTag(_ tag: String) -> some View {
         let button = Button {
             toggleTags(tag)
@@ -49,16 +49,18 @@ struct FilterTableView: View {
                 Text(tag)
             } icon: {
                 if selectedTags.contains(tag) {
-                    Image(systemName: "checkmark.square.fill").renderingMode(.template).colorMultiply(.purple)
+                    Image.checkmarkSquareFill
+                        .renderingMode(.template)
+                        .colorMultiply(.purple)
                 } else {
-                    Image(systemName: "square")
+                    Image.square
                 }
             }
         }.buttonStyle(.plain)
             .padding(2)
         return button
     }
-
+    
     func toggleTags(_ tag: String) {
         if selectedTags.contains(tag) {
             selectedTags.remove(tag)

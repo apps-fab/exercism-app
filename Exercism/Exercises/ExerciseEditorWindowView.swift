@@ -29,65 +29,69 @@ struct ExerciseEditorWindowView: View {
                 }
             }
         }
-            .environmentObject(viewModel)
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button(action: toggleSidebar, label: { // 1
-                        Image(systemName: "sidebar.leading")
-                    })
-                }
-                ToolbarItem(content: { Spacer() })
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        viewModel.runTest()
-
-                    }, label: { // 1
-                        HStack {
-                            Image(systemName: "play.circle")
-                            Text("Run Tests")
-                        }
-                    })
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        viewModel.submitSolution()
-                    }, label: { // 1
-                        HStack {
-                            Image(systemName: "paperplane.circle")
-                            Text("Submit")
-                        }
-                    })
-                        .disabled(!viewModel.canSubmitSolution)
-                        .onTapGesture {
-                            if !viewModel.canSubmitSolution {
-                                showSubmissionTooltip = true
-                                print("showSubmissionTooltip: \($0)")
-                            }
-                        }
-                        .if(showSubmissionTooltip) { view in
-                            view
-                                .help("You need to run the tests before submitting.")
-                        }
-//                        .help("You need to run the tests before submitting.")
-                }
-
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        withAnimation {
-                            showInspector.toggle()
-                        }
-                    }, label: { // 1
-                        Label("Toggle instructions", systemImage: "sidebar.trailing")
-                    })
-                }
+        .environmentObject(viewModel)
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: toggleSidebar, label: { // 1
+                    Image.sidebarLeading
+                })
             }
-            .navigationViewStyle(.columns)
-            .onAppear {
-                viewModel.getDocument(track: track, exercise: exercise)
+            ToolbarItem(content: { Spacer() })
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    viewModel.runTest()
+                    
+                }, label: { // 1
+                    HStack {
+                        Image.playCircle
+                        Text(Strings.runTests.localized())
+                    }
+                })
             }
-            .navigationTitle(Text(viewModel.getTitle()))
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    viewModel.submitSolution()
+                }, label: { // 1
+                    HStack {
+                        Image.paperplaneCircle
+                        Text(Strings.submit.localized())
+                    }
+                })
+                .disabled(!viewModel.canSubmitSolution)
+                .onTapGesture {
+                    if !viewModel.canSubmitSolution {
+                        showSubmissionTooltip = true
+                        print("showSubmissionTooltip: \($0)")
+                    }
+                }
+                .if(showSubmissionTooltip) { view in
+                    view
+                        .help(Strings.runTestsBefore.localized())
+                }
+                //                        .help("You need to run the tests before submitting.")
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    withAnimation {
+                        showInspector.toggle()
+                    }
+                }, label: { // 1
+                    Label {
+                        Text(Strings.toggleInstructions.localized())
+                    } icon: {
+                        Image.sidebarTrailing
+                    }
+                })
+            }
+        }
+        .navigationViewStyle(.columns)
+        .onAppear {
+            viewModel.getDocument(track: track, exercise: exercise)
+        }
+        .navigationTitle(Text(viewModel.getTitle()))
     }
-
+    
     private func toggleSidebar() { // 2
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }

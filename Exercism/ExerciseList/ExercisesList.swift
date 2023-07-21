@@ -27,14 +27,14 @@ struct ExercisesList: View {
     @State var asyncModel: AsyncModel<[Exercise]>
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-
+    
     var body: some View {
         AsyncResultView(source: asyncModel) { exercises in
-                exerciseListView(exercises)
+            exerciseListView(exercises)
         }.onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
         }.onChange(of: exerciseCategory) { newValue in
@@ -46,37 +46,39 @@ struct ExercisesList: View {
             fieldFocused = false
         }
     }
-
+    
     @ViewBuilder
     func exerciseListView(_ exercises: [Exercise]) -> some View {
         let groupedExercises = groupExercises(exercises)
         let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
-        ScrollView {
-            VStack {
+        
+        VStack {
+            HStack {
                 HStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                        TextField("Search by title", text: $searchText)
-                            .textFieldStyle(.plain)
-                    }.padding()
-                        .roundEdges(lineColor: fieldFocused ? .purple : .gray)
-                        .focused($fieldFocused)
-                    CustomPicker(selected: $exerciseCategory) {
-                        HStack {
-                            ForEach(ExerciseCategory.allCases) { option in
-                                Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
-                                    .padding()
-                                    .frame(minWidth: 140, maxHeight: 40)
-                                    .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
-                                    .onTapGesture {
-                                        exerciseCategory = option
-                                    }
-                            }
-                        }
-                    }.padding()
+                    Image.magnifyingGlass
+                    TextField(Strings.searchString.localized(),
+                              text: $searchText)
+                    .textFieldStyle(.plain)
                 }.padding()
-                .background(Color("darkBackground"))
-                Divider().frame(height: 2)
+                    .roundEdges(lineColor: fieldFocused ? .purple : .gray)
+                    .focused($fieldFocused)
+                CustomPicker(selected: $exerciseCategory) {
+                    HStack {
+                        ForEach(ExerciseCategory.allCases) { option in
+                            Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
+                                .padding()
+                                .frame(minWidth: 140, maxHeight: 40)
+                                .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
+                                .onTapGesture {
+                                    exerciseCategory = option
+                                }
+                        }
+                    }
+                }.padding()
+            }.padding()
+                .background(Color.darkBackground)
+            Divider().frame(height: 2)
+            ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(filteredExercises, id: \.self) { exercise in
                         Button {
@@ -93,11 +95,11 @@ struct ExercisesList: View {
             }
         }
     }
-
+    
     func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
     }
-
+    
     /// Group exercises by category
     /// - Parameter exercises:
     /// - Returns: [ExerciseCategory: [Exercise]]
@@ -108,8 +110,8 @@ struct ExercisesList: View {
         }
         return groupedExercises
     }
-
-
+    
+    
     func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
         switch category {
         case .AllExercises:

@@ -12,7 +12,7 @@ struct RoundedRect<background: View>: ViewModifier {
     let borderColor: Color
     let backgroundColor: background
     @State private var highlight: Bool = false
-
+    
     func body(content: Content) -> some View {
         return content
             .padding([.leading, .trailing], 10)

@@ -19,23 +19,23 @@ class ExerciseViewModel: ObservableObject {
     @Published var submissionLink: String? = nil
     @Published var selectedTab: Int = 0
     private var codes = [String: String]()
-
+    
     var instruction: String? {
         guard let instructions = exerciseDoc?.instructions else {
             return nil
         }
-
+        
         do {
             return try String(contentsOf: instructions, encoding: .utf8)
         } catch {
             return nil
         }
     }
-
+    
     func getDocument(track: String, exercise: String) {
         downloadSolutions(track, exercise)
     }
-
+    
     private func getLocalExercise(track: String, exercise: String) {
         let solutionFiles = exerciseDoc!.solutions.map { url in
             ExerciseFile.fromURL(url)
@@ -43,7 +43,7 @@ class ExerciseViewModel: ObservableObject {
         self.exercise = ExerciseItem(name: exercise, language: track, files: solutionFiles)
         selectFile(solutionFiles.first)
     }
-
+    
     private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
         let fileManager = FileManager.default
         do {
@@ -52,9 +52,9 @@ class ExerciseViewModel: ObservableObject {
                 in: .userDomainMask,
                 appropriateFor: nil,
                 create: true)
-
+            
             let solutionDir = docsFolder.appendingPathComponent("\(track)/\(exercise)/", isDirectory: true)
-
+            
             if !fileManager.fileExists(atPath: solutionDir.relativePath) {
                 do {
                     try fileManager.createDirectory(atPath: solutionDir.path, withIntermediateDirectories: true)
@@ -63,14 +63,14 @@ class ExerciseViewModel: ObservableObject {
                     return nil
                 }
             }
-
+            
             return solutionDir
         } catch {
             print("URL error: \(error.localizedDescription)")
             return nil
         }
     }
-
+    
     func downloadSolutions(_ track: String, _ exercise: String) {
         guard let client = getClient() else {
             return
@@ -85,14 +85,14 @@ class ExerciseViewModel: ObservableObject {
             }
         }
     }
-
+    
     func selectFile(_ file: ExerciseFile?) {
         if let file = file {
             selectedFile = file
         }
         selectedCode = getSelectedCode() ?? ""
     }
-
+    
     func getSelectedCode() -> String? {
         do {
             guard let selected = selectedFile else {
@@ -104,27 +104,27 @@ class ExerciseViewModel: ObservableObject {
                 return code
             }
             print("found code: \(selected.id)")
-
+            
             return code
         } catch {
             print("Error getting file content: \(error)")
             return nil
         }
     }
-
+    
     func getTitle() -> String {
         guard let exercise = exercise else {
             return ""
         }
         return "\(exercise.language) / \(exercise.name)"
     }
-
+    
     func updateCode(_ code: String) {
         if let selected = selectedFile {
             codes[selected.id] = code
         }
     }
-
+    
     func updateFile() -> Bool {
         if !selectedCode.isEmpty && selectedFile != nil {
             do {
@@ -135,10 +135,10 @@ class ExerciseViewModel: ObservableObject {
                 return false
             }
         }
-
+        
         return false
     }
-
+    
     func runTest() {
         // move to tests tab immediately
         selectedTab = 1
@@ -166,14 +166,14 @@ class ExerciseViewModel: ObservableObject {
                 case .success(let submission):
                     switch submission.testsStatus {
                     case .passed:
-                        self?.testSubmissionResponseMessage = "This solution correctly solves the latest version of this exercise."
+                        self?.testSubmissionResponseMessage = Strings.correctSolution.localized()
                         self?.showTestSubmissionResponseMessage = true
                         break
                     case .queued:
                         self?.getTestRun(links: submission.links)
                         break
                     default:
-                        self?.testSubmissionResponseMessage = "This solution does not fully solve the latest version of this exercise"
+                        self?.testSubmissionResponseMessage = Strings.wrongSolution.localized()
                         self?.showTestSubmissionResponseMessage = true
                     }
                 case .failure(let error):
@@ -187,14 +187,14 @@ class ExerciseViewModel: ObservableObject {
             }
         }
     }
-
+    
     func getTestRun(links: SubmissionLinks) {
         guard let client = getClient() else {
-            testSubmissionResponseMessage = "Test run failed. Try again."
+            testSubmissionResponseMessage = Strings.runFailed.localized()
             showTestSubmissionResponseMessage = true
             return
         }
-
+        
         client.getTestRun(withLink: links.testRun) { [weak self] result in
             print(result)
             switch result {
@@ -209,63 +209,63 @@ class ExerciseViewModel: ObservableObject {
                     }
                 }
             case .failure(_):
-                self?.testSubmissionResponseMessage = "Test run failed. Try again."
+                self?.testSubmissionResponseMessage = Strings.runFailed.localized()
                 self?.showTestSubmissionResponseMessage = true
                 self?.averageTestDuration = nil
             }
         }
     }
-
+    
     var canSubmitSolution: Bool {
         submissionLink != nil
     }
-
+    
     func submitSolution() {
         if (!canSubmitSolution) {
-            solutionSubmissionResponseMessage = "You need to run the tests before submitting."
+            solutionSubmissionResponseMessage = Strings.runTestsError.localized()
             showSolutionSubmissionResponseMessage = true
             return
         }
-
+        
         guard let client = getClient() else {
-            solutionSubmissionResponseMessage = "Error submitting solution. Try again."
+            solutionSubmissionResponseMessage = Strings.errorSubmitting.localized()
             showSolutionSubmissionResponseMessage = true
             return
         }
-
+        
         client.submitSolution(withLink: submissionLink!) { [weak self] result in
             print(result)
             switch result {
             case .success(let response):
                 switch response.iteration.testsStatus {
                 case .passed:
-                    self?.solutionSubmissionResponseMessage = "This solution correctly solves the latest version of this exercise."
+                    self?.solutionSubmissionResponseMessage = Strings.correctSolution.localized()
                     self?.showSolutionSubmissionResponseMessage = true
                     break
                 default:
-                    self?.solutionSubmissionResponseMessage = "This solution does not fully solve the latest version of this exercise"
+                    self?.solutionSubmissionResponseMessage = Strings.wrongSolution.localized()
                     self?.showSolutionSubmissionResponseMessage = true
                 }
             case .failure(_):
-                self?.solutionSubmissionResponseMessage = "Error submitting solution. Try again."
+                self?.solutionSubmissionResponseMessage = Strings.runFailed.localized()
                 self?.showSolutionSubmissionResponseMessage = true
             }
         }
-
+        
     }
-
+    
     private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
         if (testRun.status == .pass) {
             submissionLink = links.submit
         }
         self.testRun = testRun
     }
-
+    
     private func getClient() -> ExercismClient? {
         guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else {
             return nil
         }
-
+        
         return ExercismClient(apiToken: token)
     }
 }

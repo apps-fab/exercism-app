@@ -11,63 +11,63 @@ import CodeEditor
 struct ExerciseEditorView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
     @EnvironmentObject var settingData: SettingData
-    #if os(macOS)
+#if os(macOS)
     @AppStorage("fontsize") var fontSize = Int(NSFont.systemFontSize)
-    #endif
+#endif
     private var source: String {
-        exerciseObject.getSelectedCode() ?? "No file selected"
+        exerciseObject.getSelectedCode() ?? Strings.noFile.localized()
     }
     private var language: CodeEditor.Language {
-        CodeEditor.Language.init(rawValue: exerciseObject.exercise?.language ?? "text")
+        CodeEditor.Language.init(rawValue: exerciseObject.exercise?.language ?? Strings.text.localized())
     }
-
+    
     @State var codeChanged = false
-
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var show = true
-
+    
     var body: some View {
         VStack(spacing: 0) {
-
-
-            #if os(macOS)
+            
+            
+#if os(macOS)
             CodeEditor(
                 source: $exerciseObject.selectedCode,
                 language: language,
                 theme: settingData.theme,
                 fontSize: .init(get: { CGFloat(fontSize) },
-                    set: { fontSize = Int($0) }))
-                .onChange(of: exerciseObject.selectedCode) { code in
-                    codeChanged = true
-                    exerciseObject.updateCode(code)
+                                set: { fontSize = Int($0) }))
+            .onChange(of: exerciseObject.selectedCode) { code in
+                codeChanged = true
+                exerciseObject.updateCode(code)
+            }
+            .onReceive(timer) { _ in
+                if codeChanged && exerciseObject.updateFile() {
+                    codeChanged = false
                 }
-                .onReceive(timer) { _ in
-                    if codeChanged && exerciseObject.updateFile() {
-                        codeChanged = false
-                    }
-                }
-            #else
+            }
+#else
             CodeEditor(source: source, language: language, theme: theme)
-            #endif
-
+#endif
+            
             Divider()
-
+            
             HStack {
-                Picker("Theme", selection: $settingData.theme) {
+                Picker(Strings.theme.localized(), selection: $settingData.theme) {
                     ForEach(CodeEditor.availableThemes) { theme in
                         Text("\(theme.rawValue.capitalized)")
                             .tag(theme)
                     }
                 }
             }
-                .padding()
+            .padding()
         }
-        .alert(String("Test submission"), isPresented: $exerciseObject.showTestSubmissionResponseMessage) {
-                Button("OK", role: .cancel) {
-                }
-            } message: {
-                Text(exerciseObject.testSubmissionResponseMessage)
+        .alert(String(Strings.submissionAlert.localized()), isPresented: $exerciseObject.showTestSubmissionResponseMessage) {
+            Button(Strings.ok.localized(), role: .cancel) {
             }
+        } message: {
+            Text(exerciseObject.testSubmissionResponseMessage)
+        }
     }
 }
 

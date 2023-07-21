@@ -28,7 +28,7 @@ struct ExerciseRightSidebarView: View {
     }
     
     private var language: String {
-        return exerciseObject.exercise?.language ?? "text"
+        return exerciseObject.exercise?.language ?? Strings.text.localized()
     }
     
     var body: some View {
@@ -37,7 +37,8 @@ struct ExerciseRightSidebarView: View {
                 // Todo(savekirk): Use system colorScheme
                 Instruction(instruction: instruction, theme: theme, language: language)
                     .tabItem {
-                        TabLabel(imageName: "checklist", label: "Instructions")
+                        TabLabel(image: Image.checklist,
+                                 label: Text(Strings.instructions.localized()))
                     }.tag(0)
             }
             VStack(alignment: HorizontalAlignment.leading) {
@@ -53,7 +54,8 @@ struct ExerciseRightSidebarView: View {
                 }
             }
             .tabItem {
-                TabLabel(imageName: "text.badge.checkmark", label: "Results")
+                TabLabel(image: Image.textBadgeChecklist,
+                         label: Text(Strings.results.localized()))
             }.tag(1)
         }
     }
@@ -76,13 +78,13 @@ struct ExerciseRightSidebarView: View {
     }
     
     struct TabLabel: View {
-        let imageName: String
-        let label: String
+        let image: Image
+        let label: Text
         
         var body: some View {
             HStack {
-                Image(systemName: imageName)
-                Text(label)
+                image
+                label
             }
         }
     }
@@ -90,9 +92,9 @@ struct ExerciseRightSidebarView: View {
     struct NoTestRun: View {
         var body: some View {
             VStack {
-                Image(systemName: "doc.badge.gearshape")
-                Text("Run tests to check your code")
-                Text("We'll run your code against tests to check whether it works, then give you the results here.")
+                Image.gear
+                Text(Strings.runTestsTitle.localized())
+                Text(Strings.runTestsDescription.localized())
             }
         }
     }
@@ -104,13 +106,13 @@ struct ExerciseRightSidebarView: View {
         
         var body: some View {
             VStack {
-                ProgressView("Running tests...", value: progress, total: 100)
+                ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
                     .onReceive(timer) { _ in
                         if progress < 100 {
                             progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
-                         }
+                        }
                     }
-                Text("Estimated running time ~ \(totalSecs)s")
+                Text(String(format: Strings.estimatedTime.localized(), totalSecs))
             }
         }
     }
