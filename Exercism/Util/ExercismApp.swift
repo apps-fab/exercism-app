@@ -30,6 +30,11 @@ struct ExercismApp: App {
                 .environmentObject(model)
                 .environmentObject(settingsData)
                 .navigationTitle(Strings.exercismText.localized())
+        }.commands {
+            ExercismCommands()
+        }
+        Settings {
+            ExercismSettings()
         }
     }
 }
