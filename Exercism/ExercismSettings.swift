@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Splash
 
 struct ExercismSettings: View {
     @AppStorage("Editor.theme")private var theme: Int = 0
-    
+
     var body: some View {
         List(selection: $theme) {
             ForEach(0..<3) {_ in
@@ -26,3 +27,4 @@ struct ExercismSettings_Previews: PreviewProvider {
         ExercismSettings()
     }
 }
+

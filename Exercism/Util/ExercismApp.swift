@@ -30,8 +30,18 @@ struct ExercismApp: App {
                 .environmentObject(model)
                 .environmentObject(settingsData)
                 .navigationTitle(Strings.exercismText.localized())
-        }.commands {
+        }
+        .commands {
             ExercismCommands()
+            CommandGroup(replacing: .appInfo) {
+                Button("About Exercism") {
+                    NSApplication.shared.orderFrontStandardAboutPanel(options: [NSApplication.AboutPanelOptionKey.credits: NSAttributedString(string: "Exercism is a software built off the Exercism web platform.",
+                                                                                                                                     attributes: [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: NSFont.smallSystemFontSize)
+                                                                ]),
+                                                                       NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© 2023"
+                    ] as [NSApplication.AboutPanelOptionKey : Any])
+                }
+            }
         }
         Settings {
             ExercismSettings()

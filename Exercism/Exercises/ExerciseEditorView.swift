@@ -28,8 +28,6 @@ struct ExerciseEditorView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            
-            
 #if os(macOS)
             CodeEditor(
                 source: $exerciseObject.selectedCode,

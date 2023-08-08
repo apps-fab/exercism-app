@@ -70,9 +70,10 @@ struct TrackGridView: View {
                     }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
                                                                  startPoint: .leading, endPoint: .trailing),
                                  lineColor: .clear)
-                        .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 12, weight: .semibold))
                 }
             }
+
             HStack() {
                 Label(title: {
                     track.isJoined ? Text(String(format: Strings.completedExercises.localized(), track.numCompletedExercises, track.numExercises)) : Text(String(format: Strings.exercises.localized(), track.numExercises))
@@ -80,7 +81,7 @@ struct TrackGridView: View {
                     Image.exerciseLogo
                         .renderingMode(.template)
                         .foregroundColor(Color.primary)
-                })
+                })  
                 
                 Label(title: {
                     Text(String(format: Strings.concepts.localized(), track.numConcepts))

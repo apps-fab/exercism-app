@@ -21,9 +21,9 @@ struct ExerciseRightSidebarView: View {
     private var theme: Splash.Theme {
         switch colorScheme {
         case .dark:
-            return .wwdc18(withFont: .init(size: 16))
+            return .wwdc18(withFont: .init(size: 12))
         default:
-            return .sunset(withFont: .init(size: 16))
+            return .sunset(withFont: .init(size: 12))
         }
     }
     
@@ -73,6 +73,7 @@ struct ExerciseRightSidebarView: View {
                     Markdown(instruction)
                         .markdownTheme(.gitHub)
                         .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                        .padding()
                 }
             }
         }
@@ -122,6 +123,7 @@ struct ExerciseRightSidebarView: View {
 
 struct ExerciseRightSidebarView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseRightSidebarView()
+
+        ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
     }
 }
