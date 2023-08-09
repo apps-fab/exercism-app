@@ -19,8 +19,7 @@ enum ExerciseCategory : String, CaseIterable, Identifiable {
 }
 
 struct ExercisesList: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
-    @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var searchText = ""
     @State var track: Track
@@ -36,11 +35,11 @@ struct ExercisesList: View {
         AsyncResultView(source: asyncModel) { exercises in
             exerciseListView(exercises)
         }.onChange(of: searchText) { newValue in
-            asyncModel.filterOperations  = { self.model.filterExercises(newValue) }
+            asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
         }.onChange(of: exerciseCategory) { newValue in
             // implement this
         }.task {
-            let solutionsList = try! await model.getSolutions(track) // we need to handle this error
+            let solutionsList = try! await TrackModel.shared.getSolutions(track) // we need to handle this error
             self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
         }.onAppear {
             fieldFocused = false
@@ -82,7 +81,7 @@ struct ExercisesList: View {
                 LazyVGrid(columns: columns) {
                     ForEach(filteredExercises, id: \.self) { exercise in
                         Button {
-                            coordinator.goToEditor(track.slug, exercise.slug)
+                            navigationModel.goToEditor(track.slug, exercise.slug)
                         } label: {
                             ExerciseGridView(exercise: exercise, solution: getSolution(for: exercise))
                         }.buttonStyle(.plain)

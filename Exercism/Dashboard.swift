@@ -10,11 +10,13 @@ import ExercismSwift
 
 struct Dashboard: View {
     @State var asyncModel: AsyncModel<[Track]>
-    
+    @EnvironmentObject private var navigationModel: NavigationModel
+    let model = TrackModel.shared
+
     var body: some View {
-        NavigationSplitView {
-            SideBar().frame(minWidth: 200)
-        } detail: {
+        HStack {
+            SideBar().frame(maxWidth: 200)
+            Divider()
             TracksListView(asyncModel: asyncModel)
         }
     }

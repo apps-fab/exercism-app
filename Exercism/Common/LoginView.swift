@@ -10,7 +10,7 @@ import ExercismSwift
 import KeychainSwift
 
 struct LoginView: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var error: String?
@@ -69,7 +69,7 @@ struct LoginView: View {
         VStack(alignment: .center) {
             Spacer()
             HStack {
-                Image.exercismLogo
+                Image.exercismLogo.padding()
                 Text(Strings.exercismText.localized())
                     .font(.largeTitle)
                     .bold()
@@ -100,9 +100,8 @@ struct LoginView: View {
             .background(Color.exercismPurple)
             .cornerRadius(7).buttonStyle(.plain)
             .padding()
-            Text(Strings.loginSettingsText.localized())
+            Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
                 .padding()
-            
             Text(Strings.loginImportantToken.localized())
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
@@ -118,7 +117,7 @@ struct LoginView: View {
             switch response {
             case .success(_):
                 ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
-                coordinator.goToDashboard()
+                navigationModel.goToDashboard()
             case .failure(let error):
                 if case ExercismClientError.apiError(_, _, let message) = error {
                     self.error = message

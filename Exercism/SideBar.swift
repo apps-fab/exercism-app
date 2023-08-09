@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 import ExercismSwift
 
 struct SideBar: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var model: TrackModel
     
     var body: some View {
@@ -23,7 +23,7 @@ struct SideBar: View {
                 List {
                     ForEach(tracks.filter { $0.isJoined }) { track in
                         Button {
-                            coordinator.goToTrack(track)
+                            navigationModel.goToTrack(track)
                         } label: {
                             HStack(alignment: .top) {
                                 WebImage(url: URL(string: track.iconUrl))
@@ -50,7 +50,7 @@ struct SideBar: View {
                             .listRowSeparator(.visible)
                             .buttonStyle(.plain)
                     }
-                }.listStyle(.bordered)
+                }.listStyle(.plain)
                 Spacer()
                 HStack {
                     Image.profile
@@ -74,7 +74,7 @@ struct SideBar: View {
     
     func logout() {
         ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
-        coordinator.goToLogin()
+        navigationModel.goToLogin()
     }
 }
 

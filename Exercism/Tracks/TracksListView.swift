@@ -9,11 +9,11 @@ import SwiftUI
 import ExercismSwift
 
 struct TracksListView: View {
-    @EnvironmentObject private var model: TrackModel
-    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
+    let model = TrackModel.shared
     
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
@@ -62,7 +62,7 @@ struct TracksListView: View {
                     LazyVGrid(columns: columns) {
                         ForEach(joined) { track in
                             Button {
-                                coordinator.goToTrack(track)
+                                navigationModel.goToTrack(track)
                             } label: {
                                 TrackGridView(track: track).accessibilityElement(children: .contain)
                             }.buttonStyle(.plain)
@@ -77,11 +77,7 @@ struct TracksListView: View {
                         }
                     LazyVGrid(columns: columns) {
                         ForEach(unjoined) { track in
-                            Button {
-                                coordinator.goToTrack(track)
-                            } label: {
-                                TrackGridView(track: track).accessibilityElement(children: .contain)
-                            }.buttonStyle(.plain)
+                            TrackGridView(track: track).accessibilityElement(children: .contain)
                         }
                     }
                 }.padding()
