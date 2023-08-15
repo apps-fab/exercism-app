@@ -20,7 +20,7 @@ struct FilterView: View {
         HStack {
             ZStack(alignment: .leading) {
                 Image.magnifyingGlass
-                TextField(Strings.searched.localized(),
+                TextField(Strings.searchString.localized(),
                           text: $searchText)
                 .padding(.horizontal, 30)
                 .textFieldStyle(.plain)

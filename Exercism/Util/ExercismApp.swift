@@ -29,7 +29,7 @@ struct ExercismApp: App {
             ContentView()
                 .environmentObject(model)
                 .environmentObject(settingsData)
-                .navigationTitle(Strings.exercismText.localized())
+                .navigationTitle(Strings.exercism.localized())
         }
         .commands {
             ExercismCommands()
@@ -44,7 +44,7 @@ struct ExercismApp: App {
             }
         }
         Settings {
-            ExercismSettings()
+            ExercismSettings().environmentObject(settingsData)
         }
     }
 }

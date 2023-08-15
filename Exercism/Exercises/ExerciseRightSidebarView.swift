@@ -12,6 +12,7 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @EnvironmentObject var settingData: SettingData
     @SwiftUI.Environment(\.colorScheme) private var colorScheme
     
     var instruction: String? {
@@ -21,9 +22,9 @@ struct ExerciseRightSidebarView: View {
     private var theme: Splash.Theme {
         switch colorScheme {
         case .dark:
-            return .wwdc18(withFont: .init(size: 12))
+            return .wwdc18(withFont: .init(size: settingData.fontSize))
         default:
-            return .sunset(withFont: .init(size: 12))
+            return .sunset(withFont: .init(size: settingData.fontSize))
         }
     }
     
@@ -123,7 +124,6 @@ struct ExerciseRightSidebarView: View {
 
 struct ExerciseRightSidebarView_Previews: PreviewProvider {
     static var previews: some View {
-
         ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
     }
 }

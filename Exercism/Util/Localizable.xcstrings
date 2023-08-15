@@ -745,7 +745,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Good job! You can continue to improve your code or, if you're %@ done, submit an iteration to %@ get automated feedback and optionally request mentoring."
+            "value" : "Good job! You can continue to improve your code or, if you're done, submit an iteration to get automated feedback and optionally request mentoring."
           }
         }
       }
@@ -811,7 +811,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Test %@"
+            "value" : "Test %d"
           }
         }
       }

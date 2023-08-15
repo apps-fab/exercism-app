@@ -20,15 +20,20 @@ struct TracksListView: View {
     ]
     
     var body: some View {
-        AsyncResultView(source: asyncModel) { tracks in
-            tracksView(tracks)
-        }.accessibilityLabel("All Tracks")
-            .onChange(of: searchText) { newSearch in
-                asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
-            }.onChange(of: filters) { newFilters in
-                print(newFilters.count)
-                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
-            }
+        GeometryReader { size in
+            AsyncResultView(source: asyncModel) { tracks in
+                HStack {
+                    SideBar(tracks: tracks).frame(maxWidth: size.size.width * 0.2)
+                    Divider().frame(width: 2)
+                    tracksView(tracks)
+                }
+            }.accessibilityLabel("All Tracks")
+                .onChange(of: searchText) { newSearch in
+                    asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
+                }.onChange(of: filters) { newFilters in
+                    asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+                }
+        }
     }
     
     @ViewBuilder

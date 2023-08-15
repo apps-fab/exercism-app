@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationStack(path: $navigationModel.path) {
             Group {
                 if let _ = ExercismKeychain.shared.get(for: "token") {
-                    Dashboard(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
+                    TracksListView(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
                         .frame(minWidth: 800, minHeight: 800)
                         .environmentObject(navigationModel)
 
@@ -49,7 +49,7 @@ struct ContentView: View {
                             .environmentObject(navigationModel)
 
                     case .Dashboard:
-                        Dashboard(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
+                        TracksListView(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
                             .frame(minWidth: 800, minHeight: 800)
                             .environmentObject(navigationModel)
                     }

@@ -46,14 +46,14 @@ struct LoginView: View {
                 .frame(width: 365, height: 208)
             Spacer()
             
-            Text(Strings.loginIntroTitle.localized())
+            Text(Strings.introTitle.localized())
                 .font(.system(size: 26, weight: .semibold))
                 .multilineTextAlignment(.center)
-            Text(Strings.loginIntroSubtitle.localized())
+            Text(Strings.introSubtitle.localized())
                 .font(.system(size: 16, weight: .regular))
                 .multilineTextAlignment(.center)
                 .padding()
-            Text(Strings.loginFreeText.localized())
+            Text(Strings.introFree.localized())
                 .font(.system(size: 16, weight: .semibold))
             Spacer()
             Image.trackImages
@@ -70,17 +70,17 @@ struct LoginView: View {
             Spacer()
             HStack {
                 Image.exercismLogo.padding()
-                Text(Strings.exercismText.localized())
+                Text(Strings.exercism.localized())
                     .font(.largeTitle)
                     .bold()
                     .padding(.bottom, 5)
             }.accessibilityAddTraits(.isHeader)
-            Text(Strings.loginCodePractice.localized())
+            Text(Strings.codePractice.localized())
                 .font(.title2)
                 .bold()
             Spacer()
             ExercismTextField(text: $textInput,
-                              placeholder: Text(Strings.loginEnterToken.localized())).onSubmit {
+                              placeholder: Text(Strings.enterToken.localized())).onSubmit {
                 validateToken()
             }
                               .frame(height: 28)
@@ -91,7 +91,7 @@ struct LoginView: View {
             Button(action: {
                 validateToken()
             }) {
-                Text(Strings.loginText.localized())
+                Text(Strings.login.localized())
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .foregroundColor(.white)
                 
@@ -102,7 +102,7 @@ struct LoginView: View {
             .padding()
             Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
                 .padding()
-            Text(Strings.loginImportantToken.localized())
+            Text(Strings.importantToken.localized())
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
             Spacer()

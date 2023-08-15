@@ -11,12 +11,13 @@ import ExercismSwift
 
 struct SideBar: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @EnvironmentObject private var model: TrackModel
+    @State var tracks: [Track]
     
     var body: some View {
-        AsyncResultView(source: AsyncModel(operation: model.getTracks )) { tracks in
+        GeometryReader { frame in
             VStack(alignment: .leading) {
                 Text(Strings.joinedTracks.localized())
+                    .frame(width: frame.size.width, alignment: .center)
                     .font(.title)
                     .bold()
                     .padding()
@@ -71,7 +72,7 @@ struct SideBar: View {
             }
         }
     }
-    
+
     func logout() {
         ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
         navigationModel.goToLogin()
@@ -80,6 +81,6 @@ struct SideBar: View {
 
 struct SideBar_Previews: PreviewProvider {
     static var previews: some View {
-        SideBar()
+        SideBar(tracks: [])
     }
 }

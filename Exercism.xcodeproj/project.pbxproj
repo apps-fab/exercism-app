@@ -46,6 +46,7 @@
 		FD7DC53729E192B300A1EBD9 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53629E192B300A1EBD9 /* Dashboard.swift */; };
 		FD7DC53929E2CA6700A1EBD9 /* AsyncResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53829E2CA6700A1EBD9 /* AsyncResultView.swift */; };
 		FD9262FF28F6EA3300C9476C /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = FD9262FE28F6EA3300C9476C /* Tags.json */; };
+		FD92DC652A854EAC00673445 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = FD92DC642A854EAC00673445 /* Settings */; };
 		FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksListView.swift */; };
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
@@ -110,7 +111,7 @@
 		FD93F5C128E1E3260078A062 /* TracksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksListView.swift; sourceTree = "<group>"; };
 		FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackGridView.swift; sourceTree = "<group>"; };
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
-		FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -134,6 +135,7 @@
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
+				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
 				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
 			);
@@ -170,10 +172,6 @@
 		E0C9672328732A44004CE7E6 = {
 			isa = PBXGroup;
 			children = (
-				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
-				FDFF5A802A66C2E700E36AA4 /* Images.swift */,
-				FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */,
-				FD9262FE28F6EA3300C9476C /* Tags.json */,
 				E0C9672E28732A44004CE7E6 /* Exercism */,
 				E0C9672D28732A44004CE7E6 /* Products */,
 				FD7DC52E29E0AEFB00A1EBD9 /* Recovered References */,
@@ -191,7 +189,6 @@
 		E0C9672E28732A44004CE7E6 /* Exercism */ = {
 			isa = PBXGroup;
 			children = (
-				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
 				E0C9673F28732C49004CE7E6 /* ExercismSwift */,
 				FDC8C07929C495E70079D5F3 /* Models */,
 				FDC8C07829C495AB0079D5F3 /* Common */,
@@ -277,6 +274,11 @@
 		FDC8C07A29C496160079D5F3 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
+				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
+				FDFF5A802A66C2E700E36AA4 /* Images.swift */,
+				FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */,
+				FD9262FE28F6EA3300C9476C /* Tags.json */,
 				FD93F5D628E398770078A062 /* Date+Exercism.swift */,
 				E0C9673328732A45004CE7E6 /* Assets.xcassets */,
 				FDD4575028DA474200B3834F /* Color.xcassets */,
@@ -315,6 +317,7 @@
 				E07F6B0629E0D04D00E5C42A /* MarkdownUI */,
 				E07F6B0929E0D5DA00E5C42A /* Splash */,
 				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
+				FD92DC642A854EAC00673445 /* Settings */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -353,6 +356,7 @@
 				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -675,6 +679,14 @@
 				kind = branch;
 			};
 		};
+		FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Settings";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -729,6 +741,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
 			productName = ExercismSwift;
+		};
+		FD92DC642A854EAC00673445 /* Settings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */;
+			productName = Settings;
 		};
 		FDC9F11E28E5DA9200488CE9 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

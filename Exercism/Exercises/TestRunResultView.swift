@@ -37,7 +37,7 @@ struct TestRunResultView: View {
         let onSubmitTest: () -> Void
         var body: some View {
             VStack {
-                Text(Strings.solvedExercise.localized())
+                Text(Strings.solvedExercise.localized()).bold()
                 Text(Strings.submitCode.localized())
                 Button(action: {
                     onSubmitTest()
@@ -47,7 +47,8 @@ struct TestRunResultView: View {
                     } icon: {
                         Image.play
                     }
-                })
+                }).frame(height: 100)
+                .background(Color.exercismPurple)
             }
         }
     }
