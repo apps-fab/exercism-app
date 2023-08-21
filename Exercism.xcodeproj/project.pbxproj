@@ -43,7 +43,6 @@
 		FD7DC53329E0B03600A1EBD9 /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */; };
 		FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */; };
 		FD7DC53529E0B0E900A1EBD9 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B071128F5F77300FCA956 /* FilterView.swift */; };
-		FD7DC53729E192B300A1EBD9 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53629E192B300A1EBD9 /* Dashboard.swift */; };
 		FD7DC53929E2CA6700A1EBD9 /* AsyncResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53829E2CA6700A1EBD9 /* AsyncResultView.swift */; };
 		FD9262FF28F6EA3300C9476C /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = FD9262FE28F6EA3300C9476C /* Tags.json */; };
 		FD92DC652A854EAC00673445 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = FD92DC642A854EAC00673445 /* Settings */; };
@@ -104,7 +103,6 @@
 		FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRunExt.swift; sourceTree = "<group>"; };
-		FD7DC53629E192B300A1EBD9 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		FD7DC53829E2CA6700A1EBD9 /* AsyncResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncResultView.swift; sourceTree = "<group>"; };
 		FD9262FB28F6DAE700C9476C /* FilterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableView.swift; sourceTree = "<group>"; };
 		FD9262FE28F6EA3300C9476C /* Tags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Tags.json; sourceTree = "<group>"; };
@@ -200,7 +198,6 @@
 				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
 				FD60950A29CC598000944379 /* SideBar.swift */,
-				FD7DC53629E192B300A1EBD9 /* Dashboard.swift */,
 				FDEF2CDA2A2870F500965E8C /* AsyncModel.swift */,
 				FD7DC53829E2CA6700A1EBD9 /* AsyncResultView.swift */,
 				8480F413C4C2527414F3D692 /* SyntaxHighlighter */,
@@ -402,7 +399,6 @@
 				FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */,
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
 				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
-				FD7DC53729E192B300A1EBD9 /* Dashboard.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */,

@@ -13,8 +13,8 @@ import Splash
 let exercismSettingsScreen: () -> SettingsPane  = {
     let paneView = Settings.Pane(
         identifier: .general,
-        title: "Accounts",
-        toolbarIcon: NSImage(systemSymbolName: "person.crop.circle", accessibilityDescription: "Accounts settings")!
+        title: "General",
+        toolbarIcon: NSImage(systemSymbolName: "person.crop.circle", accessibilityDescription: "General settings")!
     ) {
         ExercismSettings()
     }
@@ -34,10 +34,6 @@ struct ExercismSettings: View {
                 }
             }
 
-//            Settings.Section(title: "Markdown Theme") {
-//                List(Splash.The
-//
-//            }
             Settings.Section(title: "Font Size") {
                 Picker("", selection: $selectedFont) {
                     ForEach(8..<20) { fontSize in
