@@ -17,48 +17,47 @@ struct ExerciseEditorWindowView: View {
         NavigationSplitView {
             ExerciseRightSidebarView()
         } detail: {
-            CustomTabView(selectedItem: $viewModel.selectedTab) {
-                ExerciseEditorView().tabItem(for: ExerciseFiles.first)
-                ExerciseEditorView().tabItem(for: ExerciseFiles.second)
-                ExerciseEditorView().tabItem(for: ExerciseFiles.third)
-                    .toolbar {
-                        ToolbarItem(content: { Spacer() })
-                        ToolbarItem(placement: .primaryAction) {
-                            Button(action: {
-                                viewModel.runTest()
-                            }, label: { // 1
-                                HStack {
-                                    Image.playCircle
-                                    Text(Strings.runTests.localized())
-                                }
-                            })
+            CustomTabView(selectedItem: $viewModel.selectedFile) {
+                ForEach(viewModel.tabbableSolutionFiles) { file in
+                    ExerciseEditorView().tabItem(for: file)
+                }
+            }
+            .toolbar {
+                ToolbarItem(content: { Spacer() })
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        viewModel.runTest()
+                    }, label: { // 1
+                        HStack {
+                            Image.playCircle
+                            Text(Strings.runTests.localized())
                         }
-                        ToolbarItem(placement: .primaryAction) {
-                            Button(action: {
-                                viewModel.submitSolution()
-                            }, label: { // 1
-                                HStack {
-                                    Image.paperplaneCircle
-                                    Text(Strings.submit.localized())
-                                }
-                            })
-                            .disabled(!viewModel.canSubmitSolution)
-                            .onTapGesture {
-                                if !viewModel.canSubmitSolution {
-                                    showSubmissionTooltip = true
-                                    print("showSubmissionTooltip: \($0)")
-                                }
-                            }
-                            .if(showSubmissionTooltip) { view in
-                                view
-                                    .help(Strings.runTestsBefore.localized())
-                            }
-                            //                        .help("You need to run the tests before submitting.")
+                    })
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        viewModel.submitSolution()
+                    }, label: { // 1
+                        HStack {
+                            Image.paperplaneCircle
+                            Text(Strings.submit.localized())
+                        }
+                    })
+                    .disabled(!viewModel.canSubmitSolution)
+                    .onTapGesture {
+                        if !viewModel.canSubmitSolution {
+                            showSubmissionTooltip = true
+                            print("showSubmissionTooltip: \($0)")
                         }
                     }
+                    .if(showSubmissionTooltip) { view in
+                        view
+                            .help(Strings.runTestsBefore.localized())
+                    }
+                    //                        .help("You need to run the tests before submitting.")
+                }
             }
-        }
-        .onAppear {
+        }.onAppear {
             viewModel.getDocument(track: track, exercise: exercise)
         }
         .environmentObject(viewModel)

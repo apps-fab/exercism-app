@@ -16,7 +16,6 @@
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
 		E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
-		E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22128E576510022CECD /* ExerciseNavigatorView.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
 		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
@@ -77,7 +76,6 @@
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
-		E049F22128E576510022CECD /* ExerciseNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigatorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
 		E0C9672C28732A44004CE7E6 /* Exercism.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercism.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +152,6 @@
 			children = (
 				E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */,
 				E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */,
-				E049F22128E576510022CECD /* ExerciseNavigatorView.swift */,
 				E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */,
 				8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */,
 				8480F60001E12133BDACC877 /* ExerciseItem.swift */,
@@ -389,7 +386,6 @@
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */,
-				E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */,
 				FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */,
 				FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */,
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
