@@ -24,3 +24,4 @@ struct RoundedRect<background: View>: ViewModifier {
             }.clipShape(RoundedRectangle(cornerRadius: radius))
     }
 }
+

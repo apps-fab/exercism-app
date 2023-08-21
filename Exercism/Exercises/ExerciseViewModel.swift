@@ -5,6 +5,20 @@
 import Foundation
 import ExercismSwift
 
+enum ExerciseFiles: Int, Tabbable {
+    case first = 0
+    case second
+    case third
+
+    var icon: String {
+        return "house"
+    }
+
+    var title: String {
+        return "first"
+    }
+}
+
 class ExerciseViewModel: ObservableObject {
     @Published var exerciseDoc: ExerciseDocument? = nil
     @Published var exercise: ExerciseItem? = nil
@@ -17,7 +31,7 @@ class ExerciseViewModel: ObservableObject {
     @Published var showSolutionSubmissionResponseMessage = false
     @Published var solutionSubmissionResponseMessage = ""
     @Published var submissionLink: String? = nil
-    @Published var selectedTab: Int = 0
+    @Published var selectedTab: ExerciseFiles = ExerciseFiles.first
     private var codes = [String: String]()
     
     var instruction: String? {
@@ -141,7 +155,7 @@ class ExerciseViewModel: ObservableObject {
     
     func runTest() {
         // move to tests tab immediately
-        selectedTab = 1
+        selectedTab = .first
         // Update with latest code
         let _ = updateFile()
         guard let client = getClient() else {
