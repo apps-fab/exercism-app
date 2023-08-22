@@ -33,14 +33,11 @@ struct ExerciseRightSidebarView: View {
     }
     
     var body: some View {
-        TabView(selection: $exerciseObject.selectedTab) {
+        CustomTabView(selectedItem: $exerciseObject.selectedTab) {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
                 Instruction(instruction: instruction, theme: theme, language: language)
-                    .tabItem {
-                        TabLabel(image: Image.checklist,
-                                 label: Text(Strings.instructions.localized()))
-                    }.tag(0)
+                    .tabItem(for: SelectedTab.Instruction)
             }
             VStack(alignment: HorizontalAlignment.leading) {
                 if let averageTestDuration = exerciseObject.averageTestDuration {
@@ -56,10 +53,7 @@ struct ExerciseRightSidebarView: View {
                     }
                 }
             }
-            .tabItem {
-                TabLabel(image: Image.textBadgeChecklist,
-                         label: Text(Strings.results.localized()))
-            }.tag(1)
+            .tabItem(for: SelectedTab.Result)
         }
     }
     

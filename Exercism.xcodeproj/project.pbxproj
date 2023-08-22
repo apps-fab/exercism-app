@@ -16,7 +16,6 @@
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
 		E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
-		E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22128E576510022CECD /* ExerciseNavigatorView.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
 		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
@@ -39,6 +38,7 @@
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
+		FD79A4ED2A8CCF3900250711 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */; };
 		FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
 		FD7DC53329E0B03600A1EBD9 /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */; };
 		FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */; };
@@ -78,7 +78,6 @@
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
-		E049F22128E576510022CECD /* ExerciseNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigatorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
 		E0C9672C28732A44004CE7E6 /* Exercism.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercism.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +99,7 @@
 		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
+		FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRunExt.swift; sourceTree = "<group>"; };
@@ -156,11 +156,11 @@
 			children = (
 				E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */,
 				E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */,
-				E049F22128E576510022CECD /* ExerciseNavigatorView.swift */,
 				E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */,
 				8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */,
 				8480F60001E12133BDACC877 /* ExerciseItem.swift */,
 				8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */,
+				FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */,
 				8480FC607C091F61494EC6B1 /* TestGroup.swift */,
 				E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */,
 			);
@@ -394,7 +394,6 @@
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */,
-				E049F22228E576510022CECD /* ExerciseNavigatorView.swift in Sources */,
 				FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */,
 				FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */,
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
@@ -420,6 +419,7 @@
 				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,
 				FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */,
 				FDFF5A832A66C31A00E36AA4 /* Strings.swift in Sources */,
+				FD79A4ED2A8CCF3900250711 /* CustomTabView.swift in Sources */,
 				FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */,
 				8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */,
 				8480F81F9F5140CC9D27E0BD /* SettingData.swift in Sources */,

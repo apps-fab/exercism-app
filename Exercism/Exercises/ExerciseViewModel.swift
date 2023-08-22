@@ -5,10 +5,47 @@
 import Foundation
 import ExercismSwift
 
+enum SelectedTab: Int, Tabbable {
+    case Instruction = 0
+    case Result
+
+    var icon: String {
+        switch self {
+        case .Instruction:
+            return "list.bullet"
+        case .Result:
+            return "checkmark.icloud.fill"
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .Instruction:
+            return "Instruction"
+        case .Result:
+            return "Result"
+        }
+    }
+}
+
+struct TabbableExerciseFile: Identifiable, Tabbable {
+    var id: String
+    var icon: String
+    var title: String
+    var url: URL?
+
+    init(id: String, icon: String, title: String, url: URL?) {
+        self.id = id
+        self.icon = icon
+        self.title = title
+        self.url = url
+    }
+}
+
 class ExerciseViewModel: ObservableObject {
     @Published var exerciseDoc: ExerciseDocument? = nil
     @Published var exercise: ExerciseItem? = nil
-    @Published var selectedFile: ExerciseFile? = nil
+    @Published var selectedFile: TabbableExerciseFile = TabbableExerciseFile(id: "", icon: "", title: "", url: URL(string: ""))
     @Published var selectedCode: String = ""
     @Published var showTestSubmissionResponseMessage = false
     @Published var testSubmissionResponseMessage = ""
@@ -17,7 +54,8 @@ class ExerciseViewModel: ObservableObject {
     @Published var showSolutionSubmissionResponseMessage = false
     @Published var solutionSubmissionResponseMessage = ""
     @Published var submissionLink: String? = nil
-    @Published var selectedTab: Int = 0
+    @Published var selectedTab: SelectedTab = .Instruction
+    @Published var tabbableSolutionFiles = [TabbableExerciseFile]()
     private var codes = [String: String]()
     
     var instruction: String? {
@@ -31,17 +69,19 @@ class ExerciseViewModel: ObservableObject {
             return nil
         }
     }
-    
+
     func getDocument(track: String, exercise: String) {
         downloadSolutions(track, exercise)
     }
     
     private func getLocalExercise(track: String, exercise: String) {
         let solutionFiles = exerciseDoc!.solutions.map { url in
-            ExerciseFile.fromURL(url)
+            let file = ExerciseFile.fromURL(url)
+            tabbableSolutionFiles.append(getTababbleExerciseFile(file))
+            return file
         }
         self.exercise = ExerciseItem(name: exercise, language: track, files: solutionFiles)
-        selectFile(solutionFiles.first)
+        selectFile(tabbableSolutionFiles.first)
     }
     
     private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
@@ -85,8 +125,12 @@ class ExerciseViewModel: ObservableObject {
             }
         }
     }
+
+    func getTababbleExerciseFile(_ file: ExerciseFile) -> TabbableExerciseFile {
+        TabbableExerciseFile(id: file.id, icon: file.iconName, title: file.name, url: file.url)
+    }
     
-    func selectFile(_ file: ExerciseFile?) {
+    func selectFile(_ file: TabbableExerciseFile?) {
         if let file = file {
             selectedFile = file
         }
@@ -95,15 +139,15 @@ class ExerciseViewModel: ObservableObject {
     
     func getSelectedCode() -> String? {
         do {
-            guard let selected = selectedFile else {
+            guard let selectedURL = selectedFile.url else {
                 return nil
             }
-            guard let code = codes[selected.id] else {
-                let code = try String(contentsOf: selected.url, encoding: .utf8)
-                codes[selected.id] = code
+            guard let code = codes[selectedFile.id] else {
+                let code = try String(contentsOf: selectedURL, encoding: .utf8)
+                codes[selectedFile.id] = code
                 return code
             }
-            print("found code: \(selected.id)")
+            print("found code: \(selectedFile.id)")
             
             return code
         } catch {
@@ -120,18 +164,18 @@ class ExerciseViewModel: ObservableObject {
     }
     
     func updateCode(_ code: String) {
-        if let selected = selectedFile {
-            codes[selected.id] = code
+        if let _ = selectedFile.url {
+            codes[selectedFile.id] = code
         }
     }
     
     func updateFile() -> Bool {
-        if !selectedCode.isEmpty && selectedFile != nil {
+        if !selectedCode.isEmpty && selectedFile.url != nil {
             do {
-                try selectedCode.write(to: selectedFile!.url, atomically: false, encoding: .utf8)
+                try selectedCode.write(to: selectedFile.url!, atomically: false, encoding: .utf8)
                 return true
             } catch {
-                print("Error update \(selectedFile!.id) with \(selectedCode)")
+                print("Error update \(selectedFile.id) with \(selectedCode)")
                 return false
             }
         }
@@ -141,7 +185,7 @@ class ExerciseViewModel: ObservableObject {
     
     func runTest() {
         // move to tests tab immediately
-        selectedTab = 1
+        selectedTab = .Result
         // Update with latest code
         let _ = updateFile()
         guard let client = getClient() else {

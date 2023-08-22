@@ -44,6 +44,7 @@ struct ExerciseEditorView: View {
             }
 #else
             CodeEditor(source: source, language: language, theme: theme)
+
 #endif
             
             Divider()
