@@ -10,20 +10,21 @@ import SDWebImageSwiftUI
 import ExercismSwift
 
 struct SideBar: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
-    @EnvironmentObject private var model: TrackModel
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @State var tracks: [Track]
     
     var body: some View {
-        AsyncResultView(source: AsyncModel(operation: model.getTracks )) { tracks in
+        GeometryReader { frame in
             VStack(alignment: .leading) {
                 Text(Strings.joinedTracks.localized())
+                    .frame(width: frame.size.width, alignment: .center)
                     .font(.title)
                     .bold()
                     .padding()
                 List {
                     ForEach(tracks.filter { $0.isJoined }) { track in
                         Button {
-                            coordinator.goToTrack(track)
+                            navigationModel.goToTrack(track)
                         } label: {
                             HStack(alignment: .top) {
                                 WebImage(url: URL(string: track.iconUrl))
@@ -50,7 +51,7 @@ struct SideBar: View {
                             .listRowSeparator(.visible)
                             .buttonStyle(.plain)
                     }
-                }.listStyle(.bordered)
+                }.listStyle(.plain)
                 Spacer()
                 HStack {
                     Image.profile
@@ -71,15 +72,15 @@ struct SideBar: View {
             }
         }
     }
-    
+
     func logout() {
         ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
-        coordinator.goToLogin()
+        navigationModel.goToLogin()
     }
 }
 
 struct SideBar_Previews: PreviewProvider {
     static var previews: some View {
-        SideBar()
+        SideBar(tracks: [])
     }
 }

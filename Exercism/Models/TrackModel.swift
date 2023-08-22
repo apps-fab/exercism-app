@@ -14,6 +14,8 @@ final class TrackModel: ObservableObject {
     private var unfilteredExercises = [Exercise]()
     private let fetcher: Fetcher
 
+    static let shared = TrackModel()
+
     init() {
         self.fetcher = Fetcher()
     }

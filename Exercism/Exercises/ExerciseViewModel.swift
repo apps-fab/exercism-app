@@ -161,26 +161,27 @@ class ExerciseViewModel: ObservableObject {
                 for: solutionId,
                 withFileContents: solutionsData
             ) { [weak self] result in
+                guard let self = self else { return }
                 print(result)
                 switch result {
                 case .success(let submission):
                     switch submission.testsStatus {
                     case .passed:
-                        self?.testSubmissionResponseMessage = Strings.correctSolution.localized()
-                        self?.showTestSubmissionResponseMessage = true
+                        self.testSubmissionResponseMessage = Strings.correctSolution.localized()
+                        self.showTestSubmissionResponseMessage = true
                         break
                     case .queued:
-                        self?.getTestRun(links: submission.links)
+                        self.getTestRun(links: submission.links)
                         break
                     default:
-                        self?.testSubmissionResponseMessage = Strings.wrongSolution.localized()
-                        self?.showTestSubmissionResponseMessage = true
+                        self.testSubmissionResponseMessage = Strings.wrongSolution.localized()
+                        self.showTestSubmissionResponseMessage = true
                     }
                 case .failure(let error):
                     if case let .apiError(_, type, message) = error {
                         if (type == "duplicate_submission") {
-                            self?.testSubmissionResponseMessage = message
-                            self?.showTestSubmissionResponseMessage = true
+                            self.testSubmissionResponseMessage = message
+                            self.showTestSubmissionResponseMessage = true
                         }
                     }
                 }
@@ -196,22 +197,22 @@ class ExerciseViewModel: ObservableObject {
         }
         
         client.getTestRun(withLink: links.testRun) { [weak self] result in
-            print(result)
+            guard let self = self else { return }
             switch result {
             case .success(let testRunResponse):
                 if let testRun = testRunResponse.testRun {
-                    self?.averageTestDuration = nil
-                    self?.processTestRun(testRun: testRun, links: links)
+                    self.averageTestDuration = nil
+                    self.processTestRun(testRun: testRun, links: links)
                 } else {
-                    self?.averageTestDuration = Double(testRunResponse.testRunner.averageTestDuration)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (self?.averageTestDuration! ?? 5.0)!) {
-                        self?.getTestRun(links: links)
+                    self.averageTestDuration = Double(testRunResponse.testRunner.averageTestDuration)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + (self.averageTestDuration ?? 5.0 )) {
+                        self.getTestRun(links: links)
                     }
                 }
             case .failure(_):
-                self?.testSubmissionResponseMessage = Strings.runFailed.localized()
-                self?.showTestSubmissionResponseMessage = true
-                self?.averageTestDuration = nil
+                self.testSubmissionResponseMessage = Strings.runFailed.localized()
+                self.showTestSubmissionResponseMessage = true
+                self.averageTestDuration = nil
             }
         }
     }
@@ -234,21 +235,22 @@ class ExerciseViewModel: ObservableObject {
         }
         
         client.submitSolution(withLink: submissionLink!) { [weak self] result in
+            guard let self = self else { return }
             print(result)
             switch result {
             case .success(let response):
                 switch response.iteration.testsStatus {
                 case .passed:
-                    self?.solutionSubmissionResponseMessage = Strings.correctSolution.localized()
-                    self?.showSolutionSubmissionResponseMessage = true
+                    self.solutionSubmissionResponseMessage = Strings.correctSolution.localized()
+                    self.showSolutionSubmissionResponseMessage = true
                     break
                 default:
-                    self?.solutionSubmissionResponseMessage = Strings.wrongSolution.localized()
-                    self?.showSolutionSubmissionResponseMessage = true
+                    self.solutionSubmissionResponseMessage = Strings.wrongSolution.localized()
+                    self.showSolutionSubmissionResponseMessage = true
                 }
             case .failure(_):
-                self?.solutionSubmissionResponseMessage = Strings.runFailed.localized()
-                self?.showSolutionSubmissionResponseMessage = true
+                self.solutionSubmissionResponseMessage = Strings.runFailed.localized()
+                self.showSolutionSubmissionResponseMessage = true
             }
         }
         

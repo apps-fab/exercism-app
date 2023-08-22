@@ -11,9 +11,7 @@ import CodeEditor
 struct ExerciseEditorView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
     @EnvironmentObject var settingData: SettingData
-#if os(macOS)
-    @AppStorage("fontsize") var fontSize = Int(NSFont.systemFontSize)
-#endif
+
     private var source: String {
         exerciseObject.getSelectedCode() ?? Strings.noFile.localized()
     }
@@ -28,15 +26,13 @@ struct ExerciseEditorView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            
-            
 #if os(macOS)
             CodeEditor(
                 source: $exerciseObject.selectedCode,
                 language: language,
                 theme: settingData.theme,
-                fontSize: .init(get: { CGFloat(fontSize) },
-                                set: { fontSize = Int($0) }))
+                fontSize: .init(get: { CGFloat(settingData.fontSize) },
+                                set: { settingData.fontSize = Double($0) }))
             .onChange(of: exerciseObject.selectedCode) { code in
                 codeChanged = true
                 exerciseObject.updateCode(code)
@@ -55,7 +51,7 @@ struct ExerciseEditorView: View {
             HStack {
                 Picker(Strings.theme.localized(), selection: $settingData.theme) {
                     ForEach(CodeEditor.availableThemes) { theme in
-                        Text("\(theme.rawValue.capitalized)")
+                        Text(theme.rawValue.capitalized)
                             .tag(theme)
                     }
                 }
