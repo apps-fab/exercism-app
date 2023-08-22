@@ -54,9 +54,7 @@ struct ExerciseEditorWindowView: View {
                     }
                     .if(showSubmissionTooltip) { view in
                         view
-                            .help(Strings.runTestsBefore.localized())
-                    }
-                    //                        .help("You need to run the tests before submitting.")
+                    }.help("You need to run the tests before submitting.")
                 }
             }
         }.onAppear {
