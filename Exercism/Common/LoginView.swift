@@ -10,7 +10,7 @@ import ExercismSwift
 import KeychainSwift
 
 struct LoginView: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var error: String?
@@ -46,14 +46,14 @@ struct LoginView: View {
                 .frame(width: 365, height: 208)
             Spacer()
             
-            Text(Strings.loginIntroTitle.localized())
+            Text(Strings.introTitle.localized())
                 .font(.system(size: 26, weight: .semibold))
                 .multilineTextAlignment(.center)
-            Text(Strings.loginIntroSubtitle.localized())
+            Text(Strings.introSubtitle.localized())
                 .font(.system(size: 16, weight: .regular))
                 .multilineTextAlignment(.center)
                 .padding()
-            Text(Strings.loginFreeText.localized())
+            Text(Strings.introFree.localized())
                 .font(.system(size: 16, weight: .semibold))
             Spacer()
             Image.trackImages
@@ -69,18 +69,18 @@ struct LoginView: View {
         VStack(alignment: .center) {
             Spacer()
             HStack {
-                Image.exercismLogo
-                Text(Strings.exercismText.localized())
+                Image.exercismLogo.padding()
+                Text(Strings.exercism.localized())
                     .font(.largeTitle)
                     .bold()
                     .padding(.bottom, 5)
             }.accessibilityAddTraits(.isHeader)
-            Text(Strings.loginCodePractice.localized())
+            Text(Strings.codePractice.localized())
                 .font(.title2)
                 .bold()
             Spacer()
             ExercismTextField(text: $textInput,
-                              placeholder: Text(Strings.loginEnterToken.localized())).onSubmit {
+                              placeholder: Text(Strings.enterToken.localized())).onSubmit {
                 validateToken()
             }
                               .frame(height: 28)
@@ -91,7 +91,7 @@ struct LoginView: View {
             Button(action: {
                 validateToken()
             }) {
-                Text(Strings.loginText.localized())
+                Text(Strings.login.localized())
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .foregroundColor(.white)
                 
@@ -100,10 +100,9 @@ struct LoginView: View {
             .background(Color.exercismPurple)
             .cornerRadius(7).buttonStyle(.plain)
             .padding()
-            Text(Strings.loginSettingsText.localized())
+            Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
                 .padding()
-            
-            Text(Strings.loginImportantToken.localized())
+            Text(Strings.importantToken.localized())
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
             Spacer()
@@ -118,7 +117,7 @@ struct LoginView: View {
             switch response {
             case .success(_):
                 ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
-                coordinator.goToDashboard()
+                navigationModel.goToDashboard()
             case .failure(let error):
                 if case ExercismClientError.apiError(_, _, let message) = error {
                     self.error = message

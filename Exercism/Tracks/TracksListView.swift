@@ -9,26 +9,31 @@ import SwiftUI
 import ExercismSwift
 
 struct TracksListView: View {
-    @EnvironmentObject private var model: TrackModel
-    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
+    let model = TrackModel.shared
     
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
     
     var body: some View {
-        AsyncResultView(source: asyncModel) { tracks in
-            tracksView(tracks)
-        }.accessibilityLabel("All Tracks")
-            .onChange(of: searchText) { newSearch in
-                asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
-            }.onChange(of: filters) { newFilters in
-                print(newFilters.count)
-                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
-            }
+        GeometryReader { size in
+            AsyncResultView(source: asyncModel) { tracks in
+                HStack {
+                    SideBar(tracks: tracks).frame(maxWidth: size.size.width * 0.2)
+                    Divider().frame(width: 2)
+                    tracksView(tracks)
+                }
+            }.accessibilityLabel("All Tracks")
+                .onChange(of: searchText) { newSearch in
+                    asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
+                }.onChange(of: filters) { newFilters in
+                    asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+                }
+        }
     }
     
     @ViewBuilder
@@ -62,7 +67,7 @@ struct TracksListView: View {
                     LazyVGrid(columns: columns) {
                         ForEach(joined) { track in
                             Button {
-                                coordinator.goToTrack(track)
+                                navigationModel.goToTrack(track)
                             } label: {
                                 TrackGridView(track: track).accessibilityElement(children: .contain)
                             }.buttonStyle(.plain)
@@ -77,11 +82,7 @@ struct TracksListView: View {
                         }
                     LazyVGrid(columns: columns) {
                         ForEach(unjoined) { track in
-                            Button {
-                                coordinator.goToTrack(track)
-                            } label: {
-                                TrackGridView(track: track).accessibilityElement(children: .contain)
-                            }.buttonStyle(.plain)
+                            TrackGridView(track: track).accessibilityElement(children: .contain)
                         }
                     }
                 }.padding()

@@ -11,8 +11,10 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel()
     @State private var showSubmissionTooltip = false
+
     let exercise: String
     let track: String
+
     var body: some View {
         NavigationSplitView {
             ExerciseRightSidebarView()

@@ -12,6 +12,7 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @EnvironmentObject var settingData: SettingData
     @SwiftUI.Environment(\.colorScheme) private var colorScheme
     
     var instruction: String? {
@@ -21,9 +22,9 @@ struct ExerciseRightSidebarView: View {
     private var theme: Splash.Theme {
         switch colorScheme {
         case .dark:
-            return .wwdc18(withFont: .init(size: 16))
+            return .wwdc18(withFont: .init(size: settingData.fontSize))
         default:
-            return .sunset(withFont: .init(size: 16))
+            return .sunset(withFont: .init(size: settingData.fontSize))
         }
     }
     
@@ -43,8 +44,10 @@ struct ExerciseRightSidebarView: View {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
                     if let testRun = exerciseObject.testRun {
-                        TestRunResultView(testRun: testRun, language: language, theme: theme, onSubmitTest: {
-                            exerciseObject.submitSolution() })
+                        TestRunResultView(testRun: testRun,
+                                          language: language,
+                                          theme: theme,
+                                          onSubmitTest: { exerciseObject.submitSolution() })
                     } else {
                         NoTestRun()
                     }
@@ -65,6 +68,7 @@ struct ExerciseRightSidebarView: View {
                     Markdown(instruction)
                         .markdownTheme(.gitHub)
                         .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                        .padding()
                 }
             }
         }
@@ -114,6 +118,6 @@ struct ExerciseRightSidebarView: View {
 
 struct ExerciseRightSidebarView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseRightSidebarView()
+        ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
     }
 }
