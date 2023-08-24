@@ -54,20 +54,4 @@ final class TrackModel: ObservableObject {
     func sortTracks() -> [Track] {
         unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
     }
-
-//    func toggleSelection(_ selection: ExerciseCategory) {
-//        // Not the correct parameters
-//        switch selection {
-//        case .AllExercises:
-//            exercises = .success(unfilteredExercises)
-//        case .Available:
-//            exercises = .success(unfilteredExercises.filter { $0.isUnlocked })
-//        case .Completed:
-//            exercises = .success(unfilteredExercises.filter { $0.isRecommended })
-//        case .InProgress:
-//            exercises = .success(unfilteredExercises.filter { $0.isRecommended })
-//        case .locked:
-//            exercises = .success(unfilteredExercises.filter { !$0.isUnlocked })
-//        }
-//    }
 }

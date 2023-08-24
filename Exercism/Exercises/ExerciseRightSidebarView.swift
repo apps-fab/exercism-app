@@ -11,12 +11,12 @@ import MarkdownUI
 import Splash
 
 struct ExerciseRightSidebarView: View {
-    @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @StateObject var viewModel = ExerciseViewModel.shared
     @EnvironmentObject var settingData: SettingData
     @SwiftUI.Environment(\.colorScheme) private var colorScheme
     
     var instruction: String? {
-        exerciseObject.instruction
+        viewModel.instruction
     }
     
     private var theme: Splash.Theme {
@@ -29,25 +29,25 @@ struct ExerciseRightSidebarView: View {
     }
     
     private var language: String {
-        return exerciseObject.exercise?.language ?? Strings.text.localized()
+        return viewModel.language ?? Strings.text.localized()
     }
     
     var body: some View {
-        CustomTabView(selectedItem: $exerciseObject.selectedTab) {
+        CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
                 Instruction(instruction: instruction, theme: theme, language: language)
                     .tabItem(for: SelectedTab.Instruction)
             }
             VStack(alignment: HorizontalAlignment.leading) {
-                if let averageTestDuration = exerciseObject.averageTestDuration {
+                if let averageTestDuration = viewModel.averageTestDuration {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
-                    if let testRun = exerciseObject.testRun {
+                    if let testRun = viewModel.testRun {
                         TestRunResultView(testRun: testRun,
                                           language: language,
                                           theme: theme,
-                                          onSubmitTest: { exerciseObject.submitSolution() })
+                                          onSubmitTest: viewModel.submitSolution)
                     } else {
                         NoTestRun()
                     }
@@ -121,3 +121,4 @@ struct ExerciseRightSidebarView_Previews: PreviewProvider {
         ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
     }
 }
+

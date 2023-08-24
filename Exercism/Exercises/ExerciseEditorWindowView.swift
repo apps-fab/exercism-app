@@ -9,60 +9,53 @@ import SwiftUI
 import ExercismSwift
 
 struct ExerciseEditorWindowView: View {
-    @StateObject var viewModel = ExerciseViewModel()
+    @StateObject var viewModel = ExerciseViewModel.shared
     @State private var showSubmissionTooltip = false
+    @State var asyncModel: AsyncModel<[ExerciseFile]> =  AsyncModel(operation: { try await ExerciseViewModel.shared.getDocument("swift", "hello-world") } )
 
     let exercise: String
     let track: String
 
     var body: some View {
-        NavigationSplitView {
-            ExerciseRightSidebarView()
-        } detail: {
-            CustomTabView(selectedItem: $viewModel.selectedFile) {
-                ForEach(viewModel.tabbableSolutionFiles) { file in
-                    ExerciseEditorView().tabItem(for: file)
-                }
-            }
-            .toolbar {
-                ToolbarItem(content: { Spacer() })
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        viewModel.runTest()
-                    }, label: { // 1
-                        HStack {
-                            Image.playCircle
-                            Text(Strings.runTests.localized())
-                        }
-                    })
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        viewModel.submitSolution()
-                    }, label: { // 1
-                        HStack {
-                            Image.paperplaneCircle
-                            Text(Strings.submit.localized())
-                        }
-                    })
-                    .disabled(!viewModel.canSubmitSolution)
-                    .onTapGesture {
-                        if !viewModel.canSubmitSolution {
-                            showSubmissionTooltip = true
-                            print("showSubmissionTooltip: \($0)")
-                        }
+        AsyncResultView(source: asyncModel) { docs in
+            NavigationSplitView {
+                ExerciseRightSidebarView()
+            } detail: {
+                CustomTabView(selectedItem: $viewModel.selectedFile) {
+                    ForEach(docs) { file in
+                        ExerciseEditorView().tabItem(for: file)
                     }
-                    .if(showSubmissionTooltip) { view in
-                        view
-                    }.help("You need to run the tests before submitting.")
+                }
+            }.toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+//                        viewModel.runTest()
+                    }) {
+                        Label(Strings.runTests.localized(), systemImage: "play.circle")
+                    }
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+//                        viewModel.submitSolution()
+                    }) {
+                        Label(Strings.submit.localized(), systemImage: "paperplane.circle")
+                    }
+//                    .disabled(!viewModel.canSubmitSolution)
+//                    .onTapGesture {
+//                        if !viewModel.canSubmitSolution {
+//                            showSubmissionTooltip = true
+//                            print("showSubmissionTooltip: \(showSubmissionTooltip)")
+//                        }
+//                    }
+//                    .help("You need to run the tests before submitting.")
                 }
             }
-        }.onAppear {
-            viewModel.getDocument(track: track, exercise: exercise)
         }
-        .environmentObject(viewModel)
-        .navigationTitle(Text(viewModel.getTitle()))
     }
+
 }
 
 struct ExerciseEditorWindowView_Previews: PreviewProvider {

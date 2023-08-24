@@ -12,8 +12,8 @@ struct TestRunResultView: View {
     let testRun: TestRun
     let language: String
     let theme: Splash.Theme
+    let onSubmitTest: () async -> Void
     
-    let onSubmitTest: () -> Void
     var body: some View {
         switch testRun.status {
         case .pass:

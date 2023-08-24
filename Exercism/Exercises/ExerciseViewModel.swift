@@ -1,9 +1,37 @@
 //
-// Created by Kirk Agbenyegah on 29/09/2022.
+//  ViewModel.swift
+//  Exercism
+//
+//  Created by Angie Mugo on 22/08/2023.
 //
 
 import Foundation
 import ExercismSwift
+
+enum ExerciseModelResponse: Equatable {
+    case solutionPassed, wrongSolution, runFailed, errorSubmitting, errorRunningTest, idle
+    case duplicateSubmission(message: String)
+
+    var description: String {
+        switch self {
+        case .solutionPassed:
+            return Strings.correctSolution.localized()
+        case .wrongSolution:
+            return Strings.wrongSolution.localized()
+        case .runFailed:
+            return Strings.runFailed.localized()
+        case .errorSubmitting:
+            return Strings.errorSubmitting.localized()
+        case .errorRunningTest:
+            return Strings.runTestsError.localized()
+        case .idle:
+            return ""
+        case .duplicateSubmission(let message):
+            return message
+        }
+    }
+}
+
 
 enum SelectedTab: Int, Tabbable {
     case Instruction = 0
@@ -28,41 +56,68 @@ enum SelectedTab: Int, Tabbable {
     }
 }
 
-struct TabbableExerciseFile: Identifiable, Tabbable {
-    var id: String
-    var icon: String
-    var title: String
-    var url: URL?
-
-    init(id: String, icon: String, title: String, url: URL?) {
-        self.id = id
-        self.icon = icon
-        self.title = title
-        self.url = url
+extension ExerciseFile: Tabbable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(icon)
+        hasher.combine(title)
     }
+
+    var icon: String {
+        self.iconName
+    }
+
+    var title: String {
+        self.name
+    }
+
 }
 
-class ExerciseViewModel: ObservableObject {
-    @Published var exerciseDoc: ExerciseDocument? = nil
-    @Published var exercise: ExerciseItem? = nil
-    @Published var selectedFile: TabbableExerciseFile = TabbableExerciseFile(id: "", icon: "", title: "", url: URL(string: ""))
-    @Published var selectedCode: String = ""
-    @Published var showTestSubmissionResponseMessage = false
-    @Published var testSubmissionResponseMessage = ""
-    @Published var averageTestDuration: Double? = nil
-    @Published var testRun: TestRun? = nil
-    @Published var showSolutionSubmissionResponseMessage = false
-    @Published var solutionSubmissionResponseMessage = ""
-    @Published var submissionLink: String? = nil
+// need to throw custom` errors
+
+@MainActor
+final class ExerciseViewModel: ObservableObject {
+    private let fetcher: Fetcher
+    @Published var selectedFile: ExerciseFile!
+    @Published var instruction: String?
     @Published var selectedTab: SelectedTab = .Instruction
-    @Published var tabbableSolutionFiles = [TabbableExerciseFile]()
+    @Published var exerciseDoc: ExerciseDocument? = nil
+    @Published var averageTestDuration: Double? = nil
+    @Published var submissionLink: String? = nil
+    @Published var testRun: TestRun? = nil
+    @Published var selectedCode: String = ""
+    @Published var exerciseItem: ExerciseItem? = nil
+    @Published var operationStatus = ExerciseModelResponse.idle
     private var codes = [String: String]()
-    
-    var instruction: String? {
-        guard let instructions = exerciseDoc?.instructions else {
+    var testSubmissionResponseMessage: Bool {
+        operationStatus != .idle
+    }
+    @Published var showTestSubmissionResponseMessage = false
+
+    static let shared = ExerciseViewModel()
+
+    init() {
+        self.fetcher = Fetcher()
+    }
+
+    var language: String? {
+        guard let language = exerciseDoc?.solution.exercise.trackLanguage else {
             return nil
         }
-        
+        return language
+    }
+
+    func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
+        let exerciseDoc = try await downloadSolutions(track, exercise)
+        instruction = getInstruction(exerciseDoc.instructions)
+        let exercises =  getLocalExercise(track, exercise, exerciseDoc)
+        selectedFile = exercises.first!
+        return exercises
+    }
+
+    func getInstruction(_ instructions: URL?) -> String? {
+        guard let instructions = instructions else {
+            return nil
+        }
         do {
             return try String(contentsOf: instructions, encoding: .utf8)
         } catch {
@@ -70,248 +125,154 @@ class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func getDocument(track: String, exercise: String) {
-        downloadSolutions(track, exercise)
+    func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
+        return try await fetcher.downloadSolutions(track, exercise)
     }
-    
-    private func getLocalExercise(track: String, exercise: String) {
-        let solutionFiles = exerciseDoc!.solutions.map { url in
-            let file = ExerciseFile.fromURL(url)
-            tabbableSolutionFiles.append(getTababbleExerciseFile(file))
-            return file
+
+
+    func submitSolution() async {
+        if (!canSubmitSolution) {
+            operationStatus = .errorRunningTest
         }
-        self.exercise = ExerciseItem(name: exercise, language: track, files: solutionFiles)
-        selectFile(tabbableSolutionFiles.first)
-    }
-    
-    private func getOrCreateSolutionDir(track: String, exercise: String) -> URL? {
-        let fileManager = FileManager.default
+
         do {
-            let docsFolder = try fileManager.url(
-                for: .documentDirectory,
-                in: .userDomainMask,
-                appropriateFor: nil,
-                create: true)
-            
-            let solutionDir = docsFolder.appendingPathComponent("\(track)/\(exercise)/", isDirectory: true)
-            
-            if !fileManager.fileExists(atPath: solutionDir.relativePath) {
-                do {
-                    try fileManager.createDirectory(atPath: solutionDir.path, withIntermediateDirectories: true)
-                } catch {
-                    print("Error creating solution directory: \(error.localizedDescription)")
-                    return nil
-                }
+            let result = try await fetcher.submitSolution(submissionLink!)
+            switch result.iteration.testsStatus {
+            case .passed:
+                operationStatus = .solutionPassed
+                break
+            default:
+                operationStatus = .wrongSolution
             }
-            
-            return solutionDir
         } catch {
-            print("URL error: \(error.localizedDescription)")
-            return nil
+            operationStatus = .runFailed
         }
     }
-    
-    func downloadSolutions(_ track: String, _ exercise: String) {
-        guard let client = getClient() else {
-            return
+
+    private func getOrCreateSolutionDir(_ track: String, _ exercise: String) throws -> URL? {
+        let fileManager = FileManager.default
+        let docsFolder = try fileManager.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: true)
+        let solutionDir = docsFolder.appendingPathComponent("\(track)/\(exercise)/", isDirectory: true)
+        if !fileManager.fileExists(atPath: solutionDir.relativePath) {
+            try fileManager.createDirectory(atPath: solutionDir.path, withIntermediateDirectories: true)
+            print("Error creating solution directory)")
         }
-        client.downloadSolution(for: track, exercise: exercise) { result in
-            switch result {
-            case .success(let exerciseDoc):
-                self.exerciseDoc = exerciseDoc
-                self.getLocalExercise(track: track, exercise: exercise)
-            case .failure(let error):
-                print("This is the error: \(error)")
+        return solutionDir
+    }
+
+    private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+        let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
+        self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
+        return solutionFiles
+    }
+
+    private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
+        let result =  try await fetcher.getTestRun(submissionLink.testRun)
+
+        if let testRun = result.testRun {
+            averageTestDuration = nil
+            processTestRun(testRun: testRun, links: submissionLink)
+        } else {
+            self.averageTestDuration = Double(result.testRunner.averageTestDuration)
+            DispatchQueue.main.asyncAfter(deadline: .now() + (self.averageTestDuration ?? 5.0 )) {
+                _Concurrency.Task {
+                    try await self.getTestRun(submissionLink)
+                }
             }
         }
     }
 
-    func getTababbleExerciseFile(_ file: ExerciseFile) -> TabbableExerciseFile {
-        TabbableExerciseFile(id: file.id, icon: file.iconName, title: file.name, url: file.url)
-    }
-    
-    func selectFile(_ file: TabbableExerciseFile?) {
-        if let file = file {
-            selectedFile = file
-        }
-        selectedCode = getSelectedCode() ?? ""
-    }
-    
-    func getSelectedCode() -> String? {
-        do {
-            guard let selectedURL = selectedFile.url else {
-                return nil
-            }
-            guard let code = codes[selectedFile.id] else {
-                let code = try String(contentsOf: selectedURL, encoding: .utf8)
-                codes[selectedFile.id] = code
-                return code
-            }
-            print("found code: \(selectedFile.id)")
-            
-            return code
-        } catch {
-            print("Error getting file content: \(error)")
-            return nil
-        }
-    }
-    
-    func getTitle() -> String {
-        guard let exercise = exercise else {
-            return ""
-        }
-        return "\(exercise.language) / \(exercise.name)"
-    }
-    
-    func updateCode(_ code: String) {
-        if let _ = selectedFile.url {
-            codes[selectedFile.id] = code
-        }
-    }
-    
-    func updateFile() -> Bool {
-        if !selectedCode.isEmpty && selectedFile.url != nil {
-            do {
-                try selectedCode.write(to: selectedFile.url!, atomically: false, encoding: .utf8)
-                return true
-            } catch {
-                print("Error update \(selectedFile.id) with \(selectedCode)")
-                return false
-            }
-        }
-        
-        return false
-    }
-    
-    func runTest() {
-        // move to tests tab immediately
+    private func runTest(_ solutionId: String, _ contents: [SolutionFileData]) async {
         selectedTab = .Result
-        // Update with latest code
-        let _ = updateFile()
-        guard let client = getClient() else {
+        updateFile()
+
+        guard let exerciseSolutionId = exerciseDoc?.solution.id else {
+            operationStatus = .errorRunningTest
             return
         }
-        guard let solutionId = exerciseDoc?.solution.id else {
-            return
-        }
-        if let exercise = exercise {
-            var solutionsData = [SolutionFileData]()
-            for file in exercise.files {
-                if let code = try? String(contentsOf: file.url, encoding: .utf8) {
-                    solutionsData.append(SolutionFileData(fileName: file.name, content: code))
-                }
+
+        do {
+            let runResult = try await fetcher.runTest(exerciseSolutionId, contents: contents)
+
+            switch runResult.testsStatus {
+                case .queued:
+                    try await getTestRun(runResult.links)
+                case .passed:
+                    operationStatus = .solutionPassed
+                default:
+                    operationStatus = .wrongSolution
             }
-            client.runTest(
-                for: solutionId,
-                withFileContents: solutionsData
-            ) { [weak self] result in
-                guard let self = self else { return }
-                print(result)
-                switch result {
-                case .success(let submission):
-                    switch submission.testsStatus {
-                    case .passed:
-                        self.testSubmissionResponseMessage = Strings.correctSolution.localized()
-                        self.showTestSubmissionResponseMessage = true
-                        break
-                    case .queued:
-                        self.getTestRun(links: submission.links)
-                        break
-                    default:
-                        self.testSubmissionResponseMessage = Strings.wrongSolution.localized()
-                        self.showTestSubmissionResponseMessage = true
-                    }
-                case .failure(let error):
-                    if case let .apiError(_, type, message) = error {
-                        if (type == "duplicate_submission") {
-                            self.testSubmissionResponseMessage = message
-                            self.showTestSubmissionResponseMessage = true
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func getTestRun(links: SubmissionLinks) {
-        guard let client = getClient() else {
-            testSubmissionResponseMessage = Strings.runFailed.localized()
-            showTestSubmissionResponseMessage = true
-            return
-        }
-        
-        client.getTestRun(withLink: links.testRun) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let testRunResponse):
-                if let testRun = testRunResponse.testRun {
-                    self.averageTestDuration = nil
-                    self.processTestRun(testRun: testRun, links: links)
+        } catch {
+            if let clientError = error as? ExercismClientError {
+                if case let .apiError(_, type, message) = clientError, type == "duplicate_submission" {
+                    operationStatus = .duplicateSubmission(message: message)
                 } else {
-                    self.averageTestDuration = Double(testRunResponse.testRunner.averageTestDuration)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (self.averageTestDuration ?? 5.0 )) {
-                        self.getTestRun(links: links)
-                    }
+                    operationStatus = .errorRunningTest
                 }
-            case .failure(_):
-                self.testSubmissionResponseMessage = Strings.runFailed.localized()
-                self.showTestSubmissionResponseMessage = true
-                self.averageTestDuration = nil
+            } else {
+                operationStatus = .errorRunningTest
             }
         }
     }
-    
+
+
+    private func getSolutionFileData() throws -> [SolutionFileData] {
+        var solutionsData = [SolutionFileData]()
+        if let exercise = exerciseItem {
+            solutionsData = try exercise.files.map { exerciseFile in
+                let code = try String(contentsOf: exerciseFile.url, encoding: .utf8)
+                return SolutionFileData(fileName: exerciseFile.name, content: code)
+            }
+        }
+        return solutionsData
+    }
+
     var canSubmitSolution: Bool {
         submissionLink != nil
     }
-    
-    func submitSolution() {
-        if (!canSubmitSolution) {
-            solutionSubmissionResponseMessage = Strings.runTestsError.localized()
-            showSolutionSubmissionResponseMessage = true
-            return
-        }
-        
-        guard let client = getClient() else {
-            solutionSubmissionResponseMessage = Strings.errorSubmitting.localized()
-            showSolutionSubmissionResponseMessage = true
-            return
-        }
-        
-        client.submitSolution(withLink: submissionLink!) { [weak self] result in
-            guard let self = self else { return }
-            print(result)
-            switch result {
-            case .success(let response):
-                switch response.iteration.testsStatus {
-                case .passed:
-                    self.solutionSubmissionResponseMessage = Strings.correctSolution.localized()
-                    self.showSolutionSubmissionResponseMessage = true
-                    break
-                default:
-                    self.solutionSubmissionResponseMessage = Strings.wrongSolution.localized()
-                    self.showSolutionSubmissionResponseMessage = true
-                }
-            case .failure(_):
-                self.solutionSubmissionResponseMessage = Strings.runFailed.localized()
-                self.showSolutionSubmissionResponseMessage = true
+
+    func getSelectedCode() -> String? {
+        do {
+            guard let code = codes[selectedFile.id] else {
+                let code = try String(contentsOf: selectedFile.url, encoding: .utf8)
+                codes[selectedFile.id] = code
+                return nil
             }
+            return code
+        } catch {
+            return nil
         }
-        
     }
-    
+
+
     private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
         if (testRun.status == .pass) {
             submissionLink = links.submit
         }
         self.testRun = testRun
     }
-    
-    private func getClient() -> ExercismClient? {
-        guard let token = ExercismKeychain.shared.get(for: Keys.token.rawValue) else {
-            return nil
+
+    // can we make this throwing??
+    @discardableResult
+    func updateFile() -> Bool {
+        if !selectedCode.isEmpty {
+            do {
+                try selectedCode.write(to: selectedFile.url, atomically: false, encoding: .utf8)
+                return true
+            } catch {
+                print("Error update \(selectedFile.id) with \(selectedCode)")
+                return false
+            }
         }
-        
-        return ExercismClient(apiToken: token)
+
+        return false
+    }
+
+    func updateCode(_ code: String) {
+        codes[selectedFile.id] = code
     }
 }
