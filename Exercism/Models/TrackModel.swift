@@ -47,6 +47,6 @@ final class TrackModel: ObservableObject {
     }
 
     func sortTracks() -> [Track] {
-        unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
+        unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() > $1.lastTouchedAt ?? Date() })
     }
 }
