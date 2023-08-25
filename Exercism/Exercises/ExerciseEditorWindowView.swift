@@ -32,25 +32,25 @@ struct ExerciseEditorWindowView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-//                        viewModel.runTest()
+                        viewModel.runTest()
                     }) {
                         Label(Strings.runTests.localized(), systemImage: "play.circle")
                     }
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-//                        viewModel.submitSolution()
+                        viewModel.submitSolution()
                     }) {
                         Label(Strings.submit.localized(), systemImage: "paperplane.circle")
                     }
-//                    .disabled(!viewModel.canSubmitSolution)
-//                    .onTapGesture {
-//                        if !viewModel.canSubmitSolution {
-//                            showSubmissionTooltip = true
-//                            print("showSubmissionTooltip: \(showSubmissionTooltip)")
-//                        }
-//                    }
-//                    .help("You need to run the tests before submitting.")
+                    .disabled(!viewModel.canSubmitSolution)
+                    .onTapGesture {
+                        if !viewModel.canSubmitSolution {
+                            showSubmissionTooltip = true
+                            print("showSubmissionTooltip: \(showSubmissionTooltip)")
+                        }
+                    }
+                    .help("You need to run the tests before submitting.")
                 }
             }
         }

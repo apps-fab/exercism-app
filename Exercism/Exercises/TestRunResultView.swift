@@ -12,7 +12,7 @@ struct TestRunResultView: View {
     let testRun: TestRun
     let language: String
     let theme: Splash.Theme
-    let onSubmitTest: () async -> Void
+    let onSubmitTest: () -> Void
     
     var body: some View {
         switch testRun.status {
@@ -39,15 +39,15 @@ struct TestRunResultView: View {
             VStack {
                 Text(Strings.solvedExercise.localized()).bold()
                 Text(Strings.submitCode.localized())
-                Button(action: {
-                    onSubmitTest()
-                }, label: { // 1
+                Button {
+                        onSubmitTest()
+                } label: {
                     Label{
                         Text(Strings.submit.localized())
                     } icon: {
                         Image.play
                     }
-                }).frame(height: 100)
+                }.frame(height: 100)
                 .background(Color.exercismPurple)
             }
         }

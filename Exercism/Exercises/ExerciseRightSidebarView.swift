@@ -56,7 +56,7 @@ struct ExerciseRightSidebarView: View {
             .tabItem(for: SelectedTab.Result)
         }
     }
-    
+
     struct Instruction: View {
         let instruction: String
         let theme: Splash.Theme
@@ -68,7 +68,6 @@ struct ExerciseRightSidebarView: View {
                     Markdown(instruction)
                         .markdownTheme(.gitHub)
                         .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
-                        .padding()
                 }
             }
         }

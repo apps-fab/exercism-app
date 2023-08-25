@@ -12,13 +12,8 @@ import Foundation
 final class TrackModel: ObservableObject {
     private var unfilteredTracks = [Track]()
     private var unfilteredExercises = [Exercise]()
-    private let fetcher: Fetcher
-
+    private let fetcher = Fetcher()
     static let shared = TrackModel()
-
-    init() {
-        self.fetcher = Fetcher()
-    }
 
     func getTracks() async throws -> [Track] {
         let fetchedTracks = try await fetcher.getTracks()

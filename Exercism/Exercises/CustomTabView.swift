@@ -32,7 +32,7 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
                     Image(systemName: item.icon)
                     Text(item.title)
                     Divider().frame(width: 2)
-                }.padding()
+                }.padding(.leading)
                 .background(selectedItem.selection == item ? .blue : .clear)
                     .onTapGesture {
                         selectedItem.selection = item
@@ -49,6 +49,8 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
         Group {
             if tabBarPosition == .Top {
                 VStack(spacing: 0) {
+                    Spacer()
+                    Divider().frame(height: 2)
                     tabItems
                     Divider().frame(height: 2)
                     ZStack {

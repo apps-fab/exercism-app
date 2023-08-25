@@ -76,7 +76,6 @@ extension ExerciseFile: Tabbable {
 
 @MainActor
 final class ExerciseViewModel: ObservableObject {
-    private let fetcher: Fetcher
     @Published var selectedFile: ExerciseFile!
     @Published var instruction: String?
     @Published var selectedTab: SelectedTab = .Instruction
@@ -86,18 +85,12 @@ final class ExerciseViewModel: ObservableObject {
     @Published var testRun: TestRun? = nil
     @Published var selectedCode: String = ""
     @Published var exerciseItem: ExerciseItem? = nil
-    @Published var operationStatus = ExerciseModelResponse.idle
-    private var codes = [String: String]()
-    var testSubmissionResponseMessage: Bool {
-        operationStatus != .idle
-    }
+    @Published var testSubmissionResponseMessage: Bool = false
     @Published var showTestSubmissionResponseMessage = false
-
+    @Published var operationStatus = ExerciseModelResponse.idle
+    private let fetcher = Fetcher()
+    private var codes = [String: String]()
     static let shared = ExerciseViewModel()
-
-    init() {
-        self.fetcher = Fetcher()
-    }
 
     var language: String? {
         guard let language = exerciseDoc?.solution.exercise.trackLanguage else {
@@ -108,33 +101,43 @@ final class ExerciseViewModel: ObservableObject {
 
     func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
         let exerciseDoc = try await downloadSolutions(track, exercise)
-        instruction = getInstruction(exerciseDoc.instructions)
+        if let instructionURL = exerciseDoc.instructions {
+            instruction = try getInstruction(instructionURL)
+        }
         let exercises =  getLocalExercise(track, exercise, exerciseDoc)
-        selectedFile = exercises.first!
+        selectFile(exercises.first)
         return exercises
     }
 
-    func getInstruction(_ instructions: URL?) -> String? {
-        guard let instructions = instructions else {
-            return nil
-        }
-        do {
-            return try String(contentsOf: instructions, encoding: .utf8)
-        } catch {
-            return nil
-        }
+    private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+        let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
+        self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
+        return solutionFiles
     }
 
-    func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
+    private func getInstruction(_ instructions: URL) throws -> String {
+        return try String(contentsOf: instructions, encoding: .utf8)
+    }
+
+    private func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
+    private func selectFile(_ file: ExerciseFile?) {
+        if let file = file {
+            selectedFile = file
+        }
+        selectedCode = getSelectedCode() ?? ""
+    }
 
-    func submitSolution() async {
+    func submitSolution() {
         if (!canSubmitSolution) {
             operationStatus = .errorRunningTest
         }
+        _Concurrency.Task { await performSubmit() }
+    }
 
+    private func performSubmit() async {
         do {
             let result = try await fetcher.submitSolution(submissionLink!)
             switch result.iteration.testsStatus {
@@ -164,12 +167,6 @@ final class ExerciseViewModel: ObservableObject {
         return solutionDir
     }
 
-    private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
-        let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
-        self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
-        return solutionFiles
-    }
-
     private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
         let result =  try await fetcher.getTestRun(submissionLink.testRun)
 
@@ -186,7 +183,7 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    private func runTest(_ solutionId: String, _ contents: [SolutionFileData]) async {
+    func runTest() {
         selectedTab = .Result
         updateFile()
 
@@ -196,15 +193,19 @@ final class ExerciseViewModel: ObservableObject {
         }
 
         do {
-            let runResult = try await fetcher.runTest(exerciseSolutionId, contents: contents)
+            let solutionData = try getSolutionFileData()
+            _Concurrency.Task {
+                let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
 
-            switch runResult.testsStatus {
+                switch runResult.testsStatus {
                 case .queued:
                     try await getTestRun(runResult.links)
                 case .passed:
                     operationStatus = .solutionPassed
                 default:
                     operationStatus = .wrongSolution
+                }
+
             }
         } catch {
             if let clientError = error as? ExercismClientError {
@@ -216,9 +217,13 @@ final class ExerciseViewModel: ObservableObject {
             } else {
                 operationStatus = .errorRunningTest
             }
+
         }
     }
 
+    private func performRunTest(_ solutionId: String, _ contents: [SolutionFileData]) async throws -> TestSubmission {
+        return try await fetcher.runTest(solutionId, contents: contents)
+    }
 
     private func getSolutionFileData() throws -> [SolutionFileData] {
         var solutionsData = [SolutionFileData]()

@@ -8,13 +8,11 @@
 import ExercismSwift
 
 actor Fetcher {
-    private let client: ExercismClient
-    
-    init() {
+    private var client: ExercismClient {
         let token = ExercismKeychain.shared.get(for: "token")
-        self.client = ExercismClient(apiToken: token ?? "")
+        return ExercismClient(apiToken: token ?? "")
     }
-    
+
     func getTracks() async throws -> [Track] {
         return try await withCheckedThrowingContinuation { continuation in
             client.tracks { tracks in
@@ -55,7 +53,7 @@ actor Fetcher {
     }
 
     func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
-        return try await withCheckedThrowingContinuation{ continuation in
+        return try await withCheckedThrowingContinuation { continuation in
             client.downloadSolution(for: track, exercise: exercise) { result in
                 switch result {
                 case .success(let solutions):
