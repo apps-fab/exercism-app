@@ -9,7 +9,7 @@ import SwiftUI
 import CodeEditor
 
 struct ExerciseEditorView: View {
-    @StateObject var exerciseViewModel = ExerciseViewModel.shared
+    @State var exerciseViewModel = ExerciseViewModel.shared
     @EnvironmentObject var settingData: SettingData
 
     private var source: String {
@@ -28,7 +28,7 @@ struct ExerciseEditorView: View {
         VStack(spacing: 0) {
 #if os(macOS)
             CodeEditor(
-                source: exerciseViewModel.selectedCode,
+                source: $exerciseViewModel.selectedCode,
                 language: language,
                 theme: settingData.theme,
                 fontSize: .init(get: { CGFloat(settingData.fontSize) },
@@ -44,7 +44,6 @@ struct ExerciseEditorView: View {
             }
 #else
             CodeEditor(source: source, language: language, theme: theme)
-
 #endif
             
             Divider()

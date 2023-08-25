@@ -35,8 +35,7 @@ struct ContentView: View {
                 }.navigationDestination(for: Route.self) { route in
                     switch route {
                     case let .Exercise(track, exercise):
-                        ExerciseEditorWindowView(exercise: exercise,
-                                                 track: track)
+                        ExerciseEditorWindowView(asyncModel: AsyncModel(operation: { try await ExerciseViewModel.shared.getDocument(track, exercise) } ))
                         .environmentObject(navigationModel)
 
                     case let .Track(track):

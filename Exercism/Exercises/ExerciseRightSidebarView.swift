@@ -92,7 +92,8 @@ struct ExerciseRightSidebarView: View {
                 Image.gear
                 Text(Strings.runTestsTitle.localized())
                 Text(Strings.runTestsDescription.localized())
-            }
+                    .multilineTextAlignment(.center)
+            }.padding()
         }
     }
     
@@ -104,8 +105,10 @@ struct ExerciseRightSidebarView: View {
         var body: some View {
             VStack {
                 ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
+                    .padding()
                     .onReceive(timer) { _ in
                         if progress < 100 {
+                            print("This is the progress: \(progress)")
                             progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
                         }
                     }

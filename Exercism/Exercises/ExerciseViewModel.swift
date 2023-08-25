@@ -87,7 +87,12 @@ final class ExerciseViewModel: ObservableObject {
     @Published var exerciseItem: ExerciseItem? = nil
     @Published var testSubmissionResponseMessage: Bool = false
     @Published var showTestSubmissionResponseMessage = false
-    @Published var operationStatus = ExerciseModelResponse.idle
+    @Published var title = ""
+    @Published var operationStatus = ExerciseModelResponse.idle {
+        didSet {
+            showTestSubmissionResponseMessage = operationStatus != .idle
+        }
+    }
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     static let shared = ExerciseViewModel()
@@ -100,18 +105,20 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
-        let exerciseDoc = try await downloadSolutions(track, exercise)
-        if let instructionURL = exerciseDoc.instructions {
+        exerciseDoc = try await downloadSolutions(track, exercise)
+        if let instructionURL = exerciseDoc!.instructions {
             instruction = try getInstruction(instructionURL)
         }
-        let exercises =  getLocalExercise(track, exercise, exerciseDoc)
-        selectFile(exercises.first)
+        let exercises =  getLocalExercise(track, exercise, exerciseDoc!)
+        selectedFile = exercises.first
+        selectFile(selectedFile)
         return exercises
     }
 
     private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
         self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
+        self.title = "\(track)/ \(exercise)"
         return solutionFiles
     }
 
@@ -123,10 +130,7 @@ final class ExerciseViewModel: ObservableObject {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
-    private func selectFile(_ file: ExerciseFile?) {
-        if let file = file {
-            selectedFile = file
-        }
+    private func selectFile(_ file: ExerciseFile) {
         selectedCode = getSelectedCode() ?? ""
     }
 
@@ -191,10 +195,9 @@ final class ExerciseViewModel: ObservableObject {
             operationStatus = .errorRunningTest
             return
         }
-
-        do {
-            let solutionData = try getSolutionFileData()
-            _Concurrency.Task {
+        _Concurrency.Task {
+            do {
+                let solutionData = try getSolutionFileData()
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
 
                 switch runResult.testsStatus {
@@ -205,19 +208,17 @@ final class ExerciseViewModel: ObservableObject {
                 default:
                     operationStatus = .wrongSolution
                 }
-
-            }
-        } catch {
-            if let clientError = error as? ExercismClientError {
-                if case let .apiError(_, type, message) = clientError, type == "duplicate_submission" {
-                    operationStatus = .duplicateSubmission(message: message)
+            } catch let error {
+                if let clientError = error as? ExercismClientError {
+                    if case let .apiError(_, type, message) = clientError, type == "duplicate_submission" {
+                        operationStatus = .duplicateSubmission(message: message)
+                    } else {
+                        operationStatus = .errorRunningTest
+                    }
                 } else {
                     operationStatus = .errorRunningTest
                 }
-            } else {
-                operationStatus = .errorRunningTest
             }
-
         }
     }
 

@@ -27,7 +27,6 @@ struct TestRunResultView: View {
                     TestGroupedByTaskList(testRun: testRun, language: language, theme: theme)
                 }
             }
-            
         default:
             TestRunSummaryHeader(testRun: testRun)
         }
@@ -39,16 +38,18 @@ struct TestRunResultView: View {
             VStack {
                 Text(Strings.solvedExercise.localized()).bold()
                 Text(Strings.submitCode.localized())
+                    .multilineTextAlignment(.center)
                 Button {
-                        onSubmitTest()
+                    onSubmitTest()
                 } label: {
                     Label{
                         Text(Strings.submit.localized())
                     } icon: {
                         Image.play
                     }
-                }.frame(height: 100)
-                .background(Color.exercismPurple)
+                }.buttonStyle(.plain)
+                    .frame(width: 55, height: 20)
+                    .roundEdges(backgroundColor: Color.exercismPurple)
             }
         }
     }
