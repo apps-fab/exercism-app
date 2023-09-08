@@ -20,14 +20,14 @@ enum Route: Hashable, Identifiable, Codable {
 }
 
 class NavigationModel: ObservableObject, Codable {
-    @Published var path: NavigationPath
+    @Published var path: [Route]
     @Published var columnVisibility: NavigationSplitViewVisibility
     
     private lazy var decoder = JSONDecoder()
     private lazy var encoder = JSONEncoder()
     
     
-    init(path: NavigationPath = NavigationPath(), columnVisibility: NavigationSplitViewVisibility = .automatic) {
+    init(path: [Route] = [], columnVisibility: NavigationSplitViewVisibility = .automatic) {
         self.columnVisibility = columnVisibility
         self.path = path
     }
@@ -51,8 +51,8 @@ class NavigationModel: ObservableObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        let decodedPath = try container.decode(NavigationPath.CodableRepresentation.self, forKey: .path)
-        self.path = NavigationPath(decodedPath)
+        let decodedPath = try container.decode([Route].self, forKey: .path)
+        self.path = decodedPath
         
         self.columnVisibility = try container.decode(NavigationSplitViewVisibility.self, forKey: .columnVisibility)
     }
@@ -60,7 +60,7 @@ class NavigationModel: ObservableObject, Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(path.codable, forKey: .path)
+        try container.encode(path, forKey: .path)
         try container.encode(columnVisibility, forKey: .columnVisibility)
     }
     
@@ -77,7 +77,12 @@ class NavigationModel: ObservableObject, Codable {
     }
     
     func goToLogin() {
+        path.removeAll()
         path.append(Route.Login)
+    }
+
+    func goBack() {
+        path.removeLast()
     }
     
     enum CodingKeys: String, CodingKey {

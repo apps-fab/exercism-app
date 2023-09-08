@@ -12,6 +12,7 @@ struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
     @State private var showSubmissionTooltip = false
     @State var asyncModel: AsyncModel<[ExerciseFile]>
+    @EnvironmentObject private var navigationModel: NavigationModel
 
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in
@@ -54,6 +55,13 @@ struct ExerciseEditorWindowView: View {
                         }
                     }
                     .help("You need to run the tests before submitting.")
+                }
+                ToolbarItem(placement: .navigation) {
+                    Button {
+                        navigationModel.goBack()
+                    } label: {
+                        Label("", systemImage: "chevron.backward")
+                    }
                 }
             }
         }.navigationTitle(viewModel.title)

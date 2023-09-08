@@ -30,9 +30,10 @@
 		FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD36807F29B1054E004D53C8 /* CustomPicker.swift */; };
-		FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedButton.swift */; };
+		FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F2B132AA750D300ADB248 /* ExercismButton.swift */; };
+		FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedView.swift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
-		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
+		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
 		FD6FE8F22A95514E0043A89F /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
 		FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */; };
@@ -92,10 +93,11 @@
 		FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismSettings.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD36807F29B1054E004D53C8 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
-		FD4A77642987E18E00E29436 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		FD3F2B132AA750D300ADB248 /* ExercismButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismButton.swift; sourceTree = "<group>"; };
+		FD4A77642987E18E00E29436 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
-		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		FD60770C292E28D600A95E17 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
@@ -253,7 +255,8 @@
 				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
 				FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */,
 				FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */,
-				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
+				FD4A77642987E18E00E29436 /* RoundedView.swift */,
+				FD3F2B132AA750D300ADB248 /* ExercismButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -282,7 +285,7 @@
 				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
 				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
 				FD0B06F028F592E000FCA956 /* AppDelegate.swift */,
-				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
+				FD60770C292E28D600A95E17 /* NavigationModel.swift */,
 				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
 				FD73E10C29C3910E001B59D3 /* ContentView.swift */,
 			);
@@ -387,14 +390,15 @@
 				FD7DC53329E0B03600A1EBD9 /* ColorExt.swift in Sources */,
 				FDE4EBFC2A4B009C007ED19E /* EmptyStateView.swift in Sources */,
 				FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */,
+				FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */,
 				FDEF2CDB2A2870F500965E8C /* AsyncModel.swift in Sources */,
 				FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */,
-				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,
+				FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */,
 				FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */,
-				FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */,
+				FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */,
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
 				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
 				FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */,

@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
             Group {
-                if let _ = ExercismKeychain.shared.get(for: "token") {
+                if let _ = ExercismKeychain.shared.get(for: Keys.token.rawValue) {
                     TracksListView(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
                         .frame(minWidth: 800, minHeight: 800)
                         .environmentObject(navigationModel)

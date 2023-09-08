@@ -73,7 +73,6 @@ extension ExerciseFile: Tabbable {
 }
 
 // need to throw custom` errors
-
 @MainActor
 final class ExerciseViewModel: ObservableObject {
     @Published var selectedFile: ExerciseFile!

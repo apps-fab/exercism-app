@@ -47,6 +47,14 @@ struct ExercisesList: View {
             ToolbarItem(placement: .principal) {
                 Text(track.slug.uppercased()).font(.headline)
             }
+
+            ToolbarItem(placement: .navigation) {
+                Button {
+                    navigationModel.goBack()
+                } label: {
+                    Label("", systemImage: "chevron.backward")
+                }
+            }
         }
     }
     

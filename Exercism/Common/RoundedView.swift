@@ -1,5 +1,5 @@
 //
-//  RoundedButton.swift
+//  RoundedView.swift
 //  Exercism
 //
 //  Created by Angie Mugo on 30/01/2023.
