@@ -10,19 +10,19 @@ struct ExerciseFile: Identifiable, Equatable {
     var iconName = "doc.plaintext"
     var name: String
     var url: URL
-
+    
     enum ExerciseType {
         case solution
         case test
     }
-
+    
     init(url: URL, id: String, name: String, type: ExerciseType) {
         self.id = id
         self.name = name
         self.type = type
         self.url = url
     }
-
+    
     static func fromURL(_ url: URL) -> ExerciseFile {
         ExerciseFile(url: url, id: url.relativeString, name: url.relativeString, type: .solution)
     }

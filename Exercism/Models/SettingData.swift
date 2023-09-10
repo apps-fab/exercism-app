@@ -7,4 +7,5 @@ import CodeEditor
 
 class SettingData: ObservableObject {
     @Published var theme = CodeEditor.ThemeName.pojoaque
+    @Published var fontSize: Double = 12
 }

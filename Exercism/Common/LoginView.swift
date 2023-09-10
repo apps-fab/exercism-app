@@ -10,25 +10,25 @@ import ExercismSwift
 import KeychainSwift
 
 struct LoginView: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var error: String?
-
+    
     var body: some View {
         GeometryReader { geometry in
             HStack() {
                 leftView
                     .frame(width: geometry.size.width * 0.66,
                            height: geometry.size.height)
-                    .background(Color("purple"))
+                    .background(Color.exercismPurple)
                 rightView
                     .frame(width: geometry.size.width * 0.33,
                            height: geometry.size.height)
                     .background(.white)
-                    .foregroundColor(Color("darkBackground"))
+                    .foregroundColor(.darkBackground)
             }.background(.white)
-                .alert("Error logging in", isPresented: $showAlert, actions: {
+                .alert(Strings.loginError.localized(), isPresented: $showAlert, actions: {
                     // actions
                 }, message: {
                     Text(error ?? "")
@@ -39,23 +39,24 @@ struct LoginView: View {
     var leftView: some View {
         VStack() {
             Spacer()
-            Image("mainLogo")
+            Image.mainLogo
                 .resizable()
                 .accessibilityHidden(true)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 365, height: 208)
             Spacer()
-            Text("Exercism is free for all people, everywhere.")
+            
+            Text(Strings.introTitle.localized())
                 .font(.system(size: 26, weight: .semibold))
                 .multilineTextAlignment(.center)
-            Text("Level up your programming skills with 3,444 exercises across 52 languages, and insightful discussion with our dedicated team of welcoming mentors.")
+            Text(Strings.introSubtitle.localized())
                 .font(.system(size: 16, weight: .regular))
                 .multilineTextAlignment(.center)
                 .padding()
-            Text("Exercism is 100% free forever.")
+            Text(Strings.introFree.localized())
                 .font(.system(size: 16, weight: .semibold))
             Spacer()
-            Image("trackImages")
+            Image.trackImages
                 .resizable()
                 .accessibilityHidden(true)
                 .aspectRatio(contentMode: .fit)
@@ -68,18 +69,18 @@ struct LoginView: View {
         VStack(alignment: .center) {
             Spacer()
             HStack {
-                Image("exercismLogo")
-                Text("exercism")
+                Image.exercismLogo.padding()
+                Text(Strings.exercism.localized())
                     .font(.largeTitle)
                     .bold()
                     .padding(.bottom, 5)
             }.accessibilityAddTraits(.isHeader)
-            Text("Code practice and mentorship for everyone")
+            Text(Strings.codePractice.localized())
                 .font(.title2)
                 .bold()
             Spacer()
             ExercismTextField(text: $textInput,
-                              placeholder: Text("Enter your token")).onSubmit {
+                              placeholder: Text(Strings.enterToken.localized())).onSubmit {
                 validateToken()
             }
                               .frame(height: 28)
@@ -90,19 +91,18 @@ struct LoginView: View {
             Button(action: {
                 validateToken()
             }) {
-                Text("Log In")
+                Text(Strings.login.localized())
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .foregroundColor(.white)
                 
             }
             .frame(height: 40)
-            .background(Color("purple"))
+            .background(Color.exercismPurple)
             .cornerRadius(7).buttonStyle(.plain)
             .padding()
             Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
                 .padding()
-            
-            Text("Important: The token above should be treated like a password and not be shared with anyone!")
+            Text(Strings.importantToken.localized())
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
             Spacer()
@@ -117,7 +117,7 @@ struct LoginView: View {
             switch response {
             case .success(_):
                 ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
-                coordinator.goToDashboard()
+                navigationModel.goToDashboard()
             case .failure(let error):
                 if case ExercismClientError.apiError(_, _, let message) = error {
                     self.error = message

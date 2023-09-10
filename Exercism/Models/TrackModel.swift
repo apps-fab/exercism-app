@@ -15,6 +15,8 @@ final class TrackModel: ObservableObject {
     private let fetcher: Fetcher
     private var solutions = [String: Solution]()
 
+    static let shared = TrackModel()
+
     init() {
         self.fetcher = Fetcher()
     }

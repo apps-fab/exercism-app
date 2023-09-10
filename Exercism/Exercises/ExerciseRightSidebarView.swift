@@ -12,6 +12,7 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @EnvironmentObject var settingData: SettingData
     @SwiftUI.Environment(\.colorScheme) private var colorScheme
     
     var instruction: String? {
@@ -21,40 +22,38 @@ struct ExerciseRightSidebarView: View {
     private var theme: Splash.Theme {
         switch colorScheme {
         case .dark:
-            return .wwdc18(withFont: .init(size: 16))
+            return .wwdc18(withFont: .init(size: settingData.fontSize))
         default:
-            return .sunset(withFont: .init(size: 16))
+            return .sunset(withFont: .init(size: settingData.fontSize))
         }
     }
     
     private var language: String {
-        return exerciseObject.exercise?.language ?? "text"
+        return exerciseObject.exercise?.language ?? Strings.text.localized()
     }
     
     var body: some View {
-        TabView(selection: $exerciseObject.selectedTab) {
+        CustomTabView(selectedItem: $exerciseObject.selectedTab) {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
                 Instruction(instruction: instruction, theme: theme, language: language)
-                    .tabItem {
-                        TabLabel(imageName: "checklist", label: "Instructions")
-                    }.tag(0)
+                    .tabItem(for: SelectedTab.Instruction)
             }
             VStack(alignment: HorizontalAlignment.leading) {
                 if let averageTestDuration = exerciseObject.averageTestDuration {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
                     if let testRun = exerciseObject.testRun {
-                        TestRunResultView(testRun: testRun, language: language, theme: theme, onSubmitTest: {
-                            exerciseObject.submitSolution() })
+                        TestRunResultView(testRun: testRun,
+                                          language: language,
+                                          theme: theme,
+                                          onSubmitTest: { exerciseObject.submitSolution() })
                     } else {
                         NoTestRun()
                     }
                 }
             }
-            .tabItem {
-                TabLabel(imageName: "text.badge.checkmark", label: "Results")
-            }.tag(1)
+            .tabItem(for: SelectedTab.Result)
         }
     }
     
@@ -69,6 +68,7 @@ struct ExerciseRightSidebarView: View {
                     Markdown(instruction)
                         .markdownTheme(.gitHub)
                         .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                        .padding()
                 }
             }
         }
@@ -76,13 +76,13 @@ struct ExerciseRightSidebarView: View {
     }
     
     struct TabLabel: View {
-        let imageName: String
-        let label: String
+        let image: Image
+        let label: Text
         
         var body: some View {
             HStack {
-                Image(systemName: imageName)
-                Text(label)
+                image
+                label
             }
         }
     }
@@ -90,9 +90,9 @@ struct ExerciseRightSidebarView: View {
     struct NoTestRun: View {
         var body: some View {
             VStack {
-                Image(systemName: "doc.badge.gearshape")
-                Text("Run tests to check your code")
-                Text("We'll run your code against tests to check whether it works, then give you the results here.")
+                Image.gear
+                Text(Strings.runTestsTitle.localized())
+                Text(Strings.runTestsDescription.localized())
             }
         }
     }
@@ -104,13 +104,13 @@ struct ExerciseRightSidebarView: View {
         
         var body: some View {
             VStack {
-                ProgressView("Running tests...", value: progress, total: 100)
+                ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
                     .onReceive(timer) { _ in
                         if progress < 100 {
                             progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
-                         }
+                        }
                     }
-                Text("Estimated running time ~ \(totalSecs)s")
+                Text(String(format: Strings.estimatedTime.localized(), totalSecs))
             }
         }
     }
@@ -118,6 +118,6 @@ struct ExerciseRightSidebarView: View {
 
 struct ExerciseRightSidebarView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseRightSidebarView()
+        ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
     }
 }

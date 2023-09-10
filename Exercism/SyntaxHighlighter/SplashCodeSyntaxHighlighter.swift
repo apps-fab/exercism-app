@@ -9,17 +9,17 @@ import SwiftUI
 struct SplashCodeSyntaxHighlighter: CodeSyntaxHighlighter {
     private let syntaxHighlighter: SyntaxHighlighter<TextOutputFormat>
     private let language: String
-
+    
     init(theme: Splash.Theme, language: String) {
         syntaxHighlighter = SyntaxHighlighter(format: TextOutputFormat(theme: theme))
         self.language = language
     }
-
+    
     func highlightCode(_ content: String, language: String?) -> Text {
         guard language?.lowercased() == language?.lowercased() else {
             return Text(content)
         }
-
+        
         return syntaxHighlighter.highlight(content)
     }
 }

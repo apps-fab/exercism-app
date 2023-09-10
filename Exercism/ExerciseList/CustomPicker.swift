@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomPicker<Content: View, Selection: Identifiable>: View {
     @State var selected: Selection
     @ViewBuilder var content: () -> Content
-
+    
     var body: some View {
         content()
     }
@@ -19,7 +19,7 @@ struct CustomPicker<Content: View, Selection: Identifiable>: View {
 struct CustomPicker_Previews: PreviewProvider {
     static var previews: some View {
         CustomPicker(selected: ExerciseCategory.AllExercises) {
-                        Text("Some")
+            Text("Some")
         }
     }
 }

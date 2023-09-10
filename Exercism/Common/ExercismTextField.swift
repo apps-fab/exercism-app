@@ -12,7 +12,7 @@ struct ExercismTextField: View {
     var placeholder: Text
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
-
+    
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty { placeholder }
@@ -21,9 +21,9 @@ struct ExercismTextField: View {
                       onEditingChanged: editingChanged,
                       onCommit: commit)
         }.foregroundColor(.gray)
-        .padding()
-        .textFieldStyle(.plain)
-        .accessibilityLabel(text)
+            .padding()
+            .textFieldStyle(.plain)
+            .accessibilityLabel(text)
     }
 }
 

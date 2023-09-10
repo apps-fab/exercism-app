@@ -8,25 +8,60 @@
 import Foundation
 import SwiftUI
 import ExercismSwift
+import Combine
 
-enum Route: Hashable, Identifiable {
+enum Route: Hashable, Identifiable, Codable {
     var id: Self { return self }
-
+    
     case Track(Track)
     case Exercise(String, String)
     case Login
     case Dashboard
 }
 
-class AppCoordinator: ObservableObject {
-    @Published var path = NavigationPath()
-
-    init() {
-        if let _ = ExercismKeychain.shared.get(for: "token") {
-            path.append(Route.Dashboard)
-        } else {
-            path.append(Route.Login)
+class NavigationModel: ObservableObject, Codable {
+    @Published var path: NavigationPath
+    @Published var columnVisibility: NavigationSplitViewVisibility
+    
+    private lazy var decoder = JSONDecoder()
+    private lazy var encoder = JSONEncoder()
+    
+    
+    init(path: NavigationPath = NavigationPath(), columnVisibility: NavigationSplitViewVisibility = .automatic) {
+        self.columnVisibility = columnVisibility
+        self.path = path
+    }
+    
+    var jsonData: Data? {
+        get { try? encoder.encode(self) }
+        set {
+            guard let data = newValue, let model = try? decoder.decode(Self.self, from: data)
+            else { return }
+            path = model.path
+            columnVisibility = model.columnVisibility
         }
+    }
+    
+    var objectWillChangeSequence: AsyncPublisher<Publishers.Buffer<ObservableObjectPublisher>> {
+        objectWillChange
+            .buffer(size: 1, prefetch: .byRequest, whenFull: .dropOldest)
+            .values
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let decodedPath = try container.decode(NavigationPath.CodableRepresentation.self, forKey: .path)
+        self.path = NavigationPath(decodedPath)
+        
+        self.columnVisibility = try container.decode(NavigationSplitViewVisibility.self, forKey: .columnVisibility)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(path.codable, forKey: .path)
+        try container.encode(columnVisibility, forKey: .columnVisibility)
     }
     
     func goToDashboard() {
@@ -40,8 +75,13 @@ class AppCoordinator: ObservableObject {
     func goToEditor(_ track: String, _ exercise: String) {
         path.append(Route.Exercise(track, exercise))
     }
-
+    
     func goToLogin() {
         path.append(Route.Login)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case path
+        case columnVisibility
     }
 }
