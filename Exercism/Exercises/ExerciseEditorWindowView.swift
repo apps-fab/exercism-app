@@ -9,64 +9,68 @@ import SwiftUI
 import ExercismSwift
 
 struct ExerciseEditorWindowView: View {
-    @StateObject var viewModel = ExerciseViewModel()
+    @StateObject var viewModel = ExerciseViewModel.shared
     @State private var showSubmissionTooltip = false
-
-    let exercise: String
-    let track: String
+    @State var asyncModel: AsyncModel<[ExerciseFile]>
+    @EnvironmentObject private var navigationModel: NavigationModel
 
     var body: some View {
-        NavigationSplitView {
-            ExerciseRightSidebarView()
-        } detail: {
-            CustomTabView(selectedItem: $viewModel.selectedFile) {
-                ForEach(viewModel.tabbableSolutionFiles) { file in
-                    ExerciseEditorView().tabItem(for: file)
+        AsyncResultView(source: asyncModel) { docs in
+            NavigationSplitView {
+                ExerciseRightSidebarView()
+            } detail: {
+                CustomTabView(selectedItem: $viewModel.selectedFile) {
+                    ForEach(docs) { file in
+                        ExerciseEditorView().tabItem(for: file)
+                    }
                 }
-            }
-            .toolbar {
-                ToolbarItem(content: { Spacer() })
+            }.toolbar {
+                ToolbarItem {
+                    Spacer()
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
                         viewModel.runTest()
-                    }, label: { // 1
-                        HStack {
-                            Image.playCircle
-                            Text(Strings.runTests.localized())
-                        }
-                    })
+                    }) {
+                        Label(Strings.runTests.localized(),
+                              systemImage: "play.circle")
+                        .labelStyle(.titleAndIcon)
+                        .fixedSize()
+                    }
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
                         viewModel.submitSolution()
-                    }, label: { // 1
-                        HStack {
-                            Image.paperplaneCircle
-                            Text(Strings.submit.localized())
-                        }
-                    })
+                    }) {
+                        Label(Strings.submit.localized(),
+                              systemImage: "paperplane.circle")
+                        .labelStyle(.titleAndIcon)
+                        .fixedSize()
+                    }
                     .disabled(!viewModel.canSubmitSolution)
                     .onTapGesture {
                         if !viewModel.canSubmitSolution {
                             showSubmissionTooltip = true
-                            print("showSubmissionTooltip: \($0)")
+                            print("showSubmissionTooltip: \(showSubmissionTooltip)")
                         }
                     }
-                    .if(showSubmissionTooltip) { view in
-                        view
-                    }.help("You need to run the tests before submitting.")
+                    .help("You need to run the tests before submitting.")
+                }
+                ToolbarItem(placement: .navigation) {
+                    Button {
+                        navigationModel.goBack()
+                    } label: {
+                        Label("", systemImage: "chevron.backward")
+                    }
                 }
             }
-        }.onAppear {
-            viewModel.getDocument(track: track, exercise: exercise)
-        }
-        .environmentObject(viewModel)
-        .navigationTitle(Text(viewModel.getTitle()))
+        }.navigationTitle(viewModel.title)
     }
+
 }
 
-struct ExerciseEditorWindowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world").environmentObject(SettingData())
-    }
-}
+//struct ExerciseEditorWindowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world").environmentObject(SettingData())
+//    }
+//}

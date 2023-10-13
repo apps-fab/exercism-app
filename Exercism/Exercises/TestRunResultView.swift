@@ -12,8 +12,8 @@ struct TestRunResultView: View {
     let testRun: TestRun
     let language: String
     let theme: Splash.Theme
-    
     let onSubmitTest: () -> Void
+    
     var body: some View {
         switch testRun.status {
         case .pass:
@@ -27,7 +27,6 @@ struct TestRunResultView: View {
                     TestGroupedByTaskList(testRun: testRun, language: language, theme: theme)
                 }
             }
-            
         default:
             TestRunSummaryHeader(testRun: testRun)
         }
@@ -39,16 +38,18 @@ struct TestRunResultView: View {
             VStack {
                 Text(Strings.solvedExercise.localized()).bold()
                 Text(Strings.submitCode.localized())
-                Button(action: {
+                    .multilineTextAlignment(.center)
+                Button {
                     onSubmitTest()
-                }, label: { // 1
+                } label: {
                     Label{
                         Text(Strings.submit.localized())
                     } icon: {
                         Image.play
                     }
-                }).frame(height: 100)
-                .background(Color.exercismPurple)
+                }.buttonStyle(.plain)
+                    .frame(width: 55, height: 20)
+                    .roundEdges(backgroundColor: Color.exercismPurple)
             }
         }
     }

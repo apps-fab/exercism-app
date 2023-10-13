@@ -43,6 +43,18 @@ struct ExercisesList: View {
             self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
         }.onAppear {
             fieldFocused = false
+        }.toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(track.slug.uppercased()).font(.headline)
+            }
+
+            ToolbarItem(placement: .navigation) {
+                Button {
+                    navigationModel.goBack()
+                } label: {
+                    Label("", systemImage: "chevron.backward")
+                }
+            }
         }
     }
     
@@ -50,7 +62,6 @@ struct ExercisesList: View {
     func exerciseListView(_ exercises: [Exercise]) -> some View {
         let groupedExercises = groupExercises(exercises)
         let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
-        
         VStack {
             HStack {
                 HStack {

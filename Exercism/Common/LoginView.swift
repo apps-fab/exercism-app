@@ -14,10 +14,11 @@ struct LoginView: View {
     @State private var textInput: String = ""
     @State private var showAlert = false
     @State private var error: String?
+    @State private var isLoading = false
     
     var body: some View {
         GeometryReader { geometry in
-            HStack() {
+            HStack(spacing: 0) {
                 leftView
                     .frame(width: geometry.size.width * 0.66,
                            height: geometry.size.height)
@@ -27,12 +28,11 @@ struct LoginView: View {
                            height: geometry.size.height)
                     .background(.white)
                     .foregroundColor(.darkBackground)
-            }.background(.white)
-                .alert(Strings.loginError.localized(), isPresented: $showAlert, actions: {
-                    // actions
-                }, message: {
-                    Text(error ?? "")
-                })
+            }.alert(Strings.loginError.localized(), isPresented: $showAlert, actions: {
+                // actions
+            }, message: {
+                Text(error ?? "")
+            }).toolbar(.hidden)
         }
     }
     
@@ -45,7 +45,6 @@ struct LoginView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 365, height: 208)
             Spacer()
-            
             Text(Strings.introTitle.localized())
                 .font(.system(size: 26, weight: .semibold))
                 .multilineTextAlignment(.center)
@@ -73,47 +72,44 @@ struct LoginView: View {
                 Text(Strings.exercism.localized())
                     .font(.largeTitle)
                     .bold()
-                    .padding(.bottom, 5)
             }.accessibilityAddTraits(.isHeader)
             Text(Strings.codePractice.localized())
                 .font(.title2)
                 .bold()
             Spacer()
-            ExercismTextField(text: $textInput,
-                              placeholder: Text(Strings.enterToken.localized())).onSubmit {
-                validateToken()
-            }
-                              .frame(height: 28)
-                              .border(.gray)
-                              .padding(.leading, 26)
-                              .padding(.trailing, 26)
-            Spacer()
-            Button(action: {
-                validateToken()
-            }) {
-                Text(Strings.login.localized())
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                    .foregroundColor(.white)
-                
-            }
-            .frame(height: 40)
-            .background(Color.exercismPurple)
-            .cornerRadius(7).buttonStyle(.plain)
+            TextField("",
+                      text: $textInput)
+            .placeholder(when: textInput.isEmpty, placeholderText: Strings.enterToken.localized())
             .padding()
+            .frame(height: 55)
+            .border(.gray)
+            .textFieldStyle(.plain)
+            .onSubmit {
+                validateToken()
+            }
+
+            Spacer()
+            ExercismButton(title: Strings.login.localized(),
+                           isLoading: $isLoading) {
+                validateToken()
+            }
             Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
-                .padding()
             Text(Strings.importantToken.localized())
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
             Spacer()
-            
-        }
+        }.padding()
     }
     
     func validateToken() {
-        // show the error message in the alert
+        isLoading = true
+        if textInput.isEmpty {
+            error = "API token cannot be empty"
+            showAlert = true
+        }
         let client = ExercismClient(apiToken: textInput)
         client.validateToken(completed: { response in
+            isLoading = false
             switch response {
             case .success(_):
                 ExercismKeychain.shared.set(textInput, for: Keys.token.rawValue)
@@ -132,5 +128,14 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+    }
+}
+
+
+extension NSTextView {
+    open override var frame: CGRect {
+        didSet {
+            insertionPointColor = .gray
+        }
     }
 }

@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
             Group {
-                if let _ = ExercismKeychain.shared.get(for: "token") {
+                if let _ = ExercismKeychain.shared.get(for: Keys.token.rawValue) {
                     TracksListView(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
                         .frame(minWidth: 800, minHeight: 800)
                         .environmentObject(navigationModel)
@@ -35,8 +35,7 @@ struct ContentView: View {
                 }.navigationDestination(for: Route.self) { route in
                     switch route {
                     case let .Exercise(track, exercise):
-                        ExerciseEditorWindowView(exercise: exercise,
-                                                 track: track)
+                        ExerciseEditorWindowView(asyncModel: AsyncModel(operation: { try await ExerciseViewModel.shared.getDocument(track, exercise) } ))
                         .environmentObject(navigationModel)
 
                     case let .Track(track):

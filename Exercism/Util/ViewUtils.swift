@@ -34,6 +34,16 @@ extension View {
             })
         }
     }
+
+    func placeholder(when shouldShow: Bool, alignment: Alignment = .leading, placeholderText: String) -> some View {
+        ZStack(alignment: alignment) {
+            Text(placeholderText)
+                .foregroundColor(.gray)
+                .opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+
     public func tabItem<TabItem: Tabbable>(for item: TabItem) -> some View {
         return self.modifier(TabBarViewModifier(item: item))
     }
