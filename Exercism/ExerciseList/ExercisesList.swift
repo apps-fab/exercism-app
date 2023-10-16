@@ -26,7 +26,8 @@ struct ExercisesList: View {
     @State var asyncModel: AsyncModel<[Exercise]>
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
-    
+    let model = TrackModel.shared
+
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
@@ -37,10 +38,9 @@ struct ExercisesList: View {
         }.onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
         }.onChange(of: exerciseCategory) { newValue in
-            // implement this
-        }.task {
-            let solutionsList = try! await TrackModel.shared.getSolutions(track) // we need to handle this error
-            self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+            asyncModel.filterOperations = {
+                model.groupedExercises[newValue] ?? model.unfilteredExercises
+            }
         }.onAppear {
             fieldFocused = false
         }
@@ -48,9 +48,6 @@ struct ExercisesList: View {
     
     @ViewBuilder
     func exerciseListView(_ exercises: [Exercise]) -> some View {
-        let groupedExercises = groupExercises(exercises)
-        let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
-        
         VStack {
             HStack {
                 HStack {
@@ -64,7 +61,7 @@ struct ExercisesList: View {
                 CustomPicker(selected: $exerciseCategory) {
                     HStack {
                         ForEach(ExerciseCategory.allCases) { option in
-                            Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
+                            Text("\(option.rawValue) (\((exercises).count))")
                                 .padding()
                                 .frame(minWidth: 140, maxHeight: 40)
                                 .roundEdges(backgroundColor: option == exerciseCategory ? Color.gray : .clear, lineColor: .clear)
@@ -79,14 +76,14 @@ struct ExercisesList: View {
             Divider().frame(height: 2)
             ScrollView {
                 LazyVGrid(columns: columns) {
-                    ForEach(filteredExercises, id: \.self) { exercise in
+                    ForEach(exercises, id: \.self) { exercise in
                         Button {
                             navigationModel.goToEditor(track.slug, exercise.slug)
                         } label: {
-                            ExerciseGridView(exercise: exercise, solution: getSolution(for: exercise))
+                            ExerciseGridView(exercise: exercise, solution: solutions[exercise.slug])
                         }.buttonStyle(.plain)
                     }
-                }.if(filteredExercises.isEmpty) { _ in
+                }.if(exercises.isEmpty) { _ in
                     EmptyStateView {
                         searchText = ""
                     }
@@ -94,37 +91,7 @@ struct ExercisesList: View {
             }
         }
     }
-    
-    func getSolution(for exercise: Exercise) -> Solution? {
-        solutions[exercise.slug]
-    }
-    
-    /// Group exercises by category
-    /// - Parameter exercises:
-    /// - Returns: [ExerciseCategory: [Exercise]]
-    func groupExercises(_ exercises: [Exercise]) -> [ExerciseCategory: [Exercise]] {
-        var groupedExercises = [ExerciseCategory: [Exercise]]()
-        for category in ExerciseCategory.allCases {
-            groupedExercises[category] = filterExercises(by: category, exercises: exercises)
-        }
-        return groupedExercises
-    }
-    
-    
-    func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
-        switch category {
-        case .AllExercises:
-            return exercises
-        case .Completed:
-            return exercises.filter { getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published }
-        case .InProgress:
-            return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
-        case .Available:
-            return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .locked:
-            return exercises.filter { !$0.isUnlocked }
-        }
-    }
+
 }
 
 struct ExercisesList_Previews: PreviewProvider {

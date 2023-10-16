@@ -11,8 +11,10 @@ import Foundation
 @MainActor
 final class TrackModel: ObservableObject {
     private var unfilteredTracks = [Track]()
-    private var unfilteredExercises = [Exercise]()
+    var unfilteredExercises = [Exercise]()
+    var groupedExercises = [ExerciseCategory: [Exercise]]()
     private let fetcher: Fetcher
+    private var solutions = [String: Solution]()
 
     static let shared = TrackModel()
 
@@ -28,12 +30,15 @@ final class TrackModel: ObservableObject {
 
     func getExercises(_ track: Track) async throws -> [Exercise] {
         let fetchedExercises = try await fetcher.getExercises(track)
+        let solutions = try await getSolutions(track)
+        getGroupedSolutions(solutions)
         self.unfilteredExercises = fetchedExercises
+        groupExercise()
         return fetchedExercises
     }
 
     func getSolutions(_ track: Track) async throws -> [Solution] {
-       return try await fetcher.getSolutions(track)
+        return try await fetcher.getSolutions(track)
     }
 
     func filterTracks(_ searchText: String) -> [Track] {
@@ -55,19 +60,38 @@ final class TrackModel: ObservableObject {
         unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
     }
 
-//    func toggleSelection(_ selection: ExerciseCategory) {
-//        // Not the correct parameters
-//        switch selection {
-//        case .AllExercises:
-//            exercises = .success(unfilteredExercises)
-//        case .Available:
-//            exercises = .success(unfilteredExercises.filter { $0.isUnlocked })
-//        case .Completed:
-//            exercises = .success(unfilteredExercises.filter { $0.isRecommended })
-//        case .InProgress:
-//            exercises = .success(unfilteredExercises.filter { $0.isRecommended })
-//        case .locked:
-//            exercises = .success(unfilteredExercises.filter { !$0.isUnlocked })
-//        }
-//    }
+    /// Group exercises by category
+    /// - Parameter exercises:
+    /// - Returns: [ExerciseCategory: [Exercise]]
+    func filterExercise(by category: ExerciseCategory) -> [Exercise] {
+        let exercises = unfilteredExercises
+        switch category {
+        case .AllExercises:
+            return exercises
+        case .Completed:
+            return exercises.filter { getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published }
+        case .InProgress:
+            return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
+        case .Available:
+            return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
+        case .locked:
+            return exercises.filter { !$0.isUnlocked }
+        }
+    }
+
+    func groupExercise() {
+        var groupedExercises = [ExerciseCategory: [Exercise]]()
+        for category in ExerciseCategory.allCases {
+            groupedExercises[category] = filterExercise(by: category)
+        }
+        self.groupedExercises = groupedExercises
+    }
+
+    func getGroupedSolutions(_ solutionsList: [Solution]) {
+        self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+    }
+
+    func getSolution(for exercise: Exercise) -> Solution? {
+        solutions[exercise.slug]
+    }
 }
