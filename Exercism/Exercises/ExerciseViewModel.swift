@@ -155,21 +155,6 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    private func getOrCreateSolutionDir(_ track: String, _ exercise: String) throws -> URL? {
-        let fileManager = FileManager.default
-        let docsFolder = try fileManager.url(
-            for: .documentDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: true)
-        let solutionDir = docsFolder.appendingPathComponent("\(track)/\(exercise)/", isDirectory: true)
-        if !fileManager.fileExists(atPath: solutionDir.relativePath) {
-            try fileManager.createDirectory(atPath: solutionDir.path, withIntermediateDirectories: true)
-            print("Error creating solution directory)")
-        }
-        return solutionDir
-    }
-
     private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
         let result =  try await fetcher.getTestRun(submissionLink.testRun)
 
