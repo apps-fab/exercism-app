@@ -72,9 +72,9 @@ class NavigationModel: ObservableObject, Codable {
         path.append(Route.Track(track))
     }
     
-    func goToEditor(_ track: Track, _ exercise: String) {
-        guard track.isJoined else { return }
-        path.append(Route.Exercise(track.slug, exercise))
+    func goToEditor(_ track: String, _ exercise: Exercise) {
+        guard exercise.isUnlocked else { return }
+        path.append(Route.Exercise(track, exercise.slug))
     }
     
     func goToLogin() {
