@@ -35,6 +35,7 @@
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
+		FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6467D42ADFD24700358E19 /* Metal.framework */; };
 		FD6FE8F22A95514E0043A89F /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
 		FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
@@ -93,12 +94,15 @@
 		FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismSettings.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD36807F29B1054E004D53C8 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
+		FD3EB7E72AE28BE9004F63CC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FD3EB7E92AE28C4B004F63CC /* Theme+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+GitHub.swift"; sourceTree = "<group>"; };
 		FD3F2B132AA750D300ADB248 /* ExercismButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismButton.swift; sourceTree = "<group>"; };
 		FD4A77642987E18E00E29436 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
 		FD60770C292E28D600A95E17 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
+		FD6467D42ADFD24700358E19 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			files = (
 				E0F6E9BC298E94200079CC28 /* ExercismSwift in Frameworks */,
 				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
+				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
@@ -175,6 +180,7 @@
 				E0C9672E28732A44004CE7E6 /* Exercism */,
 				E0C9672D28732A44004CE7E6 /* Products */,
 				FD7DC52E29E0AEFB00A1EBD9 /* Recovered References */,
+				FD6467D32ADFD24700358E19 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +222,23 @@
 				E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FD3EB7E62AE28BDB004F63CC /* MarkDownUI */ = {
+			isa = PBXGroup;
+			children = (
+				FD3EB7E72AE28BE9004F63CC /* Theme.swift */,
+				FD3EB7E92AE28C4B004F63CC /* Theme+GitHub.swift */,
+			);
+			path = MarkDownUI;
+			sourceTree = "<group>";
+		};
+		FD6467D32ADFD24700358E19 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD6467D42ADFD24700358E19 /* Metal.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FD7DC52E29E0AEFB00A1EBD9 /* Recovered References */ = {
@@ -274,6 +297,7 @@
 		FDC8C07A29C496160079D5F3 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FD3EB7E62AE28BDB004F63CC /* MarkDownUI */,
 				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
 				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
 				FDFF5A802A66C2E700E36AA4 /* Images.swift */,

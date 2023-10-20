@@ -33,6 +33,7 @@ struct ExerciseRightSidebarView: View {
     }
     
     var body: some View {
+        
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
                 // Todo(savekirk): Use system colorScheme
@@ -61,15 +62,16 @@ struct ExerciseRightSidebarView: View {
         let instruction: String
         let theme: Splash.Theme
         let language: String
-        
+        let markdownTheme = Theme.gitHub
+
         var body: some View {
-            VStack {
-                ScrollView {
+            ScrollView {
                     Markdown(instruction)
-                        .markdownTheme(.gitHub)
-                        .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
-                }
+                    .markdownTheme(.gitHub)
+                    .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
             }
+            .padding()
+            .background(markdownTheme.textBackgroundColor)
         }
         
     }
