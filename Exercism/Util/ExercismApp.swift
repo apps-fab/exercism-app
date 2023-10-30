@@ -43,7 +43,6 @@ struct ExercismApp: App {
                 }
                 
                 Button("Toggle Full Screen") {
-                    print("I have found ", NSApplication.shared.windows.count, NSApplication.shared.windows)
                     if let window = NSApplication.shared.windows.first {
                         window.toggleFullScreen(nil)
                         window.makeKey()
