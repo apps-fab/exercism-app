@@ -45,10 +45,14 @@ struct ExerciseRightSidebarView: View {
                     TestRunProgress(totalSecs: averageTestDuration)
                 } else {
                     if let testRun = viewModel.testRun {
-                        TestRunResultView(testRun: testRun,
-                                          language: language,
-                                          theme: theme,
-                                          onSubmitTest: viewModel.submitSolution)
+                        TestRunResultView(
+                            testRun: testRun,
+                            language: language,
+                            theme: theme,
+                            onSubmitTest: {
+                                viewModel.submitSolution()
+                            }
+                        )
                     } else {
                         NoTestRun()
                     }

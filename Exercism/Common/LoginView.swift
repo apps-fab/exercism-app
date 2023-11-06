@@ -124,6 +124,7 @@ struct LoginView: View {
     }
 }
 
+#if DEBUG
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
@@ -131,3 +132,4 @@ struct LoginView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 900, height: 800))
     }
 }
+#endif
