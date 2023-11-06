@@ -63,7 +63,7 @@ struct LoginView: View {
     }
     
     var rightView: some View {
-        VStack(alignment: .center) {
+        VStack {
             Spacer()
             HStack {
                 Image.exercismLogo.padding()
@@ -79,6 +79,7 @@ struct LoginView: View {
             Spacer()
             TextField("Enter your token",
                       text: $authenticationVM.tokenInput)
+            .lineLimit(1)
             .placeholder(when: authenticationVM.tokenInput.isEmpty,
                          placeholderText: Strings.enterToken.localized())
             .padding()
@@ -91,18 +92,22 @@ struct LoginView: View {
             }
             
             Spacer()
+         
             
-            ExercismButton(title: Strings.login.localized(),
-                           isLoading: $authenticationVM.isLoading) {
-                validateToken()
+            VStack(spacing: 20) {
+                
+                ExercismButton(title: Strings.login.localized(),
+                               isLoading: $authenticationVM.isLoading) {
+                    validateToken()
+                }
+                Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.3)
+                
+                Text(Strings.importantToken.localized())
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
             }
-            Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
-                .lineLimit(1)
-                .minimumScaleFactor(0.3)
-            
-            Text(Strings.importantToken.localized())
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
             Spacer()
         }
         .padding()
@@ -123,15 +128,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .colorScheme(.dark)
-//            .preferredColorScheme(.light)
             .previewLayout(.fixed(width: 900, height: 800))
-    }
-}
-
-extension NSTextView {
-    open override var frame: CGRect {
-        didSet {
-            insertionPointColor = .gray
-        }
     }
 }
