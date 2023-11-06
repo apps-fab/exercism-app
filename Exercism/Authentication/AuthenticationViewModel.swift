@@ -24,7 +24,7 @@ final class AuthenticationViewModel: ObservableObject {
         isLoading = true
         
         do {
-            let isValid = try await performAsyncValidation(tokenInput)
+            let isValid = try await performAsyncTokenValidation(token: tokenInput)
             self.isLoading = false
             return isValid
         } catch {
@@ -42,7 +42,7 @@ final class AuthenticationViewModel: ObservableObject {
         
     }
     
-    private func performAsyncValidation(_ token: String) async throws -> Bool {
+    private func performAsyncTokenValidation(token: String) async throws -> Bool {
         return try await withCheckedThrowingContinuation { continuation in
             let client = ExercismClient(apiToken: token)
             client.validateToken { response in

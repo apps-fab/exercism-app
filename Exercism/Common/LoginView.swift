@@ -25,10 +25,13 @@ struct LoginView: View {
             }
             .background(.white)
             .foregroundStyle(.black)
-            .alert(Strings.loginError.localized(), isPresented: $authenticationVM.showAlert, actions: {
-            }, message: {
-                Text(authenticationVM.error ?? "")
-            }).toolbar(.hidden)
+            .alert(
+                Strings.loginError.localized(),
+                isPresented: $authenticationVM.showAlert,
+                actions: { },
+                message: { Text(authenticationVM.error ?? "") }
+            )
+            .toolbar(.hidden)
         }
     }
     
