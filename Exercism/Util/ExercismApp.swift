@@ -41,6 +41,14 @@ struct ExercismApp: App {
                                                                        NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© 2023"
                     ] as [NSApplication.AboutPanelOptionKey : Any])
                 }
+                
+                Button("Toggle Full Screen") {
+                    if let window = NSApplication.shared.windows.first {
+                        window.toggleFullScreen(nil)
+                        window.makeKey()
+                    }
+                }
+                .keyboardShortcut("F", modifiers: [.control, .command])
             }
         }
         Settings {
