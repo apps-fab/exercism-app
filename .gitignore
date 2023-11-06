@@ -5,6 +5,14 @@
 ## User settings
 xcuserdata/
 
+# Ignore API keys and secrets
+.env
+.env.local
+
+# Ignore private certificates and keys
+certificates/
+
+
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
 *.xccheckout
@@ -56,10 +64,12 @@ Package.resolved
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+#temporarily removing all fastlane files since the configuration is not done. Uncomment when done 
+fastlane/
+#fastlane/report.xml
+#fastlane/Preview.html
+#fastlane/screenshots/**/*.png
+#fastlane/test_output
 
 # Code Injection
 #
