@@ -180,6 +180,7 @@
 		CB9DFA7D2AF97A060093566C /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
 				CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */,
 			);
 			path = Authentication;
@@ -288,7 +289,6 @@
 			isa = PBXGroup;
 			children = (
 				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
-				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
 				FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */,
 				FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */,
 				FD4A77642987E18E00E29436 /* RoundedView.swift */,

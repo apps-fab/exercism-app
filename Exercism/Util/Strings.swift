@@ -84,6 +84,7 @@ enum Strings: String {
     case testError = "Test Error"
     case errorSubmitting = "Error submitting solution. Try again."
     case runFailed = "Test run failed. Try again."
+    case tokenEmptyWarning = "API token cannot be empty"
 
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

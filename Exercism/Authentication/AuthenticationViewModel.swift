@@ -17,7 +17,7 @@ final class AuthenticationViewModel: ObservableObject {
     @MainActor
     func validateToken() async -> Bool {
         guard !tokenInput.isEmpty else {
-            error = "API token cannot be empty"
+            error = Strings.tokenEmptyWarning.localized()
             showAlert = true
             return false
         }
@@ -33,7 +33,7 @@ final class AuthenticationViewModel: ObservableObject {
             if case let ExercismClientError.apiError(_, _, message) = error {
                 self.error = message
             } else {
-                self.error = "Unknown error"
+                self.error = Strings.errorOccurred.localized()
             }
 
             showAlert = true
