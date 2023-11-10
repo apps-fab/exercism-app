@@ -24,6 +24,8 @@ struct ExercismButton: View {
                 Text(title)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(.white)
+                    .opacity(isLoading ? 0 : 1)
+                    .contentShape(Rectangle())
             }
         }
         .frame(height: 55)

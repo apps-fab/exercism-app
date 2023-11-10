@@ -2,7 +2,7 @@
 Mac and iPad app for exercism 
 
 ## Architecture 
-The architecture right now is very simple since most of the features built are very simple. It is however evolving with need. 
+The current architecture is straightforward since most of the features built are very simple. It is however evolving with need. 
 - `SwiftUI`:
   
     The app is primarily in SwiftUI. However, we borrowed some appkit components when SwiftUI was not sufficient. 
@@ -21,3 +21,5 @@ Running the project is fairly simple
 2. Change the `Development Team` to a valid one to be able to run
 3. Let the packages resolve
 4. Then, Hit Build and Run the project
+
+For additional information about the packages utilized in the app, please refer to the [brief documentation](/doc/01-dependencies.md)."

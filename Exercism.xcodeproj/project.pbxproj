@@ -14,6 +14,7 @@
 		8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */; };
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
+		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
 		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
@@ -78,6 +79,7 @@
 		8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashCodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
+		CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
@@ -175,6 +177,15 @@
 			path = Exercises;
 			sourceTree = "<group>";
 		};
+		CB9DFA7D2AF97A060093566C /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
+				CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		E0C9672328732A44004CE7E6 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +208,7 @@
 		E0C9672E28732A44004CE7E6 /* Exercism */ = {
 			isa = PBXGroup;
 			children = (
+				CB9DFA7D2AF97A060093566C /* Authentication */,
 				E0C9673F28732C49004CE7E6 /* ExercismSwift */,
 				FDC8C07929C495E70079D5F3 /* Models */,
 				FDC8C07829C495AB0079D5F3 /* Common */,
@@ -277,7 +289,6 @@
 			isa = PBXGroup;
 			children = (
 				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
-				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
 				FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */,
 				FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */,
 				FD4A77642987E18E00E29436 /* RoundedView.swift */,
@@ -419,6 +430,7 @@
 				FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */,
 				FDEF2CDB2A2870F500965E8C /* AsyncModel.swift in Sources */,
 				FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */,
+				CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */,
 				FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
