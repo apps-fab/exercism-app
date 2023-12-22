@@ -51,7 +51,20 @@ actor Fetcher {
             }
         }
     }
-
+    
+    func getIteration(_ solutionId: String) async throws -> Iteration {
+        try await withCheckedThrowingContinuation { continuation in
+            client.getIteration(for: solutionId) { result in
+                switch result {
+                case .success(let iteration):
+                    continuation.resume(returning: iteration)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+        
     func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
         return try await withCheckedThrowingContinuation { continuation in
             client.downloadSolution(for: track, exercise: exercise) { result in

@@ -49,4 +49,8 @@ final class TrackModel: ObservableObject {
     func sortTracks() -> [Track] {
         unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() > $1.lastTouchedAt ?? Date() })
     }
+    
+    func getIteration(for solutionId: String) async throws -> Iteration {
+        try await fetcher.getIteration(solutionId)
+    }
 }

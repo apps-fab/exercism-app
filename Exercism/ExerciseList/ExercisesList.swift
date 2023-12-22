@@ -8,7 +8,7 @@
 import SwiftUI
 import ExercismSwift
 
-enum ExerciseCategory : String, CaseIterable, Identifiable {
+enum ExerciseCategory: String, CaseIterable, Identifiable {
     case AllExercises
     case Completed
     case InProgress
@@ -24,8 +24,12 @@ struct ExercisesList: View {
     @State private var searchText = ""
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
+    
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
+    
+    @State private var showSubmitSolutionAlert = false
+    @State private var currentSolutionIteration: Iteration?
     
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))

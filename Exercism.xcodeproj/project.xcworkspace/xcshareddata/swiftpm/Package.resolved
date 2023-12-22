@@ -15,7 +15,7 @@
       "location" : "https://github.com/apps-fab/ExercismSwift",
       "state" : {
         "branch" : "main",
-        "revision" : "a3e3d7984f91ba8bc98b287c7ac266d6c14a973a"
+        "revision" : "9fff20ed68967a88a05886b209c67d1405446712"
       }
     },
     {
@@ -33,7 +33,16 @@
       "location" : "https://github.com/evgenyneu/keychain-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "e43f9b99b172ae6a7253047f8ba95c7a0b05b99f"
+        "revision" : "f38cb0ada97847ac5068b915b8d2793b35435668"
+      }
+    },
+    {
+      "identity" : "networkimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gonzalezreal/NetworkImage",
+      "state" : {
+        "revision" : "7aff8d1b31148d32c5933d75557d42f6323ee3d1",
+        "version" : "6.0.0"
       }
     },
     {
@@ -42,7 +51,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "6c6b951845a520fa7e8356e28adb5339c0f008d3"
+        "revision" : "e278c13e46e8d20c895c221e922c6ac6b72aaca9"
       }
     },
     {
@@ -50,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
       "state" : {
-        "revision" : "afbe025cbdae37c20c144956fbabc07ddd5c0fc2",
-        "version" : "1.6.1"
+        "revision" : "950167445ab703740569869c8b7510efc9d09a26",
+        "version" : "1.7.0"
       }
     },
     {
@@ -60,7 +69,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "61fefe9c284fd41ddef77d02749e88f00c305196"
+        "revision" : "79961a5ac3ea7a3253ff643291ff3c158777029c"
       }
     },
     {
@@ -68,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sindresorhus/Settings",
       "state" : {
-        "revision" : "b99f45cba818a9d483fb58e9b31de5dee799e315",
-        "version" : "3.0.3"
+        "revision" : "2f4f65eed252198be383aa0d9058bbaf8f740aa5",
+        "version" : "3.1.0"
       }
     },
     {
@@ -86,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gonzalezreal/swift-markdown-ui",
       "state" : {
-        "revision" : "12b351a75201a8124c2f2e1f9fc6ef5cd812c0b9",
-        "version" : "2.1.0"
+        "revision" : "5df8a4adedd6ae4eb2455ef60ff75183984daeb8",
+        "version" : "2.2.0"
       }
     }
   ],
