@@ -36,7 +36,7 @@ struct ExerciseRightSidebarView: View {
         
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
-                // Todo(savekirk): Use system colorScheme
+                // TODO: @savekirk): Use system colorScheme
                 Instruction(instruction: instruction, theme: theme, language: language)
                     .tabItem(for: SelectedTab.Instruction)
             }
@@ -67,10 +67,10 @@ struct ExerciseRightSidebarView: View {
         let theme: Splash.Theme
         let language: String
         let markdownTheme = Theme.gitHub
-
+        
         var body: some View {
             ScrollView {
-                    Markdown(instruction)
+                Markdown(instruction)
                     .markdownTheme(.gitHub)
                     .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
             }
@@ -106,7 +106,7 @@ struct ExerciseRightSidebarView: View {
     struct TestRunProgress: View {
         let totalSecs: Double
         @State private var progress = 0.0
-        let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+        private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
         
         var body: some View {
             VStack {
@@ -114,11 +114,11 @@ struct ExerciseRightSidebarView: View {
                     .padding()
                     .onReceive(timer) { _ in
                         if progress < 100 {
-                            print("This is the progress: \(progress)")
+                            print("This is the progress: \(progress), Average duration \(totalSecs)")
                             progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
                         }
                     }
-                Text(String(format: Strings.estimatedTime.localized(), totalSecs))
+                Text(String(format: Strings.estimatedTime.localized(), Int(totalSecs)))
             }
         }
     }
@@ -126,7 +126,11 @@ struct ExerciseRightSidebarView: View {
 
 struct ExerciseRightSidebarView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
+        Group {
+            ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
+            
+            ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
+        }
     }
 }
 

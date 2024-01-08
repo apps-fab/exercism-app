@@ -6,10 +6,10 @@
 import Foundation
 import ExercismSwift
 
-class PreviewData {
+struct PreviewData {
     static let shared = PreviewData()
 
-    init() {
+    private init() {
     }
 
     func testRun() -> TestRun {
@@ -223,7 +223,7 @@ class PreviewData {
     func getTrack() -> [Track] {
         let data = """
              [{
-                 "slug": "awk",
+                 "slug": "swift",
                  "title": "AWK",
                  "course": false,
                  "num_concepts": 0,
@@ -265,7 +265,7 @@ class PreviewData {
        "title": "Hello World",
        "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
        "difficulty": "easy",
-       "blurb": "The classical introductory exercise. Just say \"Hello, World!\".",
+       "blurb": "The classical introductory exercise. Just say Hello, World!.",
        "is_external": false,
        "is_unlocked": true,
        "is_recommended": true,

@@ -27,43 +27,27 @@ struct SubmitSolutionContentView: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 Image(systemName: "terminal")
-                    .frame(width: 50, height: 50)
+                    .resizable()
+                    .padding(5)
+                    .scaledToFit()
+                    .frame(width: 50, height: 40, alignment: .leading)
                 
-                Text("Publish your code and share\nyour knowledge")
-                    .multilineTextAlignment(.leading)
-                    .font(.largeTitle.bold())
-                    .minimumScaleFactor(0.8)
-                
-                Text("By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time.")
-                    .multilineTextAlignment(.leading)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Publish your code and share\nyour knowledge")
+                        .multilineTextAlignment(.leading)
+                        .font(.largeTitle.bold())
+                        .minimumScaleFactor(0.8)
+                    
+                    Text("By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time.")
+                        .multilineTextAlignment(.leading)
+                        .padding(.vertical, 5)
+                }
                 
                 listItems
                 
-                HStack(spacing: 20) {
-                    Button {
-                        print("confirm thing")
-                    } label: {
-                        Text("Confirm")
-                            .frame(width: 100, height: 30)
-                            .roundEdges(backgroundColor: Color.exercismPurple, lineColor: .clear, cornerRadius: 10)
-                    }
-                    .buttonStyle(.plain)
-                    
-                    Button {
-                        isPresented = false
-                    } label: {
-                        Text("Close")
-                            .frame(width: 100, height: 30)
-                            .roundEdges(
-                                backgroundColor: Color.gray.opacity(0.25),
-                                lineColor: .exercismPurple,
-                                cornerRadius: 10)
-                    }
-                    .buttonStyle(.plain)
-                    
-                }
+                callToActions
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             
             Group {
                 Image("publishMan")
@@ -71,20 +55,23 @@ struct SubmitSolutionContentView: View {
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
                     .padding(30)
-                    .background(.green)
             }
         }
-        .padding()
-        .frame(width: 800, height: 400)
+        .padding(25)
+        .frame(width: 800, height: 450)
     }
     
     private var listItems: some View {
-        VStack {
-            Picker("", selection: $shareOption) {
+        VStack(alignment: .leading) {
+            Picker("Select Solution Sharing Option", selection: $shareOption) {
                 ForEach(SolutionShareOption.allCases, id: \.self) { option in
                     Text(option.rawValue).bold()
+                        .tag(option)
+                        .id(option)
                 }
-            }.pickerStyle(.radioGroup)
+            }
+            .labelsHidden()
+            .pickerStyle(.radioGroup)
             
             if shareOption == .share {
                 VStack(alignment: .leading) {
@@ -93,26 +80,58 @@ struct SubmitSolutionContentView: View {
                             ForEach(SolutionShareOption.Iteration.allCases, id: \.self) { iteration in
                                 Text(iteration.rawValue)
                             }
-                        }.pickerStyle(.radioGroup)
-                            .horizontalRadioGroupLayout()
+                        }
+                        .pickerStyle(.radioGroup)
+                        .horizontalRadioGroupLayout()
+                        
                         Menu {
                             ForEach(1...numberOfIterations, id: \.self) { index in
                                 Text("Iteration \(index)")
                             }
                         } label: {
                             Text("Iteration \(selectedIteration)").roundEdges()
-                        }.opacity(shareIterationsOptions == .all ? 0 : 1)
-                            .frame(width: 100)
+                        }
+                        .frame(width: 100)
+                        .opacity(shareIterationsOptions == .all ? 0 : 1)
                     }
                 }
-                .padding(.horizontal)
                 .padding(.vertical, 10)
-                
+                .padding(.leading)
             }
         }
+    }
+    
+    private var callToActions: some View {
+        HStack(spacing: 20) {
+            Button {
+                print("confirm thing")
+            } label: {
+                Text("Confirm")
+                    .foregroundStyle(.white)
+                    .frame(width: 100, height: 30)
+                    .roundEdges(backgroundColor: Color.exercismPurple, lineColor: .clear, cornerRadius: 10)
+            }
+            .buttonStyle(.plain)
+            
+            Button {
+                isPresented = false
+            } label: {
+                Text("Close")
+                    .frame(width: 100, height: 30)
+                    .roundEdges(
+                        backgroundColor: Color.gray.opacity(0.25),
+                        lineColor: .exercismPurple,
+                        cornerRadius: 10)
+            }
+            .buttonStyle(.plain)
+            
+        }
+        .fontWeight(.semibold)
+        .padding(.vertical)
     }
 }
 
 #Preview {
     SubmitSolutionContentView(isPresented: .constant(true))
+//        .preferredColorScheme(.light)
 }
