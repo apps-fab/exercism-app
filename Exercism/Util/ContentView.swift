@@ -28,7 +28,7 @@ struct ContentView: View {
                     if let jsonData = navigationData {
                         navigationModel.jsonData = jsonData
                     }
-
+                    
                     for await _ in navigationModel.objectWillChangeSequence {
                         navigationData = navigationModel.jsonData
                     }

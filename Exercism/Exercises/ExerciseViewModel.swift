@@ -137,7 +137,7 @@ final class ExerciseViewModel: ObservableObject {
         if (!canSubmitSolution) {
             operationStatus = .errorRunningTest
         }
-        _Concurrency.Task { await performSubmit() }
+       Task { await performSubmit() }
     }
 
     private func performSubmit() async {
@@ -164,7 +164,7 @@ final class ExerciseViewModel: ObservableObject {
         } else {
             self.averageTestDuration = Double(result.testRunner.averageTestDuration)
             DispatchQueue.main.asyncAfter(deadline: .now() + (self.averageTestDuration ?? 5.0 )) {
-                _Concurrency.Task {
+                Task {
                     try await self.getTestRun(submissionLink)
                 }
             }
@@ -179,7 +179,7 @@ final class ExerciseViewModel: ObservableObject {
             operationStatus = .errorRunningTest
             return
         }
-        _Concurrency.Task {
+        Task {
             do {
                 let solutionData = try getSolutionFileData()
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
