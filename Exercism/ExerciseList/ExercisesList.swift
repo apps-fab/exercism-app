@@ -114,8 +114,6 @@ struct ExercisesList: View {
                         let solution = getSolution(for: exercise)                  
                         
                         Button {
-                            print("The solution", solution)
-
                             navigationModel.goToEditor(track.slug, exercise, solution: solution)
                         } label: {
                             ExerciseGridView(exercise: exercise, solution: solution)
