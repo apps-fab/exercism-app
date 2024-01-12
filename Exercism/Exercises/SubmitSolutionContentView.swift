@@ -153,15 +153,13 @@ struct SubmitSolutionContentView: View {
         do {
             let shouldPublish = shareOption == .share
             let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
-            
-            print("Result", shouldPublish, iterationIdx)
-            
-//            let completedSolution = try await TrackModel.shared.completeSolution(for: solution.uuid,
-//                                                                                 publish: shouldPublish,
-//                                                                                 iterationIdx: iterationIdx)
-//            print("confirm thing", completedSolution)
+                        
+            let completedSolution = try await TrackModel.shared.completeSolution(for: solution.uuid,
+                                                                                 publish: shouldPublish,
+                                                                                 iterationIdx: iterationIdx)
+            print("Completed Solution:", completedSolution)
         } catch {
-            print("Failed again", error)
+            print("Unable to complete exercise:", error)
         }
     }
 }
