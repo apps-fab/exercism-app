@@ -75,6 +75,8 @@ enum Strings: String {
     case ok = "OK"
     case correctSolution = "This solution correctly solves the latest version of this exercise."
     case wrongSolution = "This solution does not fully solve the latest version of this exercise"
+    case solutionPublished = "Your solution has been published successfully."
+    case solutionNotPublished = "Error publishing your solution. Try again later."
     case searchString = "Search by title"
 
     // Error strings

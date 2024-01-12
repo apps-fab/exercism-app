@@ -21,7 +21,8 @@ enum SolutionShareOption: String, CaseIterable {
 struct SubmitSolutionContentView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
     
-    let solution: Solution
+    @StateObject var viewModel = ExerciseViewModel.shared
+
     let iterations: [Iteration]
     
     var sortedIterations: [Iteration] {
@@ -150,21 +151,17 @@ struct SubmitSolutionContentView: View {
     }
     
     private func completeExercise() async  {
-        do {
-            let shouldPublish = shareOption == .share
-            let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
-                        
-            let completedSolution = try await TrackModel.shared.completeSolution(for: solution.uuid,
-                                                                                 publish: shouldPublish,
-                                                                                 iterationIdx: iterationIdx)
-            print("Completed Solution:", completedSolution)
-        } catch {
-            print("Unable to complete exercise:", error)
-        }
+        guard let solution = viewModel.solutionToSubmit else { return }
+        let shouldPublish = shareOption == .share
+        let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
+        
+        await viewModel.completeExercise(solutionId: solution.uuid,
+                                         publish: shouldPublish,
+                                         iterationIdx: iterationIdx)
     }
 }
 
 #Preview {
-    SubmitSolutionContentView(solution: PreviewData.shared.getSolutions()[0], iterations: [])
+    SubmitSolutionContentView(iterations: [])
         .preferredColorScheme(.light)
 }

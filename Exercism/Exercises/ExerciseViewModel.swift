@@ -11,6 +11,8 @@ import ExercismSwift
 enum ExerciseModelResponse: Equatable {
     case solutionPassed, wrongSolution, runFailed, errorSubmitting, errorRunningTest, idle
     case duplicateSubmission(message: String)
+    case solutionPublished
+    case solutionNotPublished
 
     var description: String {
         switch self {
@@ -28,6 +30,10 @@ enum ExerciseModelResponse: Equatable {
             return ""
         case .duplicateSubmission(let message):
             return message
+        case .solutionPublished:
+            return Strings.solutionPublished.localized()
+        case .solutionNotPublished:
+            return Strings.solutionNotPublished.localized()
         }
     }
 }
@@ -86,6 +92,7 @@ final class ExerciseViewModel: ObservableObject {
     @Published var exerciseItem: ExerciseItem? = nil
     @Published var testSubmissionResponseMessage: Bool = false
     @Published var showTestSubmissionResponseMessage = false
+    @Published var solutionToSubmit: Solution?
     @Published var title = ""
     @Published var operationStatus = ExerciseModelResponse.idle {
         didSet {
@@ -152,6 +159,25 @@ final class ExerciseViewModel: ObservableObject {
             }
         } catch {
             operationStatus = .runFailed
+        }
+    }
+    
+    func setSolutionToSubmit(_ solution: Solution?) {
+        solutionToSubmit = solution
+    }
+    
+    func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async  {
+        do {
+            let result = try await fetcher.completeSolution(solutionId,
+                                                            publish: publish,
+                                                            iterationIdx: iterationIdx)
+            
+            print("Completed Solution:", result)
+            solutionToSubmit = nil
+            operationStatus = .solutionPublished
+        } catch {
+            operationStatus = .runFailed
+            print("Unable to complete exercise:", error)
         }
     }
 

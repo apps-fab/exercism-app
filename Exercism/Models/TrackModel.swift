@@ -53,8 +53,4 @@ final class TrackModel: ObservableObject {
     func getIterations(for solutionId: String) async throws -> [Iteration] {
         try await fetcher.getIterations(solutionId)
     }
-    
-    func completeSolution(for solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution {
-        try await fetcher.completeSolution(solutionId, publish: publish, iterationIdx: iterationIdx)
-    }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
 		CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */; };
+		CB375BA42B51692A00041D0C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB375BA32B51692A00041D0C /* ExercismSwift */; };
 		CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB6F94932B4C27A1002F8A2C /* ExercismSwift */; };
 		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
@@ -142,6 +143,7 @@
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
+				CB375BA42B51692A00041D0C /* ExercismSwift in Frameworks */,
 				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
@@ -356,6 +358,7 @@
 				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
 				FD92DC642A854EAC00673445 /* Settings */,
 				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
+				CB375BA32B51692A00041D0C /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -394,7 +397,7 @@
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
-				CB6F94922B4C27A1002F8A2C /* XCLocalSwiftPackageReference "../../Documents/ExercismSwift" */,
+				CB375BA22B51692A00041D0C /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -691,14 +694,15 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		CB6F94922B4C27A1002F8A2C /* XCLocalSwiftPackageReference "../../Documents/ExercismSwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Documents/ExercismSwift;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
+		CB375BA22B51692A00041D0C /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
@@ -766,6 +770,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB375BA32B51692A00041D0C /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB375BA22B51692A00041D0C /* XCRemoteSwiftPackageReference "ExercismSwift" */;
+			productName = ExercismSwift;
+		};
 		CB6F94932B4C27A1002F8A2C /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ExercismSwift;

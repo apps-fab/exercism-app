@@ -16,7 +16,6 @@ struct ExerciseEditorWindowView: View {
     var canMarkAsComplete: Bool {
         solution?.status == .iterated
     }
-    @State private var solutionToSubmit: Solution?
 
     @State private var currentSolutionIterations: [Iteration] = []
 
@@ -29,7 +28,7 @@ struct ExerciseEditorWindowView: View {
                 ExerciseRightSidebarView(canMarkAsComplete: canMarkAsComplete,
                                          onMarkAsComplete: {
                     if (canMarkAsComplete) {
-                        solutionToSubmit = solution
+                        viewModel.setSolutionToSubmit(solution)
                     }
                 })
             } detail: {
@@ -83,15 +82,12 @@ struct ExerciseEditorWindowView: View {
         }
         .navigationTitle(viewModel.title)
         .sheet(
-            item: $solutionToSubmit,
+            item: $viewModel.solutionToSubmit,
             onDismiss: {
-                solutionToSubmit = nil
+                viewModel.setSolutionToSubmit(nil)
             }
         ) { solution in
-            SubmitSolutionContentView(
-                solution: solution,
-                iterations: currentSolutionIterations
-            )
+            SubmitSolutionContentView(iterations: currentSolutionIterations)
         }
         
         .task {
