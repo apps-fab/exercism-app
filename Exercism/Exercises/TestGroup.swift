@@ -9,10 +9,10 @@ struct TestGroup: Identifiable, Hashable {
     let id = UUID()
     let test: Test?
     let testId: Int?
-    let task: Task?
+    let task: ExercismTask?
     let tests: [[TestGroup]]?
     
-    init(test: Test? = nil, task: Task? = nil, tests: [[TestGroup]]? = nil, testId: Int? = nil) {
+    init(test: Test? = nil, task: ExercismTask? = nil, tests: [[TestGroup]]? = nil, testId: Int? = nil) {
         self.test = test
         self.task = task
         self.tests = tests

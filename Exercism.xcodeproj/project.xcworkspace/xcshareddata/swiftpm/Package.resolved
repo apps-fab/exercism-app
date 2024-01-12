@@ -33,7 +33,7 @@
       "location" : "https://github.com/evgenyneu/keychain-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "f38cb0ada97847ac5068b915b8d2793b35435668"
+        "revision" : "6b6fc468877a5f01fe211fcf0af840b9ecce9d98"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "e278c13e46e8d20c895c221e922c6ac6b72aaca9"
+        "revision" : "59730af512c06fb569c119d737df4c1c499e001d"
       }
     },
     {
@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gonzalezreal/swift-markdown-ui",
       "state" : {
-        "revision" : "5df8a4adedd6ae4eb2455ef60ff75183984daeb8",
-        "version" : "2.2.0"
+        "revision" : "ae799d015a5374708f7b4c85f3294c05f2a564e2",
+        "version" : "2.3.0"
       }
     }
   ],

@@ -38,7 +38,6 @@ struct ContentView: View {
             }
             .navigationDestination(for: Route.self, destination: handleDestinationRoute)
         }
-        
     }
     
     @ViewBuilder

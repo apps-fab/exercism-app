@@ -117,7 +117,7 @@ struct LoginView: View {
     }
     
     private func validateToken() {
-        _Concurrency.Task {
+        Task {
             let isValid = await authenticationVM.validateToken()
             if isValid {
                 ExercismKeychain.shared.set(authenticationVM.tokenInput, for: Keys.token.rawValue)

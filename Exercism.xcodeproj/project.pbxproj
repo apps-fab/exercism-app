@@ -15,8 +15,8 @@
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
 		CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */; };
-		CB375BA42B51692A00041D0C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB375BA32B51692A00041D0C /* ExercismSwift */; };
 		CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB6F94932B4C27A1002F8A2C /* ExercismSwift */; };
+		CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB8681232B51751F0059AB65 /* ExercismSwift */; };
 		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
@@ -143,7 +143,7 @@
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
-				CB375BA42B51692A00041D0C /* ExercismSwift in Frameworks */,
+				CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */,
 				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
@@ -342,6 +342,7 @@
 				E0C9672828732A44004CE7E6 /* Sources */,
 				E0C9672928732A44004CE7E6 /* Frameworks */,
 				E0C9672A28732A44004CE7E6 /* Resources */,
+				FD51E4172B272BEA009810A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -358,7 +359,7 @@
 				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
 				FD92DC642A854EAC00673445 /* Settings */,
 				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
-				CB375BA32B51692A00041D0C /* ExercismSwift */,
+				CB8681232B51751F0059AB65 /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -372,7 +373,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					E0C9672B28732A44004CE7E6 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -397,7 +398,7 @@
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
-				CB375BA22B51692A00041D0C /* XCRemoteSwiftPackageReference "ExercismSwift" */,
+				CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -422,6 +423,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FD51E4172B272BEA009810A6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nTAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E0C9672828732A44004CE7E6 /* Sources */ = {
@@ -520,6 +541,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -584,6 +606,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -610,13 +633,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Exercism/Exercism.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6V9B6LUW22;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -644,13 +668,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Exercism/Exercism.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6V9B6LUW22;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -695,7 +720,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CB375BA22B51692A00041D0C /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+		CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
 			requirement = {
@@ -770,13 +795,13 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB375BA32B51692A00041D0C /* ExercismSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB375BA22B51692A00041D0C /* XCRemoteSwiftPackageReference "ExercismSwift" */;
-			productName = ExercismSwift;
-		};
 		CB6F94932B4C27A1002F8A2C /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		CB8681232B51751F0059AB65 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
 			productName = ExercismSwift;
 		};
 		E07F6B0629E0D04D00E5C42A /* MarkdownUI */ = {
