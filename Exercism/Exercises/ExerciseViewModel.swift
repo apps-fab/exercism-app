@@ -108,7 +108,7 @@ final class ExerciseViewModel: ObservableObject {
         if let instructionURL = exerciseDoc!.instructions {
             instruction = try getInstruction(instructionURL)
         }
-        let exercises =  getLocalExercise(track, exercise, exerciseDoc!)
+        let exercises = getLocalExercise(track, exercise, exerciseDoc!)
         selectedFile = exercises.first
         selectFile(selectedFile)
         return exercises

@@ -11,26 +11,42 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
     @State private var showSubmissionTooltip = false
+    
+    let solution: Solution?
+    var canMarkAsComplete: Bool {
+        solution?.status == .iterated
+    }
+    @State private var solutionToSubmit: Solution?
+
+    @State private var currentSolutionIterations: [Iteration] = []
+
     @State var asyncModel: AsyncModel<[ExerciseFile]>
     @EnvironmentObject private var navigationModel: NavigationModel
 
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in
             NavigationSplitView {
-                ExerciseRightSidebarView()
+                ExerciseRightSidebarView(canMarkAsComplete: canMarkAsComplete,
+                                         onMarkAsComplete: {
+                    if (canMarkAsComplete) {
+                        solutionToSubmit = solution
+                    }
+                })
             } detail: {
                 CustomTabView(selectedItem: $viewModel.selectedFile) {
                     ForEach(docs) { file in
                         ExerciseEditorView().tabItem(for: file)
                     }
                 }
-            }.toolbar {
+            }
+            .toolbar {
                 ToolbarItem {
                     Spacer()
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        viewModel.runTest()
+                        print("Item", docs)
+                        //                        viewModel.runTest()
                     }) {
                         Label(Strings.runTests.localized(),
                               systemImage: "play.circle")
@@ -64,13 +80,37 @@ struct ExerciseEditorWindowView: View {
                     }
                 }
             }
-        }.navigationTitle(viewModel.title)
+        }
+        .navigationTitle(viewModel.title)
+        .sheet(
+            item: $solutionToSubmit,
+            onDismiss: {
+                solutionToSubmit = nil
+            }
+        ) { solution in
+            SubmitSolutionContentView(
+                solution: solution,
+                iterations: currentSolutionIterations
+            )
+        }
+        
+        .task {
+            guard let solution else { return }
+            do {
+                currentSolutionIterations = try await TrackModel.shared.getIterations(for: solution.uuid)
+                print(currentSolutionIterations)
+            } catch {
+                print("Error getting iterations:", error)
+            }
+        }
     }
-
 }
 
-//struct ExerciseEditorWindowView_Previews: PreviewProvider {
-//    static var previews: some View {
+struct ExerciseEditorWindowView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExerciseEditorWindowView(solution: nil, asyncModel: AsyncModel(operation: {
+            PreviewData.shared.getExerciseFile()
+        }))
 //        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world").environmentObject(SettingData())
-//    }
-//}
+    }
+}

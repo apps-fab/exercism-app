@@ -8,10 +8,10 @@ import ExercismSwift
 
 struct PreviewData {
     static let shared = PreviewData()
-
+    
     private init() {
     }
-
+    
     func testRun() -> TestRun {
         let data = """
                    {
@@ -219,7 +219,7 @@ struct PreviewData {
                    """
         return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
     }
-
+    
     func getTrack() -> [Track] {
         let data = """
              [{
@@ -256,7 +256,7 @@ struct PreviewData {
 """
         return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
     }
-
+    
     func getExercises() -> [Exercise] {
         let data = """
    [{
@@ -275,5 +275,48 @@ struct PreviewData {
      }]
 """
         return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
+    }
+    
+    func getExerciseFile() -> [ExerciseFile] {
+        [ExerciseFile(
+            url: URL(string: "file:///Users/cedricbahirwe/Documents/swift/wings-quest/")!,
+            id: "Sources/WingsQuest/WingsQuest.swift",
+            name: "Sources/WingsQuest/WingsQuest.swift",
+            type: .solution)]
+    }
+    
+    func getSolutions() -> [Solution] {
+        let data = """
+[{
+  "uuid": "bbf9b231b2a946ddbcd2db748e4c702c",
+  "privateUrl": "https://exercism.org/tracks/swift/exercises/wings-quest",
+  "publicUrl": "https://exercism.org/tracks/swift/exercises/wings-quest/solutions/cedricbahirwe",
+  "status": "iterated",
+  "mentoringStatus": "none",
+  "publishedIterationHeadTestsStatus": "not_queued",
+  "hasNotifications": false,
+  "numViews": 0,
+  "numStars": 0,
+  "numComments": 0,
+  "numIterations": 2,
+  "numLoc": 12,
+  "isOutOfDate": false,
+  "publishedAt": null,
+  "completedAt": null,
+  "updatedAt": "2024-01-10T13:36:28+00:00",
+  "lastIteratedAt": "2024-01-08T11:18:37+00:00",
+  "exercise": {
+    "slug": "wings-quest",
+    "title": "Wings Quest",
+    "iconUrl": "https://assets.exercism.org/exercises/low-power-embedded-game.svg"
+  },
+  "track": {
+    "slug": "swift",
+    "title": "Swift",
+    "iconUrl": "https://assets.exercism.org/tracks/swift.svg"
+  }
+}]
+"""
+        return try! JSONDecoder().decode([Solution].self, from: Data(data.utf8))
     }
 }

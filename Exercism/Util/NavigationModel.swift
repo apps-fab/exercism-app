@@ -14,7 +14,7 @@ enum Route: Hashable, Identifiable, Codable {
     var id: Self { return self }
     
     case Track(Track)
-    case Exercise(String, String)
+    case Exercise(String, String, Solution?)
     case Login
     case Dashboard
 }
@@ -72,9 +72,9 @@ class NavigationModel: ObservableObject, Codable {
         path.append(Route.Track(track))
     }
     
-    func goToEditor(_ track: String, _ exercise: Exercise) {
+    func goToEditor(_ track: String, _ exercise: Exercise, solution: Solution?) {
         guard exercise.isUnlocked else { return }
-        path.append(Route.Exercise(track, exercise.slug))
+        path.append(Route.Exercise(track, exercise.slug, solution))
     }
     
     func goToLogin() {

@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "exercismswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apps-fab/ExercismSwift",
-      "state" : {
-        "branch" : "main",
-        "revision" : "9fff20ed68967a88a05886b209c67d1405446712"
-      }
-    },
-    {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/raspu/Highlightr",

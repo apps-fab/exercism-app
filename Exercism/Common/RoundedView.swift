@@ -11,6 +11,7 @@ struct RoundedRect<background: View>: ViewModifier {
     let radius: CGFloat
     let borderColor: Color
     let backgroundColor: background
+    // TODO: What's this for?
     @State private var highlight: Bool = false
     
     func body(content: Content) -> some View {

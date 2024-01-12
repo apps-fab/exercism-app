@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ExercismSwift
 
 enum SolutionShareOption: String, CaseIterable {
     case complete = "No, I just want to mark the exercise as complete."
@@ -18,11 +19,19 @@ enum SolutionShareOption: String, CaseIterable {
 }
 
 struct SubmitSolutionContentView: View {
+    @SwiftUI.Environment(\.dismiss) var dismiss
+    
+    let solution: Solution
+    let iterations: [Iteration]
+    
+    var sortedIterations: [Iteration] {
+        iterations.sorted { $0.idx > $1.idx }
+    }
+
     @State private var shareOption = SolutionShareOption.share
-    @State private var shareIterationsOptions = SolutionShareOption.Iteration.single
-    @State private var selectedIteration = 1
+    @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
+    @State private var selectedIteration: Int = 1
     @State private var numberOfIterations = 4
-    @Binding var isPresented: Bool
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
@@ -54,11 +63,16 @@ struct SubmitSolutionContentView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
+                    .drawingGroup()
                     .padding(30)
             }
         }
         .padding(25)
         .frame(width: 800, height: 450)
+        .onAppear {
+            // Pre-select the most recent iteration
+            selectedIteration = iterations.last?.idx ?? 1
+        }
     }
     
     private var listItems: some View {
@@ -85,8 +99,10 @@ struct SubmitSolutionContentView: View {
                         .horizontalRadioGroupLayout()
                         
                         Menu {
-                            ForEach(1...numberOfIterations, id: \.self) { index in
-                                Text("Iteration \(index)")
+                            ForEach(sortedIterations, id: \.idx) { iteration in
+                                Button("Iteration \(iteration.idx)") {
+                                    selectedIteration = iteration.idx
+                                }
                             }
                         } label: {
                             Text("Iteration \(selectedIteration)").roundEdges()
@@ -103,18 +119,9 @@ struct SubmitSolutionContentView: View {
     
     private var callToActions: some View {
         HStack(spacing: 20) {
-            Button {
-                print("confirm thing")
-            } label: {
-                Text("Confirm")
-                    .foregroundStyle(.white)
-                    .frame(width: 100, height: 30)
-                    .roundEdges(backgroundColor: Color.exercismPurple, lineColor: .clear, cornerRadius: 10)
-            }
-            .buttonStyle(.plain)
             
             Button {
-                isPresented = false
+                dismiss()
             } label: {
                 Text("Close")
                     .frame(width: 100, height: 30)
@@ -125,13 +132,41 @@ struct SubmitSolutionContentView: View {
             }
             .buttonStyle(.plain)
             
+            Button {
+                _Concurrency.Task {
+                   await completeExercise()
+                }
+            } label: {
+                Text("Confirm")
+                    .foregroundStyle(.white)
+                    .frame(width: 100, height: 30)
+                    .roundEdges(backgroundColor: Color.exercismPurple, lineColor: .clear, cornerRadius: 10)
+            }
+            .buttonStyle(.plain)
+
         }
         .fontWeight(.semibold)
         .padding(.vertical)
     }
+    
+    private func completeExercise() async  {
+        do {
+            let shouldPublish = shareOption == .share
+            let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
+            
+            print("Result", shouldPublish, iterationIdx)
+            
+//            let completedSolution = try await TrackModel.shared.completeSolution(for: solution.uuid,
+//                                                                                 publish: shouldPublish,
+//                                                                                 iterationIdx: iterationIdx)
+//            print("confirm thing", completedSolution)
+        } catch {
+            print("Failed again", error)
+        }
+    }
 }
 
 #Preview {
-    SubmitSolutionContentView(isPresented: .constant(true))
-//        .preferredColorScheme(.light)
+    SubmitSolutionContentView(solution: PreviewData.shared.getSolutions()[0], iterations: [])
+        .preferredColorScheme(.light)
 }

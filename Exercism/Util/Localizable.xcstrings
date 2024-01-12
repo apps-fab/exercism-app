@@ -469,6 +469,9 @@
         }
       }
     },
+    "Mark as complete" : {
+
+    },
     "new" : {
       "extractionState" : "manual",
       "localizations" : {
