@@ -23,11 +23,7 @@ struct SubmitSolutionContentView: View {
     
     @StateObject var viewModel = ExerciseViewModel.shared
 
-    let iterations: [Iteration]
-    
-    var sortedIterations: [Iteration] {
-        iterations.sorted { $0.idx > $1.idx }
-    }
+//    let iterations: [Iteration]
 
     @State private var shareOption = SolutionShareOption.share
     @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
@@ -71,8 +67,7 @@ struct SubmitSolutionContentView: View {
         .padding(25)
         .frame(width: 800, height: 450)
         .onAppear {
-            // Pre-select the most recent iteration
-            selectedIteration = iterations.last?.idx ?? 1
+            selectedIteration = viewModel.getDefaultIterationIdx()
         }
     }
     
@@ -100,7 +95,7 @@ struct SubmitSolutionContentView: View {
                         .horizontalRadioGroupLayout()
                         
                         Menu {
-                            ForEach(sortedIterations, id: \.idx) { iteration in
+                            ForEach(viewModel.sortedIterations, id: \.idx) { iteration in
                                 Button("Iteration \(iteration.idx)") {
                                     selectedIteration = iteration.idx
                                 }
@@ -162,6 +157,6 @@ struct SubmitSolutionContentView: View {
 }
 
 #Preview {
-    SubmitSolutionContentView(iterations: [])
+    SubmitSolutionContentView()
         .preferredColorScheme(.light)
 }

@@ -17,8 +17,6 @@ struct ExerciseEditorWindowView: View {
         solution?.status == .iterated
     }
 
-    @State private var currentSolutionIterations: [Iteration] = []
-
     @State var asyncModel: AsyncModel<[ExerciseFile]>
     @EnvironmentObject private var navigationModel: NavigationModel
 
@@ -87,17 +85,12 @@ struct ExerciseEditorWindowView: View {
                 viewModel.setSolutionToSubmit(nil)
             }
         ) { solution in
-            SubmitSolutionContentView(iterations: currentSolutionIterations)
+            SubmitSolutionContentView()
         }
         
         .task {
             guard let solution else { return }
-            do {
-                currentSolutionIterations = try await TrackModel.shared.getIterations(for: solution.uuid)
-                print(currentSolutionIterations)
-            } catch {
-                print("Error getting iterations:", error)
-            }
+            await viewModel.getIterations(for: solution)
         }
     }
 }
@@ -107,6 +100,5 @@ struct ExerciseEditorWindowView_Previews: PreviewProvider {
         ExerciseEditorWindowView(solution: nil, asyncModel: AsyncModel(operation: {
             PreviewData.shared.getExerciseFile()
         }))
-//        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world").environmentObject(SettingData())
     }
 }

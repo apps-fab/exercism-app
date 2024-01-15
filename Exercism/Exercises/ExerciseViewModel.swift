@@ -120,6 +120,25 @@ final class ExerciseViewModel: ObservableObject {
         selectFile(selectedFile)
         return exercises
     }
+    
+    @Published var currentSolutionIterations: [Iteration] = []
+    
+    var sortedIterations: [Iteration] {
+        currentSolutionIterations.sorted { $0.idx > $1.idx }
+    }
+    
+    func getIterations(for solution: Solution) async {
+        do {
+            currentSolutionIterations = try await TrackModel.shared.getIterations(for: solution.uuid)
+        } catch {
+            print("Error getting iterations:", error)
+        }
+    }
+    
+    // Pre-select the most recent iteration
+    func getDefaultIterationIdx() -> Int {
+        currentSolutionIterations.last?.idx ?? 1
+    }
 
     private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
