@@ -195,7 +195,7 @@ final class ExerciseViewModel: ObservableObject {
             solutionToSubmit = nil
             operationStatus = .solutionPublished
         } catch {
-            operationStatus = .runFailed
+            operationStatus = .solutionNotPublished
             print("Unable to complete exercise:", error)
         }
     }

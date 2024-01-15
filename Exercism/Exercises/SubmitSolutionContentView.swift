@@ -23,8 +23,6 @@ struct SubmitSolutionContentView: View {
     
     @StateObject var viewModel = ExerciseViewModel.shared
 
-//    let iterations: [Iteration]
-
     @State private var shareOption = SolutionShareOption.share
     @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
     @State private var selectedIteration: Int = 1
