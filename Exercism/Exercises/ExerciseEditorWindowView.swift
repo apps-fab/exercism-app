@@ -23,12 +23,14 @@ struct ExerciseEditorWindowView: View {
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in
             NavigationSplitView {
-                ExerciseRightSidebarView(canMarkAsComplete: canMarkAsComplete,
-                                         onMarkAsComplete: {
-                    if (canMarkAsComplete) {
-                        viewModel.setSolutionToSubmit(solution)
+                ExerciseRightSidebarView(
+                    canMarkAsComplete: canMarkAsComplete,
+                    onMarkAsComplete: {
+                        if (canMarkAsComplete) {
+                            viewModel.setSolutionToSubmit(solution)
+                        }
                     }
-                })
+                )
             } detail: {
                 CustomTabView(selectedItem: $viewModel.selectedFile) {
                     ForEach(docs) { file in
@@ -79,12 +81,7 @@ struct ExerciseEditorWindowView: View {
             }
         }
         .navigationTitle(viewModel.title)
-        .sheet(
-            item: $viewModel.solutionToSubmit,
-            onDismiss: {
-                viewModel.setSolutionToSubmit(nil)
-            }
-        ) { solution in
+        .sheet(item: $viewModel.solutionToSubmit) { solution in
             SubmitSolutionContentView()
         }
         

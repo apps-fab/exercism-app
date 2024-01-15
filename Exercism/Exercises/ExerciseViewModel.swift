@@ -129,7 +129,7 @@ final class ExerciseViewModel: ObservableObject {
     
     func getIterations(for solution: Solution) async {
         do {
-            currentSolutionIterations = try await TrackModel.shared.getIterations(for: solution.uuid)
+            currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
         } catch {
             print("Error getting iterations:", error)
         }
