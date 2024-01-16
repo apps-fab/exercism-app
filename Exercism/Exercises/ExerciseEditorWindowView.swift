@@ -44,8 +44,7 @@ struct ExerciseEditorWindowView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        print("Item", docs)
-                        //                        viewModel.runTest()
+                        viewModel.runTest()
                     }) {
                         Label(Strings.runTests.localized(),
                               systemImage: "play.circle")
