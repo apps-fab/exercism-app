@@ -28,6 +28,8 @@ struct SubmitSolutionContentView: View {
     @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
     @State private var selectedIteration: Int = 1
     @State private var numberOfIterations = 4
+    @State private var isSubmitting = false
+    
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
@@ -132,12 +134,25 @@ struct SubmitSolutionContentView: View {
                    await completeExercise()
                 }
             } label: {
-                Text("Confirm")
-                    .foregroundStyle(.white)
-                    .frame(width: 100, height: 30)
-                    .roundEdges(backgroundColor: Color.exercismPurple, lineColor: .clear, cornerRadius: 10)
+                Label {
+                    Text("Confirm")
+                } icon: {
+                    if isSubmitting {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .tint(.white)
+                            .foregroundStyle(.red)
+                            .controlSize(.small)
+                            .padding(.trailing, 1)
+                        
+                    }
+                }
+                .foregroundStyle(.white)
+                .frame(width: 100, height: 30)
+                .roundEdges(backgroundColor: Color.exercismPurple, lineColor: .clear, cornerRadius: 10)
             }
             .buttonStyle(.plain)
+            .disabled(isSubmitting)
 
         }
         .fontWeight(.semibold)
@@ -145,22 +160,26 @@ struct SubmitSolutionContentView: View {
     }
     
     private func completeExercise() async  {
-//        guard let solution = viewModel.solutionToSubmit else { return }
-//        let shouldPublish = shareOption == .share
-//        let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
-//        
-//        let isCompleted = await viewModel.completeExercise(solutionId: solution.uuid,
-//                                         publish: shouldPublish,
-//                                         iterationIdx: iterationIdx)
-//        if isCompleted {
-        viewModel.solutionToSubmit = nil
-//            navigationModel.goBack()
-//        }
+        guard let solution = viewModel.solutionToSubmit else { return }
+        let shouldPublish = shareOption == .share
+        let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
+        isSubmitting = true
+        do {
+            let completeSolution =  try await viewModel.completeExercise(solutionId: solution.uuid,
+                                                                         publish: shouldPublish,
+                                                                         iterationIdx: iterationIdx)
+            isSubmitting = false
+            navigationModel.goToTrack(completeSolution.track)
+            
+        } catch {
+            isSubmitting = false
+            print("Unable to complete exercise:", error)
+        }
         
     }
 }
 
 #Preview {
     SubmitSolutionContentView()
-        .preferredColorScheme(.light)
+//        .preferredColorScheme(.dark)
 }

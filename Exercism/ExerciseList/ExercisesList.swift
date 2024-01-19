@@ -44,9 +44,6 @@ struct ExercisesList: View {
         .onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
         }
-        .onChange(of: exerciseCategory) { newValue in
-            //implement this
-        }
         .task {
             do {
                 let solutionsList = try await TrackModel.shared.getSolutions(track)

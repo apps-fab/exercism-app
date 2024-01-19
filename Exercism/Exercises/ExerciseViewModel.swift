@@ -185,20 +185,17 @@ final class ExerciseViewModel: ObservableObject {
         solutionToSubmit = solution
     }
     
-    func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async -> Bool  {
+    func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution  {
         do {
             let result = try await fetcher.completeSolution(solutionId,
                                                             publish: publish,
                                                             iterationIdx: iterationIdx)
-            
-            print("Completed Solution:", result)
             solutionToSubmit = nil
             operationStatus = .solutionPublished
-            return true
+            return result
         } catch {
             operationStatus = .solutionNotPublished
-            print("Unable to complete exercise:", error)
-            return false
+            throw error
         }
     }
 
