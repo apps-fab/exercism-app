@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "networkimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gonzalezreal/NetworkImage",
-      "state" : {
-        "revision" : "7aff8d1b31148d32c5933d75557d42f6323ee3d1",
-        "version" : "6.0.0"
-      }
-    },
-    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
@@ -59,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
       "state" : {
-        "revision" : "950167445ab703740569869c8b7510efc9d09a26",
-        "version" : "1.7.0"
+        "revision" : "afbe025cbdae37c20c144956fbabc07ddd5c0fc2",
+        "version" : "1.6.1"
       }
     },
     {
@@ -77,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sindresorhus/Settings",
       "state" : {
-        "revision" : "2f4f65eed252198be383aa0d9058bbaf8f740aa5",
-        "version" : "3.1.0"
+        "revision" : "b99f45cba818a9d483fb58e9b31de5dee799e315",
+        "version" : "3.0.3"
       }
     },
     {
@@ -95,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gonzalezreal/swift-markdown-ui",
       "state" : {
-        "revision" : "ae799d015a5374708f7b4c85f3294c05f2a564e2",
-        "version" : "2.3.0"
+        "revision" : "12b351a75201a8124c2f2e1f9fc6ef5cd812c0b9",
+        "version" : "2.1.0"
       }
     }
   ],

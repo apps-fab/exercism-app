@@ -13,11 +13,11 @@ extension Solution: Identifiable {
 }
 
 enum ExerciseCategory: String, CaseIterable, Identifiable {
-    case AllExercises
+    case AllExercises = "All Exercises"
     case Completed
-    case InProgress
+    case InProgress = "In Progress"
     case Available
-    case locked
+    case Locked
     
     var id: Self { return self }
 }
@@ -155,7 +155,7 @@ struct ExercisesList: View {
             return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
         case .Available:
             return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .locked:
+        case .Locked:
             return exercises.filter { !$0.isUnlocked }
         }
     }

@@ -14,7 +14,8 @@ struct ExerciseEditorWindowView: View {
     
     let solution: Solution?
     var canMarkAsComplete: Bool {
-        solution?.status == .iterated
+        true
+//        solution?.status == .iterated
     }
 
     @State var asyncModel: AsyncModel<[ExerciseFile]>

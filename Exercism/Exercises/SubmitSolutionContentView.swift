@@ -20,7 +20,8 @@ enum SolutionShareOption: String, CaseIterable {
 
 struct SubmitSolutionContentView: View {
     @SwiftUI.Environment(\.dismiss) var dismiss
-    
+    @EnvironmentObject private var navigationModel: NavigationModel
+
     @StateObject var viewModel = ExerciseViewModel.shared
 
     @State private var shareOption = SolutionShareOption.share
@@ -127,7 +128,7 @@ struct SubmitSolutionContentView: View {
             .buttonStyle(.plain)
             
             Button {
-                _Concurrency.Task {
+                Task {
                    await completeExercise()
                 }
             } label: {
@@ -144,13 +145,18 @@ struct SubmitSolutionContentView: View {
     }
     
     private func completeExercise() async  {
-        guard let solution = viewModel.solutionToSubmit else { return }
-        let shouldPublish = shareOption == .share
-        let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
+//        guard let solution = viewModel.solutionToSubmit else { return }
+//        let shouldPublish = shareOption == .share
+//        let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
+//        
+//        let isCompleted = await viewModel.completeExercise(solutionId: solution.uuid,
+//                                         publish: shouldPublish,
+//                                         iterationIdx: iterationIdx)
+//        if isCompleted {
+        viewModel.solutionToSubmit = nil
+//            navigationModel.goBack()
+//        }
         
-        await viewModel.completeExercise(solutionId: solution.uuid,
-                                         publish: shouldPublish,
-                                         iterationIdx: iterationIdx)
     }
 }
 
