@@ -11,6 +11,8 @@ import ExercismSwift
 enum ExerciseModelResponse: Equatable {
     case solutionPassed, wrongSolution, runFailed, errorSubmitting, errorRunningTest, idle
     case duplicateSubmission(message: String)
+    case solutionPublished
+    case solutionNotPublished
 
     var description: String {
         switch self {
@@ -28,10 +30,13 @@ enum ExerciseModelResponse: Equatable {
             return ""
         case .duplicateSubmission(let message):
             return message
+        case .solutionPublished:
+            return Strings.solutionPublished.localized()
+        case .solutionNotPublished:
+            return Strings.solutionNotPublished.localized()
         }
     }
 }
-
 
 enum SelectedTab: Int, Tabbable {
     case Instruction = 0
@@ -86,12 +91,16 @@ final class ExerciseViewModel: ObservableObject {
     @Published var exerciseItem: ExerciseItem? = nil
     @Published var testSubmissionResponseMessage: Bool = false
     @Published var showTestSubmissionResponseMessage = false
+    @Published var solutionToSubmit: Solution?
     @Published var title = ""
     @Published var operationStatus = ExerciseModelResponse.idle {
         didSet {
             showTestSubmissionResponseMessage = operationStatus != .idle
         }
     }
+    
+    @Published var alertItem = AlertItem()
+    
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     static let shared = ExerciseViewModel()
@@ -108,10 +117,33 @@ final class ExerciseViewModel: ObservableObject {
         if let instructionURL = exerciseDoc!.instructions {
             instruction = try getInstruction(instructionURL)
         }
-        let exercises =  getLocalExercise(track, exercise, exerciseDoc!)
+        let exercises = getLocalExercise(track, exercise, exerciseDoc!)
         selectedFile = exercises.first
         selectFile(selectedFile)
         return exercises
+    }
+    
+    @Published var currentSolutionIterations: [Iteration] = []
+    
+    var sortedIterations: [Iteration] {
+        currentSolutionIterations.sorted { $0.idx > $1.idx }
+    }
+    
+    func getIterations(for solution: Solution) async {
+        do {
+            currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
+        } catch {
+            if case let ExercismClientError.apiError(_, _, message) = error {
+                self.alertItem.showMessage(message)
+            } else {
+                self.alertItem.showError(error)
+            }
+        }
+    }
+    
+    // Pre-select the most recent iteration
+    func getDefaultIterationIdx() -> Int {
+        currentSolutionIterations.last?.idx ?? 1
     }
 
     private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
@@ -152,6 +184,24 @@ final class ExerciseViewModel: ObservableObject {
             }
         } catch {
             operationStatus = .runFailed
+        }
+    }
+    
+    func setSolutionToSubmit(_ solution: Solution?) {
+        solutionToSubmit = solution
+    }
+    
+    func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution  {
+        do {
+            let result = try await fetcher.completeSolution(solutionId,
+                                                            publish: publish,
+                                                            iterationIdx: iterationIdx)
+            solutionToSubmit = nil
+            operationStatus = .solutionPublished
+            return result
+        } catch {
+            operationStatus = .solutionNotPublished
+            throw error
         }
     }
 

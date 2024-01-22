@@ -8,12 +8,16 @@
 import SwiftUI
 import ExercismSwift
 
-enum ExerciseCategory : String, CaseIterable, Identifiable {
-    case AllExercises
+extension Solution: Identifiable {
+    public var id: String { self.uuid }
+}
+
+enum ExerciseCategory: String, CaseIterable, Identifiable {
+    case AllExercises = "All Exercises"
     case Completed
-    case InProgress
+    case InProgress = "In Progress"
     case Available
-    case locked
+    case Locked
     
     var id: Self { return self }
 }
@@ -24,28 +28,38 @@ struct ExercisesList: View {
     @State private var searchText = ""
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
+    
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
-    
+        
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
     
+   
     var body: some View {
         AsyncResultView(source: asyncModel) { exercises in
             exerciseListView(exercises)
-        }.onChange(of: searchText) { newValue in
+        }
+        .onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
-        }.onChange(of: exerciseCategory) { newValue in
-            // implement this
-        }.task {
-            let solutionsList = try! await TrackModel.shared.getSolutions(track) // we need to handle this error
-            self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
-        }.onAppear {
+        }
+        .task {
+            do {
+                let solutionsList = try await TrackModel.shared.getSolutions(track)
+
+                self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+            } catch {
+                print("Unable to get the solutions", error)
+            }
+        }
+        .onAppear {
             fieldFocused = false
-        }.toolbar {
+        }
+        .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(track.slug.uppercased()).font(.headline)
+                Text(track.slug.uppercased())
+                    .font(.headline)
             }
 
             ToolbarItem(placement: .navigation) {
@@ -85,16 +99,21 @@ struct ExercisesList: View {
                         }
                     }
                 }.padding()
-            }.padding()
-                .background(Color.darkBackground)
+            }
+            .padding()
+            .background(Color.darkBackground)
+            
             Divider().frame(height: 2)
+            
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(filteredExercises, id: \.self) { exercise in
+                        let solution = getSolution(for: exercise)                  
+                        
                         Button {
-                            navigationModel.goToEditor(track.slug, exercise)
+                            navigationModel.goToEditor(track.slug, exercise, solution: solution)
                         } label: {
-                            ExerciseGridView(exercise: exercise, solution: getSolution(for: exercise))
+                            ExerciseGridView(exercise: exercise, solution: solution)
                         }.buttonStyle(.plain)
                     }
                 }.if(filteredExercises.isEmpty) { _ in
@@ -105,7 +124,8 @@ struct ExercisesList: View {
             }
         }
     }
-    
+       
+        
     func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
     }
@@ -132,7 +152,7 @@ struct ExercisesList: View {
             return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
         case .Available:
             return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .locked:
+        case .Locked:
             return exercises.filter { !$0.isUnlocked }
         }
     }

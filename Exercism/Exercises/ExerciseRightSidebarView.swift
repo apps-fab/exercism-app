@@ -15,6 +15,8 @@ struct ExerciseRightSidebarView: View {
     @EnvironmentObject var settingData: SettingData
     @SwiftUI.Environment(\.colorScheme) private var colorScheme
     
+    var onMarkAsComplete: (() -> Void)?
+    
     var instruction: String? {
         viewModel.instruction
     }
@@ -36,9 +38,29 @@ struct ExerciseRightSidebarView: View {
         
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
-                // Todo(savekirk): Use system colorScheme
-                Instruction(instruction: instruction, theme: theme, language: language)
-                    .tabItem(for: SelectedTab.Instruction)
+                let markdownTheme = Theme.gitHub
+                // TODO: @savekirk: Use system colorScheme
+                VStack(spacing: 0) {
+                    InstructionView(instruction: instruction, 
+                                    theme: theme,
+                                    language: language,
+                                    markdownTheme: markdownTheme)
+                    
+                    if let onMarkAsComplete {
+                        Button(action: onMarkAsComplete) {
+                            Label("Mark as complete", systemImage: "checkmark.seal")
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 45)
+                                .background(Color.exercismPurple, in: RoundedRectangle(cornerRadius: 15))
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.vertical, 10)
+                    }
+                }
+                .padding(.horizontal)
+                .background(markdownTheme.textBackgroundColor)
+                .tabItem(for: SelectedTab.Instruction)
+
             }
             VStack(alignment: HorizontalAlignment.leading) {
                 if let averageTestDuration = viewModel.averageTestDuration {
@@ -62,20 +84,18 @@ struct ExerciseRightSidebarView: View {
         }
     }
 
-    struct Instruction: View {
+    struct InstructionView: View {
         let instruction: String
         let theme: Splash.Theme
         let language: String
-        let markdownTheme = Theme.gitHub
-
+        let markdownTheme: MarkdownUI.Theme
+        
         var body: some View {
             ScrollView {
-                    Markdown(instruction)
-                    .markdownTheme(.gitHub)
+                Markdown(instruction)
+                    .markdownTheme(markdownTheme)
                     .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
             }
-            .padding()
-            .background(markdownTheme.textBackgroundColor)
         }
         
     }
@@ -106,19 +126,19 @@ struct ExerciseRightSidebarView: View {
     struct TestRunProgress: View {
         let totalSecs: Double
         @State private var progress = 0.0
-        let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+        private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
         
         var body: some View {
             VStack {
                 ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
+                    .tint(.exercismPurple)
                     .padding()
                     .onReceive(timer) { _ in
                         if progress < 100 {
-                            print("This is the progress: \(progress)")
                             progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
                         }
                     }
-                Text(String(format: Strings.estimatedTime.localized(), totalSecs))
+                Text(String(format: Strings.estimatedTime.localized(), Int(totalSecs)))
             }
         }
     }
@@ -126,7 +146,11 @@ struct ExerciseRightSidebarView: View {
 
 struct ExerciseRightSidebarView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseRightSidebarView.Instruction(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift")
+        Group {
+            ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
+            
+            ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
+        }
     }
 }
 

@@ -14,6 +14,10 @@
 		8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */; };
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
+		CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */; };
+		CB4F3C142B5EEB2300829CCD /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4F3C132B5EEB2300829CCD /* AlertModel.swift */; };
+		CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB6F94932B4C27A1002F8A2C /* ExercismSwift */; };
+		CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB8681232B51751F0059AB65 /* ExercismSwift */; };
 		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
@@ -23,7 +27,6 @@
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
 		E0C9673728732A45004CE7E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */; };
-		E0F6E9BC298E94200079CC28 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0F6E9BB298E94200079CC28 /* ExercismSwift */; };
 		E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */; };
 		FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */; };
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
@@ -79,6 +82,8 @@
 		8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashCodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
+		CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSolutionContentView.swift; sourceTree = "<group>"; };
+		CB4F3C132B5EEB2300829CCD /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
@@ -88,7 +93,6 @@
 		E0C9673328732A45004CE7E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E0C9673828732A45004CE7E6 /* Exercism.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Exercism.entitlements; sourceTree = "<group>"; };
-		E0C9673F28732C49004CE7E6 /* ExercismSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ExercismSwift; path = ../../ExercismSwift; sourceTree = "<group>"; };
 		E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunResultView.swift; sourceTree = "<group>"; };
 		FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismCommands.swift; sourceTree = "<group>"; };
 		FD0B06F028F592E000FCA956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -136,11 +140,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0F6E9BC298E94200079CC28 /* ExercismSwift in Frameworks */,
+				CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */,
 				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
+				CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */,
 				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
@@ -173,6 +178,7 @@
 				8480FC607C091F61494EC6B1 /* TestGroup.swift */,
 				E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */,
 				FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */,
+				CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -209,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				CB9DFA7D2AF97A060093566C /* Authentication */,
-				E0C9673F28732C49004CE7E6 /* ExercismSwift */,
 				FDC8C07929C495E70079D5F3 /* Models */,
 				FDC8C07829C495AB0079D5F3 /* Common */,
 				E0C9673528732A45004CE7E6 /* Preview Content */,
@@ -303,6 +308,7 @@
 				8480F02086E415F1B9F5DFD5 /* SettingData.swift */,
 				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
 				FD73E10E29C451E8001B59D3 /* Fetcher.swift */,
+				CB4F3C132B5EEB2300829CCD /* AlertModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -351,11 +357,12 @@
 				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
 				FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */,
 				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
-				E0F6E9BB298E94200079CC28 /* ExercismSwift */,
 				E07F6B0629E0D04D00E5C42A /* MarkdownUI */,
 				E07F6B0929E0D5DA00E5C42A /* Splash */,
 				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
 				FD92DC642A854EAC00673445 /* Settings */,
+				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
+				CB8681232B51751F0059AB65 /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -390,11 +397,11 @@
 				FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
+				CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -461,6 +468,7 @@
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
 				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
 				FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */,
+				CB4F3C142B5EEB2300829CCD /* AlertModel.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */,
@@ -474,6 +482,7 @@
 				FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */,
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
 				FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */,
+				CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */,
 				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
 				8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */,
 				FD60950B29CC598000944379 /* SideBar.swift in Sources */,
@@ -635,7 +644,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = S82GZQ59NS;
+				DEVELOPMENT_TEAM = 6V9B6LUW22;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -670,7 +679,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Exercism/Preview Content\"";
-				DEVELOPMENT_TEAM = S82GZQ59NS;
+				DEVELOPMENT_TEAM = 6V9B6LUW22;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -715,6 +724,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
@@ -737,14 +754,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
-			requirement = {
-				branch = main;
-				kind = branch;
 			};
 		};
 		FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */ = {
@@ -790,6 +799,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB6F94932B4C27A1002F8A2C /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		CB8681232B51751F0059AB65 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
+			productName = ExercismSwift;
+		};
 		E07F6B0629E0D04D00E5C42A /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
@@ -804,11 +822,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
-		};
-		E0F6E9BB298E94200079CC28 /* ExercismSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
-			productName = ExercismSwift;
 		};
 		FD92DC642A854EAC00673445 /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;

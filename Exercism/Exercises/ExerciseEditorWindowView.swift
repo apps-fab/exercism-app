@@ -11,20 +11,30 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
     @State private var showSubmissionTooltip = false
+    
+    let solution: Solution?
+    var canMarkAsComplete: Bool {
+        solution?.status == .iterated || solution?.status == .published
+    }
+
     @State var asyncModel: AsyncModel<[ExerciseFile]>
     @EnvironmentObject private var navigationModel: NavigationModel
 
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in
             NavigationSplitView {
-                ExerciseRightSidebarView()
+                ExerciseRightSidebarView(
+                    onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution) } : nil 
+                )
+                
             } detail: {
                 CustomTabView(selectedItem: $viewModel.selectedFile) {
                     ForEach(docs) { file in
                         ExerciseEditorView().tabItem(for: file)
                     }
                 }
-            }.toolbar {
+            }
+            .toolbar {
                 ToolbarItem {
                     Spacer()
                 }
@@ -64,13 +74,22 @@ struct ExerciseEditorWindowView: View {
                     }
                 }
             }
-        }.navigationTitle(viewModel.title)
+        }
+        .navigationTitle(viewModel.title)
+        .sheet(item: $viewModel.solutionToSubmit) { solution in
+            SubmitSolutionContentView()
+        }
+        .task {
+            guard let solution else { return }
+            await viewModel.getIterations(for: solution)
+        }
     }
-
 }
 
-//struct ExerciseEditorWindowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExerciseEditorWindowView(exercise: "Rust", track: "Hello-world").environmentObject(SettingData())
-//    }
-//}
+struct ExerciseEditorWindowView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExerciseEditorWindowView(solution: nil, asyncModel: AsyncModel(operation: {
+            PreviewData.shared.getExerciseFile()
+        }))
+    }
+}

@@ -44,4 +44,5 @@ extension Image {
     static let checklist = Image(systemName: "checklist")
     static let textBadgeChecklist =  Image(systemName: "text.badge.checkmark")
     static let gear = Image(systemName: "doc.badge.gearshape")
+    static let terminal = Image(systemName: "terminal")
 }
