@@ -131,7 +131,7 @@ final class ExerciseViewModel: ObservableObject {
     
     func getIterations(for solution: Solution) async {
         do {
-            currentSolutionIterations = try await fetcher.getIterations("solution.uuid")
+            currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
         } catch {
             if case let ExercismClientError.apiError(_, _, message) = error {
                 self.alertItem.showMessage(message)

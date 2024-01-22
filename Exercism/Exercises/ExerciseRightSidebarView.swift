@@ -15,8 +15,7 @@ struct ExerciseRightSidebarView: View {
     @EnvironmentObject var settingData: SettingData
     @SwiftUI.Environment(\.colorScheme) private var colorScheme
     
-    let canMarkAsComplete: Bool
-    var onMarkAsComplete: () -> Void
+    var onMarkAsComplete: (() -> Void)?
     
     var instruction: String? {
         viewModel.instruction
@@ -47,7 +46,7 @@ struct ExerciseRightSidebarView: View {
                                     language: language,
                                     markdownTheme: markdownTheme)
                     
-                    if canMarkAsComplete {
+                    if let onMarkAsComplete {
                         Button(action: onMarkAsComplete) {
                             Label("Mark as complete", systemImage: "checkmark.seal")
                                 .frame(maxWidth: .infinity)

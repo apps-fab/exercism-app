@@ -24,13 +24,9 @@ struct ExerciseEditorWindowView: View {
         AsyncResultView(source: asyncModel) { docs in
             NavigationSplitView {
                 ExerciseRightSidebarView(
-                    canMarkAsComplete: canMarkAsComplete,
-                    onMarkAsComplete: {
-                        if (canMarkAsComplete) {
-                            viewModel.setSolutionToSubmit(solution)
-                        }
-                    }
+                    onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution) } : nil 
                 )
+                
             } detail: {
                 CustomTabView(selectedItem: $viewModel.selectedFile) {
                     ForEach(docs) { file in
