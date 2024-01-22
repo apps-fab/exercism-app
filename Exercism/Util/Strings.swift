@@ -49,10 +49,13 @@ enum Strings: String {
     case codeRun = "Code Run"
     case passed = "Passed"
     case failed = "Failed"
+    case alert = "Alert"
     case exerciseNumber = "%d/%d exercises"
     case signOut = "Sign out"
     case noResults = "No results found"
     case resetFilters = "Reset search and filters"
+    case publishCodeTitle = "Publish your code and share\nyour knowledge"
+    case publishCodeSubtitle = "By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
 
     // Login
     case introTitle = "Exercism is free for all people, everywhere."

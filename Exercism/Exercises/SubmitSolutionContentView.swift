@@ -33,19 +33,19 @@ struct SubmitSolutionContentView: View {
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
-                Image(systemName: "terminal")
+                Image.terminal
                     .resizable()
                     .padding(5)
                     .scaledToFit()
                     .frame(width: 50, height: 40, alignment: .leading)
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Publish your code and share\nyour knowledge")
+                    Text(Strings.publishCodeTitle.localized())
                         .multilineTextAlignment(.leading)
                         .font(.largeTitle.bold())
                         .minimumScaleFactor(0.8)
                     
-                    Text("By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time.")
+                    Text(Strings.publishCodeSubtitle.localized())
                         .multilineTextAlignment(.leading)
                         .padding(.vertical, 5)
                 }
@@ -173,13 +173,10 @@ struct SubmitSolutionContentView: View {
             
         } catch {
             isSubmitting = false
-            print("Unable to complete exercise:", error)
-        }
-        
+        }        
     }
 }
 
 #Preview {
     SubmitSolutionContentView()
-//        .preferredColorScheme(.dark)
 }

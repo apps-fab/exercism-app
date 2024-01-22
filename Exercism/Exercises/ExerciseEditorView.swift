@@ -64,6 +64,12 @@ struct ExerciseEditorView: View {
         } message: {
             Text(exerciseViewModel.operationStatus.description)
         }
+        .alert(exerciseViewModel.alertItem.title, isPresented: $exerciseViewModel.alertItem.isPresented) {
+            Button(Strings.ok.localized(), role: .cancel) {
+            }
+        } message: {
+            Text(exerciseViewModel.alertItem.message)
+        }
     }
 }
 

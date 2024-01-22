@@ -64,9 +64,6 @@
         }
       }
     },
-    "By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time." : {
-
-    },
     "close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -538,8 +535,27 @@
         }
       }
     },
-    "Publish your code and share\nyour knowledge" : {
-
+    "publishCodeSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By publishing your code, you'll help others learn from your work.\\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
+          }
+        }
+      }
+    },
+    "publishCodeTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish your code and share\\nyour knowledge"
+          }
+        }
+      }
     },
     "resetFilters" : {
       "extractionState" : "manual",

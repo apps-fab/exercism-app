@@ -83,7 +83,6 @@ struct ExerciseEditorWindowView: View {
         .sheet(item: $viewModel.solutionToSubmit) { solution in
             SubmitSolutionContentView()
         }
-        
         .task {
             guard let solution else { return }
             await viewModel.getIterations(for: solution)

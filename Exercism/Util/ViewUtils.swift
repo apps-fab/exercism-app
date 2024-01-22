@@ -22,7 +22,7 @@ extension View {
     func roundEdges(backgroundColor: some View = Color.clear, lineColor: Color = .gray, cornerRadius: CGFloat = 20) -> some View {
         modifier(RoundedRect(radius: cornerRadius,
                              borderColor: lineColor,
-                             backgroundColor: backgroundColor))
+                             backgroundView: backgroundColor))
     }
     
     func tooltip(_ tip: String) -> some View {

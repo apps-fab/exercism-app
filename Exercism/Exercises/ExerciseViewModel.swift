@@ -38,7 +38,6 @@ enum ExerciseModelResponse: Equatable {
     }
 }
 
-
 enum SelectedTab: Int, Tabbable {
     case Instruction = 0
     case Result
@@ -99,6 +98,9 @@ final class ExerciseViewModel: ObservableObject {
             showTestSubmissionResponseMessage = operationStatus != .idle
         }
     }
+    
+    @Published var alertItem = AlertItem()
+    
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     static let shared = ExerciseViewModel()
@@ -129,9 +131,13 @@ final class ExerciseViewModel: ObservableObject {
     
     func getIterations(for solution: Solution) async {
         do {
-            currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
+            currentSolutionIterations = try await fetcher.getIterations("solution.uuid")
         } catch {
-            print("Error getting iterations:", error)
+            if case let ExercismClientError.apiError(_, _, message) = error {
+                self.alertItem.showMessage(message)
+            } else {
+                self.alertItem.showError(error)
+            }
         }
     }
     
