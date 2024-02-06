@@ -13,8 +13,8 @@ import Splash
 struct ExerciseRightSidebarView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
     @EnvironmentObject var settingData: SettingData
-    @SwiftUI.Environment(\.colorScheme) private var colorScheme
-    
+    @Environment(\.colorScheme) private var colorScheme
+
     var onMarkAsComplete: (() -> Void)?
     
     var instruction: String? {
