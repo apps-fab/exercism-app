@@ -103,10 +103,8 @@ struct ExerciseEditorWindowView: View {
     }
 }
 
-struct ExerciseEditorWindowView_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
         ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
             PreviewData.shared.getExerciseFile()
         }), solution: nil)
-    }
 }

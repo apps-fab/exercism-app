@@ -72,8 +72,6 @@ struct ExerciseEditorView: View {
     }
 }
 
-struct ExerciseEditorView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseEditorView()
-    }
+#Preview {
+    ExerciseEditorView()
 }

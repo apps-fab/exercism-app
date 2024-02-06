@@ -162,8 +162,6 @@ struct ExercisesList: View {
     }
 }
 
-struct ExercisesList_Previews: PreviewProvider {
-    static var previews: some View {
-        ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
-    }
+#Preview {
+    ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
 }

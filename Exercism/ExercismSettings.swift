@@ -45,8 +45,6 @@ struct ExercismSettings: View {
     }
 }
 
-struct ExercismSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        ExercismSettings().environmentObject(SettingData())
-    }
+#Preview {
+    ExercismSettings().environmentObject(SettingData())
 }

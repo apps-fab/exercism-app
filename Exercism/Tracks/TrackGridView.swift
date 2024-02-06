@@ -115,13 +115,6 @@ struct TrackGridView: View {
     }
 }
 
-//struct TrackGridView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let token = ExercismKeychain.shared.get(for: Keys.token.rawValue)
-//        let client = ExercismClient(apiToken: token!)
-//        let fetcher = Fetcher(client: client)
-//        let modelData = TrackModel(fetcher: fetcher)
-//        TrackGridView(track: modelData.tracks[0])
-//            .environmentObject(modelData)
-//    }
-//}
+#Preview {
+    TrackGridView(track: PreviewData.shared.getTrack()[0], isHover: true)
+}

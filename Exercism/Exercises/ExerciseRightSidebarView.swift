@@ -143,13 +143,11 @@ struct ExerciseRightSidebarView: View {
     }
 }
 
-struct ExerciseRightSidebarView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
-            
-            ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
-        }
+#Preview {
+    Group {
+        ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
+
+        ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
     }
 }
 

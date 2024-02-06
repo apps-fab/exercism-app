@@ -70,8 +70,6 @@ struct FilterTableView: View {
     }
 }
 
-struct FilterTableView_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterTableView(selectedTags: .constant(["Functional"]), isPresented: .constant(false))
-    }
+#Preview {
+    FilterTableView(selectedTags: .constant(["Functional"]), isPresented: .constant(false))
 }
