@@ -28,9 +28,9 @@ struct ExercisesList: View {
     @State private var searchText = ""
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
-
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
+    @State private var alertItem = AlertItem()
 
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
@@ -47,10 +47,9 @@ struct ExercisesList: View {
         .task {
             do {
                 let solutionsList = try await TrackModel.shared.getSolutions(track)
-
                 self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
             } catch {
-                print("Unable to get the solutions", error)
+               alertItem = AlertItem(title: "Error",  message: error.localizedDescription)
             }
         }
         .onAppear {
@@ -69,6 +68,11 @@ struct ExercisesList: View {
                     Label("", systemImage: "chevron.backward")
                 }
             }
+        }.alert(alertItem.title, isPresented: $alertItem.isPresented) {
+            Button(Strings.ok.localized(), role: .cancel) {
+            }
+        } message: {
+            Text(alertItem.message)
         }
     }
 

@@ -19,10 +19,10 @@ enum SolutionShareOption: String, CaseIterable {
 }
 
 struct SubmitSolutionContentView: View {
-    @SwiftUI.Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var navigationModel: NavigationModel
 
-    @StateObject var viewModel = ExerciseViewModel.shared
+    @StateObject private var viewModel = ExerciseViewModel.shared
 
     @State private var shareOption = SolutionShareOption.share
     @State private var shareIterationsOptions = SolutionShareOption.Iteration.all

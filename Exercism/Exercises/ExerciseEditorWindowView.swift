@@ -28,16 +28,16 @@ extension ExercismClientError {
 }
 
 struct ExerciseEditorWindowView: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject var viewModel = ExerciseViewModel.shared
     @State private var showSubmissionTooltip = false
+    @State var asyncModel: AsyncModel<[ExerciseFile]>
 
     let solution: Solution?
     var canMarkAsComplete: Bool {
         solution?.status == .iterated || solution?.status == .published
     }
 
-    @State var asyncModel: AsyncModel<[ExerciseFile]>
-    @EnvironmentObject private var navigationModel: NavigationModel
 
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in
@@ -80,21 +80,19 @@ struct ExerciseEditorWindowView: View {
                     .onTapGesture {
                         if !viewModel.canSubmitSolution {
                             showSubmissionTooltip = true
-                            print("showSubmissionTooltip: \(showSubmissionTooltip)")
                         }
                     }
-                    .help("You need to run the tests before submitting.")
+                    .help(Strings.runTestsError.localized())
                 }
                 ToolbarItem(placement: .navigation) {
                     Button {
                         navigationModel.goBack()
                     } label: {
-                        Label("", systemImage: "chevron.backward")
+                        Image.chevronBack
                     }
                 }
             }
-        }
-        .navigationTitle(viewModel.title)
+        }.navigationTitle(viewModel.title)
         .sheet(item: $viewModel.solutionToSubmit) { solution in
             SubmitSolutionContentView()
         }
@@ -107,8 +105,8 @@ struct ExerciseEditorWindowView: View {
 
 struct ExerciseEditorWindowView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseEditorWindowView(solution: nil, asyncModel: AsyncModel(operation: {
+        ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
             PreviewData.shared.getExerciseFile()
-        }))
+        }), solution: nil)
     }
 }

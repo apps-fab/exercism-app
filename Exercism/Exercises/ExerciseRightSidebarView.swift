@@ -35,7 +35,6 @@ struct ExerciseRightSidebarView: View {
     }
     
     var body: some View {
-        
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
                 let markdownTheme = Theme.gitHub

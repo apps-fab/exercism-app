@@ -129,7 +129,7 @@ final class ExerciseViewModel: ObservableObject {
         return exercises
     }
 
-    private func getSelectedCode() -> String? {
+    func getSelectedCode() -> String? {
         do {
             guard let code = codes[selectedFile.id] else {
                 let code = try String(contentsOf: selectedFile.url, encoding: .utf8)
@@ -172,10 +172,9 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     // Pre-select the most recent iteration
-    private func getDefaultIterationIdx() -> Int {
+    func getDefaultIterationIdx() -> Int {
         currentSolutionIterations.last?.idx ?? 1
     }
-
 
     // MARK: - Submit Solution
 
@@ -290,14 +289,13 @@ final class ExerciseViewModel: ObservableObject {
         submissionLink != nil
     }
 
-    private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
+     private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
         if (testRun.status == .pass) {
             submissionLink = links.submit
         }
         self.testRun = testRun
     }
 
-    // can we make this throwing??
     @discardableResult
     func updateFile() -> Bool {
         if !selectedCode.isEmpty {
@@ -305,7 +303,8 @@ final class ExerciseViewModel: ObservableObject {
                 try selectedCode.write(to: selectedFile.url, atomically: false, encoding: .utf8)
                 return true
             } catch {
-                print("Error update \(selectedFile.id) with \(selectedCode)")
+                let message = "Error updating \(selectedFile.id) with \(selectedCode)"
+                self.alertItem.showMessage(message)
                 return false
             }
         }
