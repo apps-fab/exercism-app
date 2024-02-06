@@ -7,9 +7,6 @@
     "@AngieMugo" : {
 
     },
-    "%@" : {
-
-    },
     "%@ (%lld)" : {
       "localizations" : {
         "en" : {
@@ -29,6 +26,9 @@
           }
         }
       }
+    },
+    "%lld" : {
+
     },
     "About Exercism" : {
 
@@ -74,6 +74,9 @@
           }
         }
       }
+    },
+    "Close" : {
+
     },
     "codePractice" : {
       "extractionState" : "manual",
@@ -142,6 +145,9 @@
         }
       }
     },
+    "Confirm" : {
+
+    },
     "correctSolution" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -152,6 +158,9 @@
           }
         }
       }
+    },
+    "Enter your token" : {
+
     },
     "enterToken" : {
       "extractionState" : "manual",
@@ -255,9 +264,6 @@
         }
       }
     },
-    "Exercism Settings" : {
-
-    },
     "failed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -346,6 +352,9 @@
           }
         }
       }
+    },
+    "Iteration %lld" : {
+
     },
     "joined" : {
       "extractionState" : "manual",
@@ -457,6 +466,9 @@
         }
       }
     },
+    "Mark as complete" : {
+
+    },
     "new" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -523,8 +535,27 @@
         }
       }
     },
-    "Red" : {
-
+    "publishCodeSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By publishing your code, you'll help others learn from your work.\\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
+          }
+        }
+      }
+    },
+    "publishCodeTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish your code and share\\nyour knowledge"
+          }
+        }
+      }
     },
     "resetFilters" : {
       "extractionState" : "manual",
@@ -646,6 +677,9 @@
           }
         }
       }
+    },
+    "Select Solution Sharing Option" : {
+
     },
     "settingsText" : {
       "extractionState" : "manual",
@@ -849,6 +883,9 @@
         }
       }
     },
+    "Toggle Full Screen" : {
+
+    },
     "toggleInstructions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -883,6 +920,9 @@
       }
     },
     "You can find your token on your [settings page](https://exercism.org/settings/api_cli)" : {
+
+    },
+    "You need to run the tests before submitting." : {
 
     }
   },

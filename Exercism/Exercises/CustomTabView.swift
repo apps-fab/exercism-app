@@ -17,14 +17,14 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
     private var tabBarPosition: TabBarPosition
     private let content: Content
     @State private var items: [TabItem]
-
+    
     public init(selectedItem: Binding<TabItem>, tabBarPosition: TabBarPosition = .Top, @ViewBuilder content: () -> Content) {
         self.selectedItem = .init(selection: selectedItem)
         self.content = content()
         self.tabBarPosition = tabBarPosition
         self._items = .init(initialValue: .init())
     }
-
+    
     public var tabItems: some View {
         HStack(spacing: 0) {
             ForEach(self.items, id: \.self) { item in
@@ -32,23 +32,27 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
                     Image(systemName: item.icon)
                     Text(item.title)
                     Divider().frame(width: 2)
-                }.padding()
+                }
+                .padding(.leading)
                 .background(selectedItem.selection == item ? .blue : .clear)
-                    .onTapGesture {
-                        selectedItem.selection = item
-                        selectedItem.objectWillChange.send()
-                    }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedItem.selection = item
+                    selectedItem.objectWillChange.send()
+                }
             }
             Spacer()
         }.frame(maxHeight: 50.0)
             .frame(maxWidth: .infinity)
-
+        
     }
-
+    
     public var body: some View {
         Group {
             if tabBarPosition == .Top {
                 VStack(spacing: 0) {
+                    Spacer()
+                    Divider().frame(height: 2)
                     tabItems
                     Divider().frame(height: 2)
                     ZStack {
@@ -70,6 +74,5 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
             items = value
         }
     }
-
+    
 }
-

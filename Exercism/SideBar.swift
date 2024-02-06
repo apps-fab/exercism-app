@@ -52,19 +52,8 @@ struct SideBar: View {
                             .buttonStyle(.plain)
                     }
                 }.listStyle(.plain)
-                Spacer()
-                HStack {
-                    Image.profile
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                    VStack {
-                        Text("Angie Mugo")
-                        Text("@AngieMugo")
-                    }
-                    Spacer()
-                    Image.logout.padding()
-                }.padding([.leading, .top])
-                Divider().padding()
+                Divider()
+
                 Button(Strings.signOut.localized()) {
                     logout()
                 }.buttonStyle(.plain)

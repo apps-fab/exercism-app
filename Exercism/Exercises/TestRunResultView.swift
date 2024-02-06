@@ -12,8 +12,8 @@ struct TestRunResultView: View {
     let testRun: TestRun
     let language: String
     let theme: Splash.Theme
-    
     let onSubmitTest: () -> Void
+    
     var body: some View {
         switch testRun.status {
         case .pass:
@@ -27,7 +27,6 @@ struct TestRunResultView: View {
                     TestGroupedByTaskList(testRun: testRun, language: language, theme: theme)
                 }
             }
-            
         default:
             TestRunSummaryHeader(testRun: testRun)
         }
@@ -36,20 +35,26 @@ struct TestRunResultView: View {
     struct TestPassed: View {
         let onSubmitTest: () -> Void
         var body: some View {
-            VStack {
-                Text(Strings.solvedExercise.localized()).bold()
+            VStack(spacing: 10) {
+                Text(Strings.solvedExercise.localized())
+                    .font(.headline)
+                    .bold()
                 Text(Strings.submitCode.localized())
-                Button(action: {
+                    .multilineTextAlignment(.center)
+                Button {
                     onSubmitTest()
-                }, label: { // 1
+                } label: {
                     Label{
                         Text(Strings.submit.localized())
                     } icon: {
                         Image.play
                     }
-                }).frame(height: 100)
-                .background(Color.exercismPurple)
+                    .padding(4)
+                    .roundEdges(backgroundColor: Color.exercismPurple)
+                }
+                .buttonStyle(.plain)
             }
+            .padding(.horizontal, 10)
         }
     }
     
@@ -79,7 +84,7 @@ struct TestRunResultView: View {
                     headerText = String(format: Strings.taskCompleted.localized(), taskRun, testRun.tasks.count)
                 } else {
                     if (testRun.version == 2 || testRun.version == 3) {
-                        // @Todo (Kirk - 5/02/23: Convert this to stringdict for proper localisation)
+                        // TODO: - (@Kirk - 5/02/23: Convert this to stringdict for proper localisation)
                         headerText = "\(String(describing: self.testRun.numFailedTest())) test \(testRun.numFailedTest() == 1 ? "failure" : "failures")"
                     } else {
                         headerText = Strings.testFailed.localized()
@@ -101,13 +106,14 @@ struct TestRunResultView: View {
                 Text(headerText)
             } icon: {
                 Image.circleFill
-            }.frame(maxWidth: .infinity)
-                .padding()
-                .background(testRun.status == .pass ? .green : .red.opacity(0.2))
-                .foregroundColor(testRun.status == .pass ? .green : .red)
-                .bold()
-                .textCase(.uppercase)
-                .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(testRun.status == .pass ? .green : .red.opacity(0.2))
+            .foregroundColor(testRun.status == .pass ? .green : .red)
+            .bold()
+            .textCase(.uppercase)
+            .multilineTextAlignment(.center)
         }
     }
     

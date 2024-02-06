@@ -11,11 +11,14 @@
 		8480F5457705DBACD7D3C2BB /* TestGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FC607C091F61494EC6B1 /* TestGroup.swift */; };
 		8480F81F9F5140CC9D27E0BD /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F02086E415F1B9F5DFD5 /* SettingData.swift */; };
 		8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F60001E12133BDACC877 /* ExerciseItem.swift */; };
-		8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */; };
 		8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */; };
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
-		E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
+		CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */; };
+		CB4F3C142B5EEB2300829CCD /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4F3C132B5EEB2300829CCD /* AlertModel.swift */; };
+		CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB6F94932B4C27A1002F8A2C /* ExercismSwift */; };
+		CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB8681232B51751F0059AB65 /* ExercismSwift */; };
+		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
 		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
@@ -24,7 +27,6 @@
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
 		E0C9673728732A45004CE7E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */; };
-		E0F6E9BC298E94200079CC28 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0F6E9BB298E94200079CC28 /* ExercismSwift */; };
 		E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */; };
 		FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */; };
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
@@ -32,10 +34,14 @@
 		FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD36807F29B1054E004D53C8 /* CustomPicker.swift */; };
-		FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedButton.swift */; };
+		FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F2B132AA750D300ADB248 /* ExercismButton.swift */; };
+		FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedView.swift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
-		FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* AppCoordinator.swift */; };
+		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
+		FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6467D42ADFD24700358E19 /* Metal.framework */; };
+		FD6FE8F22A95514E0043A89F /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
+		FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
 		FD79A4ED2A8CCF3900250711 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */; };
@@ -73,10 +79,12 @@
 		8480F2C5A207E6E66ADC6AAA /* TestRunExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRunExt.swift; sourceTree = "<group>"; };
 		8480F60001E12133BDACC877 /* ExerciseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseItem.swift; sourceTree = "<group>"; };
 		8480FA5128C6FD6ADC5F15ED /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
-		8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
 		8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashCodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
+		CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSolutionContentView.swift; sourceTree = "<group>"; };
+		CB4F3C132B5EEB2300829CCD /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
@@ -85,7 +93,6 @@
 		E0C9673328732A45004CE7E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E0C9673828732A45004CE7E6 /* Exercism.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Exercism.entitlements; sourceTree = "<group>"; };
-		E0C9673F28732C49004CE7E6 /* ExercismSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ExercismSwift; path = ../../ExercismSwift; sourceTree = "<group>"; };
 		E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunResultView.swift; sourceTree = "<group>"; };
 		FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismCommands.swift; sourceTree = "<group>"; };
 		FD0B06F028F592E000FCA956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,10 +100,15 @@
 		FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismSettings.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD36807F29B1054E004D53C8 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
-		FD4A77642987E18E00E29436 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		FD3EB7E72AE28BE9004F63CC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FD3EB7E92AE28C4B004F63CC /* Theme+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+GitHub.swift"; sourceTree = "<group>"; };
+		FD3F2B132AA750D300ADB248 /* ExercismButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismButton.swift; sourceTree = "<group>"; };
+		FD4A77642987E18E00E29436 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
-		FD60770C292E28D600A95E17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
+		FD60770C292E28D600A95E17 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
+		FD6467D42ADFD24700358E19 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
@@ -111,6 +123,7 @@
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
 		FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
+		FDB011B52AF8F6A700D29F77 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
@@ -127,10 +140,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0F6E9BC298E94200079CC28 /* ExercismSwift in Frameworks */,
+				CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */,
 				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
+				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
+				CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */,
 				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
@@ -159,20 +174,32 @@
 				E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */,
 				8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */,
 				8480F60001E12133BDACC877 /* ExerciseItem.swift */,
-				8480FA817ED8B79806C6C6AC /* ExerciseViewModel.swift */,
 				FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */,
 				8480FC607C091F61494EC6B1 /* TestGroup.swift */,
 				E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */,
+				FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */,
+				CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */,
 			);
 			path = Exercises;
+			sourceTree = "<group>";
+		};
+		CB9DFA7D2AF97A060093566C /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
+				CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		E0C9672328732A44004CE7E6 = {
 			isa = PBXGroup;
 			children = (
+				FDB011B52AF8F6A700D29F77 /* project.xcconfig */,
 				E0C9672E28732A44004CE7E6 /* Exercism */,
 				E0C9672D28732A44004CE7E6 /* Products */,
 				FD7DC52E29E0AEFB00A1EBD9 /* Recovered References */,
+				FD6467D32ADFD24700358E19 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,7 +214,7 @@
 		E0C9672E28732A44004CE7E6 /* Exercism */ = {
 			isa = PBXGroup;
 			children = (
-				E0C9673F28732C49004CE7E6 /* ExercismSwift */,
+				CB9DFA7D2AF97A060093566C /* Authentication */,
 				FDC8C07929C495E70079D5F3 /* Models */,
 				FDC8C07829C495AB0079D5F3 /* Common */,
 				E0C9673528732A45004CE7E6 /* Preview Content */,
@@ -214,6 +241,23 @@
 				E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FD3EB7E62AE28BDB004F63CC /* MarkDownUI */ = {
+			isa = PBXGroup;
+			children = (
+				FD3EB7E72AE28BE9004F63CC /* Theme.swift */,
+				FD3EB7E92AE28C4B004F63CC /* Theme+GitHub.swift */,
+			);
+			path = MarkDownUI;
+			sourceTree = "<group>";
+		};
+		FD6467D32ADFD24700358E19 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD6467D42ADFD24700358E19 /* Metal.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FD7DC52E29E0AEFB00A1EBD9 /* Recovered References */ = {
@@ -250,10 +294,10 @@
 			isa = PBXGroup;
 			children = (
 				FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */,
-				FDB6695D28E1B3320062FC2D /* LoginView.swift */,
 				FD7DC53129E0B03600A1EBD9 /* ColorExt.swift */,
 				FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */,
-				FD4A77642987E18E00E29436 /* RoundedButton.swift */,
+				FD4A77642987E18E00E29436 /* RoundedView.swift */,
+				FD3F2B132AA750D300ADB248 /* ExercismButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -264,6 +308,7 @@
 				8480F02086E415F1B9F5DFD5 /* SettingData.swift */,
 				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
 				FD73E10E29C451E8001B59D3 /* Fetcher.swift */,
+				CB4F3C132B5EEB2300829CCD /* AlertModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -271,6 +316,7 @@
 		FDC8C07A29C496160079D5F3 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FD3EB7E62AE28BDB004F63CC /* MarkDownUI */,
 				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
 				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
 				FDFF5A802A66C2E700E36AA4 /* Images.swift */,
@@ -282,7 +328,7 @@
 				FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */,
 				8480F0B036F1420E0B72C7BC /* ViewUtils.swift */,
 				FD0B06F028F592E000FCA956 /* AppDelegate.swift */,
-				FD60770C292E28D600A95E17 /* AppCoordinator.swift */,
+				FD60770C292E28D600A95E17 /* NavigationModel.swift */,
 				E0C9672F28732A44004CE7E6 /* ExercismApp.swift */,
 				FD73E10C29C3910E001B59D3 /* ContentView.swift */,
 			);
@@ -299,6 +345,7 @@
 				E0C9672828732A44004CE7E6 /* Sources */,
 				E0C9672928732A44004CE7E6 /* Frameworks */,
 				E0C9672A28732A44004CE7E6 /* Resources */,
+				FD51E4172B272BEA009810A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -310,11 +357,12 @@
 				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
 				FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */,
 				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
-				E0F6E9BB298E94200079CC28 /* ExercismSwift */,
 				E07F6B0629E0D04D00E5C42A /* MarkdownUI */,
 				E07F6B0929E0D5DA00E5C42A /* Splash */,
 				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
 				FD92DC642A854EAC00673445 /* Settings */,
+				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
+				CB8681232B51751F0059AB65 /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -328,7 +376,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					E0C9672B28732A44004CE7E6 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -349,11 +397,11 @@
 				FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
+				CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -379,30 +427,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FD51E4172B272BEA009810A6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nTAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E0C9672828732A44004CE7E6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E049F21A28E4D7B30022CECD /* ExerciseEditorView.swift in Sources */,
 				FD7DC53329E0B03600A1EBD9 /* ColorExt.swift in Sources */,
 				FDE4EBFC2A4B009C007ED19E /* EmptyStateView.swift in Sources */,
 				FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */,
+				FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */,
 				FDEF2CDB2A2870F500965E8C /* AsyncModel.swift in Sources */,
 				FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */,
-				FD60770D292E28D600A95E17 /* AppCoordinator.swift in Sources */,
+				CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */,
+				FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */,
 				FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */,
-				FD4A77662987EC9400E29436 /* RoundedButton.swift in Sources */,
+				FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */,
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
 				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
+				FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */,
+				CB4F3C142B5EEB2300829CCD /* AlertModel.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */,
 				FDDAEB5A29B6667300C6F938 /* TrackModel.swift in Sources */,
 				E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */,
+				FD6FE8F22A95514E0043A89F /* ExerciseEditorView.swift in Sources */,
 				E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 				FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */,
@@ -410,11 +482,11 @@
 				FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */,
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
 				FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */,
+				CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */,
 				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
 				8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */,
 				FD60950B29CC598000944379 /* SideBar.swift in Sources */,
 				FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */,
-				8480F9FD3914F01F80A4D8BC /* ExerciseViewModel.swift in Sources */,
 				FDFF5A812A66C2E700E36AA4 /* Images.swift in Sources */,
 				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,
 				FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */,
@@ -435,6 +507,7 @@
 /* Begin XCBuildConfiguration section */
 		E0C9673928732A45004CE7E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDB011B52AF8F6A700D29F77 /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -469,8 +542,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -498,6 +573,7 @@
 		};
 		E0C9673A28732A45004CE7E6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDB011B52AF8F6A700D29F77 /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -534,6 +610,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -555,11 +632,13 @@
 		};
 		E0C9673C28732A45004CE7E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDB011B52AF8F6A700D29F77 /* project.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Exercism/Exercism.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -588,11 +667,13 @@
 		};
 		E0C9673D28732A45004CE7E6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDB011B52AF8F6A700D29F77 /* project.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Exercism/Exercism.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -643,6 +724,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
@@ -665,14 +754,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apps-fab/ExercismSwift";
-			requirement = {
-				branch = main;
-				kind = branch;
 			};
 		};
 		FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */ = {
@@ -718,6 +799,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB6F94932B4C27A1002F8A2C /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		CB8681232B51751F0059AB65 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
+			productName = ExercismSwift;
+		};
 		E07F6B0629E0D04D00E5C42A /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
@@ -732,11 +822,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
-		};
-		E0F6E9BB298E94200079CC28 /* ExercismSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E0F6E9BA298E94200079CC28 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
-			productName = ExercismSwift;
 		};
 		FD92DC642A854EAC00673445 /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;

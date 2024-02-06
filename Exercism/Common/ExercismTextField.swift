@@ -9,21 +9,22 @@ import SwiftUI
 
 struct ExercismTextField: View {
     @Binding var text: String
-    var placeholder: Text
-    var editingChanged: (Bool)->() = { _ in }
-    var commit: ()->() = { }
-    
+    var placeholder: String
+    var onSubmit: ()->() = { }
+    @FocusState private var isFocused: Bool
+
     var body: some View {
-        ZStack(alignment: .leading) {
-            if text.isEmpty { placeholder }
-            TextField("",
-                      text: $text,
-                      onEditingChanged: editingChanged,
-                      onCommit: commit)
-        }.foregroundColor(.gray)
+        TextField(placeholder, text: $text)
+            .focused($isFocused)
+            .onSubmit {
+                onSubmit()
+            }.disableAutocorrection(true)
             .padding()
             .textFieldStyle(.plain)
             .accessibilityLabel(text)
+            .onTapGesture {
+                isFocused = true
+            }
     }
 }
 
@@ -31,5 +32,11 @@ extension NSTextField {
     open override var focusRingType: NSFocusRingType {
         get { .none }
         set {}
+    }
+}
+
+struct ExercismTextField_Previews: PreviewProvider {
+    static var previews: some View {
+        ExercismTextField(text: .constant("Angie"), placeholder: "Enter name")
     }
 }

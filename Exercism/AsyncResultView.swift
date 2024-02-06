@@ -23,9 +23,13 @@ struct AsyncResultView<Source: LoadableObject, Content: View>: View {
             case .idle:
                 EmptyView()
             case .loading:
+                Spacer()
                 ProgressView()
+                Spacer()
             case .failure(let error):
+                Spacer()
                 Text(error.localizedDescription)
+                Spacer()
             case .success(let output):
                 content(output)
             }

@@ -11,16 +11,9 @@ import Foundation
 @MainActor
 final class TrackModel: ObservableObject {
     private var unfilteredTracks = [Track]()
-    var unfilteredExercises = [Exercise]()
-    var groupedExercises = [ExerciseCategory: [Exercise]]()
-    private let fetcher: Fetcher
-    private var solutions = [String: Solution]()
-
+    private var unfilteredExercises = [Exercise]()
+    private let fetcher = Fetcher()
     static let shared = TrackModel()
-
-    init() {
-        self.fetcher = Fetcher()
-    }
 
     func getTracks() async throws -> [Track] {
         let fetchedTracks = try await fetcher.getTracks()
@@ -30,10 +23,7 @@ final class TrackModel: ObservableObject {
 
     func getExercises(_ track: Track) async throws -> [Exercise] {
         let fetchedExercises = try await fetcher.getExercises(track)
-        let solutions = try await getSolutions(track)
-        getGroupedSolutions(solutions)
         self.unfilteredExercises = fetchedExercises
-        groupExercise()
         return fetchedExercises
     }
 
@@ -57,41 +47,6 @@ final class TrackModel: ObservableObject {
     }
 
     func sortTracks() -> [Track] {
-        unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() < $1.lastTouchedAt ?? Date() })
-    }
-
-    /// Group exercises by category
-    /// - Parameter exercises:
-    /// - Returns: [ExerciseCategory: [Exercise]]
-    func filterExercise(by category: ExerciseCategory) -> [Exercise] {
-        let exercises = unfilteredExercises
-        switch category {
-        case .AllExercises:
-            return exercises
-        case .Completed:
-            return exercises.filter { getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published }
-        case .InProgress:
-            return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
-        case .Available:
-            return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .locked:
-            return exercises.filter { !$0.isUnlocked }
-        }
-    }
-
-    func groupExercise() {
-        var groupedExercises = [ExerciseCategory: [Exercise]]()
-        for category in ExerciseCategory.allCases {
-            groupedExercises[category] = filterExercise(by: category)
-        }
-        self.groupedExercises = groupedExercises
-    }
-
-    func getGroupedSolutions(_ solutionsList: [Solution]) {
-        self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
-    }
-
-    func getSolution(for exercise: Exercise) -> Solution? {
-        solutions[exercise.slug]
+        unfilteredTracks.sorted(by: { $0.lastTouchedAt ?? Date() > $1.lastTouchedAt ?? Date() })
     }
 }

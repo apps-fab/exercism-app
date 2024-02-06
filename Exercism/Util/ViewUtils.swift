@@ -22,7 +22,7 @@ extension View {
     func roundEdges(backgroundColor: some View = Color.clear, lineColor: Color = .gray, cornerRadius: CGFloat = 20) -> some View {
         modifier(RoundedRect(radius: cornerRadius,
                              borderColor: lineColor,
-                             backgroundColor: backgroundColor))
+                             backgroundView: backgroundColor))
     }
     
     func tooltip(_ tip: String) -> some View {
@@ -34,6 +34,16 @@ extension View {
             })
         }
     }
+
+    func placeholder(when shouldShow: Bool, alignment: Alignment = .leading, placeholderText: String) -> some View {
+        ZStack(alignment: alignment) {
+            Text(placeholderText)
+                .foregroundColor(.gray)
+                .opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+
     public func tabItem<TabItem: Tabbable>(for item: TabItem) -> some View {
         return self.modifier(TabBarViewModifier(item: item))
     }

@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "exercismswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apps-fab/ExercismSwift",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4b34014b65c833e128b0c9d82bd23b2b73a0a3c9"
+      }
+    },
+    {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/raspu/Highlightr",
@@ -24,7 +33,7 @@
       "location" : "https://github.com/evgenyneu/keychain-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "e43f9b99b172ae6a7253047f8ba95c7a0b05b99f"
+        "revision" : "6b6fc468877a5f01fe211fcf0af840b9ecce9d98"
       }
     },
     {
@@ -33,7 +42,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "6c6b951845a520fa7e8356e28adb5339c0f008d3"
+        "revision" : "59730af512c06fb569c119d737df4c1c499e001d"
       }
     },
     {
@@ -51,7 +60,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "61fefe9c284fd41ddef77d02749e88f00c305196"
+        "revision" : "79961a5ac3ea7a3253ff643291ff3c158777029c"
       }
     },
     {

@@ -40,7 +40,7 @@ enum Strings: String {
     case solvedExercise = "Sweet. Looks like you’ve solved the exercise!"
     case submitCode = "Good job! You can continue to improve your code or, if you're done, submit an iteration to  get automated feedback and optionally request mentoring."
     case errorDescription = " An error occurred while running your tests.%@ This might mean that there was an issue in Exercism infrastructure, or it might mean that you have something in your code that's causing our systems to break.%@ Please check your code, and if nothing seems to be wrong, try running the tests again."
-    case taskCompleted = "%@/%@ Tasks Completed"
+    case taskCompleted = "%d/%d Tasks Completed"
     case testFailed = "Tests Failed"
     case taskPass = "All tasks passed"
     case testsTimedOut = "Your tests timed out"
@@ -49,10 +49,13 @@ enum Strings: String {
     case codeRun = "Code Run"
     case passed = "Passed"
     case failed = "Failed"
+    case alert = "Alert"
     case exerciseNumber = "%d/%d exercises"
     case signOut = "Sign out"
     case noResults = "No results found"
     case resetFilters = "Reset search and filters"
+    case publishCodeTitle = "Publish your code and share\nyour knowledge"
+    case publishCodeSubtitle = "By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
 
     // Login
     case introTitle = "Exercism is free for all people, everywhere."
@@ -75,6 +78,8 @@ enum Strings: String {
     case ok = "OK"
     case correctSolution = "This solution correctly solves the latest version of this exercise."
     case wrongSolution = "This solution does not fully solve the latest version of this exercise"
+    case solutionPublished = "Your solution has been published successfully."
+    case solutionNotPublished = "Error publishing your solution. Try again later."
     case searchString = "Search by title"
 
     // Error strings
@@ -84,6 +89,7 @@ enum Strings: String {
     case testError = "Test Error"
     case errorSubmitting = "Error submitting solution. Try again."
     case runFailed = "Test run failed. Try again."
+    case tokenEmptyWarning = "API token cannot be empty"
 
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

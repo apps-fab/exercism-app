@@ -9,14 +9,14 @@ import SwiftUI
 import CodeEditor
 
 struct ExerciseEditorView: View {
-    @EnvironmentObject var exerciseObject: ExerciseViewModel
+    @State var exerciseViewModel = ExerciseViewModel.shared
     @EnvironmentObject var settingData: SettingData
 
     private var source: String {
-        exerciseObject.getSelectedCode() ?? Strings.noFile.localized()
+        exerciseViewModel.getSelectedCode() ?? Strings.noFile.localized()
     }
     private var language: CodeEditor.Language {
-        CodeEditor.Language.init(rawValue: exerciseObject.exercise?.language ?? Strings.text.localized())
+        CodeEditor.Language.init(rawValue: exerciseViewModel.language ?? "")
     }
     
     @State var codeChanged = false
@@ -28,23 +28,22 @@ struct ExerciseEditorView: View {
         VStack(spacing: 0) {
 #if os(macOS)
             CodeEditor(
-                source: $exerciseObject.selectedCode,
+                source: $exerciseViewModel.selectedCode,
                 language: language,
                 theme: settingData.theme,
                 fontSize: .init(get: { CGFloat(settingData.fontSize) },
                                 set: { settingData.fontSize = Double($0) }))
-            .onChange(of: exerciseObject.selectedCode) { code in
+            .onChange(of: exerciseViewModel.selectedCode) { code in
                 codeChanged = true
-                exerciseObject.updateCode(code)
+                exerciseViewModel.updateCode(code)
             }
             .onReceive(timer) { _ in
-                if codeChanged && exerciseObject.updateFile() {
+                if codeChanged && exerciseViewModel.updateFile() {
                     codeChanged = false
                 }
             }
 #else
             CodeEditor(source: source, language: language, theme: theme)
-
 #endif
             
             Divider()
@@ -59,11 +58,17 @@ struct ExerciseEditorView: View {
             }
             .padding()
         }
-        .alert(String(Strings.submissionAlert.localized()), isPresented: $exerciseObject.showTestSubmissionResponseMessage) {
+        .alert(String(Strings.submissionAlert.localized()), isPresented: $exerciseViewModel.showTestSubmissionResponseMessage) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
-            Text(exerciseObject.testSubmissionResponseMessage)
+            Text(exerciseViewModel.operationStatus.description)
+        }
+        .alert(exerciseViewModel.alertItem.title, isPresented: $exerciseViewModel.alertItem.isPresented) {
+            Button(Strings.ok.localized(), role: .cancel) {
+            }
+        } message: {
+            Text(exerciseViewModel.alertItem.message)
         }
     }
 }
