@@ -16,10 +16,8 @@ struct CustomPicker<Content: View, Selection: Identifiable>: View {
     }
 }
 
-struct CustomPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomPicker(selected: ExerciseCategory.AllExercises) {
-            Text("Some")
-        }
+#Preview {
+    CustomPicker(selected: ExerciseCategory.AllExercises) {
+        Text("Some")
     }
 }

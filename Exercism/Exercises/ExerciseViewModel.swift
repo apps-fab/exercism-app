@@ -74,7 +74,6 @@ extension ExerciseFile: Tabbable {
     var title: String {
         self.name
     }
-
 }
 
 // need to throw custom` errors
@@ -98,18 +97,25 @@ final class ExerciseViewModel: ObservableObject {
             showTestSubmissionResponseMessage = operationStatus != .idle
         }
     }
-    
+
     @Published var alertItem = AlertItem()
-    
+    @Published var currentSolutionIterations: [Iteration] = []
+
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     static let shared = ExerciseViewModel()
+
+    // MARK: - on Appear Operations
 
     var language: String? {
         guard let language = exerciseDoc?.solution.exercise.trackLanguage else {
             return nil
         }
         return language
+    }
+
+    var sortedIterations: [Iteration] {
+        currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
     func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
@@ -119,16 +125,40 @@ final class ExerciseViewModel: ObservableObject {
         }
         let exercises = getLocalExercise(track, exercise, exerciseDoc!)
         selectedFile = exercises.first
-        selectFile(selectedFile)
+        selectedCode = getSelectedCode() ?? ""
         return exercises
     }
-    
-    @Published var currentSolutionIterations: [Iteration] = []
-    
-    var sortedIterations: [Iteration] {
-        currentSolutionIterations.sorted { $0.idx > $1.idx }
+
+    func getSelectedCode() -> String? {
+        do {
+            guard let code = codes[selectedFile.id] else {
+                let code = try String(contentsOf: selectedFile.url, encoding: .utf8)
+                codes[selectedFile.id] = code
+                return nil
+            }
+            return code
+        } catch {
+            return nil
+        }
     }
-    
+
+    private func getInstruction(_ instructions: URL) throws -> String {
+        return try String(contentsOf: instructions, encoding: .utf8)
+    }
+
+    private func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
+        return try await fetcher.downloadSolutions(track, exercise)
+    }
+
+    private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+        let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
+        self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
+        self.title = "\(track)/ \(exercise)"
+        return solutionFiles
+    }
+
+    // MARK: - Iterations
+
     func getIterations(for solution: Solution) async {
         do {
             currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
@@ -140,36 +170,19 @@ final class ExerciseViewModel: ObservableObject {
             }
         }
     }
-    
+
     // Pre-select the most recent iteration
     func getDefaultIterationIdx() -> Int {
         currentSolutionIterations.last?.idx ?? 1
     }
 
-    private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
-        let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
-        self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
-        self.title = "\(track)/ \(exercise)"
-        return solutionFiles
-    }
-
-    private func getInstruction(_ instructions: URL) throws -> String {
-        return try String(contentsOf: instructions, encoding: .utf8)
-    }
-
-    private func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
-        return try await fetcher.downloadSolutions(track, exercise)
-    }
-
-    private func selectFile(_ file: ExerciseFile) {
-        selectedCode = getSelectedCode() ?? ""
-    }
+    // MARK: - Submit Solution
 
     func submitSolution() {
         if (!canSubmitSolution) {
             operationStatus = .errorRunningTest
         }
-       Task { await performSubmit() }
+        Task { await performSubmit() }
     }
 
     private func performSubmit() async {
@@ -186,11 +199,13 @@ final class ExerciseViewModel: ObservableObject {
             operationStatus = .runFailed
         }
     }
-    
+
     func setSolutionToSubmit(_ solution: Solution?) {
         solutionToSubmit = solution
     }
-    
+
+    // MARK: - Complete Exercise
+
     func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution  {
         do {
             let result = try await fetcher.completeSolution(solutionId,
@@ -205,21 +220,7 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
-        let result =  try await fetcher.getTestRun(submissionLink.testRun)
-
-        if let testRun = result.testRun {
-            averageTestDuration = nil
-            processTestRun(testRun: testRun, links: submissionLink)
-        } else {
-            self.averageTestDuration = Double(result.testRunner.averageTestDuration)
-            DispatchQueue.main.asyncAfter(deadline: .now() + (self.averageTestDuration ?? 5.0 )) {
-                Task {
-                    try await self.getTestRun(submissionLink)
-                }
-            }
-        }
-    }
+    // MARK: - Tests
 
     func runTest() {
         selectedTab = .Result
@@ -256,6 +257,19 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
+    private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
+        let result =  try await fetcher.getTestRun(submissionLink.testRun)
+
+        if let testRun = result.testRun {
+            averageTestDuration = nil
+            processTestRun(testRun: testRun, links: submissionLink)
+        } else {
+            self.averageTestDuration = Double(result.testRunner.averageTestDuration)
+            try await Task.sleep(nanoseconds: UInt64((self.averageTestDuration ?? 5.0) * 1_000_000_000))
+            try await self.getTestRun(submissionLink)
+        }
+    }
+
     private func performRunTest(_ solutionId: String, _ contents: [SolutionFileData]) async throws -> TestSubmission {
         return try await fetcher.runTest(solutionId, contents: contents)
     }
@@ -275,28 +289,13 @@ final class ExerciseViewModel: ObservableObject {
         submissionLink != nil
     }
 
-    func getSelectedCode() -> String? {
-        do {
-            guard let code = codes[selectedFile.id] else {
-                let code = try String(contentsOf: selectedFile.url, encoding: .utf8)
-                codes[selectedFile.id] = code
-                return nil
-            }
-            return code
-        } catch {
-            return nil
-        }
-    }
-
-
-    private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
+     private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
         if (testRun.status == .pass) {
             submissionLink = links.submit
         }
         self.testRun = testRun
     }
 
-    // can we make this throwing??
     @discardableResult
     func updateFile() -> Bool {
         if !selectedCode.isEmpty {
@@ -304,7 +303,8 @@ final class ExerciseViewModel: ObservableObject {
                 try selectedCode.write(to: selectedFile.url, atomically: false, encoding: .utf8)
                 return true
             } catch {
-                print("Error update \(selectedFile.id) with \(selectedCode)")
+                let message = "Error updating \(selectedFile.id) with \(selectedCode)"
+                self.alertItem.showMessage(message)
                 return false
             }
         }

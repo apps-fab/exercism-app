@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import ExercismSwift
 
 enum LoadingState<Value> {
     case idle
     case loading
     case success(Value)
-    case failure(Error)
+    case failure(ExercismClientError)
 }
 
 @MainActor
@@ -47,7 +48,7 @@ class AsyncModel<Value>: ObservableObject, LoadableObject {
         do {
             state = .success(try await operation() )
         } catch {
-            state = .failure(error)
+            state = .failure(error as? ExercismClientError ?? ExercismClientError.unsupportedResponseError)
         }
     }
 }

@@ -13,8 +13,8 @@ import Splash
 struct ExerciseRightSidebarView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
     @EnvironmentObject var settingData: SettingData
-    @SwiftUI.Environment(\.colorScheme) private var colorScheme
-    
+    @Environment(\.colorScheme) private var colorScheme
+
     var onMarkAsComplete: (() -> Void)?
     
     var instruction: String? {
@@ -35,7 +35,6 @@ struct ExerciseRightSidebarView: View {
     }
     
     var body: some View {
-        
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
                 let markdownTheme = Theme.gitHub
@@ -144,13 +143,11 @@ struct ExerciseRightSidebarView: View {
     }
 }
 
-struct ExerciseRightSidebarView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
-            
-            ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
-        }
+#Preview {
+    Group {
+        ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
+
+        ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
     }
 }
 

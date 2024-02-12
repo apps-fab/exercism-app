@@ -18,7 +18,7 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
     case InProgress = "In Progress"
     case Available
     case Locked
-    
+
     var id: Self { return self }
 }
 
@@ -28,15 +28,15 @@ struct ExercisesList: View {
     @State private var searchText = ""
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
-    
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
-        
+    @State private var alertItem = AlertItem()
+
     let columns = [
         GridItem(.adaptive(minimum: 600, maximum: 1000))
     ]
-    
-   
+
+
     var body: some View {
         AsyncResultView(source: asyncModel) { exercises in
             exerciseListView(exercises)
@@ -47,10 +47,9 @@ struct ExercisesList: View {
         .task {
             do {
                 let solutionsList = try await TrackModel.shared.getSolutions(track)
-
                 self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
             } catch {
-                print("Unable to get the solutions", error)
+               alertItem = AlertItem(title: "Error",  message: error.localizedDescription)
             }
         }
         .onAppear {
@@ -69,9 +68,14 @@ struct ExercisesList: View {
                     Label("", systemImage: "chevron.backward")
                 }
             }
+        }.alert(alertItem.title, isPresented: $alertItem.isPresented) {
+            Button(Strings.ok.localized(), role: .cancel) {
+            }
+        } message: {
+            Text(alertItem.message)
         }
     }
-    
+
     @ViewBuilder
     func exerciseListView(_ exercises: [Exercise]) -> some View {
         let groupedExercises = groupExercises(exercises)
@@ -102,14 +106,14 @@ struct ExercisesList: View {
             }
             .padding()
             .background(Color.darkBackground)
-            
+
             Divider().frame(height: 2)
-            
+
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(filteredExercises, id: \.self) { exercise in
-                        let solution = getSolution(for: exercise)                  
-                        
+                        let solution = getSolution(for: exercise)
+
                         Button {
                             navigationModel.goToEditor(track.slug, exercise, solution: solution)
                         } label: {
@@ -124,12 +128,12 @@ struct ExercisesList: View {
             }
         }
     }
-       
-        
+
+
     func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
     }
-    
+
     /// Group exercises by category
     /// - Parameter exercises:
     /// - Returns: [ExerciseCategory: [Exercise]]
@@ -140,8 +144,8 @@ struct ExercisesList: View {
         }
         return groupedExercises
     }
-    
-    
+
+
     func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
         switch category {
         case .AllExercises:
@@ -158,8 +162,6 @@ struct ExercisesList: View {
     }
 }
 
-struct ExercisesList_Previews: PreviewProvider {
-    static var previews: some View {
-        ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
-    }
+#Preview {
+    ExercisesList(track: PreviewData.shared.getTrack().first!, asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
 }

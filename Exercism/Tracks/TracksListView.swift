@@ -115,9 +115,6 @@ struct TracksListView: View {
     }
 }
 
-
-struct TracksView_Previews: PreviewProvider {
-    static var previews: some View {
-        TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTrack() })
-    }
+#Preview {
+    TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTrack() })
 }

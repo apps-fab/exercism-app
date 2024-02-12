@@ -28,7 +28,7 @@ struct AsyncResultView<Source: LoadableObject, Content: View>: View {
                 Spacer()
             case .failure(let error):
                 Spacer()
-                Text(error.localizedDescription)
+                Text(error.description)
                 Spacer()
             case .success(let output):
                 content(output)

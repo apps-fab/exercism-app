@@ -127,9 +127,8 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-            .previewLayout(.fixed(width: 900, height: 800))
-    }
+#Preview {
+    LoginView()
+                .previewLayout(.fixed(width: 900, height: 800))
+
 }

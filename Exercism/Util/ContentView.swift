@@ -44,7 +44,7 @@ struct ContentView: View {
     private func handleDestinationRoute(_ route: Route) -> some View {
         switch route {
         case let .Exercise(track, exercise, solution):
-            ExerciseEditorWindowView(solution: solution, asyncModel: AsyncModel(operation: { try await ExerciseViewModel.shared.getDocument(track, exercise) } ))
+            ExerciseEditorWindowView(asyncModel: AsyncModel(operation: { try await ExerciseViewModel.shared.getDocument(track, exercise) } ), solution: solution)
                 .environmentObject(navigationModel)
             
         case let .Track(track):

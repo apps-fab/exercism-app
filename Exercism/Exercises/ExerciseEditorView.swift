@@ -9,7 +9,9 @@ import SwiftUI
 import CodeEditor
 
 struct ExerciseEditorView: View {
-    @State var exerciseViewModel = ExerciseViewModel.shared
+    @State private var exerciseViewModel = ExerciseViewModel.shared
+    @State private var codeChanged = false
+    @State private var show = true
     @EnvironmentObject var settingData: SettingData
 
     private var source: String {
@@ -19,11 +21,8 @@ struct ExerciseEditorView: View {
         CodeEditor.Language.init(rawValue: exerciseViewModel.language ?? "")
     }
     
-    @State var codeChanged = false
-    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var show = true
-    
+
     var body: some View {
         VStack(spacing: 0) {
 #if os(macOS)
@@ -73,8 +72,6 @@ struct ExerciseEditorView: View {
     }
 }
 
-struct ExerciseEditorView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseEditorView()
-    }
+#Preview {
+    ExerciseEditorView()
 }

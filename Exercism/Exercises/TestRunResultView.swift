@@ -282,10 +282,8 @@ struct TestRunResultView: View {
     }
 }
 
-struct TestRunResultView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestRunResultView(testRun: PreviewData.shared.testRun(),
-                          language: "Swift",
-                          theme: .midnight(withFont: .init(size: 10)), onSubmitTest: {})
-    }
+#Preview {
+    TestRunResultView(testRun: PreviewData.shared.testRun(),
+                      language: "Swift",
+                      theme: .midnight(withFont: .init(size: 10)), onSubmitTest: {})
 }

@@ -34,3 +34,9 @@ struct ExercismButton: View {
         .buttonStyle(.plain)
     }
 }
+
+#Preview {
+    ExercismButton(title: "Exercism Button", isLoading: .constant(true)) {
+        print("Button pressed")
+    }
+}

@@ -15,7 +15,7 @@ struct FilterView: View {
     @Binding var filters: Set<String>
     @FocusState private var fieldFocused: Bool
     var sortAction: () -> Void
-    
+
     var body: some View {
         HStack {
             ZStack(alignment: .leading) {
@@ -27,7 +27,7 @@ struct FilterView: View {
             }.padding()
                 .roundEdges(lineColor: fieldFocused ? .purple : .gray)
                 .focused($fieldFocused)
-            
+
             Button {
                 showingSheet.toggle()
             } label: {
@@ -45,11 +45,11 @@ struct FilterView: View {
                                     isPresented: $showingSheet)
                     .interactiveDismissDisabled(false)
                 }
-            
+
             Text(String(format: Strings.showingTracks.localized(), results))
                 .padding()
                 .roundEdges(backgroundColor: Color.primary.opacity(0.2))
-            
+
             Button {
                 sortAction()
             } label: {
@@ -67,12 +67,10 @@ struct FilterView: View {
     }
 }
 
-struct FilterView_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterView(results: 10,
-                   searchText: .constant(""),
-                   filters: .constant([""])) {
-            print("Filter View pressed")
-        }
+#Preview {
+    FilterView(results: 10,
+               searchText: .constant(""),
+               filters: .constant([""])) {
+        print("Filter View pressed")
     }
 }

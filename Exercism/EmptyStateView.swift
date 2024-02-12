@@ -31,8 +31,6 @@ struct EmptyStateView: View {
     }
 }
 
-struct EmptyStateView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmptyStateView(reloadAction: { print("some")})
-    }
+#Preview {
+    EmptyStateView(reloadAction:  { print("some")})
 }
