@@ -8,10 +8,10 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 //:configuration = Debug
-PRODUCT_BUNDLE_IDENTIFIER = com.apps-fab.exercism.Exercism
+PRODUCT_BUNDLE_IDENTIFIER = com.apps-fab.exercism
 
 //:configuration = Release
-PRODUCT_BUNDLE_IDENTIFIER = com.apps-fab.exercism.Exercism
+PRODUCT_BUNDLE_IDENTIFIER = com.apps-fab.exercism
 
 //:configuration = Debug
 DEVELOPMENT_TEAM = S82GZQ59NS
