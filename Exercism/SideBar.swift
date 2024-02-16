@@ -11,49 +11,43 @@ import ExercismSwift
 
 struct SideBar: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @State var tracks: [Track]
+    let tracks: [Track]
     
     private var joinedTracks: [Track] {
         tracks.filter(\.isJoined)
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            
-            List {
-                ForEach(joinedTracks) { track in
-                    TrackRowView(track: track) {
-                        navigationModel.goToTrack(track)
-                    }
-//                    .padding()
-                    .listRowSeparator(.visible)
-                    .buttonStyle(.plain)
-                    .listRowInsets(EdgeInsets())
+        List {
+            ForEach(joinedTracks) { track in
+                TrackRowView(track: track) {
+                    navigationModel.goToTrack(track)
                 }
+                .listRowSeparator(.visible)
+                .buttonStyle(.plain)
             }
-            .listStyle(.sidebar)
-            .safeAreaInset(edge: .bottom) {
-                VStack(alignment: .leading) {
-                    Divider()
-                    Button(Strings.signOut.localized()) {
-                        logout()
-                    }
-                    .foregroundStyle(.red)
-                    .buttonStyle(.plain)
-                    .padding()
-                    
+        }
+        .listStyle(.sidebar)
+        .safeAreaInset(edge: .bottom) {
+            VStack(alignment: .leading) {
+                Divider()
+                Button(Strings.signOut.localized()) {
+                    logout()
                 }
-                .background(.ultraThickMaterial)
-            }
-            
-            .safeAreaInset(edge: .top) {
-                Text(Strings.joinedTracks.localized())
-                    .font(.title.bold())
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.thickMaterial)
+                .foregroundStyle(.red)
+                .buttonStyle(.plain)
+                .padding()
                 
             }
+            .background(.ultraThickMaterial)
+        }
+        
+        .safeAreaInset(edge: .top) {
+            Text(Strings.joinedTracks.localized())
+                .font(.title.bold())
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(.thickMaterial)
         }
     }
 
@@ -63,7 +57,7 @@ struct SideBar: View {
     }
 }
 
-extension SideBar {
+private extension SideBar {
     struct TrackRowView: View {
         let track: Track
         let action: () -> Void
@@ -93,8 +87,12 @@ extension SideBar {
                                         lastTouchedAt.offsetFrom()))
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Image.chevronRight
+                        .frame(maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
             }
         }
     }
