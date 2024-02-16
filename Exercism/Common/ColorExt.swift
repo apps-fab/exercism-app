@@ -9,4 +9,11 @@ extension Color {
     static let exercismPurple = Color("purple")
     static let darkBackground = Color("darkBackground")
     static let primaryBackground = Color("primaryBackground")
+    
+    static let offBlackShadow  = Color(light: Color(red: 190/255, green: 190/255, blue: 190/255),
+                        dark: Color(red: 50/255, green: 50/255, blue: 50/255))
+    
+    static let offWhiteShadow = Color(light: Color(red: 1, green: 1, blue: 1),
+                        dark: Color(red: 25/255, green: 25/255, blue: 25/255))
+    
 }

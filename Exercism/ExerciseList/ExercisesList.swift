@@ -110,19 +110,21 @@ struct ExercisesList: View {
             Divider().frame(height: 2)
 
             ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(filteredExercises, id: \.self) { exercise in
-                        let solution = getSolution(for: exercise)
-
-                        Button {
-                            navigationModel.goToEditor(track.slug, exercise, solution: solution)
-                        } label: {
-                            ExerciseGridView(exercise: exercise, solution: solution)
-                        }.buttonStyle(.plain)
-                    }
-                }.if(filteredExercises.isEmpty) { _ in
+                if filteredExercises.isEmpty {
                     EmptyStateView {
                         searchText = ""
+                    }
+                } else {
+                    LazyVGrid(columns: columns) {
+                        ForEach(filteredExercises, id: \.self) { exercise in
+                            let solution = getSolution(for: exercise)
+                            
+                            Button {
+                                navigationModel.goToEditor(track.slug, exercise, solution: solution)
+                            } label: {
+                                ExerciseGridView(exercise: exercise, solution: solution)
+                            }.buttonStyle(.plain)
+                        }
                     }
                 }
             }

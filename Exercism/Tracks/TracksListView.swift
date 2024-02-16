@@ -15,19 +15,19 @@ struct TracksListView: View {
     @State var asyncModel: AsyncModel<[Track]>
     let model = TrackModel.shared
     
-    let columns = [
-        GridItem(.adaptive(minimum: 600, maximum: 1000))
+    private let gridColumns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
     
     var body: some View {
         GeometryReader { size in
             AsyncResultView(source: asyncModel) { tracks in
                 HStack(spacing: 0) {
-                    SideBar(tracks: tracks)
-//                        .frame(maxWidth: size.size.width * 0.2)
-                        .frame(maxWidth: 280)
-                    Divider()
-//                    tracksView(tracks)
+//                    SideBar(tracks: tracks)
+//                        .frame(minWidth: 250, maxWidth: 280)
+//                    Divider()
+                    tracksView(tracks)
                 }
             }
             .navigationBarBackButtonHidden()
@@ -44,64 +44,77 @@ struct TracksListView: View {
     
     @ViewBuilder
     func tracksView(_ tracks: [Track]) ->  some View {
-        let joined = tracks.filter { $0.isJoined }
-        let unjoined = tracks.filter { !$0.isJoined }
+        let joinedTracks = tracks.filter { $0.isJoined }
+        let unjoinedTracks = tracks.filter { !$0.isJoined }
         
-        VStack {
+        VStack(spacing: 0) {
             VStack {
                 headerView
-                    .background(Color.darkBackground)
-                    .frame(maxHeight: 160)
                     .padding()
-                Divider().frame(height: 1)
-                FilterView(results: tracks.count,
-                           searchText: $searchText,
-                           filters: $filters) {
-                    asyncModel.filterOperations = { self.model.sortTracks() }
-                }.frame(maxHeight: 50)
-                    .padding()
-                Divider().frame(height: 1)
+                
+                FilterView(
+                    results: tracks.count,
+                    searchText: $searchText,
+                    filters: $filters) {
+                        asyncModel.filterOperations = { self.model.sortTracks()
+                        }
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
+                
             }
-//            .background(Color.darkBackground)
-//            ScrollView {
-//                VStack(alignment: .leading) {
-//                    Text(Strings.joinedTracks.localized())
-//                        .font(.largeTitle)
-//                        .padding()
-//                        .if(joined.isEmpty) { text in
-//                            text.hidden()
-//                        }
-//                    LazyVGrid(columns: columns) {
-//                        ForEach(joined) { track in
-//                            Button {
-//                                navigationModel.goToTrack(track)
-//                            } label: {
-//                                TrackGridView(track: track).accessibilityElement(children: .contain)
-//                            }.buttonStyle(.plain)
-//                        }
-//                    }
-//                    
-//                    Text(Strings.unjoinedTracks.localized())
-//                        .font(.largeTitle)
-//                        .padding()
-//                        .if(unjoined.isEmpty) { text in
-//                            text.hidden()
-//                        }
-//                    LazyVGrid(columns: columns) {
-//                        ForEach(unjoined) { track in
-//                            TrackGridView(track: track).accessibilityElement(children: .contain)
-//                        }
-//                    }
-//                }.padding()
-//                    .accessibilityHidden(true)
-//            }.if(tracks.isEmpty) { _ in
-//                EmptyStateView {
-//                    searchText = ""
-//                    filters = []
-//                }
-//            }
+            .frame(maxWidth: .infinity)
+            .background(Color.darkBackground)
+            
+            ScrollView {
+                if tracks.isEmpty {
+                    EmptyStateView {
+                        searchText = ""
+                        filters = []
+                    }
+                } else {
+                    VStack(alignment: .leading) {
+                        if !joinedTracks.isEmpty {
+                            Text(Strings.joinedTracks.localized())
+                                .font(.largeTitle)
+                                .fontWeight(.semibold)
+                            LazyVGrid(
+                                columns: gridColumns,
+                                alignment: .leading
+                            ) {
+                                ForEach(joinedTracks) { track in
+                                    Button {
+                                        navigationModel.goToTrack(track)
+                                    } label: {
+                                        TrackGridView(track: track)
+                                            .accessibilityElement(children: .contain)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                        }
+                        
+                        if !unjoinedTracks.isEmpty {
+                            Text(Strings.unjoinedTracks.localized())
+                                .font(.largeTitle)
+                                .fontWeight(.semibold)
+                            
+                            LazyVGrid(
+                                columns: gridColumns,
+                                alignment: .leading
+                            ) {
+                                ForEach(unjoinedTracks) { track in
+                                    TrackGridView(track: track).accessibilityElement(children: .contain)
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                    .accessibilityHidden(true)
+                }
+            }
         }
-        Spacer()
     }
     
     var headerView: some View {
@@ -109,12 +122,16 @@ struct TracksListView: View {
             Image.trackImages
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: 170)
+                .frame(maxWidth: 400, minHeight: 50)
+
             Text(Strings.languageNumber.localized())
-                .font(.largeTitle)
-            Text(Strings.languageIntro.localized())
-                .multilineTextAlignment(.center)
+                .font(.largeTitle.bold())
+                .minimumScaleFactor(0.9)
+
+            Text(LocalizedStringKey(Strings.languageIntro.localized()))
                 .font(.title2)
+                .minimumScaleFactor(0.9)
+                .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }

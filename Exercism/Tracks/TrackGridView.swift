@@ -10,8 +10,9 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct TrackGridView: View {
-    var track: Track
-    @State var isHover = false
+    let track: Track
+    @State private var isHover = false
+    
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -21,33 +22,48 @@ struct TrackGridView: View {
                 .padding([.top, .leading], 10)
                 .frame(width: 100, height: 100)
                 .accessibilityHidden(true)
+            
             trackView
                 .padding()
-        }.frame(width: 550, height: 150)
-            .roundEdges(backgroundColor: Color.darkBackground,
-                        lineColor: isHover ? .purple : .clear)
-            .padding()
-            .scaleEffect(isHover ? 1.1 : 1)
-            .onHover { hover in
-                if track.isJoined {
-                    withAnimation {
-                        isHover = hover
-                    }
+        }
+        .frame(idealWidth: 450, maxWidth: .infinity, alignment: .leading)
+        .frame(height: 150)
+        .roundEdges(
+            backgroundColor: Color.darkBackground,
+            lineColor: isHover ? .purple : .clear,
+            cornerRadius: 15)
+        .shadow(color: .offBlackShadow, radius: 15, x: 10, y: 10)
+        .shadow(color: .offWhiteShadow, radius: 15, x: -10, y: -10)
+        .padding()
+        .scaleEffect(isHover ? 1.05 : 1)
+        .onHover { hover in
+            if track.isJoined {
+                withAnimation {
+                    isHover = hover
                 }
             }
+        }
     }
     
-    var trackView: some View {
+    private var trackView: some View {
         VStack(alignment: .leading) {
-            HStack() {
-                Text(track.title).bold()
+            HStack {
+                Text(track.title)
+                    .font(.title3.bold())
+                
                 if track.course && !track.isJoined {
                     Label{
                         Text( Strings.learningMode.localized())
                     } icon: {
                         Image.checkmark
-                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
-                        .font(.system(size: 12, weight: .semibold))
+                    }
+                    .roundEdges(
+                        backgroundColor: LinearGradient(colors: [.indigo.opacity(0.4),
+                                                                 .purple.opacity(0.8),.purple.opacity(0.5)], startPoint: .leading, endPoint: .trailing),
+                        lineColor: .clear,
+                        cornerRadius: 8)
+                    .foregroundStyle(.secondary)
+                    .font(.system(size: 12, weight: .semibold))
                 }
                 
                 if track.isNew && !track.isJoined {
@@ -57,8 +73,11 @@ struct TrackGridView: View {
                         Image.starsLogo
                             .renderingMode(.template)
                             .foregroundColor(.yellow)
-                    }).roundEdges(backgroundColor: Color.blue.opacity(0.5))
-                        .font(.system(size: 12, weight: .semibold))
+                    })
+                    .roundEdges(
+                        backgroundColor: Color.blue.opacity(0.5)
+                    )
+                    .font(.callout.weight(.semibold))
                 }
                 
                 if track.isJoined {
@@ -67,47 +86,64 @@ struct TrackGridView: View {
                         Text( Strings.joined.localized())
                     } icon: {
                         Image.checkmark
-                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
-                                                                 startPoint: .leading, endPoint: .trailing),
-                                 lineColor: .clear)
-                    .font(.system(size: 12, weight: .semibold))
+                    }
+                    .roundEdges(
+                        backgroundColor: Color.exercismPurple.opacity(0.3),
+                        lineColor: .clear,
+                        cornerRadius: 8)
+                    .foregroundStyle(Color.exercismPurple)
+                    .font(.callout.weight(.semibold))
                 }
             }
-
-            HStack() {
+            
+            HStack(spacing: 20) {
                 Label(title: {
-                    track.isJoined ? Text(String(format: Strings.completedExercises.localized(), track.numCompletedExercises, track.numExercises)) : Text(String(format: Strings.exercises.localized(), track.numExercises))
+                    if track.isJoined {
+                        Text(String(format: Strings.completedExercises.localized(), track.numCompletedExercises, track.numExercises))
+                            .fontWeight(.medium)
+                    } else {
+                        Text(String(format: Strings.exercises.localized(), track.numExercises))
+                            .fontWeight(.medium)
+                    }
                 }, icon: {
                     Image.exerciseLogo
                         .renderingMode(.template)
-                        .foregroundColor(Color.primary)
-                })  
+                        .foregroundStyle(.foreground)
+                })
                 
                 Label(title: {
                     Text(String(format: Strings.concepts.localized(), track.numConcepts))
+                        .fontWeight(.medium)
                 }, icon: {
                     Image.conceptLogo
                         .renderingMode(.template)
-                        .foregroundColor(Color.primary)
+                        .foregroundStyle(.foreground)
                 })
             }
             
             if track.isJoined {
                 let completedExercises = Float(track.numCompletedExercises)
                 let numberOfExercises = Float(track.numExercises)
-
+                
                 let gradient = Gradient(colors: [.purple, .indigo, .purple])
                 Gauge(value: completedExercises, in: completedExercises...numberOfExercises) {
                     //
                 } currentValueLabel: {
-                    let dateAgo = track.lastTouchedAt?.offsetFrom() ?? ""
-                    Text(String(format: Strings.lastTouched.localized(), dateAgo))
-                }.tint(gradient)
-                    .gaugeStyle(.accessoryLinearCapacity)
+                    if let lastTouchedAt = track.lastTouchedAt {
+                        Text(String(format: Strings.lastTouched.localized(), lastTouchedAt.offsetFrom()))
+                    }
+                }
+                .tint(gradient)
+                .gaugeStyle(.accessoryLinearCapacity)
             } else {
-                HStack() {
+                HStack {
                     ForEach(track.tags.prefix(3), id: \.self) { track in
-                        Text(track).bold().roundEdges()
+                        Text(track)
+                            .fontWeight(.medium)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
+                            .foregroundStyle(.secondary)
+                            .roundEdges()
                     }
                 }
             }
@@ -116,5 +152,5 @@ struct TrackGridView: View {
 }
 
 #Preview {
-    TrackGridView(track: PreviewData.shared.getTrack()[0], isHover: true)
+    TrackGridView(track: PreviewData.shared.getTrack()[0])
 }
