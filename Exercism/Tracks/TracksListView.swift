@@ -22,19 +22,23 @@ struct TracksListView: View {
     var body: some View {
         GeometryReader { size in
             AsyncResultView(source: asyncModel) { tracks in
-                HStack {
-                    SideBar(tracks: tracks).frame(maxWidth: size.size.width * 0.2)
-                    Divider().frame(width: 2)
-                    tracksView(tracks)
+                HStack(spacing: 0) {
+                    SideBar(tracks: tracks)
+//                        .frame(maxWidth: size.size.width * 0.2)
+                        .frame(maxWidth: 280)
+                    Divider()
+//                    tracksView(tracks)
                 }
-            }.navigationBarBackButtonHidden()
-                .toolbar(.visible)
+            }
+            .navigationBarBackButtonHidden()
+            .toolbar(.visible)
             .accessibilityLabel("All Tracks")
-                .onChange(of: searchText) { newSearch in
-                    asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
-                }.onChange(of: filters) { newFilters in
-                    asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+            .onChange(of: searchText) { newSearch in
+                asyncModel.filterOperations = { self.model.filterTracks(newSearch)
                 }
+            }.onChange(of: filters) { newFilters in
+                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+            }
         }
     }
     
@@ -57,44 +61,45 @@ struct TracksListView: View {
                 }.frame(maxHeight: 50)
                     .padding()
                 Divider().frame(height: 1)
-            }.background(Color.darkBackground)
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text(Strings.joinedTracks.localized())
-                        .font(.largeTitle)
-                        .padding()
-                        .if(joined.isEmpty) { text in
-                            text.hidden()
-                        }
-                    LazyVGrid(columns: columns) {
-                        ForEach(joined) { track in
-                            Button {
-                                navigationModel.goToTrack(track)
-                            } label: {
-                                TrackGridView(track: track).accessibilityElement(children: .contain)
-                            }.buttonStyle(.plain)
-                        }
-                    }
-                    
-                    Text(Strings.unjoinedTracks.localized())
-                        .font(.largeTitle)
-                        .padding()
-                        .if(unjoined.isEmpty) { text in
-                            text.hidden()
-                        }
-                    LazyVGrid(columns: columns) {
-                        ForEach(unjoined) { track in
-                            TrackGridView(track: track).accessibilityElement(children: .contain)
-                        }
-                    }
-                }.padding()
-                    .accessibilityHidden(true)
-            }.if(tracks.isEmpty) { _ in
-                EmptyStateView {
-                    searchText = ""
-                    filters = []
-                }
             }
+//            .background(Color.darkBackground)
+//            ScrollView {
+//                VStack(alignment: .leading) {
+//                    Text(Strings.joinedTracks.localized())
+//                        .font(.largeTitle)
+//                        .padding()
+//                        .if(joined.isEmpty) { text in
+//                            text.hidden()
+//                        }
+//                    LazyVGrid(columns: columns) {
+//                        ForEach(joined) { track in
+//                            Button {
+//                                navigationModel.goToTrack(track)
+//                            } label: {
+//                                TrackGridView(track: track).accessibilityElement(children: .contain)
+//                            }.buttonStyle(.plain)
+//                        }
+//                    }
+//                    
+//                    Text(Strings.unjoinedTracks.localized())
+//                        .font(.largeTitle)
+//                        .padding()
+//                        .if(unjoined.isEmpty) { text in
+//                            text.hidden()
+//                        }
+//                    LazyVGrid(columns: columns) {
+//                        ForEach(unjoined) { track in
+//                            TrackGridView(track: track).accessibilityElement(children: .contain)
+//                        }
+//                    }
+//                }.padding()
+//                    .accessibilityHidden(true)
+//            }.if(tracks.isEmpty) { _ in
+//                EmptyStateView {
+//                    searchText = ""
+//                    filters = []
+//                }
+//            }
         }
         Spacer()
     }

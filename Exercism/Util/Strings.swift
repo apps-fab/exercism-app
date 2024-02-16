@@ -59,7 +59,7 @@ enum Strings: String {
 
     // Login
     case introTitle = "Exercism is free for all people, everywhere."
-    case introSubtitle = "Level up your programming skills with 3,444 exercises across 52 languages, and insightful discussion with our dedicated team of welcoming mentors."
+    case introSubtitle = "Level up your programming skills over 5,521 exercises across 67+ languages, and insightful discussion with our dedicated team of welcoming mentors."
     case introFree = "Exercism is 100% free forever."
     case codePractice = "Code practice and mentorship for everyone"
     case enterToken = "Enter your token"

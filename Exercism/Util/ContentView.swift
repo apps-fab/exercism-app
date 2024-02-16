@@ -7,10 +7,15 @@
 
 import SwiftUI
 
+enum Design {
+    enum Login {
+        static let minSize = CGSizeMake(800, 500)
+    }
+}
 struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
-    let model = TrackModel.shared
+    private let model = TrackModel.shared
     
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
@@ -19,24 +24,29 @@ struct ContentView: View {
                     TracksListView(
                         asyncModel: .init { try await model.getTracks() }
                     )
-                    .frame(minWidth: 800, minHeight: 800)
                     .environmentObject(navigationModel)
-                    
                 } else {
-                    LoginView().frame(minWidth: 800, minHeight: 800)
+                    LoginView()
                 }
             }
             .environmentObject(navigationModel)
-            .task {
-                if let jsonData = navigationData {
-                    navigationModel.jsonData = jsonData
-                }
-                
-                for await _ in navigationModel.objectWillChangeSequence {
-                    navigationData = navigationModel.jsonData
-                }
-            }
+            .task(performInitialNavigationSetup)
             .navigationDestination(for: Route.self, destination: handleDestinationRoute)
+        }
+        .frame(
+            minWidth: 800, idealWidth: 1000, maxWidth: .infinity,
+            minHeight: 500, idealHeight: 800, maxHeight: .infinity
+        )
+    }
+    
+    @Sendable
+    private func performInitialNavigationSetup() async {
+        if let navigationData {
+            navigationModel.jsonData = navigationData
+        }
+        
+        for await _ in navigationModel.objectWillChangeSequence {
+            navigationData = navigationModel.jsonData
         }
     }
     
@@ -49,7 +59,7 @@ struct ContentView: View {
             
         case let .Track(track):
             ExercisesList(track: track,
-                          asyncModel: AsyncModel(operation: { try await model.getExercises(track) }))
+                          asyncModel: .init { try await model.getExercises(track) })
             .environmentObject(navigationModel)
             
         case .Login:
@@ -57,8 +67,7 @@ struct ContentView: View {
                 .environmentObject(navigationModel)
             
         case .Dashboard:
-            TracksListView(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
-                .frame(minWidth: 800, minHeight: 800)
+            TracksListView(asyncModel: .init { try await model.getTracks() })
                 .environmentObject(navigationModel)
         }
     }

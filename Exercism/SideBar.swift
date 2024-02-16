@@ -13,61 +13,93 @@ struct SideBar: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @State var tracks: [Track]
     
-    var body: some View {
-        GeometryReader { frame in
-            VStack(alignment: .leading) {
-                Text(Strings.joinedTracks.localized())
-                    .frame(width: frame.size.width, alignment: .center)
-                    .font(.title)
-                    .bold()
-                    .padding()
-                List {
-                    ForEach(tracks.filter { $0.isJoined }) { track in
-                        Button {
-                            navigationModel.goToTrack(track)
-                        } label: {
-                            HStack(alignment: .top) {
-                                WebImage(url: URL(string: track.iconUrl))
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .accessibilityHidden(true)
-                                
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Text(track.slug)
-                                    Label {
-                                        Text(String(format: Strings.exerciseNumber.localized(),
-                                                    track.numCompletedExercises,
-                                                    track.numExercises))
-                                    } icon: {
-                                        Image.dumbell
-                                            .renderingMode(.template)
-                                            .foregroundColor(.primary)
-                                    }
-                                    Text(String(format: Strings.lastTouched.localized(),
-                                                track.lastTouchedAt?.offsetFrom() ?? ""))
-                                }
-                            }
-                        }.padding()
-                            .listRowSeparator(.visible)
-                            .buttonStyle(.plain)
-                    }
-                }.listStyle(.plain)
-                Divider()
+    private var joinedTracks: [Track] {
+        tracks.filter(\.isJoined)
+    }
 
-                Button(Strings.signOut.localized()) {
-                    logout()
-                }.buttonStyle(.plain)
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            
+            List {
+                ForEach(joinedTracks) { track in
+                    TrackRowView(track: track) {
+                        navigationModel.goToTrack(track)
+                    }
+//                    .padding()
+                    .listRowSeparator(.visible)
+                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets())
+                }
+            }
+            .listStyle(.sidebar)
+            .safeAreaInset(edge: .bottom) {
+                VStack(alignment: .leading) {
+                    Divider()
+                    Button(Strings.signOut.localized()) {
+                        logout()
+                    }
+                    .foregroundStyle(.red)
+                    .buttonStyle(.plain)
                     .padding()
+                    
+                }
+                .background(.ultraThickMaterial)
+            }
+            
+            .safeAreaInset(edge: .top) {
+                Text(Strings.joinedTracks.localized())
+                    .font(.title.bold())
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.thickMaterial)
+                
             }
         }
     }
 
-    func logout() {
+    private func logout() {
         ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
         navigationModel.goToLogin()
     }
 }
 
+extension SideBar {
+    struct TrackRowView: View {
+        let track: Track
+        let action: () -> Void
+        var body: some View {
+            Button(action: action) {
+                HStack(alignment: .top) {
+                    WebImage(url: URL(string: track.iconUrl))
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .accessibilityHidden(true)
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(track.slug.capitalized)
+                            .font(.title3.bold())
+                        
+                        Label {
+                            Text(String(format: Strings.exerciseNumber.localized(),
+                                        track.numCompletedExercises,
+                                        track.numExercises))
+                        } icon: {
+                            Image.dumbell
+                                .foregroundStyle(.foreground)
+                        }
+                        
+                        if let lastTouchedAt = track.lastTouchedAt {
+                            Text(String(format: Strings.lastTouched.localized(),
+                                        lastTouchedAt.offsetFrom()))
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+}
+
 #Preview {
-    SideBar(tracks: [])
+    SideBar(tracks: PreviewData.shared.getTrack())
 }
