@@ -13,16 +13,14 @@ struct TrackGridView: View {
     let track: Track
     @State private var isHover = false
     
-    
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
+        HStack(alignment: .top, spacing: 5) {
             WebImage(url: URL(string: track.iconUrl))
                 .resizable()
-                .frame(alignment: .leading)
+                .aspectRatio(contentMode: .fit)
                 .padding([.top, .leading], 10)
                 .frame(width: 100, height: 100)
                 .accessibilityHidden(true)
-            
             trackView
                 .padding()
         }
@@ -31,7 +29,8 @@ struct TrackGridView: View {
         .roundEdges(
             backgroundColor: Color.darkBackground,
             lineColor: isHover ? .purple : .clear,
-            cornerRadius: 15)
+            cornerRadius: 15
+        )
         .shadow(color: .offBlackShadow, radius: 15, x: 10, y: 10)
         .shadow(color: .offWhiteShadow, radius: 15, x: -10, y: -10)
         .padding()
@@ -58,8 +57,13 @@ struct TrackGridView: View {
                         Image.checkmark
                     }
                     .roundEdges(
-                        backgroundColor: LinearGradient(colors: [.indigo.opacity(0.4),
-                                                                 .purple.opacity(0.8),.purple.opacity(0.5)], startPoint: .leading, endPoint: .trailing),
+                        backgroundColor: LinearGradient(
+                            colors: [.indigo.opacity(0.4),
+                                     .purple.opacity(0.8),
+                                     .purple.opacity(0.5)
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing),
                         lineColor: .clear,
                         cornerRadius: 8)
                     .foregroundStyle(.secondary)

@@ -104,6 +104,8 @@ final class ExerciseViewModel: ObservableObject {
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     static let shared = ExerciseViewModel()
+    
+    private let nanosecondsPerSecond: Double = 1_000_000_000
 
     // MARK: - on Appear Operations
 
@@ -265,7 +267,7 @@ final class ExerciseViewModel: ObservableObject {
             processTestRun(testRun: testRun, links: submissionLink)
         } else {
             self.averageTestDuration = Double(result.testRunner.averageTestDuration)
-            try await Task.sleep(nanoseconds: UInt64((self.averageTestDuration ?? 5.0) * 1_000_000_000))
+            try await Task.sleep(nanoseconds: UInt64((self.averageTestDuration ?? 5.0) * nanosecondsPerSecond))
             try await self.getTestRun(submissionLink)
         }
     }

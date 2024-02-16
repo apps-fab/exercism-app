@@ -13,7 +13,7 @@ struct TracksListView: View {
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
-    let model = TrackModel.shared
+    private let model = TrackModel.shared
     
     private let gridColumns = [
         GridItem(.flexible()),
@@ -24,9 +24,9 @@ struct TracksListView: View {
         GeometryReader { size in
             AsyncResultView(source: asyncModel) { tracks in
                 HStack(spacing: 0) {
-//                    SideBar(tracks: tracks)
-//                        .frame(minWidth: 250, maxWidth: 280)
-//                    Divider()
+                    SideBar(tracks: tracks)
+                        .frame(minWidth: 250, maxWidth: 280)
+                    Divider()
                     tracksView(tracks)
                 }
             }
@@ -36,7 +36,8 @@ struct TracksListView: View {
             .onChange(of: searchText) { newSearch in
                 asyncModel.filterOperations = { self.model.filterTracks(newSearch)
                 }
-            }.onChange(of: filters) { newFilters in
+            }
+            .onChange(of: filters) { newFilters in
                 asyncModel.filterOperations = { self.model.filterTags(newFilters) }
             }
         }
@@ -62,7 +63,6 @@ struct TracksListView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity)
-                
             }
             .frame(maxWidth: .infinity)
             .background(Color.darkBackground)
@@ -115,6 +115,7 @@ struct TracksListView: View {
                 }
             }
         }
+        .frame(minWidth: 850)
     }
     
     var headerView: some View {
