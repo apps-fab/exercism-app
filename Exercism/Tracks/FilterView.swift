@@ -80,7 +80,7 @@ struct FilterView: View {
                 .roundEdges(
                     cornerRadius: 8
                 )
-                .contentShape(Rectangle())
+                .contentShape(Rectangle()) 
             }
             .buttonStyle(.plain)
         }

@@ -92,7 +92,7 @@ struct TrackGridView: View {
                         Image.checkmark
                     }
                     .roundEdges(
-                        backgroundColor: Color.exercismPurple.opacity(0.3),
+                        backgroundColor: Color.exercismPurple.opacity(0.2),
                         lineColor: .clear,
                         cornerRadius: 8)
                     .foregroundStyle(Color.exercismPurple)
@@ -130,7 +130,7 @@ struct TrackGridView: View {
                 let numberOfExercises = Float(track.numExercises)
                 
                 let gradient = Gradient(colors: [.purple, .indigo, .purple])
-                Gauge(value: completedExercises, in: completedExercises...numberOfExercises) {
+                Gauge(value: completedExercises, in: 0...numberOfExercises) {
                     //
                 } currentValueLabel: {
                     if let lastTouchedAt = track.lastTouchedAt {
