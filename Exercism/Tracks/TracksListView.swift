@@ -60,8 +60,7 @@ struct TracksListView: View {
                         asyncModel.filterOperations = { self.model.sortTracks()
                         }
                     }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal)
+                    .padding()
                     .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity)

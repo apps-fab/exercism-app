@@ -47,6 +47,7 @@ struct FilterView: View {
                     lineColor: showingSheet ? .purple : .gray,
                     cornerRadius: 8
                 )
+                .contentShape(Rectangle())
             }
             
             .buttonStyle(.plain)
@@ -79,6 +80,7 @@ struct FilterView: View {
                 .roundEdges(
                     cornerRadius: 8
                 )
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
         }
