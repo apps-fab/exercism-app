@@ -67,7 +67,7 @@ struct TrackGridView: View {
                         lineColor: .clear,
                         cornerRadius: 8)
                     .foregroundStyle(.secondary)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.callout.weight(.semibold))
                 }
                 
                 if track.isNew && !track.isJoined {

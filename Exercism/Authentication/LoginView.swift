@@ -46,16 +46,20 @@ struct LoginView: View {
                 .frame(maxHeight: 208)
             Spacer()
             Text(Strings.introTitle.localized())
-                .font(.system(size: 26, weight: .semibold))
+                .font(.largeTitle.weight(.semibold))
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.8)
+            
             Text(Strings.introSubtitle.localized())
-                .font(.system(size: 16, weight: .regular))
+                .font(.title3)
                 .multilineTextAlignment(.center)
                 .padding()
+            
             Text(Strings.introFree.localized())
-                .font(.system(size: 16, weight: .semibold))
+                .font(.title3.weight(.semibold))
+
             Spacer()
+            
             Image.trackImages
                 .resizable()
                 .accessibilityHidden(true)
