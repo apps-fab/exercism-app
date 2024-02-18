@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum Design {
-    enum Login {
-        static let minSize = CGSizeMake(800, 500)
-    }
-}
 struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
@@ -19,13 +14,8 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
-            Group {
-                if let _ = ExercismKeychain.shared.get(for: Keys.token.rawValue) {
-                    TracksListView(
-                        asyncModel: .init { try await model.getTracks() }
-                    )
-                    .environmentObject(navigationModel)
-                } else {
+            ZStack {
+                if ExercismKeychain.shared.get(for: Keys.token.rawValue) == nil {
                     LoginView()
                 }
             }

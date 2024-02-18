@@ -29,7 +29,7 @@ struct TracksListView: View {
                 tracksView(tracks)
             }
         }
-        .toolbar(.visible)
+        .toolbar(.hidden)
         .accessibilityLabel("All Tracks")
         .onChange(of: searchText) { newSearch in
             asyncModel.filterOperations = { self.model.filterTracks(newSearch)
