@@ -21,25 +21,22 @@ struct TracksListView: View {
     ]
     
     var body: some View {
-        GeometryReader { size in
-            AsyncResultView(source: asyncModel) { tracks in
-                HStack(spacing: 0) {
-                    SideBar(tracks: tracks)
-                        .frame(minWidth: 250, maxWidth: 280)
-                    Divider()
-                    tracksView(tracks)
-                }
+        AsyncResultView(source: asyncModel) { tracks in
+            HStack(spacing: 0) {
+                SideBar(tracks: tracks)
+                    .frame(minWidth: 250, maxWidth: 280)
+                Divider()
+                tracksView(tracks)
             }
-            .navigationBarBackButtonHidden()
-            .toolbar(.visible)
-            .accessibilityLabel("All Tracks")
-            .onChange(of: searchText) { newSearch in
-                asyncModel.filterOperations = { self.model.filterTracks(newSearch)
-                }
+        }
+        .toolbar(.visible)
+        .accessibilityLabel("All Tracks")
+        .onChange(of: searchText) { newSearch in
+            asyncModel.filterOperations = { self.model.filterTracks(newSearch)
             }
-            .onChange(of: filters) { newFilters in
-                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
-            }
+        }
+        .onChange(of: filters) { newFilters in
+            asyncModel.filterOperations = { self.model.filterTags(newFilters) }
         }
     }
     

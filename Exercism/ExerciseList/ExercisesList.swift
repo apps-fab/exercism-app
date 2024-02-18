@@ -25,20 +25,15 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
 struct ExercisesList: View {
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
+    
     @EnvironmentObject private var navigationModel: NavigationModel
     @State private var exerciseCategory: ExerciseCategory = .AllExercises
     @State private var searchText = ""
- 
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
     @State private var alertItem = AlertItem()
     
     private let columns = [
-//        GridItem(.flexible(minimum: 400)),
-//        GridItem(.flexible(minimum: 400)),
-//        GridItem(.adaptive(minimum: 400, maximum: 1000))
-//        GridItem(.adaptive(minimum: 300)),
-//        GridItem(.adaptive(minimum: 300))
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
@@ -63,16 +58,9 @@ struct ExercisesList: View {
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(track.slug.uppercased())
+                Text(track.slug)
+                    .textCase(.uppercase)
                     .font(.headline)
-            }
-            
-            ToolbarItem(placement: .navigation) {
-                Button {
-                    navigationModel.goBack()
-                } label: {
-                    Label("", systemImage: "chevron.backward")
-                }
             }
         }
         .alert(alertItem.title, isPresented: $alertItem.isPresented) {
