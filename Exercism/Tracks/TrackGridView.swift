@@ -131,7 +131,6 @@ struct TrackGridView: View {
                 
                 let gradient = Gradient(colors: [.purple, .indigo, .purple])
                 Gauge(value: completedExercises, in: 0...numberOfExercises) {
-                    //
                 } currentValueLabel: {
                     if let lastTouchedAt = track.lastTouchedAt {
                         Text(String(format: Strings.lastTouched.localized(), lastTouchedAt.offsetFrom()))

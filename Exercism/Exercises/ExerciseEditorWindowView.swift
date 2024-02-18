@@ -84,13 +84,6 @@ struct ExerciseEditorWindowView: View {
                     }
                     .help(Strings.runTestsError.localized())
                 }
-//                ToolbarItem(placement: .navigation) {
-//                    Button {
-//                        navigationModel.goBack()
-//                    } label: {
-//                        Image.chevronBack
-//                    }
-//                }
             }
         }
         .navigationTitle(viewModel.title)
