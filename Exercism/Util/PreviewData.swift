@@ -289,31 +289,31 @@ struct PreviewData {
         let data = """
 [{
   "uuid": "bbf9b231b2a946ddbcd2db748e4c702c",
-  "privateUrl": "https://exercism.org/tracks/swift/exercises/wings-quest",
-  "publicUrl": "https://exercism.org/tracks/swift/exercises/wings-quest/solutions/cedricbahirwe",
+  "private_url": "https://exercism.org/tracks/swift/exercises/wings-quest",
+  "public_url": "https://exercism.org/tracks/swift/exercises/wings-quest/solutions/cedricbahirwe",
   "status": "iterated",
-  "mentoringStatus": "none",
-  "publishedIterationHeadTestsStatus": "not_queued",
-  "hasNotifications": false,
-  "numViews": 0,
-  "numStars": 0,
-  "numComments": 0,
-  "numIterations": 2,
-  "numLoc": 12,
-  "isOutOfDate": false,
-  "publishedAt": null,
-  "completedAt": null,
-  "updatedAt": "2024-01-10T13:36:28+00:00",
-  "lastIteratedAt": "2024-01-08T11:18:37+00:00",
+  "mentoring_status": "none",
+  "published_iteration_head_tests_status": "not_queued",
+  "has_notifications": false,
+  "num_views": 0,
+  "num_stars": 0,
+  "num_comments": 0,
+  "num_iterations": 2,
+  "num_loc": 12,
+  "is_out_of_date": false,
+  "published_at": null,
+  "completed_at": null,
+  "updated_at": "2024-01-10T13:36:28+00:00",
+  "last_iterated_at": "2024-01-08T11:18:37+00:00",
   "exercise": {
     "slug": "wings-quest",
     "title": "Wings Quest",
-    "iconUrl": "https://assets.exercism.org/exercises/low-power-embedded-game.svg"
+    "icon_url": "https://assets.exercism.org/exercises/low-power-embedded-game.svg"
   },
   "track": {
     "slug": "swift",
     "title": "Swift",
-    "iconUrl": "https://assets.exercism.org/tracks/swift.svg"
+    "icon_url": "https://assets.exercism.org/tracks/swift.svg"
   }
 }]
 """
