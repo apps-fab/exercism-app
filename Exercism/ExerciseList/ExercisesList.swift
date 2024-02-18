@@ -83,7 +83,6 @@ struct ExercisesList: View {
                 
                 CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
                     Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
-                        .id(option)
                     
                 }
             }

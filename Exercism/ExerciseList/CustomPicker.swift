@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
     @Binding var selection: Selection
     var items: [Selection]
-    @ViewBuilder var labelContent: (Selection) -> Content
+    @ViewBuilder let labelContent: (Selection) -> Content
     
     var body: some View {
         HStack {
@@ -28,6 +28,7 @@ struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
                         selection = item
                     }
                     .aspectRatio(contentMode: .fill)
+                    .id(item.id)
             }
         }
     }
