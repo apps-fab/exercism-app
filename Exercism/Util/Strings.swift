@@ -56,6 +56,7 @@ enum Strings: String {
     case resetFilters = "Reset search and filters"
     case publishCodeTitle = "Publish your code and share\nyour knowledge"
     case publishCodeSubtitle = "By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
+    case markAsComplete = "Mark as complete"
 
     // Login
     case introTitle = "Exercism is free for all people, everywhere."
