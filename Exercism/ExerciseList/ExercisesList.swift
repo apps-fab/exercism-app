@@ -34,8 +34,13 @@ struct ExercisesList: View {
     @State private var alertItem = AlertItem()
     
     private let columns = [
+//        GridItem(.flexible(minimum: 400)),
+//        GridItem(.flexible(minimum: 400)),
 //        GridItem(.adaptive(minimum: 400, maximum: 1000))
-        GridItem(.adaptive(minimum: 500, maximum: 1000))
+//        GridItem(.adaptive(minimum: 300)),
+//        GridItem(.adaptive(minimum: 300))
+        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
     
     var body: some View {

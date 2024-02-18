@@ -34,7 +34,6 @@ struct ExerciseGridView: View {
             }
             .frame(maxHeight: .infinity)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: 120)
         .padding(5)
         .roundEdges(
@@ -133,6 +132,4 @@ struct ExerciseGridView: View {
     ExerciseGridView(exercise: PreviewData.shared.getExercises()[0],
                      solution: PreviewData.shared.getSolutions()[0],
                      isHover: true)
-    .padding()
-    .preferredColorScheme(.dark)
 }
