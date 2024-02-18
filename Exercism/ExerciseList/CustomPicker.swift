@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
-    @Binding var selected: Selection
-    let items: [Selection]
+    @Binding var selection: Selection
+    var items: [Selection]
     @ViewBuilder var labelContent: (Selection) -> Content
     
     var body: some View {
@@ -17,17 +17,17 @@ struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
             ForEach(items) { item in
                 labelContent(item)
                     .fontWeight(
-                        item == selected ? .semibold : .regular)
+                        item == selection ? .semibold : .regular)
                     .lineLimit(1)
                     .minimumScaleFactor(0.9)
                     .padding()
                     .frame(height: 34)
-                    .roundEdges(backgroundColor: item == selected ? Color.exercismPurple.opacity(0.1) : .clear, lineColor: .clear, cornerRadius: 25)
+                    .roundEdges(backgroundColor: item == selection ? Color.exercismPurple.opacity(0.15) : .clear, lineColor: .clear, cornerRadius: 25)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        selected = item
+                        selection = item
                     }
-                    .frame(maxWidth: .infinity)
+                    .aspectRatio(contentMode: .fill)
             }
         }
     }
@@ -37,7 +37,7 @@ extension CustomPicker where Content == Text {}
 
 #Preview {
     CustomPicker(
-        selected: .constant(ExerciseCategory.AllExercises),
+        selection: .constant(ExerciseCategory.AllExercises),
         items: ExerciseCategory.allCases) {
             Text("Some \($0.rawValue)")
         }

@@ -6,10 +6,20 @@ import Foundation
 import SwiftUI
 
 extension View {
-    func roundEdges(backgroundColor: some View = Color.clear, lineColor: Color = .gray, cornerRadius: CGFloat = 20) -> some View {
-        modifier(RoundedRect(radius: cornerRadius,
-                             borderColor: lineColor,
-                             backgroundView: backgroundColor))
+    func roundEdges(
+        backgroundColor: some View = Color.clear,
+        lineColor: Color = .gray,
+        borderWidth: CGFloat = 1,
+        cornerRadius: CGFloat = 20
+    ) -> some View {
+        modifier(
+            RoundedRect(
+                radius: cornerRadius,
+                borderColor: lineColor,
+                backgroundView: backgroundColor,
+                borderWidth: borderWidth
+            )
+        )
     }
     
     func tooltip(_ tip: String) -> some View {
