@@ -135,6 +135,6 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-//        .previewLayout(.fixed(width: 1000, height: 1000))
+        .previewLayout(.fixed(width: 1000, height: 1000))
 
 }

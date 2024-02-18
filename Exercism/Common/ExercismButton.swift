@@ -20,7 +20,7 @@ struct ExercismButton: View {
                 .brightness(1)
                 .frame(width: 40, height: 40)
                 .opacity(isLoading ? 1 : 0)
-                .accentColor(.green)
+
             Button(action: {
                 action()
             }) {
