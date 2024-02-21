@@ -124,7 +124,10 @@ struct TrackGridView: View {
                             .font(.system(size: 12, weight: .semibold))
                     }
                     Spacer()
-                        Button(action: { print("Attempting to view track")}, label: {
+                    Button(action: {
+                        // TODO: Kirk: Add the join track action
+                        print("Attempting to join track")
+                    }, label: {
                             Text("Join Track")
                         }).buttonStyle(.plain)
                         .padding(.horizontal)
