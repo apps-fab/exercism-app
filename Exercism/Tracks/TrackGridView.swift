@@ -114,14 +114,15 @@ struct TrackGridView: View {
 
             if !track.isJoined {
                 HStack {
-                    Button(action: { print("Attempting to join")}, label: {
+                    Link(destination: URL(string: "https://exercism.org/tracks/\(track.slug)")!) {
                         Text("View Track")
-                    }).buttonStyle(.plain)
-                        .padding(.horizontal)
-                    .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
-                                                                 startPoint: .leading, endPoint: .trailing),
-                                  lineColor: .clear)
-                    .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.primary)
+                            .padding(.horizontal)
+                            .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                        startPoint: .leading, endPoint: .trailing),
+                                        lineColor: .clear)
+                            .font(.system(size: 12, weight: .semibold))
+                    }
                     Spacer()
                         Button(action: { print("Attempting to view track")}, label: {
                             Text("Join Track")
