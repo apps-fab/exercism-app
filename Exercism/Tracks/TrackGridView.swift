@@ -115,7 +115,7 @@ struct TrackGridView: View {
             if !track.isJoined {
                 HStack {
                     Link(destination: URL(string: "https://exercism.org/tracks/\(track.slug)")!) {
-                        Text("View Track")
+                        Text(Strings.viewTrack.localized())
                             .foregroundColor(.primary)
                             .padding(.horizontal)
                             .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
@@ -128,7 +128,7 @@ struct TrackGridView: View {
                         // TODO: Kirk: Add the join track action
                         print("Attempting to join track")
                     }, label: {
-                            Text("Join Track")
+                            Text(Strings.joinTrack.localized())
                         }).buttonStyle(.plain)
                         .padding(.horizontal)
                         .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
