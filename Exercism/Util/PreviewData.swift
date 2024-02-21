@@ -247,7 +247,7 @@ struct PreviewData {
                      "exercises": "https://exercism.org/tracks/awk/exercises",
                      "concepts": "https://exercism.org/tracks/awk/concepts"
                  },
-                 "is_joined": true,
+                 "is_joined": false,
                  "num_learnt_concepts": 0,
                  "num_completed_exercises": 0,
                  "num_solutions": 2,
