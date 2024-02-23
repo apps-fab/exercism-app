@@ -35,10 +35,18 @@ struct ContentView: View {
             navigationModel.jsonData = navigationData
         }
         
+        // User is logged in but navigationModel path is empty
+        if ExercismKeychain.shared.get(for: Keys.token.rawValue) != nil && navigationModel.path.isEmpty {
+            navigationModel.goToDashboard()
+            // Save navigation data into scene storage
+            navigationData = navigationModel.jsonData
+        }
+        
         for await _ in navigationModel.objectWillChangeSequence {
             navigationData = navigationModel.jsonData
         }
     }
+
     
     @ViewBuilder
     private func handleDestinationRoute(_ route: Route) -> some View {
