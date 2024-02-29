@@ -33,7 +33,7 @@ struct SideBar: View {
                                     .accessibilityHidden(true)
                                 
                                 VStack(alignment: .leading, spacing: 10) {
-                                    Text(track.slug)
+                                    Text(track.title)
                                     Label {
                                         Text(String(format: Strings.exerciseNumber.localized(),
                                                     track.numCompletedExercises,

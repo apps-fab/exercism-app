@@ -10,6 +10,10 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct TrackGridView: View {
+    // For testing
+    @Environment(\.openURL) private var openURL
+    @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
+    
     var track: Track
     @State var isHover = false
     
@@ -127,6 +131,8 @@ struct TrackGridView: View {
                     Button(action: {
                         // TODO: Kirk: Add the join track action
                         print("Attempting to join track")
+                        shouldRefreshFromJoinTrack = true
+                        openURL(URL(string: "https://exercism.org/tracks/\(track.slug)")!)
                     }, label: {
                             Text(Strings.joinTrack.localized())
                         }).buttonStyle(.plain)

@@ -10,6 +10,10 @@ import ExercismSwift
 
 struct TracksListView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
+
+
+//    @State var action:  (@MainActor () async -> Void)?
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
@@ -35,6 +39,18 @@ struct TracksListView: View {
                 }.onChange(of: filters) { newFilters in
                     asyncModel.filterOperations = { self.model.filterTags(newFilters) }
                 }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+            // check if a flag for joining a track is true
+            if shouldRefreshFromJoinTrack {
+                print("Perform refresh operation")
+                // Perform refresh
+                self.asyncModel = .init(operation: { try await model.getTracks() })
+                // Reset flag
+                shouldRefreshFromJoinTrack = false
+            } else {
+                print("No refresh to do")
+            }
         }
     }
     
