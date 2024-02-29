@@ -16,12 +16,16 @@ struct ExercismButton: View {
     var body: some View {
         ZStack(alignment: .center) {
             ProgressView()
+                .colorInvert()
+                .brightness(1)
                 .frame(width: 40, height: 40)
                 .opacity(isLoading ? 1 : 0)
+
             Button(action: {
                 action()
             }) {
                 Text(title)
+                    .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(.white)
                     .opacity(isLoading ? 0 : 1)
@@ -36,7 +40,8 @@ struct ExercismButton: View {
 }
 
 #Preview {
-    ExercismButton(title: "Exercism Button", isLoading: .constant(true)) {
+    ExercismButton(title: "Exercism Button", isLoading: .constant(false)) {
         print("Button pressed")
+        
     }
 }

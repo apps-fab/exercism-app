@@ -27,10 +27,10 @@ protocol LoadableObject: ObservableObject {
 class AsyncModel<Value>: ObservableObject, LoadableObject {
     @Published private(set) var state: LoadingState<Value> = LoadingState.idle
     typealias AsyncOperation = () async throws -> Value
-    typealias syncOperation = () -> Value
+    typealias SyncOperation = () -> Value
     
     var operation: AsyncOperation
-    var filterOperations: syncOperation? {
+    var filterOperations: SyncOperation? {
         didSet {
             state = .success(filterOperations!())
         }

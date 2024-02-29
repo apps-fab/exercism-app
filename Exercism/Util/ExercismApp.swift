@@ -18,7 +18,7 @@ enum Keys: String {
 struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var settingsData = SettingData()
-    @StateObject private var model = TrackModel()
+    @StateObject private var model = TrackModel.shared
     
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)

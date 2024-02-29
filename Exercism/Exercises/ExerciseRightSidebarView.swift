@@ -47,10 +47,15 @@ struct ExerciseRightSidebarView: View {
                     
                     if let onMarkAsComplete {
                         Button(action: onMarkAsComplete) {
-                            Label("Mark as complete", systemImage: "checkmark.seal")
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 45)
-                                .background(Color.exercismPurple, in: RoundedRectangle(cornerRadius: 15))
+                            Label {
+                                Text(Strings.markAsComplete.localized())
+                            } icon: {
+                                Image.checkmarkSeal
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 45)
+                            .background(Color.exercismPurple, in: .rect(cornerRadius: 15))
+                            .foregroundStyle(.white)
                         }
                         .buttonStyle(.plain)
                         .padding(.vertical, 10)

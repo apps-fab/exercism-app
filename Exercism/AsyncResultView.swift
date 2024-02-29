@@ -11,25 +11,25 @@ struct AsyncResultView<Source: LoadableObject, Content: View>: View {
     @ObservedObject var source: Source
     var content: (Source.Value) -> Content
     
-    init(source: Source,
-         @ViewBuilder content: @escaping (Source.Value) -> Content) {
+    init(
+        source: Source,
+        @ViewBuilder content: @escaping (Source.Value) -> Content
+    ) {
         self.source = source
         self.content = content
     }
     
     var body: some View {
-        Group {
+        ZStack {
             switch source.state {
             case .idle:
                 EmptyView()
             case .loading:
-                Spacer()
                 ProgressView()
-                Spacer()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .failure(let error):
-                Spacer()
                 Text(error.description)
-                Spacer()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .success(let output):
                 content(output)
             }

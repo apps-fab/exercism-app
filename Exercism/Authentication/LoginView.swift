@@ -36,24 +36,30 @@ struct LoginView: View {
     }
     
     var leftView: some View {
-        VStack() {
+        VStack {
             Spacer()
             Image.mainLogo
                 .resizable()
                 .accessibilityHidden(true)
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 365, height: 208)
+                .frame(idealWidth: 365)
+                .frame(maxHeight: 208)
             Spacer()
             Text(Strings.introTitle.localized())
-                .font(.system(size: 26, weight: .semibold))
+                .font(.largeTitle.weight(.semibold))
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.8)
+            
             Text(Strings.introSubtitle.localized())
-                .font(.system(size: 16, weight: .regular))
+                .font(.title3)
                 .multilineTextAlignment(.center)
                 .padding()
+            
             Text(Strings.introFree.localized())
-                .font(.system(size: 16, weight: .semibold))
+                .font(.title3.weight(.semibold))
+
             Spacer()
+            
             Image.trackImages
                 .resizable()
                 .accessibilityHidden(true)
@@ -129,6 +135,6 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-                .previewLayout(.fixed(width: 900, height: 800))
+        .previewLayout(.fixed(width: 1000, height: 1000))
 
 }

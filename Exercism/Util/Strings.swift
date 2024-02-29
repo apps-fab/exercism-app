@@ -19,8 +19,8 @@ enum Strings: String {
     case completedExercises = "%d/%d Exercises"
     case learningMode = "Learning Mode"
     case lastTouched = "Last touched %@ ago"
-    case languageIntro = "Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors"
-    case languageNumber = "66 languages for you to master"
+    case languageIntro = "Become fluent in your chosen programming languages by completing these tracks created by our [awesome team of contributors](https://exercism.org/contributing/contributors)"
+    case languageNumber = "67+ languages for you to master"
     case searchLanguage = "Search language filters"
     case filterBy = "Filter by"
     case showingTracks = "Showing all %d tracks"
@@ -56,10 +56,11 @@ enum Strings: String {
     case resetFilters = "Reset search and filters"
     case publishCodeTitle = "Publish your code and share\nyour knowledge"
     case publishCodeSubtitle = "By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
+    case markAsComplete = "Mark as complete"
 
     // Login
     case introTitle = "Exercism is free for all people, everywhere."
-    case introSubtitle = "Level up your programming skills with 3,444 exercises across 52 languages, and insightful discussion with our dedicated team of welcoming mentors."
+    case introSubtitle = "Level up your programming skills over 5,521 exercises across 67+ languages, and insightful discussion with our dedicated team of welcoming mentors."
     case introFree = "Exercism is 100% free forever."
     case codePractice = "Code practice and mentorship for everyone"
     case enterToken = "Enter your token"
@@ -81,6 +82,7 @@ enum Strings: String {
     case solutionPublished = "Your solution has been published successfully."
     case solutionNotPublished = "Error publishing your solution. Try again later."
     case searchString = "Search by title"
+    case searchTrackString = "Search language tracks"
 
     // Error strings
     case errorOccurred = "An error occurred"
