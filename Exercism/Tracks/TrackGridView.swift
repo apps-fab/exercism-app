@@ -49,7 +49,7 @@ struct TrackGridView: View {
                     }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing), lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
-                
+
                 if track.isNew && !track.isJoined {
                     Label(title: {
                         Text(Strings.new.localized())
@@ -71,6 +71,17 @@ struct TrackGridView: View {
                                                                  startPoint: .leading, endPoint: .trailing),
                                  lineColor: .clear)
                     .font(.system(size: 12, weight: .semibold))
+                } else {
+                    Spacer()
+                    Link(destination: URL(string: "https://exercism.org/tracks/\(track.slug)")!) {
+                        Text(Strings.joinTrack.localized())
+                            .foregroundColor(.primary)
+                            .padding(.horizontal)
+                            .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                        startPoint: .leading, endPoint: .trailing),
+                                        lineColor: .clear)
+                            .font(.system(size: 12, weight: .semibold))
+                    }
                 }
             }
 
@@ -110,33 +121,6 @@ struct TrackGridView: View {
                         Text(track).bold().roundEdges()
                     }
                 }
-            }
-
-            if !track.isJoined {
-                HStack {
-                    Link(destination: URL(string: "https://exercism.org/tracks/\(track.slug)")!) {
-                        Text(Strings.viewTrack.localized())
-                            .foregroundColor(.primary)
-                            .padding(.horizontal)
-                            .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
-                                                                        startPoint: .leading, endPoint: .trailing),
-                                        lineColor: .clear)
-                            .font(.system(size: 12, weight: .semibold))
-                    }
-                    Spacer()
-                    Button(action: {
-                        // TODO: Kirk: Add the join track action
-                        print("Attempting to join track")
-                    }, label: {
-                            Text(Strings.joinTrack.localized())
-                        }).buttonStyle(.plain)
-                        .padding(.horizontal)
-                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
-                                                                     startPoint: .leading, endPoint: .trailing),
-                                     lineColor: .clear)
-                        .font(.system(size: 12, weight: .semibold))
-                }
-
             }
         }
     }
