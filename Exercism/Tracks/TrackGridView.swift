@@ -109,7 +109,7 @@ struct TrackGridView: View {
                         .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
                                                                      startPoint: .leading, endPoint: .trailing),
                                      lineColor: .clear)
-                        .font(.system(size: 12, weight: .semibold)
+                        .font(.system(size: 12, weight: .semibold))
                 }
             }
             
