@@ -11,9 +11,6 @@ import ExercismSwift
 struct TracksListView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
-
-
-//    @State var action:  (@MainActor () async -> Void)?
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
@@ -39,19 +36,10 @@ struct TracksListView: View {
                 }.onChange(of: filters) { newFilters in
                     asyncModel.filterOperations = { self.model.filterTags(newFilters) }
                 }
-        }
-        // 4. subscribe to `willBecomeActiveNotification` for when the user comes back to the app
-        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
-            // 5. check if a flag for joining a track is true
+        }.onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
             if shouldRefreshFromJoinTrack {
-                print("Perform refresh operation")
-                // 6. Initiate a refresh operation
-                // comment: one issue here is that it clears everything on the UI when reloading (but can be fixed)
                 self.asyncModel = .init(operation: { try await model.getTracks() })
-                // 7. Reset our join track flag
                 shouldRefreshFromJoinTrack = false
-            } else {
-                print("No refresh to do")
             }
         }
     }
