@@ -10,35 +10,43 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
-    let model = TrackModel.shared
+    private let model = TrackModel.shared
     
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
-            Group {
-                if let _ = ExercismKeychain.shared.get(for: Keys.token.rawValue) {
-                    TracksListView(
-                        asyncModel: .init { try await model.getTracks() }
-                    )
-                    .frame(minWidth: 800, minHeight: 800)
-                    .environmentObject(navigationModel)
-                    
-                } else {
-                    LoginView().frame(minWidth: 800, minHeight: 800)
+            ZStack {
+                if ExercismKeychain.shared.get(for: Keys.token.rawValue) == nil {
+                    LoginView()
                 }
             }
             .environmentObject(navigationModel)
-            .task {
-                if let jsonData = navigationData {
-                    navigationModel.jsonData = jsonData
-                }
-                
-                for await _ in navigationModel.objectWillChangeSequence {
-                    navigationData = navigationModel.jsonData
-                }
-            }
+            .task(performInitialNavigationSetup)
             .navigationDestination(for: Route.self, destination: handleDestinationRoute)
         }
+        .frame(
+            minWidth: 800, idealWidth: 1000, maxWidth: .infinity,
+            minHeight: 500, idealHeight: 800, maxHeight: .infinity
+        )
     }
+    
+    @Sendable
+    private func performInitialNavigationSetup() async {
+        if let navigationData {
+            navigationModel.jsonData = navigationData
+        }
+        
+        // User is logged in but navigationModel path is empty
+        if ExercismKeychain.shared.get(for: Keys.token.rawValue) != nil && navigationModel.path.isEmpty {
+            navigationModel.goToDashboard()
+            // Save navigation data into scene storage
+            navigationData = navigationModel.jsonData
+        }
+        
+        for await _ in navigationModel.objectWillChangeSequence {
+            navigationData = navigationModel.jsonData
+        }
+    }
+
     
     @ViewBuilder
     private func handleDestinationRoute(_ route: Route) -> some View {
@@ -49,7 +57,7 @@ struct ContentView: View {
             
         case let .Track(track):
             ExercisesList(track: track,
-                          asyncModel: AsyncModel(operation: { try await model.getExercises(track) }))
+                          asyncModel: .init { try await model.getExercises(track) })
             .environmentObject(navigationModel)
             
         case .Login:
@@ -57,8 +65,7 @@ struct ContentView: View {
                 .environmentObject(navigationModel)
             
         case .Dashboard:
-            TracksListView(asyncModel: AsyncModel(operation: { try await model.getTracks()} ))
-                .frame(minWidth: 800, minHeight: 800)
+            TracksListView(asyncModel: .init { try await model.getTracks() })
                 .environmentObject(navigationModel)
         }
     }

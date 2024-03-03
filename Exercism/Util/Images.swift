@@ -22,7 +22,6 @@ extension Image {
     static let slider = Image(systemName: "slider.horizontal.3")
     static let chevronDown = Image(systemName: "chevron.down")
     static let chevronRight = Image(systemName: "chevron.right")
-    static let chevronBack = Image(systemName: "chevron.backward")
     static let checkmarkSquareFill = Image(systemName: "checkmark.square.fill")
     static let square = Image(systemName: "square")
     static let lock = Image(systemName: "lock")
@@ -46,4 +45,5 @@ extension Image {
     static let textBadgeChecklist =  Image(systemName: "text.badge.checkmark")
     static let gear = Image(systemName: "doc.badge.gearshape")
     static let terminal = Image(systemName: "terminal")
+    static let checkmarkSeal = Image(systemName: "checkmark.seal")
 }

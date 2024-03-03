@@ -9,25 +9,31 @@ import SwiftUI
 import ExercismSwift
 
 struct FilterView: View {
-    @State private var showingSheet = false
     var results: Int
     @Binding var searchText: String
     @Binding var filters: Set<String>
-    @FocusState private var fieldFocused: Bool
     var sortAction: () -> Void
 
+    @State private var showingSheet = false
+    @FocusState private var fieldFocused: Bool
+    
     var body: some View {
         HStack {
-            ZStack(alignment: .leading) {
+            HStack(spacing: 12) {
                 Image.magnifyingGlass
-                TextField(Strings.searchString.localized(),
+                    .imageScale(.large)
+                
+                TextField(Strings.searchTrackString.localized(),
                           text: $searchText)
-                .padding(.horizontal, 30)
                 .textFieldStyle(.plain)
-            }.padding()
-                .roundEdges(lineColor: fieldFocused ? .purple : .gray)
-                .focused($fieldFocused)
-
+            }
+            .padding(8)
+            .roundEdges(
+                lineColor: fieldFocused ? .purple : .gray,
+                cornerRadius: 8
+            )
+            .focused($fieldFocused)
+            
             Button {
                 showingSheet.toggle()
             } label: {
@@ -36,20 +42,32 @@ struct FilterView: View {
                 } icon: {
                     Image.slider
                 }
-            }.padding()
-                .roundEdges(lineColor: showingSheet ? .purple : .gray)
-                .buttonStyle(.plain)
-                .popover(isPresented: $showingSheet) {
-                    FilterTableView(tags: Tag.loadTags(),
-                                    selectedTags: $filters,
-                                    isPresented: $showingSheet)
-                    .interactiveDismissDisabled(false)
-                }
-
+                .padding(8)
+                .roundEdges(
+                    lineColor: showingSheet ? .purple : .gray,
+                    cornerRadius: 8
+                )
+                .contentShape(Rectangle())
+            }
+            
+            .buttonStyle(.plain)
+            .popover(isPresented: $showingSheet) {
+                FilterTableView(tags: Tag.loadTags(),
+                                selectedTags: $filters,
+                                isPresented: $showingSheet)
+                .interactiveDismissDisabled(false)
+            }
             Text(String(format: Strings.showingTracks.localized(), results))
-                .padding()
-                .roundEdges(backgroundColor: Color.primary.opacity(0.2))
-
+                .fontWeight(.semibold)
+                .minimumScaleFactor(0.9)
+                .lineLimit(1)
+                .padding(8)
+                .roundEdges(
+                    backgroundColor: Color.exercismPurple.opacity(0.2),
+                    lineColor: .clear,
+                    cornerRadius: 8
+                )
+            
             Button {
                 sortAction()
             } label: {
@@ -58,10 +76,15 @@ struct FilterView: View {
                 } icon: {
                     Image.chevronDown
                 }
-            }.padding()
-                .roundEdges()
-                .buttonStyle(.plain)
-        }.onAppear {
+                .padding(8)
+                .roundEdges(
+                    cornerRadius: 8
+                )
+                .contentShape(Rectangle()) 
+            }
+            .buttonStyle(.plain)
+        }
+        .onAppear {
             fieldFocused = false
         }
     }
@@ -70,7 +93,9 @@ struct FilterView: View {
 #Preview {
     FilterView(results: 10,
                searchText: .constant(""),
-               filters: .constant([""])) {
+               filters: .constant([""])
+    ) {
         print("Filter View pressed")
     }
+    .padding()
 }
