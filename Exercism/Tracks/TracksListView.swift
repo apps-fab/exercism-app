@@ -10,6 +10,7 @@ import ExercismSwift
 
 struct TracksListView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
@@ -21,22 +22,26 @@ struct TracksListView: View {
     ]
     
     var body: some View {
-        AsyncResultView(source: asyncModel) { tracks in
-            HStack(spacing: 0) {
-                SideBar(tracks: tracks)
-                    .frame(minWidth: 250, maxWidth: 280)
-                Divider()
-                tracksView(tracks)
+        GeometryReader { size in
+            AsyncResultView(source: asyncModel) { tracks in
+                HStack {
+                    SideBar(tracks: tracks).frame(maxWidth: size.size.width * 0.2)
+                    Divider().frame(width: 2)
+                    tracksView(tracks)
+                }
+            }.navigationBarBackButtonHidden()
+                .toolbar(.visible)
+            .accessibilityLabel("All Tracks")
+                .onChange(of: searchText) { newSearch in
+                    asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
+                }.onChange(of: filters) { newFilters in
+                    asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+                }
+        }.onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+            if shouldRefreshFromJoinTrack {
+                self.asyncModel = .init(operation: { try await model.getTracks() })
+                shouldRefreshFromJoinTrack = false
             }
-        }
-        .toolbar(.hidden)
-        .accessibilityLabel("All Tracks")
-        .onChange(of: searchText) { newSearch in
-            asyncModel.filterOperations = { self.model.filterTracks(newSearch)
-            }
-        }
-        .onChange(of: filters) { newFilters in
-            asyncModel.filterOperations = { self.model.filterTags(newFilters) }
         }
     }
     

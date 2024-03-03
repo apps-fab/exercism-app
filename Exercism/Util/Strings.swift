@@ -32,6 +32,7 @@ enum Strings: String {
     case runTests = "Run Tests"
     case runTestsError = "You need to run the tests before submitting."
     case toggleInstructions = "Toggle instructions"
+    case joinTrack = "Join Track"
 
     case completed = "Completed"
     case inProgress = "In-progress"

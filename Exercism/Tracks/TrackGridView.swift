@@ -10,8 +10,11 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct TrackGridView: View {
-    let track: Track
-    @State private var isHover = false
+    @Environment(\.openURL) private var openURL
+    @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
+    
+    var track: Track
+    @State var isHover = false
     
     var body: some View {
         HStack(alignment: .top, spacing: 5) {
@@ -69,7 +72,7 @@ struct TrackGridView: View {
                     .foregroundStyle(.secondary)
                     .font(.callout.weight(.semibold))
                 }
-                
+
                 if track.isNew && !track.isJoined {
                     Label(title: {
                         Text(Strings.new.localized())
@@ -90,13 +93,23 @@ struct TrackGridView: View {
                         Text( Strings.joined.localized())
                     } icon: {
                         Image.checkmark
-                    }
-                    .roundEdges(
-                        backgroundColor: Color.exercismPurple.opacity(0.2),
-                        lineColor: .clear,
-                        cornerRadius: 8)
-                    .foregroundStyle(Color.exercismPurple)
-                    .font(.callout.weight(.semibold))
+                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                 startPoint: .leading, endPoint: .trailing),
+                                 lineColor: .clear)
+                    .font(.system(size: 12, weight: .semibold))
+                } else {
+                    Spacer()
+                    Button(action: {
+                        shouldRefreshFromJoinTrack = true
+                        openURL(URL(string: "https://exercism.org/tracks/\(track.slug)")!)
+                    }, label: {
+                            Text(Strings.joinTrack.localized())
+                        }).buttonStyle(.plain)
+                        .padding(.horizontal)
+                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                     startPoint: .leading, endPoint: .trailing),
+                                     lineColor: .clear)
+                        .font(.system(size: 12, weight: .semibold)
                 }
             }
             
