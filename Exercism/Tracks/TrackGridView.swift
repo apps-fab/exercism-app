@@ -10,6 +10,11 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct TrackGridView: View {
+    // 1. Link opening
+    @Environment(\.openURL) private var openURL
+    // 2. Keep track of whether join track was initiated
+    @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
+    
     var track: Track
     @State var isHover = false
     
@@ -73,15 +78,18 @@ struct TrackGridView: View {
                     .font(.system(size: 12, weight: .semibold))
                 } else {
                     Spacer()
-                    Link(destination: URL(string: "https://exercism.org/tracks/\(track.slug)")!) {
-                        Text(Strings.joinTrack.localized())
-                            .foregroundColor(.primary)
-                            .padding(.horizontal)
-                            .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
-                                                                        startPoint: .leading, endPoint: .trailing),
-                                        lineColor: .clear)
-                            .font(.system(size: 12, weight: .semibold))
-                    }
+                    Button(action: {
+                        // 3. Manually initiate join track
+                        shouldRefreshFromJoinTrack = true
+                        openURL(URL(string: "https://exercism.org/tracks/\(track.slug)")!)
+                    }, label: {
+                            Text(Strings.joinTrack.localized())
+                        }).buttonStyle(.plain)
+                        .padding(.horizontal)
+                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                                                                     startPoint: .leading, endPoint: .trailing),
+                                     lineColor: .clear)
+                        .font(.system(size: 12, weight: .semibold))
                 }
             }
 
