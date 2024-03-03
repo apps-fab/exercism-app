@@ -24,7 +24,7 @@ struct AsyncResultView<Source: LoadableObject, Content: View>: View {
                 EmptyView()
             case .loading:
                 Spacer()
-                ProgressView()
+                ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
                 Spacer()
             case .failure(let error):
                 Spacer()
