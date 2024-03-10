@@ -122,6 +122,7 @@
 		FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackGridView.swift; sourceTree = "<group>"; };
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
 		FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FDA558A12B9DC8AA006BDE85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
 		FDB011B52AF8F6A700D29F77 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -214,6 +215,7 @@
 		E0C9672E28732A44004CE7E6 /* Exercism */ = {
 			isa = PBXGroup;
 			children = (
+				FDA558A12B9DC8AA006BDE85 /* Info.plist */,
 				CB9DFA7D2AF97A060093566C /* Authentication */,
 				FDC8C07929C495E70079D5F3 /* Models */,
 				FDC8C07829C495AB0079D5F3 /* Common */,
@@ -627,6 +629,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Exercism/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -663,6 +666,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Exercism/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
