@@ -97,8 +97,20 @@ struct ExerciseRightSidebarView: View {
         var body: some View {
             ScrollView {
                 Markdown(instruction)
-                    .markdownTheme(markdownTheme)
-                    .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                    .markdownBlockStyle(\.codeBlock, body: { configuration in
+                        configuration.label
+                            .padding()
+                               .overlay(alignment: .leading) {
+                                 Rectangle()
+                                   .fill(Color.secondary)
+                                   .frame(width: 1)
+                               }
+                               .background(Color.primaryBackground)
+                               .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                               .markdownTheme(markdownTheme)
+
+
+                    })
             }
         }
         
