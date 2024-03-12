@@ -29,8 +29,8 @@ struct TracksListView: View {
                     Divider().frame(width: 2)
                     tracksView(tracks)
                 }
-            }.navigationBarBackButtonHidden()
-                .toolbar(.visible)
+            }
+                .toolbar(.hidden)
             .accessibilityLabel("All Tracks")
                 .onChange(of: searchText) { newSearch in
                     asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
