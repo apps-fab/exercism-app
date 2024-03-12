@@ -7,8 +7,8 @@ import SwiftUI
 extension Color {
     static let lightGold = Color(red: 117, green: 72, blue: 0)
     static let exercismPurple = Color("purple")
-    static let darkBackground = Color("darkBackground")
-    static let primaryBackground = Color("primaryBackground")
+    static let exercismDarkBackground = Color("darkBackground")
+    static let exercismPrimaryBackground = Color("primaryBackground")
     
     static let offBlackShadow  = Color(light: Color(red: 190/255, green: 190/255, blue: 190/255),
                         dark: Color(red: 50/255, green: 50/255, blue: 50/255))

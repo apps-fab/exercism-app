@@ -105,7 +105,7 @@ struct ExerciseRightSidebarView: View {
                                     .fill(Color.secondary)
                                     .frame(width: 1)
                             }
-                            .background(Color.primaryBackground)
+                            .background(Color.exercismPrimaryBackground)
                     })
                     .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
                     .markdownTheme(markdownTheme)
