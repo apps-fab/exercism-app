@@ -16,11 +16,11 @@ struct ExerciseRightSidebarView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var onMarkAsComplete: (() -> Void)?
-    
+
     var instruction: String? {
         viewModel.instruction
     }
-    
+
     private var theme: Splash.Theme {
         switch colorScheme {
         case .dark:
@@ -29,22 +29,22 @@ struct ExerciseRightSidebarView: View {
             return .sunset(withFont: .init(size: settingData.fontSize))
         }
     }
-    
+
     private var language: String {
         return viewModel.language ?? Strings.text.localized()
     }
-    
+
     var body: some View {
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
                 let markdownTheme = Theme.gitHub
                 // TODO: @savekirk: Use system colorScheme
                 VStack(spacing: 0) {
-                    InstructionView(instruction: instruction, 
+                    InstructionView(instruction: instruction,
                                     theme: theme,
                                     language: language,
                                     markdownTheme: markdownTheme)
-                    
+
                     if let onMarkAsComplete {
                         Button(action: onMarkAsComplete) {
                             Label {
@@ -93,21 +93,31 @@ struct ExerciseRightSidebarView: View {
         let theme: Splash.Theme
         let language: String
         let markdownTheme: MarkdownUI.Theme
-        
+
         var body: some View {
             ScrollView {
                 Markdown(instruction)
-                    .markdownTheme(markdownTheme)
+                    .markdownBlockStyle(\.codeBlock, body: { configuration in
+                        configuration.label
+                            .padding()
+                            .overlay(alignment: .leading) {
+                                Rectangle()
+                                    .fill(Color.secondary)
+                                    .frame(width: 1)
+                            }
+                            .background(Color.exercismPrimaryBackground)
+                    })
                     .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+                    .markdownTheme(markdownTheme)
             }
         }
-        
+
     }
-    
+
     struct TabLabel: View {
         let image: Image
         let label: Text
-        
+
         var body: some View {
             HStack {
                 image
@@ -115,7 +125,7 @@ struct ExerciseRightSidebarView: View {
             }
         }
     }
-    
+
     struct NoTestRun: View {
         var body: some View {
             VStack {
@@ -126,12 +136,12 @@ struct ExerciseRightSidebarView: View {
             }.padding()
         }
     }
-    
+
     struct TestRunProgress: View {
         let totalSecs: Double
         @State private var progress = 0.0
         private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-        
+
         var body: some View {
             VStack {
                 ProgressView(Strings.runningTests.localized(), value: progress, total: 100)

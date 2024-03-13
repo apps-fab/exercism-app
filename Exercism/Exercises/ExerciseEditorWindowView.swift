@@ -35,9 +35,8 @@ struct ExerciseEditorWindowView: View {
 
     let solution: Solution?
     var canMarkAsComplete: Bool {
-        solution?.status == .iterated || solution?.status == .published
+        solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
     }
-
 
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in

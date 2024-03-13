@@ -29,8 +29,8 @@ struct TracksListView: View {
                     Divider().frame(width: 2)
                     tracksView(tracks)
                 }
-            }.navigationBarBackButtonHidden()
-                .toolbar(.visible)
+            }
+                .toolbar(.hidden)
             .accessibilityLabel("All Tracks")
                 .onChange(of: searchText) { newSearch in
                     asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
@@ -66,7 +66,7 @@ struct TracksListView: View {
                     .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity)
-            .background(Color.darkBackground)
+            .background(Color.exercismDarkBackground)
             
             ScrollView {
                 if tracks.isEmpty {

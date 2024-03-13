@@ -87,7 +87,7 @@ struct ExercisesList: View {
                 }
             }
             .padding()
-            .background(Color.darkBackground)
+            .background(Color.exercismDarkBackground)
             
             Divider()
             

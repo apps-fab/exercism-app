@@ -11,7 +11,6 @@ import CodeEditor
 struct ExerciseEditorView: View {
     @State private var exerciseViewModel = ExerciseViewModel.shared
     @State private var codeChanged = false
-    @State private var show = true
     @EnvironmentObject var settingData: SettingData
 
     private var source: String {

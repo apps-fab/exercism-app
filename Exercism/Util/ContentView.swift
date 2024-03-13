@@ -22,6 +22,7 @@ struct ContentView: View {
             .environmentObject(navigationModel)
             .task(performInitialNavigationSetup)
             .navigationDestination(for: Route.self, destination: handleDestinationRoute)
+            .navigationBarBackButtonHidden(false)
         }
         .frame(
             minWidth: 800, idealWidth: 1000, maxWidth: .infinity,

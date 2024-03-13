@@ -30,7 +30,7 @@ struct TrackGridView: View {
         .frame(idealWidth: 450, maxWidth: .infinity, alignment: .leading)
         .frame(height: 150)
         .roundEdges(
-            backgroundColor: Color.darkBackground,
+            backgroundColor: Color.exercismDarkBackground,
             lineColor: isHover ? .purple : .clear,
             cornerRadius: 15
         )

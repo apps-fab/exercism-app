@@ -37,7 +37,7 @@ struct ExerciseGridView: View {
         .frame(height: 120)
         .padding(5)
         .roundEdges(
-            backgroundColor: Color.darkBackground,
+            backgroundColor: Color.exercismDarkBackground,
             lineColor: isHover ? .purple : .clear,
             borderWidth: 1.5,
             cornerRadius: 12
@@ -119,7 +119,7 @@ struct ExerciseGridView: View {
                     }
                     .roundEdges(
                         backgroundColor: Color.green.opacity(0.2),
-                        lineColor: Color.darkBackground
+                        lineColor: Color.exercismDarkBackground
                     )
                     .font(.callout.weight(.semibold))
                 }
