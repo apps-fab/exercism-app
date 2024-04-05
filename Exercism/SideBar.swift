@@ -36,6 +36,7 @@ struct SideBar: View {
         }
     }
 
+    @MainActor
     private func logout() {
         ExercismKeychain.shared.removeItem(for: Keys.token.rawValue)
         navigationModel.goToLogin()

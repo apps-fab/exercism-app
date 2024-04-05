@@ -8,13 +8,13 @@
 import Foundation
 import ExercismSwift
 
+@MainActor
 final class AuthenticationViewModel: ObservableObject {
     @Published var tokenInput = ""
     @Published var isLoading = false
     @Published var showAlert = false
     @Published var error: String?
     
-    @MainActor
     func validateToken() async -> Bool {
         guard !tokenInput.isEmpty else {
             error = Strings.tokenEmptyWarning.localized()
