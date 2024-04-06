@@ -41,7 +41,7 @@ extension View {
         }
     }
 
-    public func tabItem<TabItem: Tabbable>(for item: TabItem) -> some View {
+    @MainActor public func tabItem<TabItem: Tabbable>(for item: TabItem) -> some View {
         return self.modifier(TabBarViewModifier(item: item))
     }
 }

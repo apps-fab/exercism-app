@@ -12,20 +12,20 @@ import Combine
 
 enum Route: Hashable, Identifiable, Codable {
     var id: Self { return self }
-    
+
     case Track(Track)
     case Exercise(String, String, Solution?)
     case Login
     case Dashboard
 }
 
-class NavigationModel: ObservableObject, Codable {
+final class NavigationModel: ObservableObject, Codable {
     @Published var path: [Route]
     @Published var columnVisibility: NavigationSplitViewVisibility
-    
+
     private lazy var decoder = JSONDecoder()
     private lazy var encoder = JSONEncoder()
-    
+
     
     init(path: [Route] = [], columnVisibility: NavigationSplitViewVisibility = .automatic) {
         self.columnVisibility = columnVisibility
@@ -56,14 +56,14 @@ class NavigationModel: ObservableObject, Codable {
         
         self.columnVisibility = try container.decode(NavigationSplitViewVisibility.self, forKey: .columnVisibility)
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
+
         try container.encode(path, forKey: .path)
         try container.encode(columnVisibility, forKey: .columnVisibility)
     }
-    
+
     func goToDashboard() {
         path.append(Route.Dashboard)
     }
@@ -82,12 +82,12 @@ class NavigationModel: ObservableObject, Codable {
         path.append(Route.Login)
     }
 
-    func goBack() {
-        path.removeLast()
-    }
-    
     enum CodingKeys: String, CodingKey {
         case path
         case columnVisibility
     }
+}
+
+extension DispatchQueue {
+    static let pathMutatingLock = DispatchQueue(label: "person.lock.queue")
 }

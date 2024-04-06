@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CodeEditor
+@preconcurrency import CodeEditor
 
 struct ExerciseEditorView: View {
     @State private var exerciseViewModel = ExerciseViewModel.shared

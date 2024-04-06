@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import CodeEditor
+@preconcurrency import CodeEditor
 
 class SettingData: ObservableObject {
     @Published var theme = CodeEditor.ThemeName.pojoaque
