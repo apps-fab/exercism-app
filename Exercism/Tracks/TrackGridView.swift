@@ -12,18 +12,21 @@ import SDWebImageSwiftUI
 struct TrackGridView: View {
     @Environment(\.openURL) private var openURL
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
-    
+
     var track: Track
     @State var isHover = false
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 5) {
-            WebImage(url: URL(string: track.iconUrl))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding([.top, .leading], 10)
-                .frame(width: 100, height: 100)
-                .accessibilityHidden(true)
+            WebImage(url: URL(string: track.iconUrl),
+                     context: [.imageThumbnailPixelSize: CGSize(width: 48, height: 48)])
+            .renderingMode(.original)
+            .resizable()
+            .scaledToFit()
+            .padding([.top, .leading], 10)
+            .frame(width: 100, height: 100, alignment: .center)
+            .accessibilityHidden(true)
+
             trackView
                 .padding()
         }
@@ -46,13 +49,13 @@ struct TrackGridView: View {
             }
         }
     }
-    
+
     private var trackView: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text(track.title)
                     .font(.title3.bold())
-                
+
                 if track.course && !track.isJoined {
                     Label{
                         Text( Strings.learningMode.localized())
@@ -86,7 +89,7 @@ struct TrackGridView: View {
                     )
                     .font(.callout.weight(.semibold))
                 }
-                
+
                 if track.isJoined {
                     Spacer()
                     Label {
@@ -103,16 +106,16 @@ struct TrackGridView: View {
                         shouldRefreshFromJoinTrack = true
                         openURL(URL(string: "https://exercism.org/tracks/\(track.slug)")!)
                     }, label: {
-                            Text(Strings.joinTrack.localized())
-                        }).buttonStyle(.plain)
+                        Text(Strings.joinTrack.localized())
+                    }).buttonStyle(.plain)
                         .padding(.horizontal)
                         .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
-                                                                     startPoint: .leading, endPoint: .trailing),
-                                     lineColor: .clear)
+                                                                    startPoint: .leading, endPoint: .trailing),
+                                    lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
-            
+
             HStack(spacing: 20) {
                 Label(title: {
                     if track.isJoined {
@@ -127,7 +130,7 @@ struct TrackGridView: View {
                         .renderingMode(.template)
                         .foregroundStyle(.foreground)
                 })
-                
+
                 Label(title: {
                     Text(String(format: Strings.concepts.localized(), track.numConcepts))
                         .fontWeight(.medium)
@@ -137,11 +140,11 @@ struct TrackGridView: View {
                         .foregroundStyle(.foreground)
                 })
             }
-            
+
             if track.isJoined {
                 let completedExercises = Float(track.numCompletedExercises)
                 let numberOfExercises = Float(track.numExercises)
-                
+
                 let gradient = Gradient(colors: [.purple, .indigo, .purple])
                 Gauge(value: completedExercises, in: 0...numberOfExercises) {
                 } currentValueLabel: {
