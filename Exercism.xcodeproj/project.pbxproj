@@ -22,7 +22,6 @@
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
 		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
-		E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0C29E0E40700E5C42A /* CodeEditor */; };
 		E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */; };
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
@@ -36,6 +35,7 @@
 		FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD36807F29B1054E004D53C8 /* CustomPicker.swift */; };
 		FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F2B132AA750D300ADB248 /* ExercismButton.swift */; };
 		FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedView.swift */; };
+		FD4DF1582BD6C44700FB415B /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD4DF1572BD6C44700FB415B /* CodeEditor */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
@@ -147,11 +147,11 @@
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */,
-				E07F6B0D29E0E40700E5C42A /* CodeEditor in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
 				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
+				FD4DF1582BD6C44700FB415B /* CodeEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,10 +360,10 @@
 				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
 				E07F6B0629E0D04D00E5C42A /* MarkdownUI */,
 				E07F6B0929E0D5DA00E5C42A /* Splash */,
-				E07F6B0C29E0E40700E5C42A /* CodeEditor */,
 				FD92DC642A854EAC00673445 /* Settings */,
 				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
 				CB8681232B51751F0059AB65 /* ExercismSwift */,
+				FD4DF1572BD6C44700FB415B /* CodeEditor */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -400,9 +400,9 @@
 				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
-				E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
+				FD4DF1562BD6C44700FB415B /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -737,12 +737,12 @@
 				minimumVersion = 0.16.0;
 			};
 		};
-		E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+		FD4DF1562BD6C44700FB415B /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
+			repositoryURL = "https://github.com/angiemugo/CodeEditor.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 		FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */ = {
@@ -807,9 +807,9 @@
 			package = E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */;
 			productName = Splash;
 		};
-		E07F6B0C29E0E40700E5C42A /* CodeEditor */ = {
+		FD4DF1572BD6C44700FB415B /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E07F6B0B29E0E40700E5C42A /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			package = FD4DF1562BD6C44700FB415B /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
 		};
 		FD92DC642A854EAC00673445 /* Settings */ = {

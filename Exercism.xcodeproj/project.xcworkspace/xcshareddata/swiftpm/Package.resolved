@@ -1,13 +1,13 @@
 {
-  "originHash" : "606437cca830a0d8fa742b7f6b3f182b5ae0ac63c431365750ac428d80c3fd92",
+  "originHash" : "aeaea391a09a4022ad9bec2cb0b06ad37954b42368d730a2c43686fe5072992e",
   "pins" : [
     {
       "identity" : "codeeditor",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZeeZide/CodeEditor.git",
+      "location" : "https://github.com/angiemugo/CodeEditor.git",
       "state" : {
-        "revision" : "7ec02043f10961cb44db54d2b488525ed36f40a3",
-        "version" : "1.0.0"
+        "branch" : "main",
+        "revision" : "5a0f69c2f7622d39da5436954c73a2eaa4b2bc49"
       }
     },
     {
@@ -22,10 +22,10 @@
     {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/raspu/Highlightr",
+      "location" : "https://github.com/helje5/Highlightr",
       "state" : {
-        "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
-        "version" : "2.1.2"
+        "revision" : "bd0358056ff1f12ea83833a9fc1b3b5a396a9da0",
+        "version" : "3.0.2"
       }
     },
     {
