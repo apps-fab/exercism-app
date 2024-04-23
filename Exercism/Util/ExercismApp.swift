@@ -19,7 +19,7 @@ struct ExercismApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var settingsData = SettingData()
     @StateObject private var model = TrackModel.shared
-
+    
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
@@ -35,11 +35,21 @@ struct ExercismApp: App {
             ExercismCommands()
             CommandGroup(replacing: .appInfo) {
                 Button("About Exercism") {
-                    NSApplication.shared.orderFrontStandardAboutPanel(options: [NSApplication.AboutPanelOptionKey.credits: NSAttributedString(string: "Exercism is a software built off the Exercism web platform.",
-                                                                                                                                     attributes: [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: NSFont.smallSystemFontSize)
-                                                                ]),
-                                                                       NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© 2023"
-                    ] as [NSApplication.AboutPanelOptionKey : Any])
+                    NSApplication.shared.orderFrontStandardAboutPanel(
+                        options: [
+                            NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
+                                string: "Exercism is a software built off the Exercism web platform.",
+                                attributes: [
+                                    NSAttributedString.Key.font: NSFont.boldSystemFont(
+                                        ofSize: NSFont.smallSystemFontSize
+                                    )
+                                ]
+                            ),
+                            NSApplication.AboutPanelOptionKey(
+                                rawValue: "Copyright"
+                            ): "© 2023"
+                        ] as [NSApplication.AboutPanelOptionKey : Any]
+                    )
                 }
                 
                 Button("Toggle Full Screen") {
@@ -49,6 +59,17 @@ struct ExercismApp: App {
                     }
                 }
                 .keyboardShortcut("F", modifiers: [.control, .command])
+                
+            }
+            
+            CommandGroup(before: .sidebar) {
+                Button("Refresh") {
+                    let notification = Notification(
+                        name: .didRequestRefresh,
+                        object: self)
+                    NotificationCenter.default.post(notification)
+                }
+                .keyboardShortcut("r")
             }
         }
         Settings {

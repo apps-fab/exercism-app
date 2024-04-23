@@ -20,6 +20,7 @@ struct TracksListView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    private let refreshPublisher = NotificationCenter.default.publisher(for: .didRequestRefresh)
     
     var body: some View {
         GeometryReader { size in
@@ -30,18 +31,22 @@ struct TracksListView: View {
                     tracksView(tracks)
                 }
             }
-                .toolbar(.hidden)
+            .toolbar(.hidden)
             .accessibilityLabel("All Tracks")
-                .onChange(of: searchText) { newSearch in
-                    asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
-                }.onChange(of: filters) { newFilters in
-                    asyncModel.filterOperations = { self.model.filterTags(newFilters) }
-                }
-        }.onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+            .onChange(of: searchText) { newSearch in
+                asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
+            }.onChange(of: filters) { newFilters in
+                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
             if shouldRefreshFromJoinTrack {
                 self.asyncModel = .init(operation: { try await model.getTracks() })
                 shouldRefreshFromJoinTrack = false
             }
+        }
+        .onReceive(refreshPublisher) { _ in
+            self.asyncModel = .init(operation: { try await model.getTracks() })
         }
     }
     
@@ -86,6 +91,7 @@ struct TracksListView: View {
                             ) {
                                 ForEach(joinedTracks) { track in
                                     Button {
+                                        cancellable?.cancel()
                                         navigationModel.goToTrack(track)
                                     } label: {
                                         TrackGridView(track: track)
@@ -125,11 +131,11 @@ struct TracksListView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 400, minHeight: 50)
-
+            
             Text(Strings.languageNumber.localized())
                 .font(.largeTitle.bold())
                 .minimumScaleFactor(0.9)
-
+            
             Text(LocalizedStringKey(Strings.languageIntro.localized()))
                 .font(.title2)
                 .minimumScaleFactor(0.9)
