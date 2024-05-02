@@ -69,7 +69,7 @@ struct ExercismApp: App {
                         object: self)
                     NotificationCenter.default.post(notification)
                 }
-                .keyboardShortcut("r")
+                .keyboardShortcut("R")
             }
         }
         Settings {
