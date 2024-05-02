@@ -91,7 +91,6 @@ struct TracksListView: View {
                             ) {
                                 ForEach(joinedTracks) { track in
                                     Button {
-                                        cancellable?.cancel()
                                         navigationModel.goToTrack(track)
                                     } label: {
                                         TrackGridView(track: track)
