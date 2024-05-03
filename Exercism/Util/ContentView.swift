@@ -20,7 +20,9 @@ struct ContentView: View {
                 }
             }
             .environmentObject(navigationModel)
-            .task(performInitialNavigationSetup)
+            .task {
+                await performInitialNavigationSetup()
+            }
             .navigationDestination(for: Route.self, destination: handleDestinationRoute)
             .navigationBarBackButtonHidden(false)
         }
@@ -30,7 +32,6 @@ struct ContentView: View {
         )
     }
 
-    @Sendable
     private func performInitialNavigationSetup() async {
         if let navigationData {
             navigationModel.jsonData = navigationData

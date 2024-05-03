@@ -29,7 +29,7 @@ class AsyncModel<Value: Sendable>: ObservableObject, LoadableObject {
     typealias AsyncOperation = () async throws -> Value
     typealias SyncOperation = () -> Value
     
-    var operation: AsyncOperation
+    private var operation: AsyncOperation
     var filterOperations: SyncOperation? {
         didSet {
             state = .success(filterOperations!())

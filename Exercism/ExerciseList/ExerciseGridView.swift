@@ -71,7 +71,7 @@ struct ExerciseGridView: View {
                 .foregroundStyle(.green)
             }
             
-            if let numIterations = solution?.numTterations,
+            if let numIterations = solution?.numIterations,
                numIterations > 0 {
                 // @Todo(Kirk) Convert this to stringdict for proper localisation)
                 let iterationText = "\(String(describing: numIterations)) \(numIterations == 1 ? "iteration" : "iterations")"
