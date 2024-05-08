@@ -554,6 +554,9 @@
         }
       }
     },
+    "Refresh" : {
+
+    },
     "resetFilters" : {
       "extractionState" : "manual",
       "localizations" : {

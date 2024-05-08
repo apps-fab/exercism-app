@@ -8,7 +8,7 @@
 import Foundation
 import ExercismSwift
 
-enum LoadingState<Value> {
+enum LoadingState<Value: Sendable> {
     case idle
     case loading
     case success(Value)
@@ -17,19 +17,19 @@ enum LoadingState<Value> {
 
 @MainActor
 protocol LoadableObject: ObservableObject {
-    associatedtype Value
+    associatedtype Value: Sendable
     
     var state: LoadingState<Value> { get }
     func load() async
 }
 
 @MainActor
-class AsyncModel<Value>: ObservableObject, LoadableObject {
+class AsyncModel<Value: Sendable>: ObservableObject, LoadableObject {
     @Published private(set) var state: LoadingState<Value> = LoadingState.idle
     typealias AsyncOperation = () async throws -> Value
     typealias SyncOperation = () -> Value
     
-    var operation: AsyncOperation
+    private var operation: AsyncOperation
     var filterOperations: SyncOperation? {
         didSet {
             state = .success(filterOperations!())

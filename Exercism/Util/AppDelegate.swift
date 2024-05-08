@@ -9,6 +9,7 @@ import AppKit
 import Settings
 import ExercismSwift
 
+@MainActor
 extension Settings.PaneIdentifier {
     static let general = Self("General")
     static let advanced = Self("Advanced")
@@ -19,7 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         true
     }
 
-    // What's this is for???
     private lazy var panes: [SettingsPane]  = [
         exercismSettingsScreen()
     ]

@@ -7,9 +7,10 @@
 
 import SwiftUI
 import Settings
-import CodeEditor
+@preconcurrency import CodeEditor
 import Splash
 
+@MainActor
 let exercismSettingsScreen: () -> SettingsPane  = {
     let paneView = Settings.Pane(
         identifier: .general,

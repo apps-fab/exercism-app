@@ -5,10 +5,10 @@
 //  Created by Angie Mugo on 29/09/2022.
 //
 
-import KeychainSwift
+@preconcurrency import KeychainSwift
 
-class ExercismKeychain {
-    public static let shared = ExercismKeychain()
+final class ExercismKeychain: Sendable {
+   public static let shared = ExercismKeychain()
     private let keychain = KeychainSwift()
     
     func set(_ value: String, for key: String) {
