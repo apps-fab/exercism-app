@@ -19,6 +19,7 @@
 		CB6F94942B4C27A1002F8A2C /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB6F94932B4C27A1002F8A2C /* ExercismSwift */; };
 		CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB8681232B51751F0059AB65 /* ExercismSwift */; };
 		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
+		CBA63CF42BD7F1C700151C19 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA63CF32BD7F1C700151C19 /* NSNotification.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
 		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
 		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
@@ -85,6 +86,7 @@
 		CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSolutionContentView.swift; sourceTree = "<group>"; };
 		CB4F3C132B5EEB2300829CCD /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		CBA63CF32BD7F1C700151C19 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
 				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
 				FDFF5A802A66C2E700E36AA4 /* Images.swift */,
+				CBA63CF32BD7F1C700151C19 /* NSNotification.swift */,
 				FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */,
 				FD9262FE28F6EA3300C9476C /* Tags.json */,
 				FD93F5D628E398770078A062 /* Date+Exercism.swift */,
@@ -457,6 +460,7 @@
 				E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */,
 				FD6FE8F22A95514E0043A89F /* ExerciseEditorView.swift in Sources */,
 				E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */,
+				CBA63CF42BD7F1C700151C19 /* NSNotification.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 				FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */,
 				FD7DC53929E2CA6700A1EBD9 /* AsyncResultView.swift in Sources */,
@@ -725,7 +729,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 2.0.0;
 			};
 		};
@@ -733,7 +737,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JohnSundell/Splash";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 0.16.0;
 			};
 		};
@@ -749,8 +753,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/Settings";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 		FDC9F11D28E5DA9200488CE9 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
