@@ -745,7 +745,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/angiemugo/CodeEditor.git";
 			requirement = {
-				branch = main;
+				branch = master;
 				kind = branch;
 			};
 		};

@@ -1,13 +1,13 @@
 {
-  "originHash" : "aeaea391a09a4022ad9bec2cb0b06ad37954b42368d730a2c43686fe5072992e",
+  "originHash" : "6a826503037331ad30485a6122026081bdd7fdbf67609316a537152cf7183bbc",
   "pins" : [
     {
       "identity" : "codeeditor",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/angiemugo/CodeEditor.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "5a0f69c2f7622d39da5436954c73a2eaa4b2bc49"
+        "branch" : "master",
+        "revision" : "1a410a6fbadd0ccadb0c96a6ba54d90cf8e758ec"
       }
     },
     {
@@ -16,16 +16,16 @@
       "location" : "https://github.com/apps-fab/ExercismSwift",
       "state" : {
         "branch" : "main",
-        "revision" : "6a0232f3e6c2a1760d9060586bba40e40e7cc3e0"
+        "revision" : "03953c3e9bcd2035f593ee72ac6c122309c8f548"
       }
     },
     {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/helje5/Highlightr",
+      "location" : "https://github.com/apps-fab/Highlightr.git",
       "state" : {
-        "revision" : "bd0358056ff1f12ea83833a9fc1b3b5a396a9da0",
-        "version" : "3.0.2"
+        "branch" : "master",
+        "revision" : "fb835ee12ea59fca26ad0494230e61679bfc5656"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/evgenyneu/keychain-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "d0ef1ecaabcb01bc5c3d10b685cd9fcc0f1d7fd3"
+        "revision" : "5e1b02b6a9dac2a759a1d5dbc175c86bd192a608"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "f6afa0132961d593f07970d84e2d8b588c29ea04"
+        "revision" : "b5cbc33fb2307d9a407a9c45c333b409c69651ef"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "22423b017b99ab8ac44e29e6372f571f782af6e4"
+        "revision" : "b7af5e6bd9c2987e41730400d1baad13d74a141a"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sindresorhus/Settings",
       "state" : {
-        "revision" : "2f4f65eed252198be383aa0d9058bbaf8f740aa5",
-        "version" : "3.1.0"
+        "branch" : "main",
+        "revision" : "879ea83a7bbc6dbebf62bed8c547f090146372a6"
       }
     },
     {
