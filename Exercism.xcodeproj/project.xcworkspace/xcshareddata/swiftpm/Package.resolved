@@ -1,15 +1,6 @@
 {
-  "originHash" : "6a826503037331ad30485a6122026081bdd7fdbf67609316a537152cf7183bbc",
+  "originHash" : "8fa8228b6f86f6f7ab44c460ad70ebeb151bab2af3c0e1c26b08a67cce3cbf40",
   "pins" : [
-    {
-      "identity" : "codeeditor",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/angiemugo/CodeEditor.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "1a410a6fbadd0ccadb0c96a6ba54d90cf8e758ec"
-      }
-    },
     {
       "identity" : "exercismswift",
       "kind" : "remoteSourceControl",
@@ -17,15 +8,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "03953c3e9bcd2035f593ee72ac6c122309c8f548"
-      }
-    },
-    {
-      "identity" : "highlightr",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apps-fab/Highlightr.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "fb835ee12ea59fca26ad0494230e61679bfc5656"
       }
     },
     {
