@@ -1,13 +1,13 @@
 {
-  "originHash" : "606437cca830a0d8fa742b7f6b3f182b5ae0ac63c431365750ac428d80c3fd92",
+  "originHash" : "dff31ef4997f1052fa0e8cdd09ecca687e6deed211d8df8504ff965768350b05",
   "pins" : [
     {
       "identity" : "codeeditor",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZeeZide/CodeEditor.git",
+      "location" : "https://github.com/apps-fab/CodeEditor.git",
       "state" : {
-        "revision" : "7ec02043f10961cb44db54d2b488525ed36f40a3",
-        "version" : "1.0.0"
+        "branch" : "master",
+        "revision" : "00098338cf24993307f5127ed0d4fbfd06503545"
       }
     },
     {
@@ -22,10 +22,10 @@
     {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/raspu/Highlightr",
+      "location" : "https://github.com/apps-fab/Highlightr.git",
       "state" : {
-        "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
-        "version" : "2.1.2"
+        "branch" : "master",
+        "revision" : "7532ec7bba13ed42c22f9b51445429f209c88263"
       }
     },
     {
