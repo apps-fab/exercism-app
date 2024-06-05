@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExercismButton: View {
     let title: String
-    let backgroundColor = Color.exercismPurple
+    let backgroundColor = Color.appPurple
     @Binding var isLoading: Bool
     let action: () -> Void
     

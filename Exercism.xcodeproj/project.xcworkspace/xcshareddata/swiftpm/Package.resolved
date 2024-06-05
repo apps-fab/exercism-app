@@ -25,7 +25,7 @@
       "location" : "https://github.com/apps-fab/Highlightr.git",
       "state" : {
         "branch" : "master",
-        "revision" : "7532ec7bba13ed42c22f9b51445429f209c88263"
+        "revision" : "31aba666f32792b58a164431485c59b90c04a947"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/evgenyneu/keychain-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "d0ef1ecaabcb01bc5c3d10b685cd9fcc0f1d7fd3"
+        "revision" : "5e1b02b6a9dac2a759a1d5dbc175c86bd192a608"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "f6afa0132961d593f07970d84e2d8b588c29ea04"
+        "revision" : "b5cbc33fb2307d9a407a9c45c333b409c69651ef"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "22423b017b99ab8ac44e29e6372f571f782af6e4"
+        "revision" : "b7af5e6bd9c2987e41730400d1baad13d74a141a"
       }
     },
     {
@@ -70,7 +70,7 @@
       "location" : "https://github.com/sindresorhus/Settings",
       "state" : {
         "branch" : "main",
-        "revision" : "2f4f65eed252198be383aa0d9058bbaf8f740aa5"
+        "revision" : "879ea83a7bbc6dbebf62bed8c547f090146372a6"
       }
     },
     {

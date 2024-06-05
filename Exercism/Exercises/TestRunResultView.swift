@@ -50,7 +50,7 @@ struct TestRunResultView: View {
                         Image.play
                     }
                     .padding(4)
-                    .roundEdges(backgroundColor: Color.exercismPurple)
+                    .roundEdges(backgroundColor: Color.appPurple)
                 }
                 .buttonStyle(.plain)
             }
@@ -139,7 +139,7 @@ struct TestRunResultView: View {
                                             .fontWeight(.bold)
                                             .textCase(.uppercase)
                                             .textFieldStyle(.roundedBorder)
-                                            .background(group.passed(taskId: task.id) ? Color.green : Color.lightGold)
+                                            .background(group.passed(taskId: task.id) ? Color.green : Color.appLightGold)
                                             .foregroundColor(Color.white)
                                         Text(task.title)
                                             .fontWeight(.semibold)

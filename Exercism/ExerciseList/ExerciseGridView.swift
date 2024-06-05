@@ -37,13 +37,13 @@ struct ExerciseGridView: View {
         .frame(height: 120)
         .padding(5)
         .roundEdges(
-            backgroundColor: Color.exercismDarkBackground,
+            backgroundColor: Color.appDarkBackground,
             lineColor: isHover ? .purple : .clear,
             borderWidth: 1.5,
             cornerRadius: 12
         )
-        .shadow(color: .offBlackShadow, radius: 15, x: 10, y: 10)
-        .shadow(color: .offWhiteShadow, radius: 15, x: -10, y: -10)
+        .shadow(color: Color.appOffBlackShadow, radius: 15, x: 10, y: 10)
+        .shadow(color: Color.appOffWhiteShadow, radius: 15, x: -10, y: -10)
         .padding()
         .scaleEffect(isHover ? 1.05 : 1)
         .onHover { hover in
@@ -119,7 +119,7 @@ struct ExerciseGridView: View {
                     }
                     .roundEdges(
                         backgroundColor: Color.green.opacity(0.2),
-                        lineColor: Color.exercismDarkBackground
+                        lineColor: Color.appDarkBackground
                     )
                     .font(.callout.weight(.semibold))
                 }
