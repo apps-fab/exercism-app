@@ -8,10 +8,8 @@ import ExercismSwift
 
 struct PreviewData {
     static let shared = PreviewData()
-    
-    private init() {
-    }
-    
+    let fileManager = FileManager.default
+
     func testRun() -> TestRun {
         let data = """
                    {
@@ -219,7 +217,7 @@ struct PreviewData {
                    """
         return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
     }
-    
+
     func getTracks() -> [Track] {
         let data = """
              [
@@ -248,7 +246,7 @@ struct PreviewData {
                      "exercises": "https://exercism.org/tracks/awk/exercises",
                      "concepts": "https://exercism.org/tracks/awk/concepts"
                  },
-                 "is_joined": false,
+                 "is_joined": true,
                  "num_learnt_concepts": 0,
                  "num_completed_exercises": 0,
                  "num_solutions": 2,
@@ -299,7 +297,7 @@ struct PreviewData {
 """
         return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
     }
-    
+
     func getExercises() -> [Exercise] {
         let data = """
    [
@@ -335,15 +333,34 @@ struct PreviewData {
 """
         return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
     }
-    
+    func getOrCreateDir() -> URL? {
+        do {
+            let docsFolder = try fileManager.url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true)
+
+            let solutionDir = docsFolder.appendingPathComponent("WingsQuest/WingsQuest.swift", isDirectory: true)
+
+            if !fileManager.fileExists(atPath: solutionDir.relativePath) {
+                try fileManager.createDirectory(atPath: solutionDir.path, withIntermediateDirectories: true)
+            }
+            return solutionDir
+        } catch {
+            print("Error in the preview data: \(error)")
+        }
+        return nil
+    }
+
     func getExerciseFile() -> [ExerciseFile] {
         [ExerciseFile(
-            url: URL(string: "file:///Users/cedricbahirwe/Documents/swift/wings-quest/")!,
+            url: getOrCreateDir()!,
             id: "Sources/WingsQuest/WingsQuest.swift",
             name: "Sources/WingsQuest/WingsQuest.swift",
             type: .solution)]
     }
-    
+
     func getSolutions() -> [Solution] {
         let data = """
 [{

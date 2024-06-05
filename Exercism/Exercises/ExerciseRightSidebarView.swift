@@ -158,11 +158,14 @@ struct ExerciseRightSidebarView: View {
     }
 }
 
-#Preview {
-    Group {
-        ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
-
-        ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
-    }
+#Preview("Instruction View") {
+    ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
 }
 
+#Preview("Test Run Progress View") {
+        ExerciseRightSidebarView.TestRunProgress(totalSecs: 10)
+}
+
+#Preview("No Test Run View") {
+    ExerciseRightSidebarView.NoTestRun()
+}

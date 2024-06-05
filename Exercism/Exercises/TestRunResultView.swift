@@ -282,8 +282,28 @@ struct TestRunResultView: View {
     }
 }
 
-#Preview {
-    TestRunResultView(testRun: PreviewData.shared.testRun(),
-                      language: "Swift",
-                      theme: .midnight(withFont: .init(size: 10)), onSubmitTest: {})
+#Preview("Test Passed") {
+    TestRunResultView.TestPassed {
+        print("Test Passed")
+    }
+}
+
+#Preview("Test Passed") {
+    TestRunResultView.TestErrored()
+}
+
+#Preview("Test Passed") {
+    TestRunResultView.TestErrored()
+}
+
+#Preview("Test Run Summary") {
+    TestRunResultView.TestRunSummaryHeader(testRun: PreviewData.shared.testRun())
+}
+
+#Preview("Test Grouped") {
+    TestRunResultView.TestGroupedByTaskList(testRun: PreviewData.shared.testRun(), language: "Swift", theme: Splash.Theme.wwdc18(withFont: Font(size: 18)))
+}
+
+#Preview("Test Collapsible Detail") {
+    TestRunResultView.CollapsibleTestDetailView(test: PreviewData.shared.testRun().tests[0], testId: 0, language: "Swift", theme: Splash.Theme.wwdc18(withFont: Font(size: 18)))
 }

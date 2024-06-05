@@ -99,5 +99,5 @@ struct ExerciseEditorWindowView: View {
 #Preview {
         ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
             PreviewData.shared.getExerciseFile()
-        }), solution: nil)
+        }), solution: PreviewData.shared.getSolutions()[0])
 }
