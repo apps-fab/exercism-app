@@ -34,6 +34,19 @@ struct SideBar: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(.thickMaterial)
         }
+        .safeAreaInset(edge: .bottom) {
+            VStack {
+                Divider()
+                Button {
+                    logout()
+                } label: {
+                    Text("Sign Out")
+                }.font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .buttonStyle(.plain)
+                    .padding()
+            }
+        }
     }
 
     @MainActor

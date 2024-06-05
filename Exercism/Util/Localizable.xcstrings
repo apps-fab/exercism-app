@@ -715,6 +715,9 @@
         }
       }
     },
+    "Sign Out" : {
+
+    },
     "signOut" : {
       "extractionState" : "manual",
       "localizations" : {
