@@ -128,8 +128,15 @@ struct ExerciseGridView: View {
     }
 }
 
-#Preview {
+#Preview("Joined Exercise View") {
     ExerciseGridView(exercise: PreviewData.shared.getExercises()[0],
                      solution: PreviewData.shared.getSolutions()[0],
                      isHover: true)
 }
+
+#Preview("Unjoined Exercise View") {
+    ExerciseGridView(exercise: PreviewData.shared.getExercises()[1],
+                     solution: PreviewData.shared.getSolutions()[0],
+                     isHover: true)
+}
+

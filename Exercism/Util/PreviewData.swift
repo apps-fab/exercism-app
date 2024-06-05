@@ -220,9 +220,10 @@ struct PreviewData {
         return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
     }
     
-    func getTrack() -> [Track] {
+    func getTracks() -> [Track] {
         let data = """
-             [{
+             [
+{
                  "slug": "swift",
                  "title": "AWK",
                  "course": false,
@@ -252,14 +253,57 @@ struct PreviewData {
                  "num_completed_exercises": 0,
                  "num_solutions": 2,
                  "has_notifications": false
-             }]
+             },
+  {
+            "slug": "delphi",
+            "title": "Delphi Pascal",
+            "course": false,
+            "num_concepts": 0,
+            "num_exercises": 76,
+            "web_url": "https://exercism.org/tracks/delphi",
+            "icon_url": "https://assets.exercism.org/tracks/delphi.svg",
+            "tags": [
+                "Declarative",
+                "Imperative",
+                "Object-oriented",
+                "Procedural",
+                "Static",
+                "Strong",
+                "Compiled",
+                "Windows",
+                "Linux",
+                "iOS",
+                "Android",
+                "Web Browser",
+                "Standalone executable",
+                "Backends",
+                "Cross-platform development",
+                "Frontends",
+                "Games",
+                "GUIs",
+                "Web development",
+                "Financial systems",
+                "Mobile",
+                "Scientific calculations"
+            ],
+            "last_touched_at": null,
+            "is_new": false,
+            "links": {
+                "self": "https://exercism.org/tracks/delphi",
+                "exercises": "https://exercism.org/tracks/delphi/exercises",
+                "concepts": "https://exercism.org/tracks/delphi/concepts"
+            }
+        }
+
+]
 """
         return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
     }
     
     func getExercises() -> [Exercise] {
         let data = """
-   [{
+   [
+{
        "slug": "hello-world",
        "type": "tutorial",
        "title": "Hello World",
@@ -272,7 +316,22 @@ struct PreviewData {
        "links": {
          "self": "/tracks/awk/exercises/hello-world"
        }
-     }]
+     },
+{
+       "slug": "hello-world",
+       "type": "tutorial",
+       "title": "Hello World",
+       "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
+       "difficulty": "easy",
+       "blurb": "The classical introductory exercise. Just say Hello, World!.",
+       "is_external": false,
+       "is_unlocked": false,
+       "is_recommended": true,
+       "links": {
+         "self": "/tracks/awk/exercises/hello-world"
+       }
+     }
+]
 """
         return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
     }

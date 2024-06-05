@@ -145,5 +145,5 @@ struct TracksListView: View {
 }
 
 #Preview {
-    TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTrack() })
+    TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTracks() })
 }
