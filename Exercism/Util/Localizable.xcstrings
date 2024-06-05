@@ -64,6 +64,9 @@
         }
       }
     },
+    "Are you sure you want to log out?" : {
+
+    },
     "close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -921,6 +924,9 @@
           }
         }
       }
+    },
+    "Yes" : {
+
     },
     "You can find your token on your [settings page](https://exercism.org/settings/api_cli)" : {
 

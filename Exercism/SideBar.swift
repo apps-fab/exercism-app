@@ -11,6 +11,7 @@ import ExercismSwift
 
 struct SideBar: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @State private var showingAlert = false
     let tracks: [Track]
 
     private var joinedTracks: [Track] {
@@ -38,7 +39,7 @@ struct SideBar: View {
             VStack {
                 Divider()
                 Button {
-                    logout()
+                    showingAlert = true
                 } label: {
                     Text("Sign Out")
                 }.font(.headline)
@@ -46,6 +47,8 @@ struct SideBar: View {
                     .buttonStyle(.plain)
                     .padding()
             }
+        }.alert(isPresented: $showingAlert) {
+            Alert(title: Text("Are you sure you want to log out?"), primaryButton: .default(Text("Yes"), action: logout), secondaryButton: .cancel())
         }
     }
 
