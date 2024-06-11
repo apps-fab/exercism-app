@@ -85,5 +85,5 @@ private extension SideBar {
 }
 
 #Preview {
-    SideBar(tracks: PreviewData.shared.getTrack())
+    SideBar(tracks: PreviewData.shared.getTracks())
 }

@@ -8,10 +8,8 @@ import ExercismSwift
 
 struct PreviewData {
     static let shared = PreviewData()
-    
-    private init() {
-    }
-    
+    let fileManager = FileManager.default
+
     func testRun() -> TestRun {
         let data = """
                    {
@@ -219,10 +217,11 @@ struct PreviewData {
                    """
         return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
     }
-    
-    func getTrack() -> [Track] {
+
+    func getTracks() -> [Track] {
         let data = """
-             [{
+             [
+{
                  "slug": "swift",
                  "title": "AWK",
                  "course": false,
@@ -247,19 +246,62 @@ struct PreviewData {
                      "exercises": "https://exercism.org/tracks/awk/exercises",
                      "concepts": "https://exercism.org/tracks/awk/concepts"
                  },
-                 "is_joined": false,
+                 "is_joined": true,
                  "num_learnt_concepts": 0,
                  "num_completed_exercises": 0,
                  "num_solutions": 2,
                  "has_notifications": false
-             }]
+             },
+  {
+            "slug": "delphi",
+            "title": "Delphi Pascal",
+            "course": false,
+            "num_concepts": 0,
+            "num_exercises": 76,
+            "web_url": "https://exercism.org/tracks/delphi",
+            "icon_url": "https://assets.exercism.org/tracks/delphi.svg",
+            "tags": [
+                "Declarative",
+                "Imperative",
+                "Object-oriented",
+                "Procedural",
+                "Static",
+                "Strong",
+                "Compiled",
+                "Windows",
+                "Linux",
+                "iOS",
+                "Android",
+                "Web Browser",
+                "Standalone executable",
+                "Backends",
+                "Cross-platform development",
+                "Frontends",
+                "Games",
+                "GUIs",
+                "Web development",
+                "Financial systems",
+                "Mobile",
+                "Scientific calculations"
+            ],
+            "last_touched_at": null,
+            "is_new": false,
+            "links": {
+                "self": "https://exercism.org/tracks/delphi",
+                "exercises": "https://exercism.org/tracks/delphi/exercises",
+                "concepts": "https://exercism.org/tracks/delphi/concepts"
+            }
+        }
+
+]
 """
         return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
     }
-    
+
     func getExercises() -> [Exercise] {
         let data = """
-   [{
+   [
+{
        "slug": "hello-world",
        "type": "tutorial",
        "title": "Hello World",
@@ -272,19 +314,53 @@ struct PreviewData {
        "links": {
          "self": "/tracks/awk/exercises/hello-world"
        }
-     }]
+     },
+{
+       "slug": "hello-world",
+       "type": "tutorial",
+       "title": "Hello World",
+       "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
+       "difficulty": "easy",
+       "blurb": "The classical introductory exercise. Just say Hello, World!.",
+       "is_external": false,
+       "is_unlocked": false,
+       "is_recommended": true,
+       "links": {
+         "self": "/tracks/awk/exercises/hello-world"
+       }
+     }
+]
 """
         return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
     }
-    
+    func getOrCreateDir() -> URL? {
+        do {
+            let docsFolder = try fileManager.url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true)
+
+            let solutionDir = docsFolder.appendingPathComponent("WingsQuest/WingsQuest.swift", isDirectory: true)
+
+            if !fileManager.fileExists(atPath: solutionDir.relativePath) {
+                try fileManager.createDirectory(atPath: solutionDir.path, withIntermediateDirectories: true)
+            }
+            return solutionDir
+        } catch {
+            print("Error in the preview data: \(error)")
+        }
+        return nil
+    }
+
     func getExerciseFile() -> [ExerciseFile] {
         [ExerciseFile(
-            url: URL(string: "file:///Users/cedricbahirwe/Documents/swift/wings-quest/")!,
+            url: getOrCreateDir()!,
             id: "Sources/WingsQuest/WingsQuest.swift",
             name: "Sources/WingsQuest/WingsQuest.swift",
             type: .solution)]
     }
-    
+
     func getSolutions() -> [Solution] {
         let data = """
 [{

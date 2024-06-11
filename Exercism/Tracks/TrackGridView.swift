@@ -168,5 +168,5 @@ struct TrackGridView: View {
 }
 
 #Preview {
-    TrackGridView(track: PreviewData.shared.getTrack()[0])
+    TrackGridView(track: PreviewData.shared.getTracks()[0])
 }

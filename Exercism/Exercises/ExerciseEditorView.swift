@@ -72,5 +72,5 @@ struct ExerciseEditorView: View {
 }
 
 #Preview {
-    ExerciseEditorView()
+    ExerciseEditorView().environmentObject(SettingData())
 }
