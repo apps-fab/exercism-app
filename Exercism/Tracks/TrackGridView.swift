@@ -30,12 +30,12 @@ struct TrackGridView: View {
         .frame(idealWidth: 450, maxWidth: .infinity, alignment: .leading)
         .frame(height: 150)
         .roundEdges(
-            backgroundColor: Color.exercismDarkBackground,
+            backgroundColor: Color.appDarkBackground,
             lineColor: isHover ? .purple : .clear,
             cornerRadius: 15
         )
-        .shadow(color: .offBlackShadow, radius: 15, x: 10, y: 10)
-        .shadow(color: .offWhiteShadow, radius: 15, x: -10, y: -10)
+        .shadow(color: Color.appOffBlackShadow, radius: 15, x: 10, y: 10)
+        .shadow(color: Color.appOffWhiteShadow, radius: 15, x: -10, y: -10)
         .padding()
         .scaleEffect(isHover ? 1.05 : 1)
         .onHover { hover in

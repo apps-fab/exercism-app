@@ -18,7 +18,7 @@ struct LoginView: View {
                 leftView
                     .frame(width: geometry.size.width * 0.62,
                            height: geometry.size.height)
-                    .background(Color.exercismPurple)
+                    .background(Color.appPurple)
                 rightView
                     .frame(maxWidth: .infinity)
                     .frame(height: geometry.size.height)

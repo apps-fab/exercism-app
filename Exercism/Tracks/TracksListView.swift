@@ -71,7 +71,7 @@ struct TracksListView: View {
                     .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity)
-            .background(Color.exercismDarkBackground)
+            .background(Color.appDarkBackground)
             
             ScrollView {
                 if tracks.isEmpty {
