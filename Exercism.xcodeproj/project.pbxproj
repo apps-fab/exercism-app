@@ -32,8 +32,8 @@
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
 		FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B06F028F592E000FCA956 /* AppDelegate.swift */; };
 		FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */; };
-		FD2386F82C0C75D8004113BB /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD2386F72C0C75D8004113BB /* CodeEditor */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
+		FD33A91E2C22EB3500E602D2 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD33A91D2C22EB3500E602D2 /* CodeEditor */; };
 		FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD36807F29B1054E004D53C8 /* CustomPicker.swift */; };
 		FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F2B132AA750D300ADB248 /* ExercismButton.swift */; };
 		FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedView.swift */; };
@@ -58,6 +58,7 @@
 		FD9B57E92A8264AB0042C6B0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
+		FDBC7C882C22E90B0008FEAB /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FDBC7C872C22E90B0008FEAB /* CodeEditor */; };
 		FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F11E28E5DA9200488CE9 /* KeychainSwift */; };
 		FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */; };
 		FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12328E5E6C800488CE9 /* SDWebImage */; };
@@ -145,13 +146,14 @@
 				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
+				FD33A91E2C22EB3500E602D2 /* CodeEditor in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				CB8681242B51751F0059AB65 /* ExercismSwift in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
 				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
-				FD2386F82C0C75D8004113BB /* CodeEditor in Frameworks */,
+				FDBC7C882C22E90B0008FEAB /* CodeEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +365,7 @@
 				FD92DC642A854EAC00673445 /* Settings */,
 				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
 				CB8681232B51751F0059AB65 /* ExercismSwift */,
-				FD2386F72C0C75D8004113BB /* CodeEditor */,
+				FD33A91D2C22EB3500E602D2 /* CodeEditor */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -402,7 +404,7 @@
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				CB8681222B51751F0059AB65 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
-				FD2386F62C0C75D8004113BB /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				FD33A91C2C22EB3500E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -737,7 +739,7 @@
 				minimumVersion = 0.16.0;
 			};
 		};
-		FD2386F62C0C75D8004113BB /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+		FD33A91C2C22EB3500E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
 			requirement = {
@@ -750,6 +752,14 @@
 			repositoryURL = "https://github.com/sindresorhus/Settings";
 			requirement = {
 				branch = main;
+				kind = branch;
+			};
+		};
+		FDBC7C862C22E90B0008FEAB /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
+			requirement = {
+				branch = master;
 				kind = branch;
 			};
 		};
@@ -807,15 +817,20 @@
 			package = E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */;
 			productName = Splash;
 		};
-		FD2386F72C0C75D8004113BB /* CodeEditor */ = {
+		FD33A91D2C22EB3500E602D2 /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FD2386F62C0C75D8004113BB /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			package = FD33A91C2C22EB3500E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
 		};
 		FD92DC642A854EAC00673445 /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */;
 			productName = Settings;
+		};
+		FDBC7C872C22E90B0008FEAB /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDBC7C862C22E90B0008FEAB /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
 		};
 		FDC9F11E28E5DA9200488CE9 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

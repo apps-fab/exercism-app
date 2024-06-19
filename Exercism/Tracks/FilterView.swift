@@ -90,7 +90,7 @@ struct FilterView: View {
     }
 }
 
-#Preview {
+#Preview("Primary") {
     FilterView(results: 10,
                searchText: .constant(""),
                filters: .constant([""])
@@ -98,4 +98,16 @@ struct FilterView: View {
         print("Filter View pressed")
     }
     .padding()
+}
+
+#Preview("Primary - Light Mode"){
+    FilterView(results: 10,
+               searchText: .constant(""),
+               filters: .constant([""])
+    ) {
+        print("Filter View pressed")
+    }
+    .padding()
+    .environment(\.colorScheme, .light)
+
 }
