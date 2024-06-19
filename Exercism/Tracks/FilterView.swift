@@ -63,7 +63,7 @@ struct FilterView: View {
                 .lineLimit(1)
                 .padding(8)
                 .roundEdges(
-                    backgroundColor: Color.exercismPurple.opacity(0.2),
+                    backgroundColor: Color.appPurple.opacity(0.2),
                     lineColor: .clear,
                     cornerRadius: 8
                 )

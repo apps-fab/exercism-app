@@ -71,7 +71,7 @@ struct TracksListView: View {
                     .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity)
-            .background(Color.exercismDarkBackground)
+            .background(Color.appDarkBackground)
             
             ScrollView {
                 if tracks.isEmpty {
@@ -145,5 +145,5 @@ struct TracksListView: View {
 }
 
 #Preview {
-    TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTrack() })
+    TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTracks() })
 }

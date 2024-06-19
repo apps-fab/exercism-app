@@ -87,7 +87,7 @@ struct ExercisesList: View {
                 }
             }
             .padding()
-            .background(Color.exercismDarkBackground)
+            .background(Color.appDarkBackground)
             
             Divider()
             
@@ -165,7 +165,8 @@ struct ExercisesList: View {
 }
 
 #Preview {
-    ExercisesList(track: PreviewData.shared.getTrack()[0], asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
+    ExercisesList(track: PreviewData.shared.getTracks()[0],
+                  asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
         .frame(width: 1000, height: 800)
         .previewLayout(.device)
         .preferredColorScheme(.light)
