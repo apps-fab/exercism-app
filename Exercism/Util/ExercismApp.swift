@@ -16,14 +16,19 @@ enum Keys: String {
 
 @main
 struct ExercismApp: App {
+    #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    #else
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    #endif
+
     @StateObject private var settingsData = SettingData()
     @StateObject private var model = TrackModel.shared
-    
+
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -31,6 +36,7 @@ struct ExercismApp: App {
                 .environmentObject(settingsData)
                 .navigationTitle(Strings.exercism.localized())
         }
+        #if os(macOS)
         .commands {
             ExercismCommands()
             CommandGroup(replacing: .appInfo) {
@@ -51,7 +57,7 @@ struct ExercismApp: App {
                         ] as [NSApplication.AboutPanelOptionKey : Any]
                     )
                 }
-                
+
                 Button("Toggle Full Screen") {
                     if let window = NSApplication.shared.windows.first {
                         window.toggleFullScreen(nil)
@@ -59,9 +65,9 @@ struct ExercismApp: App {
                     }
                 }
                 .keyboardShortcut("F", modifiers: [.control, .command])
-                
+
             }
-            
+
             CommandGroup(before: .sidebar) {
                 Button("Refresh") {
                     let notification = Notification(
@@ -72,8 +78,6 @@ struct ExercismApp: App {
                 .keyboardShortcut("R")
             }
         }
-        Settings {
-            ExercismSettings().environmentObject(settingsData)
-        }
+        #endif
     }
 }

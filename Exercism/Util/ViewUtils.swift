@@ -22,6 +22,7 @@ extension View {
         )
     }
     
+    #if os(macOS)
     func tooltip(_ tip: String) -> some View {
         ZStack {
             background(GeometryReader { childGeometry in
@@ -31,6 +32,7 @@ extension View {
             })
         }
     }
+    #endif
 
     func placeholder(when shouldShow: Bool, alignment: Alignment = .leading, placeholderText: String) -> some View {
         ZStack(alignment: alignment) {
@@ -45,6 +47,8 @@ extension View {
         return self.modifier(TabBarViewModifier(item: item))
     }
 }
+
+#if os(macOS)
 
 private struct TooltipView<Content: View>: View {
     let content: () -> Content
@@ -83,6 +87,8 @@ private struct Tooltip<Content: View>: NSViewRepresentable {
         nsView.toolTip = text
     }
 }
+#endif
+
 
 private struct TabBarViewModifier<TabItem: Tabbable>: ViewModifier {
     @EnvironmentObject private var selectionObject: TabBarSelection<TabItem>
