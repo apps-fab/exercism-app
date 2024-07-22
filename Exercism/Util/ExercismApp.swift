@@ -18,8 +18,6 @@ enum Keys: String {
 struct ExercismApp: App {
     #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    #else
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     #endif
 
     @StateObject private var settingsData = SettingData()
