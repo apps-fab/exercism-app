@@ -8,6 +8,7 @@ Thank you for considering contributing to the Exercism app! This guide will help
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Features](#suggesting-features)
 - [Pull Requests and Code Reviews](#pull-requests-and-code-reviews)
+- [Code Style and Standards](#code-style-and-standards)
 - [PR Merge Policy](#PR-merge-policy)
 - [Getting Help](#getting-help)
 
@@ -38,6 +39,12 @@ All code contributions pass through pull requests. If you haven't created a pull
 The team monitors and reviews all pull requests. Depending on the changes, we will either approve them or close them with an explanation. We might also work with you to improve a pull request before approval.
 We do our best to respond quickly to all pull requests. If you don't get a response from us after a week, feel free to reach out to us via [Slack](https://join.slack.com/t/apps-fab/shared_invite/zt-2n8z4beky-EW5PX7r0C_jybaOumDfthQ) or [GitHub discussions](https://github.com/apps-fab/exercism-app/discussions)
 Note: If you are part of the org and have the permissions on the repo, don't forget to assign yourself to the PR, and add the appropriate GitHub label and Milestone for the PR
+
+## Code Style and Standards
+Follow the [Swift API design](https://www.swift.org/documentation/api-design-guidelines/) guidelines.
+Use meaningful variable and function names.
+Write comments to explain complex logic or code blocks.
+The project uses [Swiftlint](https://github.com/realm/SwiftLint), install and once you build you will get warnings for any violations.
 
 ## PR Merge Policy
 PRs require one reviewer to approve the PR before it can be merged to the base branch
