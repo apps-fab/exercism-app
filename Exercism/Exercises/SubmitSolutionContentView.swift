@@ -11,7 +11,7 @@ import ExercismSwift
 enum SolutionShareOption: String, CaseIterable {
     case complete = "No, I just want to mark the exercise as complete."
     case share = "Yes I'd like to share my solution with the community"
-    
+
     enum Iteration: String, CaseIterable {
         case all = "All iterations"
         case single = "Single iteration"
@@ -29,7 +29,7 @@ struct SubmitSolutionContentView: View {
     @State private var selectedIteration: Int = 1
     @State private var numberOfIterations = 4
     @State private var isSubmitting = false
-    
+
     var body: some View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
@@ -38,24 +38,24 @@ struct SubmitSolutionContentView: View {
                     .padding(5)
                     .scaledToFit()
                     .frame(width: 50, height: 40, alignment: .leading)
-                
+
                 VStack(alignment: .leading, spacing: 10) {
                     Text(Strings.publishCodeTitle.localized())
                         .multilineTextAlignment(.leading)
                         .font(.largeTitle.bold())
                         .minimumScaleFactor(0.8)
-                    
+
                     Text(Strings.publishCodeSubtitle.localized())
                         .multilineTextAlignment(.leading)
                         .padding(.vertical, 5)
                 }
-                
+
                 listItems
-                
+
                 callToActions
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            
+
             Group {
                 Image("publishMan")
                     .resizable()
@@ -71,7 +71,7 @@ struct SubmitSolutionContentView: View {
             selectedIteration = viewModel.getDefaultIterationIdx()
         }
     }
-    
+
     private var listItems: some View {
         VStack(alignment: .leading) {
             Picker("Select Solution Sharing Option", selection: $shareOption) {
@@ -82,8 +82,12 @@ struct SubmitSolutionContentView: View {
                 }
             }
             .labelsHidden()
+#if os(macOS)
             .pickerStyle(.radioGroup)
-            
+#else
+            .pickerStyle(.automatic)
+#endif
+
             if shareOption == .share {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -92,9 +96,14 @@ struct SubmitSolutionContentView: View {
                                 Text(iteration.rawValue)
                             }
                         }
+#if os(macOS)
                         .pickerStyle(.radioGroup)
                         .horizontalRadioGroupLayout()
-                        
+#else
+                        .pickerStyle(.automatic)
+#endif
+
+
                         Menu {
                             ForEach(viewModel.sortedIterations, id: \.idx) { iteration in
                                 Button("Iteration \(iteration.idx)") {
@@ -113,10 +122,10 @@ struct SubmitSolutionContentView: View {
             }
         }
     }
-    
+
     private var callToActions: some View {
         HStack(spacing: 20) {
-            
+
             Button {
                 dismiss()
             } label: {
@@ -128,10 +137,10 @@ struct SubmitSolutionContentView: View {
                         cornerRadius: 10)
             }
             .buttonStyle(.plain)
-            
+
             Button {
                 Task {
-                   await completeExercise()
+                    await completeExercise()
                 }
             } label: {
                 Label {
@@ -144,7 +153,7 @@ struct SubmitSolutionContentView: View {
                             .foregroundStyle(.red)
                             .controlSize(.small)
                             .padding(.trailing, 1)
-                        
+
                     }
                 }
                 .foregroundStyle(.white)
@@ -158,7 +167,7 @@ struct SubmitSolutionContentView: View {
         .fontWeight(.semibold)
         .padding(.vertical)
     }
-    
+
     private func completeExercise() async  {
         guard let solution = viewModel.solutionToSubmit else { return }
         let shouldPublish = shareOption == .share
@@ -170,10 +179,10 @@ struct SubmitSolutionContentView: View {
                                                                          iterationIdx: iterationIdx)
             isSubmitting = false
             navigationModel.goToTrack(completeSolution.track)
-            
+
         } catch {
             isSubmitting = false
-        }        
+        }
     }
 }
 

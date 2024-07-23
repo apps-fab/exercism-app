@@ -42,7 +42,7 @@ struct ExercisesList: View {
         AsyncResultView(source: asyncModel) { exercises in
             exerciseListView(exercises)
         }
-        .onChange(of: searchText) { newValue in
+        .onChange(of: searchText) { oldValue, newValue in
             asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
         }
         .task {

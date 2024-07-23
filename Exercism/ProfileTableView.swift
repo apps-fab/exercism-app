@@ -31,9 +31,15 @@ struct ProfileTableView: View {
                 }
                 Image.logout
             }.padding([.leading, .top])
+            #if os(macOS)
             List(ProfileItems.allCases, selection: $selection) { item in
                 Text(item.rawValue).foregroundColor(selection == item ? .purple : .primary)
             }
+            #else
+            List(ProfileItems.allCases) { item in 
+                Text(item.rawValue)
+            }
+            #endif
         }
     }
 }

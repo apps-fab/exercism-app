@@ -21,7 +21,7 @@ struct TracksListView: View {
         GridItem(.flexible())
     ]
     private let refreshPublisher = NotificationCenter.default.publisher(for: .didRequestRefresh)
-    
+
     var body: some View {
         GeometryReader { size in
             AsyncResultView(source: asyncModel) { tracks in
@@ -33,21 +33,30 @@ struct TracksListView: View {
             }
             .toolbar(.hidden)
             .accessibilityLabel("All Tracks")
-            .onChange(of: searchText) { newSearch in
-                asyncModel.filterOperations = { self.model.filterTracks(newSearch) }
-            }.onChange(of: filters) { newFilters in
-                asyncModel.filterOperations = { self.model.filterTags(newFilters) }
+            .onChange(of: searchText) { oldValue, newValue in
+                asyncModel.filterOperations = { self.model.filterTracks(newValue) }
+            }.onChange(of: filters) { oldValue, newValue in
+                asyncModel.filterOperations = { self.model.filterTags(oldValue) }
             }
         }
+        .onReceive(refreshPublisher) { _ in
+            self.asyncModel = .init(operation: { try await model.getTracks() })
+        }
+        #if os(macOS)
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
             if shouldRefreshFromJoinTrack {
                 self.asyncModel = .init(operation: { try await model.getTracks() })
                 shouldRefreshFromJoinTrack = false
             }
         }
-        .onReceive(refreshPublisher) { _ in
-            self.asyncModel = .init(operation: { try await model.getTracks() })
+        #else
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            if shouldRefreshFromJoinTrack {
+                self.asyncModel = .init(operation: { try await model.getTracks() })
+                shouldRefreshFromJoinTrack = false
+            }
         }
+        #endif
     }
     
     @ViewBuilder

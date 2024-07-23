@@ -28,12 +28,14 @@ struct ExercismTextField: View {
     }
 }
 
+#if os(macOS)
 extension NSTextField {
     open override var focusRingType: NSFocusRingType {
         get { .none }
         set {}
     }
 }
+#endif
 
 struct ExercismTextField_Previews: PreviewProvider {
     static var previews: some View {

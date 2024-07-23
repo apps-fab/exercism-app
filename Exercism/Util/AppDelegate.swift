@@ -5,9 +5,9 @@
 //  Created by Angie Mugo on 11/10/2022.
 //
 
+#if os(macOS)
 import AppKit
 import Settings
-import ExercismSwift
 
 @MainActor
 extension Settings.PaneIdentifier {
@@ -24,3 +24,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         exercismSettingsScreen()
     ]
 }
+#endif

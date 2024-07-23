@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
-import Settings
 @preconcurrency import CodeEditor
 import Splash
+
+#if os(macOS)
+import Settings
 
 @MainActor
 let exercismSettingsScreen: () -> SettingsPane  = {
@@ -49,3 +51,5 @@ struct ExercismSettings: View {
 #Preview {
     ExercismSettings().environmentObject(SettingData())
 }
+
+#endif
