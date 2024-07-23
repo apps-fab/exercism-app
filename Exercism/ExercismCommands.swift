@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExercismCommands: Commands {
-    
+
     var body: some Commands {
         SidebarCommands()
     }

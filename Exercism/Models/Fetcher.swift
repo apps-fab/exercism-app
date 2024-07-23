@@ -12,7 +12,7 @@ actor Fetcher {
         let token = ExercismKeychain.shared.get(for: "token")
         return ExercismClient(apiToken: token ?? "")
     }
-    
+
     func getTracks() async throws -> [Track] {
         return try await withCheckedThrowingContinuation { continuation in
             client.tracks { tracks in
@@ -25,7 +25,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func getExercises(_ track: Track) async throws -> [Exercise] {
         return try await withCheckedThrowingContinuation { continuation in
             client.exercises(for: track.slug) { result in
@@ -38,7 +38,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func getSolutions(_ track: Track) async throws -> [Solution] {
         return try await withCheckedThrowingContinuation { continuation in
             client.solutions(for: track.slug) { result in
@@ -51,7 +51,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func getIterations(_ solutionId: String) async throws -> [Iteration] {
         try await withCheckedThrowingContinuation { continuation in
             client.getIterations(for: solutionId) { result in
@@ -64,7 +64,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
         return try await withCheckedThrowingContinuation { continuation in
             client.downloadSolution(for: track, exercise: exercise) { result in
@@ -77,7 +77,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> TestSubmission {
         return try await withCheckedThrowingContinuation { continuation in
             client.runTest(for: solutionId, withFileContents: contents) { result in
@@ -90,7 +90,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func getTestRun(_ link: String) async throws -> TestRunResponse {
         return try await withCheckedThrowingContinuation { continuation in
             client.getTestRun(withLink: link) { result in
@@ -103,7 +103,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func submitSolution(_ submissionLink: String) async throws -> SubmitSolutionResponse {
         return try await withCheckedThrowingContinuation { continuation in
             client.submitSolution(withLink: submissionLink) { result in
@@ -116,7 +116,7 @@ actor Fetcher {
             }
         }
     }
-    
+
     func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution {
         try await withCheckedThrowingContinuation { continuation in
             client.completeSolution(for: solutionId, publish: publish,

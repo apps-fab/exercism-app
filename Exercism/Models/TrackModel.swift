@@ -14,7 +14,7 @@ final class TrackModel: ObservableObject {
     private var unfilteredExercises = [Exercise]()
     private let fetcher = Fetcher()
     static let shared = TrackModel()
-    
+
     private init() { }
 
     func getTracks() async throws -> [Track] {
@@ -34,12 +34,14 @@ final class TrackModel: ObservableObject {
     }
 
     func filterTracks(_ searchText: String) -> [Track] {
-        let tracks: [Track] =  searchText.isEmpty ? unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
+        let tracks: [Track] =  searchText.isEmpty ?
+        unfilteredTracks : unfilteredTracks.filter { $0.title.lowercased().contains(searchText) }
         return tracks
     }
 
     func filterExercises(_ searchText: String) -> [Exercise] {
-        let exercises: [Exercise] =  searchText.isEmpty ? unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) }
+        let exercises: [Exercise] =  searchText.isEmpty ?
+        unfilteredExercises : unfilteredExercises.filter { $0.slug.lowercased().contains(searchText) }
         return exercises
     }
 

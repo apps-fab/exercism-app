@@ -57,7 +57,7 @@ struct TrackGridView: View {
                     .font(.title3.bold())
 
                 if track.course && !track.isJoined {
-                    Label{
+                    Label {
                         Text( Strings.learningMode.localized())
                     } icon: {
                         Image.checkmark
@@ -119,7 +119,8 @@ struct TrackGridView: View {
             HStack(spacing: 20) {
                 Label(title: {
                     if track.isJoined {
-                        Text(String(format: Strings.completedExercises.localized(), track.numCompletedExercises, track.numExercises))
+                        Text(String(format: Strings.completedExercises.localized(),
+                                    track.numCompletedExercises, track.numExercises))
                             .fontWeight(.medium)
                     } else {
                         Text(String(format: Strings.exercises.localized(), track.numExercises))

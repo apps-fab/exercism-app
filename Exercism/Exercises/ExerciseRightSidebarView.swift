@@ -63,7 +63,7 @@ struct ExerciseRightSidebarView: View {
                 }
                 .padding(.horizontal)
                 .background(markdownTheme.textBackgroundColor)
-                .tabItem(for: SelectedTab.Instruction)
+                .tabItem(for: SelectedTab.instruction)
 
             }
             VStack(alignment: HorizontalAlignment.leading) {
@@ -84,7 +84,7 @@ struct ExerciseRightSidebarView: View {
                     }
                 }
             }
-            .tabItem(for: SelectedTab.Result)
+            .tabItem(for: SelectedTab.result)
         }
     }
 
@@ -159,7 +159,10 @@ struct ExerciseRightSidebarView: View {
 }
 
 #Preview("Instruction View") {
-    ExerciseRightSidebarView.InstructionView(instruction: "some instructions", theme: Splash.Theme.wwdc17(withFont: .init(size: 12)), language: "Swift", markdownTheme: .gitHub)
+    ExerciseRightSidebarView.InstructionView(instruction: "some instructions",
+                                             theme: Splash.Theme.wwdc17(withFont: .init(size: 12)),
+                                             language: "Swift",
+                                             markdownTheme: .gitHub)
 }
 
 #Preview("Test Run Progress View") {

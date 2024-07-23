@@ -52,20 +52,22 @@ struct ContentView: View {
     @ViewBuilder
     private func handleDestinationRoute(_ route: Route) -> some View {
         switch route {
-        case let .Exercise(track, exercise, solution):
-            ExerciseEditorWindowView(asyncModel: AsyncModel(operation: { try await ExerciseViewModel.shared.getDocument(track, exercise) } ), solution: solution)
+        case let .exercise(track, exercise, solution):
+            ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
+                try await ExerciseViewModel.shared.getDocument(track, exercise) }),
+                                     solution: solution)
                 .environmentObject(navigationModel)
 
-        case let .Track(track):
+        case let .track(track):
             ExercisesList(track: track,
                           asyncModel: .init { try await model.getExercises(track) })
             .environmentObject(navigationModel)
 
-        case .Login:
+        case .login:
             LoginView()
                 .environmentObject(navigationModel)
 
-        case .Dashboard:
+        case .dashboard:
             TracksListView(asyncModel: .init { try await model.getTracks() })
                 .environmentObject(navigationModel)
         }

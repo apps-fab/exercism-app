@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-@preconcurrency import CodeEditor
+import CodeEditor
 
 struct ExerciseEditorView: View {
     @State private var exerciseViewModel = ExerciseViewModel.shared
@@ -19,7 +19,7 @@ struct ExerciseEditorView: View {
     private var language: CodeEditor.Language {
         CodeEditor.Language.init(rawValue: exerciseViewModel.language ?? "")
     }
-    
+
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -43,9 +43,9 @@ struct ExerciseEditorView: View {
 #else
             CodeEditor(source: source, language: language, theme: settingData.theme)
 #endif
-            
+
             Divider()
-            
+
             HStack {
                 Picker(Strings.theme.localized(), selection: $settingData.theme) {
                     ForEach(CodeEditor.availableThemes) { theme in
@@ -56,7 +56,8 @@ struct ExerciseEditorView: View {
             }
             .padding()
         }
-        .alert(String(Strings.submissionAlert.localized()), isPresented: $exerciseViewModel.showTestSubmissionResponseMessage) {
+        .alert(String(Strings.submissionAlert.localized()),
+               isPresented: $exerciseViewModel.showTestSubmissionResponseMessage) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {

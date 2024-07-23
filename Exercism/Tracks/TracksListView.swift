@@ -15,7 +15,7 @@ struct TracksListView: View {
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
     private let model = TrackModel.shared
-    
+
     private let gridColumns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -33,10 +33,10 @@ struct TracksListView: View {
             }
             .toolbar(.hidden)
             .accessibilityLabel("All Tracks")
-            .onChange(of: searchText) { oldValue, newValue in
+            .onChange(of: searchText) { newValue in
                 asyncModel.filterOperations = { self.model.filterTracks(newValue) }
-            }.onChange(of: filters) { oldValue, newValue in
-                asyncModel.filterOperations = { self.model.filterTags(oldValue) }
+            }.onChange(of: filters) { newValue in
+                asyncModel.filterOperations = { self.model.filterTags(newValue) }
             }
         }
         .onReceive(refreshPublisher) { _ in
@@ -58,17 +58,17 @@ struct TracksListView: View {
         }
         #endif
     }
-    
+
     @ViewBuilder
-    func tracksView(_ tracks: [Track]) ->  some View {
+    func tracksView(_ tracks: [Track]) -> some View {
         let joinedTracks = tracks.filter { $0.isJoined }
         let unjoinedTracks = tracks.filter { !$0.isJoined }
-        
+
         VStack(spacing: 0) {
             VStack {
                 headerView
                     .padding()
-                
+
                 FilterView(
                     results: tracks.count,
                     searchText: $searchText,
@@ -81,7 +81,7 @@ struct TracksListView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.appDarkBackground)
-            
+
             ScrollView {
                 if tracks.isEmpty {
                     EmptyStateView {
@@ -109,12 +109,12 @@ struct TracksListView: View {
                                 }
                             }
                         }
-                        
+
                         if !unjoinedTracks.isEmpty {
                             Text(Strings.unjoinedTracks.localized())
                                 .font(.largeTitle)
                                 .fontWeight(.semibold)
-                            
+
                             LazyVGrid(
                                 columns: gridColumns,
                                 alignment: .leading
@@ -132,18 +132,18 @@ struct TracksListView: View {
         }
         .frame(minWidth: 850)
     }
-    
+
     var headerView: some View {
         VStack(alignment: .center) {
             Image.trackImages
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 400, minHeight: 50)
-            
+
             Text(Strings.languageNumber.localized())
                 .font(.largeTitle.bold())
                 .minimumScaleFactor(0.9)
-            
+
             Text(LocalizedStringKey(Strings.languageIntro.localized()))
                 .font(.title2)
                 .minimumScaleFactor(0.9)

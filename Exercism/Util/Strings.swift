@@ -5,6 +5,7 @@
 //  Created by Angie Mugo on 18/07/2023.
 //
 
+// swiftlint:disable all
 import Foundation
 
 enum Strings: String {

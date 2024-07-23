@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmptyStateView: View {
     let reloadAction: () -> Void
-    
+
     var body: some View {
         Spacer()
         VStack {
@@ -32,5 +32,5 @@ struct EmptyStateView: View {
 }
 
 #Preview {
-    EmptyStateView(reloadAction:  { print("some")})
+    EmptyStateView(reloadAction: { print("some")})
 }

@@ -13,11 +13,11 @@ extension Solution: Identifiable {
 }
 
 enum ExerciseCategory: String, CaseIterable, Identifiable {
-    case AllExercises = "All Exercises"
-    case Completed
-    case InProgress = "In Progress"
-    case Available
-    case Locked
+    case allExercises = "All Exercises"
+    case completed
+    case inProgress = "In Progress"
+    case available
+    case locked
 
     var id: Self { return self }
 }
@@ -25,24 +25,24 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
 struct ExercisesList: View {
     @State var track: Track
     @State var asyncModel: AsyncModel<[Exercise]>
-    
+
     @EnvironmentObject private var navigationModel: NavigationModel
-    @State private var exerciseCategory: ExerciseCategory = .AllExercises
+    @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
     @State private var solutions = [String: Solution]()
     @FocusState private var fieldFocused: Bool
     @State private var alertItem = AlertItem()
-    
+
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
+
     var body: some View {
         AsyncResultView(source: asyncModel) { exercises in
             exerciseListView(exercises)
         }
-        .onChange(of: searchText) { oldValue, newValue in
+        .onChange(of: searchText) { newValue in
             asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
         }
         .task {
@@ -50,7 +50,7 @@ struct ExercisesList: View {
                 let solutionsList = try await TrackModel.shared.getSolutions(track)
                 self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
             } catch {
-                alertItem = AlertItem(title: "Error",  message: error.localizedDescription)
+                alertItem = AlertItem(title: "Error", message: error.localizedDescription)
             }
         }
         .onAppear {
@@ -70,27 +70,27 @@ struct ExercisesList: View {
             Text(alertItem.message)
         }
     }
-    
+
     @ViewBuilder
     private func exerciseListView(_ exercises: [Exercise]) -> some View {
         let groupedExercises = groupExercises(exercises)
         let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
-        
+
         VStack(spacing: 0) {
             HStack {
                 searchField
                     .frame(minWidth: 200)
-                
+
                 CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
                     Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
-                    
+
                 }
             }
             .padding()
             .background(Color.appDarkBackground)
-            
+
             Divider()
-            
+
             ScrollView {
                 if filteredExercises.isEmpty {
                     EmptyStateView {
@@ -100,7 +100,7 @@ struct ExercisesList: View {
                     LazyVGrid(columns: columns) {
                         ForEach(filteredExercises, id: \.self) { exercise in
                             let solution = getSolution(for: exercise)
-                            
+
                             Button {
                                 navigationModel.goToEditor(track.slug, exercise, solution: solution)
                             } label: {
@@ -114,12 +114,12 @@ struct ExercisesList: View {
             }
         }
     }
-    
+
     private var searchField: some View {
         HStack(spacing: 12) {
             Image.magnifyingGlass
                 .imageScale(.large)
-            
+
             TextField(Strings.searchString.localized(),
                       text: $searchText)
             .textFieldStyle(.plain)
@@ -131,12 +131,11 @@ struct ExercisesList: View {
         )
         .focused($fieldFocused)
     }
-    
-    
+
     private func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
     }
-    
+
     /// Group exercises by category
     /// - Parameter exercises:
     /// - Returns: [ExerciseCategory: [Exercise]]
@@ -147,18 +146,22 @@ struct ExercisesList: View {
         }
         return groupedExercises
     }
-    
+
     private func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
         switch category {
-        case .AllExercises:
+        case .allExercises:
             return exercises
-        case .Completed:
-            return exercises.filter { getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published }
-        case .InProgress:
-            return exercises.filter { getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated }
-        case .Available:
+        case .completed:
+            return exercises.filter {
+                getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published
+            }
+        case .inProgress:
+            return exercises.filter {
+                getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated
+            }
+        case .available:
             return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .Locked:
+        case .locked:
             return exercises.filter { !$0.isUnlocked }
         }
     }

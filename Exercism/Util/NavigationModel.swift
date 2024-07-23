@@ -13,10 +13,10 @@ import Combine
 enum Route: Hashable, Identifiable, Codable {
     var id: Self { return self }
 
-    case Track(Track)
-    case Exercise(String, String, Solution?)
-    case Login
-    case Dashboard
+    case track(Track)
+    case exercise(String, String, Solution?)
+    case login
+    case dashboard
 }
 
 final class NavigationModel: ObservableObject, Codable {
@@ -26,12 +26,11 @@ final class NavigationModel: ObservableObject, Codable {
     private lazy var decoder = JSONDecoder()
     private lazy var encoder = JSONEncoder()
 
-    
     init(path: [Route] = [], columnVisibility: NavigationSplitViewVisibility = .automatic) {
         self.columnVisibility = columnVisibility
         self.path = path
     }
-    
+
     var jsonData: Data? {
         get { try? encoder.encode(self) }
         set {
@@ -41,19 +40,19 @@ final class NavigationModel: ObservableObject, Codable {
             columnVisibility = model.columnVisibility
         }
     }
-    
+
     var objectWillChangeSequence: AsyncPublisher<Publishers.Buffer<ObservableObjectPublisher>> {
         objectWillChange
             .buffer(size: 1, prefetch: .byRequest, whenFull: .dropOldest)
             .values
     }
-    
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         let decodedPath = try container.decode([Route].self, forKey: .path)
         self.path = decodedPath
-        
+
         self.columnVisibility = try container.decode(NavigationSplitViewVisibility.self, forKey: .columnVisibility)
     }
 
@@ -65,21 +64,21 @@ final class NavigationModel: ObservableObject, Codable {
     }
 
     func goToDashboard() {
-        path.append(Route.Dashboard)
+        path.append(Route.dashboard)
     }
-    
+
     func goToTrack(_ track: Track) {
-        path.append(Route.Track(track))
+        path.append(Route.track(track))
     }
-    
+
     func goToEditor(_ track: String, _ exercise: Exercise, solution: Solution?) {
         guard exercise.isUnlocked else { return }
-        path.append(Route.Exercise(track, exercise.slug, solution))
+        path.append(Route.exercise(track, exercise.slug, solution))
     }
-    
+
     func goToLogin() {
         path.removeAll()
-        path.append(Route.Login)
+        path.append(Route.login)
     }
 
     enum CodingKeys: String, CodingKey {

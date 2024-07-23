@@ -10,7 +10,7 @@ import SwiftUI
 struct AsyncResultView<Source: LoadableObject, Content: View>: View {
     @ObservedObject var source: Source
     var content: (Source.Value) -> Content
-    
+
     init(
         source: Source,
         @ViewBuilder content: @escaping (Source.Value) -> Content
@@ -18,7 +18,7 @@ struct AsyncResultView<Source: LoadableObject, Content: View>: View {
         self.source = source
         self.content = content
     }
-    
+
     var body: some View {
         ZStack {
             switch source.state {

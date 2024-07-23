@@ -52,7 +52,7 @@ struct ExercismApp: App {
                             NSApplication.AboutPanelOptionKey(
                                 rawValue: "Copyright"
                             ): "© 2023"
-                        ] as [NSApplication.AboutPanelOptionKey : Any]
+                        ] as [NSApplication.AboutPanelOptionKey: Any]
                     )
                 }
 

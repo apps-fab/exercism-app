@@ -6,11 +6,9 @@
 //
 
 import Foundation
-import UIKit
 
 extension NSNotification.Name {
     static var didRequestRefresh: NSNotification.Name {
         NSNotification.Name("didRequestRefresh")
     }
 }
-

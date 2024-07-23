@@ -103,7 +103,6 @@ struct SubmitSolutionContentView: View {
                         .pickerStyle(.automatic)
 #endif
 
-
                         Menu {
                             ForEach(viewModel.sortedIterations, id: \.idx) { iteration in
                                 Button("Iteration \(iteration.idx)") {
@@ -168,7 +167,7 @@ struct SubmitSolutionContentView: View {
         .padding(.vertical)
     }
 
-    private func completeExercise() async  {
+    private func completeExercise() async {
         guard let solution = viewModel.solutionToSubmit else { return }
         let shouldPublish = shareOption == .share
         let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil

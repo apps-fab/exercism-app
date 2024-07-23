@@ -11,7 +11,7 @@ struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
     @Binding var selection: Selection
     var items: [Selection]
     @ViewBuilder let labelContent: (Selection) -> Content
-    
+
     var body: some View {
         HStack {
             ForEach(items) { item in
@@ -22,7 +22,9 @@ struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
                     .minimumScaleFactor(0.9)
                     .padding()
                     .frame(height: 34)
-                    .roundEdges(backgroundColor: item == selection ? Color.appPurple.opacity(0.15) : .clear, lineColor: .clear, cornerRadius: 25)
+                    .roundEdges(backgroundColor: item == selection ?
+                                Color.appPurple.opacity(0.15) : .clear,
+                                lineColor: .clear, cornerRadius: 25)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selection = item
@@ -38,7 +40,7 @@ extension CustomPicker where Content == Text {}
 
 #Preview {
     CustomPicker(
-        selection: .constant(ExerciseCategory.AllExercises),
+        selection: .constant(ExerciseCategory.allExercises),
         items: ExerciseCategory.allCases) {
             Text("Some \($0.rawValue)")
         }

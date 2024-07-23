@@ -11,7 +11,7 @@ import KeychainSwift
 struct LoginView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var authenticationVM = AuthenticationViewModel()
-    
+
     var body: some View {
         GeometryReader { geometry in
             HStack(spacing: 0) {
@@ -34,7 +34,7 @@ struct LoginView: View {
             .toolbar(.hidden)
         }
     }
-    
+
     var leftView: some View {
         VStack {
             Spacer()
@@ -49,17 +49,17 @@ struct LoginView: View {
                 .font(.largeTitle.weight(.semibold))
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.8)
-            
+
             Text(Strings.introSubtitle.localized())
                 .font(.title3)
                 .multilineTextAlignment(.center)
                 .padding()
-            
+
             Text(Strings.introFree.localized())
                 .font(.title3.weight(.semibold))
 
             Spacer()
-            
+
             Image.trackImages
                 .resizable()
                 .accessibilityHidden(true)
@@ -70,7 +70,7 @@ struct LoginView: View {
         .foregroundStyle(.white)
         .padding(20)
     }
-    
+
     var rightView: some View {
         VStack {
             Spacer()
@@ -80,11 +80,11 @@ struct LoginView: View {
                     .font(.largeTitle.weight(.bold))
             }
             .accessibilityAddTraits(.isHeader)
-            
+
             Text(Strings.codePractice.localized())
                 .font(.title2.weight(.bold))
                 .multilineTextAlignment(.center)
-            
+
             Spacer()
             TextField("Enter your token",
                       text: $authenticationVM.tokenInput)
@@ -92,19 +92,18 @@ struct LoginView: View {
             .placeholder(when: authenticationVM.tokenInput.isEmpty,
                          placeholderText: Strings.enterToken.localized())
             .padding()
-            
+
             .frame(height: 55)
             .border(.gray)
             .textFieldStyle(.plain)
             .onSubmit {
                 validateToken()
             }
-            
+
             Spacer()
-         
-            
+
             VStack(spacing: 20) {
-                
+
                 ExercismButton(title: Strings.login.localized(),
                                isLoading: $authenticationVM.isLoading) {
                     validateToken()
@@ -112,7 +111,7 @@ struct LoginView: View {
                 Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
                     .lineLimit(1)
                     .minimumScaleFactor(0.3)
-                
+
                 Text(Strings.importantToken.localized())
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
@@ -121,7 +120,7 @@ struct LoginView: View {
         }
         .padding()
     }
-    
+
     private func validateToken() {
         Task {
             let isValid = await authenticationVM.validateToken()

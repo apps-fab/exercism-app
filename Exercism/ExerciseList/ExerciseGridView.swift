@@ -13,13 +13,13 @@ struct ExerciseGridView: View {
     var exercise: Exercise
     var solution: Solution?
     @State var isHover = false
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             WebImage(url: URL(string: exercise.iconUrl))
                 .resizable()
                 .frame(width: 64, height: 64)
-            
+
             VStack(alignment: .leading) {
                 Text(exercise.slug.capitalized)
                     .font(.title2.bold())
@@ -28,7 +28,7 @@ struct ExerciseGridView: View {
                     .font(.title3)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             Group {
                 exercise.isUnlocked ? Image.chevronRight : Image.lock
             }
@@ -54,7 +54,7 @@ struct ExerciseGridView: View {
             }
         }
     }
-    
+
     private var tags: some View {
         HStack {
             if solution?.status == .published || solution?.status == .completed {
@@ -70,11 +70,12 @@ struct ExerciseGridView: View {
                 .font(.callout.weight(.semibold))
                 .foregroundStyle(.green)
             }
-            
+
             if let numIterations = solution?.numIterations,
                numIterations > 0 {
                 // @Todo(Kirk) Convert this to stringdict for proper localisation)
-                let iterationText = "\(String(describing: numIterations)) \(numIterations == 1 ? "iteration" : "iterations")"
+                let iterationText =
+                "\(String(describing: numIterations)) \(numIterations == 1 ? "iteration" : "iterations")"
                 Label {
                     Text(iterationText)
                 } icon: {
@@ -82,8 +83,10 @@ struct ExerciseGridView: View {
                 }
                 .font(.callout.weight(.semibold))
             }
-            
-            if (exercise.isRecommended && exercise.isUnlocked) || solution?.status == .iterated || solution?.status == .started {
+
+            if (exercise.isRecommended && exercise.isUnlocked) ||
+                solution?.status == .iterated ||
+                solution?.status == .started {
                 Text(Strings.inProgress.localized())
                     .padding(.vertical, 2)
                     .roundEdges(
@@ -92,7 +95,7 @@ struct ExerciseGridView: View {
                     .font(.callout.weight(.semibold))
                     .foregroundStyle(.blue)
             }
-            
+
             if !exercise.isUnlocked {
                 Label {
                     Text(Strings.locked.localized())
@@ -101,7 +104,7 @@ struct ExerciseGridView: View {
                 }
                 .roundEdges(backgroundColor: Color.blue.opacity(0.2))
                 .font(.callout.weight(.semibold))
-                
+
                 if exercise.type == "concept" {
                     Label {
                         Text(Strings.learningExercise.localized())
@@ -110,7 +113,7 @@ struct ExerciseGridView: View {
                     }
                     .roundEdges()
                     .font(.callout.weight(.semibold))
-                    
+
                 } else {
                     Label {
                         Text(exercise.difficulty)
@@ -139,4 +142,3 @@ struct ExerciseGridView: View {
                      solution: PreviewData.shared.getSolutions()[0],
                      isHover: true)
 }
-
