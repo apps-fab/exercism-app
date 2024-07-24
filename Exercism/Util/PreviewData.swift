@@ -6,6 +6,7 @@
 import Foundation
 import ExercismSwift
 
+// swiftlint:disable all
 struct PreviewData {
     static let shared = PreviewData()
     let fileManager = FileManager.default

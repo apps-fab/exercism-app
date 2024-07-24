@@ -10,7 +10,7 @@ import SwiftUI
 struct ExercismTextField: View {
     @Binding var text: String
     var placeholder: String
-    var onSubmit: ()->() = { }
+    var onSubmit: () -> Void = { }
     @FocusState private var isFocused: Bool
 
     var body: some View {

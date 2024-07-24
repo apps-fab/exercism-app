@@ -8,23 +8,25 @@
 import SwiftUI
 
 public enum TabBarPosition {
-    case Top
-    case Bottom
+    case top
+    case bottom
 }
 
-public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
+public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
     private let selectedItem: TabBarSelection<TabItem>
     private var tabBarPosition: TabBarPosition
     private let content: Content
     @State private var items: [TabItem]
-    
-    public init(selectedItem: Binding<TabItem>, tabBarPosition: TabBarPosition = .Top, @ViewBuilder content: () -> Content) {
+
+    public init(selectedItem: Binding<TabItem>,
+                tabBarPosition: TabBarPosition = .top,
+                @ViewBuilder content: () -> Content) {
         self.selectedItem = .init(selection: selectedItem)
         self.content = content()
         self.tabBarPosition = tabBarPosition
         self._items = .init(initialValue: .init())
     }
-    
+
     public var tabItems: some View {
         HStack(spacing: 0) {
             ForEach(self.items, id: \.self) { item in
@@ -44,12 +46,12 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
             Spacer()
         }.frame(maxHeight: 50.0)
             .frame(maxWidth: .infinity)
-        
+
     }
-    
+
     public var body: some View {
         Group {
-            if tabBarPosition == .Top {
+            if tabBarPosition == .top {
                 VStack(spacing: 0) {
                     Spacer()
                     Divider().frame(height: 2)
@@ -74,6 +76,5 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View  {
             items = value
         }
     }
-    
-}
 
+}

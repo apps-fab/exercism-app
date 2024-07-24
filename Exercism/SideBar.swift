@@ -48,7 +48,8 @@ struct SideBar: View {
                     .padding()
             }
         }.alert(isPresented: $showingAlert) {
-            Alert(title: Text("Are you sure you want to log out?"), primaryButton: .default(Text("Yes"), action: logout), secondaryButton: .cancel())
+            Alert(title: Text("Are you sure you want to log out?"),
+                  primaryButton: .default(Text("Yes"), action: logout), secondaryButton: .cancel())
         }
     }
 

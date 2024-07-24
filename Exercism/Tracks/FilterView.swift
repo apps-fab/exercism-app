@@ -16,13 +16,13 @@ struct FilterView: View {
 
     @State private var showingSheet = false
     @FocusState private var fieldFocused: Bool
-    
+
     var body: some View {
         HStack {
             HStack(spacing: 12) {
                 Image.magnifyingGlass
                     .imageScale(.large)
-                
+
                 TextField(Strings.searchTrackString.localized(),
                           text: $searchText)
                 .textFieldStyle(.plain)
@@ -33,7 +33,7 @@ struct FilterView: View {
                 cornerRadius: 8
             )
             .focused($fieldFocused)
-            
+
             Button {
                 showingSheet.toggle()
             } label: {
@@ -49,7 +49,7 @@ struct FilterView: View {
                 )
                 .contentShape(Rectangle())
             }
-            
+
             .buttonStyle(.plain)
             .popover(isPresented: $showingSheet) {
                 FilterTableView(tags: Tag.loadTags(),
@@ -67,11 +67,11 @@ struct FilterView: View {
                     lineColor: .clear,
                     cornerRadius: 8
                 )
-            
+
             Button {
                 sortAction()
             } label: {
-                Label{
+                Label {
                     Text(Strings.sortBy.localized())
                 } icon: {
                     Image.chevronDown
@@ -80,7 +80,7 @@ struct FilterView: View {
                 .roundEdges(
                     cornerRadius: 8
                 )
-                .contentShape(Rectangle()) 
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
         }

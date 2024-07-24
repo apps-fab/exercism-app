@@ -9,16 +9,16 @@ import SwiftUI
 
 enum ProfileItems: String, CaseIterable, Identifiable {
     var id: String { UUID().uuidString }
-    
-    case Profile = "Public profile"
-    case Journey = "Your journey"
-    case Settings
-    case SignOut = "Sign out"
+
+    case profile = "Public profile"
+    case journey = "Your journey"
+    case settings
+    case signOut = "Sign out"
 }
 
 struct ProfileTableView: View {
-    @State private var selection: ProfileItems = .Profile
-    
+    @State private var selection: ProfileItems = .profile
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -36,7 +36,7 @@ struct ProfileTableView: View {
                 Text(item.rawValue).foregroundColor(selection == item ? .purple : .primary)
             }
             #else
-            List(ProfileItems.allCases) { item in 
+            List(ProfileItems.allCases) { item in
                 Text(item.rawValue)
             }
             #endif

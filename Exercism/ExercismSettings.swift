@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-@preconcurrency import CodeEditor
+import CodeEditor
 import Splash
 
 #if os(macOS)

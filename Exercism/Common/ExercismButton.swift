@@ -12,7 +12,7 @@ struct ExercismButton: View {
     let backgroundColor = Color.appPurple
     @Binding var isLoading: Bool
     let action: () -> Void
-    
+
     var body: some View {
         ZStack(alignment: .center) {
             ProgressView()
@@ -21,9 +21,9 @@ struct ExercismButton: View {
                 .frame(width: 40, height: 40)
                 .opacity(isLoading ? 1 : 0)
 
-            Button(action: {
+            Button {
                 action()
-            }) {
+            } label: {
                 Text(title)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -42,6 +42,6 @@ struct ExercismButton: View {
 #Preview {
     ExercismButton(title: "Exercism Button", isLoading: .constant(false)) {
         print("Button pressed")
-        
+
     }
 }

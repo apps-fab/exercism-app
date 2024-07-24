@@ -16,7 +16,7 @@ extension Image {
     static let mainLogo = Image("mainLogo")
     static let starsLogo = Image("stars")
     static let trackImages = Image("trackImages")
-    
+
     // System Images
     static let magnifyingGlass = Image(systemName: "magnifyingglass")
     static let slider = Image(systemName: "slider.horizontal.3")
@@ -33,7 +33,7 @@ extension Image {
     static let sidebarTrailing = Image(systemName: "sidebar.trailing")
     static let playCircle = Image(systemName: "play.circle")
     static let play = Image(systemName: "play")
-    static let circleFill = Image(systemName:  "circle.fill")
+    static let circleFill = Image(systemName: "circle.fill")
     static let xCircle = Image(systemName: "x.circle")
     static let paperplaneCircle =  Image(systemName: "paperplane.circle")
     static let checkmark =  Image(systemName: "checkmark")

@@ -56,6 +56,7 @@
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
 		FD9B57E92A8264AB0042C6B0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */; };
+		FDAA2E1B2C4FE04200E0FDFE /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDAA2E1A2C4FE04200E0FDFE /* ExercismSwift */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
 		FDBC7C882C22E90B0008FEAB /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FDBC7C872C22E90B0008FEAB /* CodeEditor */; };
@@ -102,8 +103,6 @@
 		FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismSettings.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD36807F29B1054E004D53C8 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
-		FD3EB7E72AE28BE9004F63CC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		FD3EB7E92AE28C4B004F63CC /* Theme+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+GitHub.swift"; sourceTree = "<group>"; };
 		FD3F2B132AA750D300ADB248 /* ExercismButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismButton.swift; sourceTree = "<group>"; };
 		FD4A77642987E18E00E29436 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 		FD93F5D628E398770078A062 /* Date+Exercism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Exercism.swift"; sourceTree = "<group>"; };
 		FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		FDA558A12B9DC8AA006BDE85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDAA2E172C4FDD1600E0FDFE /* ExercismSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ExercismSwift; path = ../ExercismSwift; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
 		FDB011B52AF8F6A700D29F77 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -149,6 +149,7 @@
 				FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				FD33A9212C22F77D00E602D2 /* ExercismSwift in Frameworks */,
+				FDAA2E1B2C4FE04200E0FDFE /* ExercismSwift in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
@@ -198,6 +199,7 @@
 		E0C9672328732A44004CE7E6 = {
 			isa = PBXGroup;
 			children = (
+				FDAA2E172C4FDD1600E0FDFE /* ExercismSwift */,
 				FDB011B52AF8F6A700D29F77 /* project.xcconfig */,
 				E0C9672E28732A44004CE7E6 /* Exercism */,
 				E0C9672D28732A44004CE7E6 /* Products */,
@@ -245,15 +247,6 @@
 				E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		FD3EB7E62AE28BDB004F63CC /* MarkDownUI */ = {
-			isa = PBXGroup;
-			children = (
-				FD3EB7E72AE28BE9004F63CC /* Theme.swift */,
-				FD3EB7E92AE28C4B004F63CC /* Theme+GitHub.swift */,
-			);
-			path = MarkDownUI;
 			sourceTree = "<group>";
 		};
 		FD6467D32ADFD24700358E19 /* Frameworks */ = {
@@ -319,7 +312,6 @@
 		FDC8C07A29C496160079D5F3 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				FD3EB7E62AE28BDB004F63CC /* MarkDownUI */,
 				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
 				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
 				FDFF5A802A66C2E700E36AA4 /* Images.swift */,
@@ -349,6 +341,7 @@
 				E0C9672828732A44004CE7E6 /* Sources */,
 				E0C9672928732A44004CE7E6 /* Frameworks */,
 				E0C9672A28732A44004CE7E6 /* Resources */,
+				FDAA2E182C4FDE6700E0FDFE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -366,6 +359,7 @@
 				CB6F94932B4C27A1002F8A2C /* ExercismSwift */,
 				FD33A9202C22F77D00E602D2 /* ExercismSwift */,
 				FD33A9232C22F81B00E602D2 /* CodeEditor */,
+				FDAA2E1A2C4FE04200E0FDFE /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -403,8 +397,8 @@
 				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
-				FD33A91F2C22F77D00E602D2 /* XCLocalSwiftPackageReference "../ExercismSwift" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				FDAA2E192C4FE04100E0FDFE /* XCLocalSwiftPackageReference "../ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -429,6 +423,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FDAA2E182C4FDE6700E0FDFE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E0C9672828732A44004CE7E6 /* Sources */ = {
@@ -633,11 +649,13 @@
 				DEVELOPMENT_TEAM = S82GZQ59NS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Exercism/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Main ";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -678,11 +696,13 @@
 				DEVELOPMENT_TEAM = S82GZQ59NS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Exercism/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Main ";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -728,7 +748,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FD33A91F2C22F77D00E602D2 /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
+		FDAA2E192C4FE04100E0FDFE /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ExercismSwift;
 		};
@@ -837,6 +857,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */;
 			productName = Settings;
+		};
+		FDAA2E1A2C4FE04200E0FDFE /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
 		};
 		FDBC7C872C22E90B0008FEAB /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;

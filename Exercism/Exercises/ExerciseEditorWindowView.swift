@@ -57,9 +57,9 @@ struct ExerciseEditorWindowView: View {
                     Spacer()
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
+                    Button {
                         viewModel.runTest()
-                    }) {
+                    } label: {
                         Label(Strings.runTests.localized(),
                               systemImage: "play.circle")
                         .labelStyle(.titleAndIcon)
@@ -67,9 +67,9 @@ struct ExerciseEditorWindowView: View {
                     }
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
+                    Button {
                         viewModel.submitSolution()
-                    }) {
+                    } label: {
                         Label(Strings.submit.localized(),
                               systemImage: "paperplane.circle")
                         .labelStyle(.titleAndIcon)
@@ -86,7 +86,7 @@ struct ExerciseEditorWindowView: View {
             }
         }
         .navigationTitle(viewModel.title)
-        .sheet(item: $viewModel.solutionToSubmit) { solution in
+        .sheet(item: $viewModel.solutionToSubmit) { _ in
             SubmitSolutionContentView()
         }
         .task {

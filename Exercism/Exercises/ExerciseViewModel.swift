@@ -39,23 +39,23 @@ enum ExerciseModelResponse: Equatable {
 }
 
 enum SelectedTab: Int, Tabbable {
-    case Instruction = 0
-    case Result
+    case instruction = 0
+    case result
 
     var icon: String {
         switch self {
-        case .Instruction:
+        case .instruction:
             return "list.bullet"
-        case .Result:
+        case .result:
             return "checkmark.icloud.fill"
         }
     }
 
     var title: String {
         switch self {
-        case .Instruction:
+        case .instruction:
             return "Instruction"
-        case .Result:
+        case .result:
             return "Result"
         }
     }
@@ -81,13 +81,13 @@ extension ExerciseFile: Tabbable {
 final class ExerciseViewModel: ObservableObject {
     @Published var selectedFile: ExerciseFile!
     @Published var instruction: String?
-    @Published var selectedTab: SelectedTab = .Instruction
-    @Published var exerciseDoc: ExerciseDocument? = nil
-    @Published var averageTestDuration: Double? = nil
-    @Published var submissionLink: String? = nil
-    @Published var testRun: TestRun? = nil
+    @Published var selectedTab: SelectedTab = .instruction
+    @Published var exerciseDoc: ExerciseDocument?
+    @Published var averageTestDuration: Double?
+    @Published var submissionLink: String?
+    @Published var testRun: TestRun?
     @Published var selectedCode: String = ""
-    @Published var exerciseItem: ExerciseItem? = nil
+    @Published var exerciseItem: ExerciseItem?
     @Published var testSubmissionResponseMessage: Bool = false
     @Published var showTestSubmissionResponseMessage = false
     @Published var solutionToSubmit: Solution?
@@ -104,7 +104,7 @@ final class ExerciseViewModel: ObservableObject {
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     static let shared = ExerciseViewModel()
-    
+
     private let nanosecondsPerSecond: Double = 1_000_000_000
 
     // MARK: - on Appear Operations
@@ -152,7 +152,8 @@ final class ExerciseViewModel: ObservableObject {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
-    private func getLocalExercise(_ track: String, _ exercise: String, _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+    private func getLocalExercise(_ track: String, _ exercise: String,
+                                  _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
         self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
         self.title = "\(track)/ \(exercise)"
@@ -181,7 +182,7 @@ final class ExerciseViewModel: ObservableObject {
     // MARK: - Submit Solution
 
     func submitSolution() {
-        if (!canSubmitSolution) {
+        if !canSubmitSolution {
             operationStatus = .errorRunningTest
         }
         Task { await performSubmit() }
@@ -193,7 +194,6 @@ final class ExerciseViewModel: ObservableObject {
             switch result.iteration.testsStatus {
             case .passed:
                 operationStatus = .solutionPassed
-                break
             default:
                 operationStatus = .wrongSolution
             }
@@ -208,7 +208,7 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Complete Exercise
 
-    func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution  {
+    func completeExercise(solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution {
         do {
             let result = try await fetcher.completeSolution(solutionId,
                                                             publish: publish,
@@ -225,7 +225,7 @@ final class ExerciseViewModel: ObservableObject {
     // MARK: - Tests
 
     func runTest() {
-        selectedTab = .Result
+        selectedTab = .result
         updateFile()
 
         guard let exerciseSolutionId = exerciseDoc?.solution.id else {
@@ -292,7 +292,7 @@ final class ExerciseViewModel: ObservableObject {
     }
 
      private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
-        if (testRun.status == .pass) {
+        if testRun.status == .pass {
             submissionLink = links.submit
         }
         self.testRun = testRun

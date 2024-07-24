@@ -12,7 +12,7 @@ struct RoundedRect<Background: View>: ViewModifier {
     let borderColor: Color
     let backgroundView: Background
     let borderWidth: CGFloat
-    
+
     func body(content: Content) -> some View {
         return content
             .padding([.leading, .trailing], 10)
@@ -24,4 +24,3 @@ struct RoundedRect<Background: View>: ViewModifier {
             }.clipShape(RoundedRectangle(cornerRadius: radius))
     }
 }
-

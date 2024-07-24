@@ -10,7 +10,7 @@ extension TestRun {
     var testsByStatus: [TestStatus: [Test]] {
         Dictionary(grouping: tests, by: { $0.status })
     }
-    
+
     // Check if test run has tasks.
     // Depends on the version if the tests has task id
     func hasTasks() -> Bool {
@@ -18,20 +18,20 @@ extension TestRun {
             $0.taskId != nil
         }
     }
-    
+
     func numFailedTest() -> Int {
         tests.filter { test in
             test.status == TestStatus.fail || test.status == TestStatus.error
         }
         .count
     }
-    
+
     func failedTest() -> [Test] {
         tests.filter { test in
             test.status == TestStatus.fail || test.status == TestStatus.error
         }
     }
-    
+
     func numFailedTasks() -> Int {
         Set(
             failedTest()
@@ -44,13 +44,12 @@ extension TestRun {
         )
         .count
     }
-    
-    
+
     func testGroupedByTaskList() -> [[TestGroup]] {
         if !hasTasks() {
             return testsByStatus.map { _, value in
-                value.enumerated().map { i, test in
-                    TestGroup(test: test, testId: i + 1)
+                value.enumerated().map { testId, test in
+                    TestGroup(test: test, testId: testId + 1)
                 }
             }
         } else {
@@ -60,8 +59,8 @@ extension TestRun {
                         $0.taskId == task.id
                     }
                     .enumerated()
-                    .map { i, test in
-                        TestGroup(test: test, testId: i + 1)
+                    .map { testId, test in
+                        TestGroup(test: test, testId: testId + 1)
                     }
                 }
                 return tests
