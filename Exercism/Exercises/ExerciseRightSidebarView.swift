@@ -12,9 +12,7 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
-    @EnvironmentObject var settingData: SettingData
-    @Environment(\.colorScheme) private var colorScheme
-
+    @EnvironmentObject var settingsData: SettingsModel
     var onMarkAsComplete: (() -> Void)?
 
     var instruction: String? {
@@ -22,11 +20,11 @@ struct ExerciseRightSidebarView: View {
     }
 
     private var theme: Splash.Theme {
-        switch colorScheme {
+        switch settingsData.colorScheme {
         case .dark:
-            return .wwdc18(withFont: .init(size: settingData.fontSize))
+            return .wwdc18(withFont: .init(size: settingsData.fontSize))
         default:
-            return .sunset(withFont: .init(size: settingData.fontSize))
+            return .sunset(withFont: .init(size: settingsData.fontSize))
         }
     }
 
@@ -38,7 +36,6 @@ struct ExerciseRightSidebarView: View {
         CustomTabView(selectedItem: $viewModel.selectedTab) {
             if let instruction = instruction {
                 let markdownTheme = Theme.gitHub
-                // TODO: @savekirk: Use system colorScheme
                 VStack(spacing: 0) {
                     InstructionView(instruction: instruction,
                                     theme: theme,

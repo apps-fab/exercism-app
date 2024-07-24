@@ -34,7 +34,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "b8523c1642f3c142b06dd98443ea7c48343a4dfd"
+        "revision" : "86e9185ef41c4238a93ad8efe61ddeb701e80bbf"
       }
     },
     {
@@ -52,7 +52,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "9cf2f513c96e4fea54150d4ede5b83822c7276b2"
+        "revision" : "5d462f7530677ae0c2b9510c26383aa25ba48751"
       }
     },
     {

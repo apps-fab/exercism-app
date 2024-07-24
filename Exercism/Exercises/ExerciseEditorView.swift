@@ -11,7 +11,7 @@ import CodeEditor
 struct ExerciseEditorView: View {
     @State private var exerciseViewModel = ExerciseViewModel.shared
     @State private var codeChanged = false
-    @EnvironmentObject var settingData: SettingData
+    @EnvironmentObject var settingsModel: SettingsModel
 
     private var source: String {
         exerciseViewModel.getSelectedCode() ?? Strings.noFile.localized()
@@ -28,9 +28,9 @@ struct ExerciseEditorView: View {
             CodeEditor(
                 source: $exerciseViewModel.selectedCode,
                 language: language,
-                theme: settingData.theme,
-                fontSize: .init(get: { CGFloat(settingData.fontSize) },
-                                set: { settingData.fontSize = Double($0) }))
+                theme: settingsModel.theme,
+                fontSize: .init(get: { CGFloat(settingsModel.fontSize) },
+                                set: { settingsModel.fontSize = Double($0) }))
             .onChange(of: exerciseViewModel.selectedCode) { code in
                 codeChanged = true
                 exerciseViewModel.updateCode(code)
@@ -47,10 +47,9 @@ struct ExerciseEditorView: View {
             Divider()
 
             HStack {
-                Picker(Strings.theme.localized(), selection: $settingData.theme) {
-                    ForEach(CodeEditor.availableThemes) { theme in
+                Picker(Strings.theme.localized(), selection: $settingsModel.theme) {
+                    ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
-                            .tag(theme)
                     }
                 }
             }
@@ -73,5 +72,5 @@ struct ExerciseEditorView: View {
 }
 
 #Preview {
-    ExerciseEditorView().environmentObject(SettingData())
+    ExerciseEditorView()
 }

@@ -16,12 +16,13 @@ enum Keys: String {
 
 @main
 struct ExercismApp: App {
-    #if os(macOS)
+#if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    #endif
+#endif
 
-    @StateObject private var settingsData = SettingData()
+    @StateObject private var settingsModel = SettingsModel()
     @StateObject private var model = TrackModel.shared
+    @AppStorage("settings") var settingsData: Data?
 
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -31,10 +32,14 @@ struct ExercismApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(model)
-                .environmentObject(settingsData)
+                .environmentObject(settingsModel)
+                .task {
+                    await performSettingsSetUp()
+                }
                 .navigationTitle(Strings.exercism.localized())
+                .preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
         }
-        #if os(macOS)
+#if os(macOS)
         .commands {
             ExercismCommands()
             CommandGroup(replacing: .appInfo) {
@@ -76,6 +81,19 @@ struct ExercismApp: App {
                 .keyboardShortcut("R")
             }
         }
-        #endif
+#endif
+        Settings {
+            ExercismSettings().environmentObject(settingsModel)
+        }
+    }
+
+    private func performSettingsSetUp() async {
+        if let settingsData {
+            settingsModel.jsonData = settingsData
+        }
+
+        for await _ in settingsModel.objectWillChangeSequence {
+            settingsData = settingsModel.jsonData
+        }
     }
 }

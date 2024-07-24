@@ -25,31 +25,50 @@ let exercismSettingsScreen: () -> SettingsPane  = {
     return Settings.PaneHostingController(pane: paneView)
 }
 
+enum ExercismAppearance: String, CaseIterable, Identifiable, Codable {
+    var id: Self {
+        return self
+    }
+
+    case dark = "Dark"
+    case light = "Light"
+}
+
 struct ExercismSettings: View {
-    @EnvironmentObject var settingData: SettingData
-    @State private var selectedFont: Int = 0
+    @EnvironmentObject var settingsModel: SettingsModel
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
             Settings.Section(title: "Editor Theme") {
-                List(CodeEditor.availableThemes, id: \.self, selection: $settingData.theme) { theme in
+                Picker("", selection: $settingsModel.theme) {
+                    ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
-                }
-            }
-
-            Settings.Section(title: "Font Size") {
-                Picker("", selection: $selectedFont) {
-                    ForEach(8..<20) { fontSize in
-                        Text("\(fontSize)")
                     }
+                }.labelsHidden()
+
+                Settings.Section(title: "Appearance") {
+                    Picker("", selection: $settingsModel.colorScheme) {
+                        ForEach(ExercismAppearance.allCases) { appearance in
+                            Text("\(appearance.rawValue)")
+                        }
+                    }.labelsHidden()
+                }
+
+                Settings.Section(title: "Font Size") {
+                    Picker("", selection: $settingsModel.fontSize) {
+                        ForEach(8..<20) { fontSize in
+                            Text(fontSize.description).tag(Double(fontSize))
+                        }
+                    }.labelsHidden()
                 }
             }
-        }
+        }.preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
+
     }
 }
 
 #Preview {
-    ExercismSettings().environmentObject(SettingData())
+    ExercismSettings()
 }
 
 #endif
