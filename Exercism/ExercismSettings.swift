@@ -25,22 +25,42 @@ let exercismSettingsScreen: () -> SettingsPane  = {
     return Settings.PaneHostingController(pane: paneView)
 }
 
+enum ExercismAppearance: String, CaseIterable, Identifiable {
+    var id: String {
+        return rawValue
+    }
+
+    case dark = "Dark"
+    case light = "Light"
+}
+
 struct ExercismSettings: View {
     @EnvironmentObject var settingData: SettingData
+    @AppStorage("appearance") private var appearance: ExercismAppearance?
     @State private var selectedFont: Int = 0
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
             Settings.Section(title: "Editor Theme") {
-                List(CodeEditor.availableThemes, id: \.self, selection: $settingData.theme) { theme in
+                Picker("", selection: $settingData.theme) {
+                    ForEach(CodeEditor.availableThemes) { theme in
                         Text(theme.rawValue.capitalized)
+                    }
                 }
-            }
 
-            Settings.Section(title: "Font Size") {
-                Picker("", selection: $selectedFont) {
-                    ForEach(8..<20) { fontSize in
-                        Text("\(fontSize)")
+                Settings.Section(title: "Appearance") {
+                    Picker("", selection: $appearance) {
+                        ForEach(ExercismAppearance.allCases) { appearance in
+                            Text("\(appearance.rawValue)")
+                        }
+                    }
+                }
+
+                Settings.Section(title: "Font Size") {
+                    Picker("", selection: $settingData.fontSize) {
+                        ForEach(8..<20) { fontSize in
+                            Text("\(fontSize)")
+                        }
                     }
                 }
             }

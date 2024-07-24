@@ -22,6 +22,7 @@ struct ExercismApp: App {
 
     @StateObject private var settingsData = SettingData()
     @StateObject private var model = TrackModel.shared
+    @AppStorage("appearance") private var appearance: ExercismAppearance?
 
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -33,6 +34,7 @@ struct ExercismApp: App {
                 .environmentObject(model)
                 .environmentObject(settingsData)
                 .navigationTitle(Strings.exercism.localized())
+                .preferredColorScheme(appearance == .dark ? .dark : .light)
         }
         #if os(macOS)
         .commands {
@@ -77,5 +79,8 @@ struct ExercismApp: App {
             }
         }
         #endif
+        Settings {
+            ExercismSettings().environmentObject(settingsData)
+        }
     }
 }
