@@ -48,9 +48,8 @@ struct ExerciseEditorView: View {
 
             HStack {
                 Picker(Strings.theme.localized(), selection: $settingsModel.theme) {
-                    ForEach(CodeEditor.availableThemes) { theme in
+                    ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
-                            .tag(theme)
                     }
                 }
             }
