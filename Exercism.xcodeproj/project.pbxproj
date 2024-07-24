@@ -43,7 +43,6 @@
 		FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
-		FD76BC2C2C517BA800EA5826 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD76BC2B2C517BA800EA5826 /* ExercismSwift */; };
 		FD79A4ED2A8CCF3900250711 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */; };
 		FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
 		FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */; };
@@ -54,6 +53,7 @@
 		FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksListView.swift */; };
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
+		FD95C9122C518B89007B4E5B /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD95C9112C518B89007B4E5B /* ExercismSwift */; };
 		FD9B57E92A8264AB0042C6B0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
@@ -144,7 +144,7 @@
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
-				FD76BC2C2C517BA800EA5826 /* ExercismSwift in Frameworks */,
+				FD95C9122C518B89007B4E5B /* ExercismSwift in Frameworks */,
 				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
 				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
 				FDC9F11F28E5DA9200488CE9 /* KeychainSwift in Frameworks */,
@@ -351,7 +351,7 @@
 				E07F6B0929E0D5DA00E5C42A /* Splash */,
 				FD92DC642A854EAC00673445 /* Settings */,
 				FD33A9232C22F81B00E602D2 /* CodeEditor */,
-				FD76BC2B2C517BA800EA5826 /* ExercismSwift */,
+				FD95C9112C518B89007B4E5B /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -390,7 +390,7 @@
 				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
-				FDAA2E192C4FE04100E0FDFE /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FD95C9102C518B89007B4E5B /* XCLocalSwiftPackageReference "../ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -740,7 +740,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FDAA2E192C4FE04100E0FDFE /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
+		FD95C9102C518B89007B4E5B /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ExercismSwift;
 		};
@@ -837,14 +837,14 @@
 			package = FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
 		};
-		FD76BC2B2C517BA800EA5826 /* ExercismSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ExercismSwift;
-		};
 		FD92DC642A854EAC00673445 /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */;
 			productName = Settings;
+		};
+		FD95C9112C518B89007B4E5B /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
 		};
 		FDBC7C872C22E90B0008FEAB /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
