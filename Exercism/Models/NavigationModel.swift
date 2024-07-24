@@ -86,7 +86,3 @@ final class NavigationModel: ObservableObject, Codable {
         case columnVisibility
     }
 }
-
-extension DispatchQueue {
-    static let pathMutatingLock = DispatchQueue(label: "person.lock.queue")
-}

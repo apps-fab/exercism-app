@@ -25,9 +25,9 @@ let exercismSettingsScreen: () -> SettingsPane  = {
     return Settings.PaneHostingController(pane: paneView)
 }
 
-enum ExercismAppearance: String, CaseIterable, Identifiable {
-    var id: String {
-        return rawValue
+enum ExercismAppearance: String, CaseIterable, Identifiable, Codable {
+    var id: Self {
+        return self
     }
 
     case dark = "Dark"
@@ -35,9 +35,7 @@ enum ExercismAppearance: String, CaseIterable, Identifiable {
 }
 
 struct ExercismSettings: View {
-    @EnvironmentObject var settingData: SettingData
-    @AppStorage("appearance") private var appearance: ExercismAppearance?
-    @State private var selectedFont: Int = 0
+    @EnvironmentObject var settingData: SettingsModel
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
@@ -46,14 +44,14 @@ struct ExercismSettings: View {
                     ForEach(CodeEditor.availableThemes) { theme in
                         Text(theme.rawValue.capitalized)
                     }
-                }
+                }.labelsHidden()
 
                 Settings.Section(title: "Appearance") {
-                    Picker("", selection: $appearance) {
+                    Picker("", selection: $settingData.appearance) {
                         ForEach(ExercismAppearance.allCases) { appearance in
                             Text("\(appearance.rawValue)")
                         }
-                    }
+                    }.labelsHidden()
                 }
 
                 Settings.Section(title: "Font Size") {
@@ -61,7 +59,7 @@ struct ExercismSettings: View {
                         ForEach(8..<20) { fontSize in
                             Text("\(fontSize)")
                         }
-                    }
+                    }.labelsHidden()
                 }
             }
         }
@@ -69,7 +67,7 @@ struct ExercismSettings: View {
 }
 
 #Preview {
-    ExercismSettings().environmentObject(SettingData())
+    ExercismSettings()
 }
 
 #endif

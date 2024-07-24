@@ -12,7 +12,7 @@ import Splash
 
 struct ExerciseRightSidebarView: View {
     @StateObject var viewModel = ExerciseViewModel.shared
-    @EnvironmentObject var settingData: SettingData
+    @EnvironmentObject var settingsData: SettingsModel
     @Environment(\.colorScheme) private var colorScheme
 
     var onMarkAsComplete: (() -> Void)?
@@ -24,9 +24,9 @@ struct ExerciseRightSidebarView: View {
     private var theme: Splash.Theme {
         switch colorScheme {
         case .dark:
-            return .wwdc18(withFont: .init(size: settingData.fontSize))
+            return .wwdc18(withFont: .init(size: settingsData.fontSize))
         default:
-            return .sunset(withFont: .init(size: settingData.fontSize))
+            return .sunset(withFont: .init(size: settingsData.fontSize))
         }
     }
 
