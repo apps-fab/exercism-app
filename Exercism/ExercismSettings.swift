@@ -35,19 +35,19 @@ enum ExercismAppearance: String, CaseIterable, Identifiable, Codable {
 }
 
 struct ExercismSettings: View {
-    @EnvironmentObject var settingData: SettingsModel
+    @EnvironmentObject var settingsModel: SettingsModel
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
             Settings.Section(title: "Editor Theme") {
-                Picker("", selection: $settingData.theme) {
-                    ForEach(CodeEditor.availableThemes) { theme in
+                Picker("", selection: $settingsModel.theme) {
+                    ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
                     }
                 }.labelsHidden()
 
                 Settings.Section(title: "Appearance") {
-                    Picker("", selection: $settingData.appearance) {
+                    Picker("", selection: $settingsModel.colorScheme) {
                         ForEach(ExercismAppearance.allCases) { appearance in
                             Text("\(appearance.rawValue)")
                         }
@@ -55,14 +55,15 @@ struct ExercismSettings: View {
                 }
 
                 Settings.Section(title: "Font Size") {
-                    Picker("", selection: $settingData.fontSize) {
+                    Picker("", selection: $settingsModel.fontSize) {
                         ForEach(8..<20) { fontSize in
-                            Text("\(fontSize)")
+                            Text(fontSize.description).tag(Double(fontSize))
                         }
                     }.labelsHidden()
                 }
             }
-        }
+        }.preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
+
     }
 }
 

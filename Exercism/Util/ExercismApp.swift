@@ -37,7 +37,7 @@ struct ExercismApp: App {
                     await performSettingsSetUp()
                 }
                 .navigationTitle(Strings.exercism.localized())
-                .preferredColorScheme(settingsModel.appearance == .dark ? .dark : .light)
+                .preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
         }
 #if os(macOS)
         .commands {
