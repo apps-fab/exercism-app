@@ -23,3 +23,4 @@ Running the project is fairly simple
 4. Then, Hit Build and Run the project
 
 For additional information about the packages utilized in the app, please refer to the [brief documentation](/doc/01-dependencies.md)."
+For information on how to contribute, please refer to the [contributing documentation](CONTRIBUTING.md)
