@@ -36,7 +36,7 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
                     Divider().frame(width: 2)
                 }
                 .padding(.leading)
-                .background(selectedItem.selection == item ? .blue : .clear)
+                .background(selectedItem.selection == item ? .appPurple : .clear)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     selectedItem.selection = item
