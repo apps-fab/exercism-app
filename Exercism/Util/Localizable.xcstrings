@@ -749,9 +749,6 @@
         }
       }
     },
-    "Some %@" : {
-
-    },
     "sortBy" : {
       "extractionState" : "manual",
       "localizations" : {
