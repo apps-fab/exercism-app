@@ -57,6 +57,7 @@
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
 		FD95C9122C518B89007B4E5B /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD95C9112C518B89007B4E5B /* ExercismSwift */; };
 		FD9B57E92A8264AB0042C6B0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */; };
+		FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = FDA25A8E2CBECFFD00848060 /* KeychainAccess */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
 		FDBC7C882C22E90B0008FEAB /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FDBC7C872C22E90B0008FEAB /* CodeEditor */; };
@@ -143,6 +144,7 @@
 			files = (
 				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
+				FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
@@ -358,6 +360,7 @@
 				FD95C9112C518B89007B4E5B /* ExercismSwift */,
 				FD403C822C518ED700CD8D81 /* ExercismSwift */,
 				FD403C852C522CB500CD8D81 /* ExercismSwift */,
+				FDA25A8E2CBECFFD00848060 /* KeychainAccess */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
@@ -397,6 +400,7 @@
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FD403C842C522CB500CD8D81 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
+				FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -786,6 +790,14 @@
 				kind = branch;
 			};
 		};
+		FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		FDBC7C862C22E90B0008FEAB /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
@@ -861,6 +873,11 @@
 		FD95C9112C518B89007B4E5B /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ExercismSwift;
+		};
+		FDA25A8E2CBECFFD00848060 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		FDBC7C872C22E90B0008FEAB /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
