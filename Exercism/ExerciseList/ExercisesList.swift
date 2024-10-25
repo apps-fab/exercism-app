@@ -8,7 +8,7 @@
 import SwiftUI
 import ExercismSwift
 
-extension Solution: Identifiable {
+extension Solution: @retroactive Identifiable {
     public var id: String { self.uuid }
 }
 
