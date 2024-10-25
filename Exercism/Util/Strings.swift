@@ -20,7 +20,7 @@ enum Strings: String {
     case completedExercises = "%d/%d Exercises"
     case learningMode = "Learning Mode"
     case lastTouched = "Last touched %@ ago"
-    case languageIntro = "Become fluent in your chosen programming languages by completing these tracks created by our [awesome team of contributors](https://exercism.org/contributing/contributors)"
+    case languageIntro = "Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors."
     case languageNumber = "67+ languages for you to master"
     case searchLanguage = "Search language filters"
     case filterBy = "Filter by"
@@ -61,9 +61,9 @@ enum Strings: String {
     case markAsComplete = "Mark as complete"
 
     // Login
-    case introTitle = "Exercism is free for all people, everywhere."
+    case introTitle = "Exercode is built using Exercism APIs and off of the exercism concept. It's free, open source, and community driven."
     case introSubtitle = "Level up your programming skills over 5,521 exercises across 67+ languages, and insightful discussion with our dedicated team of welcoming mentors."
-    case introFree = "Exercism is 100% free forever."
+    case introFree = "Exercode is 100% free forever."
     case codePractice = "Code practice and mentorship for everyone"
     case enterToken = "Enter your token"
     case settingsText = "You can find your token on your [settings page](https://exercism.org/settings/api_cli)"

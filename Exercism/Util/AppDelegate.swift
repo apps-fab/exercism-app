@@ -17,7 +17,7 @@ extension Settings.PaneIdentifier {
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        true
+        false
     }
 
     private lazy var panes: [SettingsPane]  = [

@@ -16,6 +16,7 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
     case allExercises = "All Exercises"
     case completed
     case inProgress = "In Progress"
+
     case available
     case locked
 
@@ -126,7 +127,7 @@ struct ExercisesList: View {
         }
         .padding(8)
         .roundEdges(
-            lineColor: fieldFocused ? .purple : .gray,
+            lineColor: fieldFocused ? .appAccent : .gray,
             cornerRadius: 8
         )
         .focused($fieldFocused)
@@ -171,6 +172,5 @@ struct ExercisesList: View {
     ExercisesList(track: PreviewData.shared.getTracks()[0],
                   asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
         .frame(width: 1000, height: 800)
-        .previewLayout(.device)
         .preferredColorScheme(.light)
 }

@@ -23,7 +23,7 @@ struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
                     .padding()
                     .frame(height: 34)
                     .roundEdges(backgroundColor: item == selection ?
-                                Color.appPurple.opacity(0.15) : .clear,
+                                Color.appAccent.opacity(0.5) : .clear,
                                 lineColor: .clear, cornerRadius: 25)
                     .contentShape(Rectangle())
                     .onTapGesture {

@@ -51,7 +51,7 @@ struct ExerciseRightSidebarView: View {
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 45)
-                            .background(Color.appPurple, in: .rect(cornerRadius: 15))
+                            .background(Color.appAccent, in: .rect(cornerRadius: 15))
                             .foregroundStyle(.white)
                         }
                         .buttonStyle(.plain)
@@ -142,7 +142,7 @@ struct ExerciseRightSidebarView: View {
         var body: some View {
             VStack {
                 ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
-                    .tint(Color.appPurple)
+                    .tint(Color.appAccent)
                     .padding()
                     .onReceive(timer) { _ in
                         if progress < 100 {

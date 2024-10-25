@@ -11,8 +11,7 @@ import SwiftUI
 extension Image {
     static let conceptLogo = Image("concept")
     static let exerciseLogo = Image("exercise")
-    static let exercismLogo = Image("exercismLogo")
-    static let exercismLogoSmall = Image("exercismLogoSmall")
+    static let exercodeLogo = Image("exercodeLogo")
     static let mainLogo = Image("mainLogo")
     static let starsLogo = Image("stars")
     static let trackImages = Image("trackImages")

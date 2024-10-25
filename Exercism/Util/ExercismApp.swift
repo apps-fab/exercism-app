@@ -80,6 +80,14 @@ struct ExercismApp: App {
                 }
                 .keyboardShortcut("R")
             }
+
+            CommandGroup(before: .windowList) {
+                Button("Exercode") {
+                    if let window = NSApplication.shared.windows.first {
+                        window.makeKeyAndOrderFront(nil)
+                    }
+                }
+            }
         }
 #endif
         Settings {

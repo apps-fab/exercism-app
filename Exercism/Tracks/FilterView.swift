@@ -29,7 +29,7 @@ struct FilterView: View {
             }
             .padding(8)
             .roundEdges(
-                lineColor: fieldFocused ? .purple : .gray,
+                lineColor: fieldFocused ? .appAccent : .gray,
                 cornerRadius: 8
             )
             .focused($fieldFocused)
@@ -44,7 +44,7 @@ struct FilterView: View {
                 }
                 .padding(8)
                 .roundEdges(
-                    lineColor: showingSheet ? .purple : .gray,
+                    lineColor: showingSheet ? .appAccent : .gray,
                     cornerRadius: 8
                 )
                 .contentShape(Rectangle())
@@ -63,7 +63,7 @@ struct FilterView: View {
                 .lineLimit(1)
                 .padding(8)
                 .roundEdges(
-                    backgroundColor: Color.appPurple.opacity(0.2),
+                    backgroundColor: Color.appAccent.opacity(0.5),
                     lineColor: .clear,
                     cornerRadius: 8
                 )

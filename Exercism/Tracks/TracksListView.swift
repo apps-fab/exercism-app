@@ -42,21 +42,21 @@ struct TracksListView: View {
         .onReceive(refreshPublisher) { _ in
             self.asyncModel = .init(operation: { try await model.getTracks() })
         }
-        #if os(macOS)
+#if os(macOS)
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
             if shouldRefreshFromJoinTrack {
                 self.asyncModel = .init(operation: { try await model.getTracks() })
                 shouldRefreshFromJoinTrack = false
             }
         }
-        #else
+#else
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             if shouldRefreshFromJoinTrack {
                 self.asyncModel = .init(operation: { try await model.getTracks() })
                 shouldRefreshFromJoinTrack = false
             }
         }
-        #endif
+#endif
     }
 
     @ViewBuilder
@@ -144,11 +144,14 @@ struct TracksListView: View {
                 .font(.largeTitle.bold())
                 .minimumScaleFactor(0.9)
 
-            Text(LocalizedStringKey(Strings.languageIntro.localized()))
-                .font(.title2)
-                .minimumScaleFactor(0.9)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
+            Text(Strings.languageIntro.localized()
+                .getLink(Color.appAccent,
+                         linkText: "our awesome team of contributors",
+                         linkURL: "https://exercism.org/contributing/contributors"))
+            .font(.title2)
+            .minimumScaleFactor(0.9)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
         }
     }
 }

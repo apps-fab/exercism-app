@@ -132,7 +132,7 @@ struct SubmitSolutionContentView: View {
                     .frame(width: 100, height: 30)
                     .roundEdges(
                         backgroundColor: Color.gray.opacity(0.25),
-                        lineColor: Color.appPurple,
+                        lineColor: Color.appAccent,
                         cornerRadius: 10)
             }
             .buttonStyle(.plain)
@@ -157,7 +157,7 @@ struct SubmitSolutionContentView: View {
                 }
                 .foregroundStyle(.white)
                 .frame(width: 100, height: 30)
-                .roundEdges(backgroundColor: Color.appPurple, lineColor: .clear, cornerRadius: 10)
+                .roundEdges(backgroundColor: Color.appAccent, lineColor: .clear, cornerRadius: 10)
             }
             .buttonStyle(.plain)
             .disabled(isSubmitting)

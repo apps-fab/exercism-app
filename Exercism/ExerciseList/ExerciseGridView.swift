@@ -38,7 +38,7 @@ struct ExerciseGridView: View {
         .padding(5)
         .roundEdges(
             backgroundColor: Color.appDarkBackground,
-            lineColor: isHover ? .purple : .clear,
+            lineColor: isHover ? .appAccent : .clear,
             borderWidth: 1.5,
             cornerRadius: 12
         )

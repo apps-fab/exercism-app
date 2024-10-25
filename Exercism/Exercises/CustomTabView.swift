@@ -17,6 +17,10 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
     private var tabBarPosition: TabBarPosition
     private let content: Content
     @State private var items: [TabItem]
+    let gradientColors = [Color.appAccent.opacity(0.4),
+                                     Color.appAccent.opacity(0.6),
+                                     Color.appAccent.opacity(0.8),
+                                     Color.appAccent]
 
     public init(selectedItem: Binding<TabItem>,
                 tabBarPosition: TabBarPosition = .top,
@@ -36,7 +40,7 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
                     Divider().frame(width: 2)
                 }
                 .padding(.leading)
-                .background(selectedItem.selection == item ? .appPurple : .clear)
+                .background(selectedItem.selection == item ? .appAccent : .clear)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     selectedItem.selection = item

@@ -50,7 +50,7 @@ struct TestRunResultView: View {
                         Image.play
                     }
                     .padding(4)
-                    .roundEdges(backgroundColor: Color.appPurple)
+                    .roundEdges(backgroundColor: Color.appAccent)
                 }
                 .buttonStyle(.plain)
             }

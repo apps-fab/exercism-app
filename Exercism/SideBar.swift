@@ -46,7 +46,7 @@ struct SideBar: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .buttonStyle(.plain)
                     .padding()
-            }
+            }.background(.thickMaterial)
         }.alert(isPresented: $showingAlert) {
             Alert(title: Text("Are you sure you want to log out?"),
                   primaryButton: .default(Text("Yes"), action: logout), secondaryButton: .cancel())

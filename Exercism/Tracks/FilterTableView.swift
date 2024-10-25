@@ -12,7 +12,10 @@ struct FilterTableView: View {
     @State var tags = [Tag]()
     @Binding var selectedTags: Set<String>
     @Binding var isPresented: Bool
-
+    let gradientColors = [Color.appAccent.opacity(0.4),
+                                     Color.appAccent.opacity(0.6),
+                                     Color.appAccent.opacity(0.8),
+                                     Color.appAccent]
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
@@ -30,7 +33,7 @@ struct FilterTableView: View {
                     isPresented = false
                 }.frame(width: 100, height: 30)
                     .buttonStyle(.plain)
-                    .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                    .roundEdges(backgroundColor: LinearGradient(colors: gradientColors,
                                                                 startPoint: .leading,
                                                                 endPoint: .trailing),
                                 lineColor: .clear)
@@ -54,7 +57,7 @@ struct FilterTableView: View {
                 if selectedTags.contains(tag) {
                     Image.checkmarkSquareFill
                         .renderingMode(.template)
-                        .colorMultiply(.purple)
+                        .colorMultiply(.appAccent)
                 } else {
                     Image.square
                 }

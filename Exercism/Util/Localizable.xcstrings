@@ -261,17 +261,11 @@
         }
       }
     },
-    "exercism" : {
-      "comment" : "Common",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Exercism"
-          }
-        }
-      }
+    "Exercism" : {
+
+    },
+    "Exercode" : {
+
     },
     "failed" : {
       "extractionState" : "manual",
@@ -345,7 +339,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exercism is 100% free forever."
+            "value" : "Exercode is 100% free forever."
           }
         }
       }
@@ -357,7 +351,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exercism is free for all people, everywhere."
+            "value" : "Exercode is built using Exercism APIs and off of the exercism concept."
           }
         }
       }

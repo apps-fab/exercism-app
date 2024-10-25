@@ -12,6 +12,10 @@ import SDWebImageSwiftUI
 struct TrackGridView: View {
     @Environment(\.openURL) private var openURL
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
+    let gradientColors = [Color.appAccent.opacity(0.4),
+                                     Color.appAccent.opacity(0.6),
+                                     Color.appAccent.opacity(0.8),
+                                     Color.appAccent]
 
     var track: Track
     @State var isHover = false
@@ -34,7 +38,7 @@ struct TrackGridView: View {
         .frame(height: 150)
         .roundEdges(
             backgroundColor: Color.appDarkBackground,
-            lineColor: isHover ? .purple : .clear,
+            lineColor: isHover ? .appAccent : .clear,
             cornerRadius: 15
         )
         .shadow(color: Color.appOffBlackShadow, radius: 15, x: 10, y: 10)
@@ -64,10 +68,7 @@ struct TrackGridView: View {
                     }
                     .roundEdges(
                         backgroundColor: LinearGradient(
-                            colors: [.indigo.opacity(0.4),
-                                     .purple.opacity(0.8),
-                                     .purple.opacity(0.5)
-                            ],
+                            colors: gradientColors,
                             startPoint: .leading,
                             endPoint: .trailing),
                         lineColor: .clear,
@@ -96,7 +97,7 @@ struct TrackGridView: View {
                         Text( Strings.joined.localized())
                     } icon: {
                         Image.checkmark
-                    }.roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                    }.roundEdges(backgroundColor: LinearGradient(colors: gradientColors,
                                                                  startPoint: .leading, endPoint: .trailing),
                                  lineColor: .clear)
                     .font(.system(size: 12, weight: .semibold))
@@ -109,7 +110,7 @@ struct TrackGridView: View {
                         Text(Strings.joinTrack.localized())
                     }).buttonStyle(.plain)
                         .padding(.horizontal)
-                        .roundEdges(backgroundColor: LinearGradient(colors: [.indigo, .purple],
+                        .roundEdges(backgroundColor: LinearGradient(colors: gradientColors,
                                                                     startPoint: .leading, endPoint: .trailing),
                                     lineColor: .clear)
                         .font(.system(size: 12, weight: .semibold))
@@ -121,7 +122,7 @@ struct TrackGridView: View {
                     if track.isJoined {
                         Text(String(format: Strings.completedExercises.localized(),
                                     track.numCompletedExercises, track.numExercises))
-                            .fontWeight(.medium)
+                        .fontWeight(.medium)
                     } else {
                         Text(String(format: Strings.exercises.localized(), track.numExercises))
                             .fontWeight(.medium)
@@ -146,14 +147,13 @@ struct TrackGridView: View {
                 let completedExercises = Float(track.numCompletedExercises)
                 let numberOfExercises = Float(track.numExercises)
 
-                let gradient = Gradient(colors: [.purple, .indigo, .purple])
                 Gauge(value: completedExercises, in: 0...numberOfExercises) {
                 } currentValueLabel: {
                     if let lastTouchedAt = track.lastTouchedAt {
                         Text(String(format: Strings.lastTouched.localized(), lastTouchedAt.offsetFrom()))
                     }
                 }
-                .tint(gradient)
+                .tint(Gradient(colors: gradientColors))
                 .gaugeStyle(.accessoryLinearCapacity)
             } else {
                 HStack {

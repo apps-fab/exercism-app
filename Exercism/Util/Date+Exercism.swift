@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Date {
     func offsetFrom() -> String {
@@ -26,5 +27,17 @@ extension Date {
         if let minute = difference.minute, minute > 0 { return minutes }
         if let second = difference.second, second > 0 { return seconds }
         return ""
+    }
+}
+
+extension String {
+    func getLink(_ color: Color, linkText: String, linkURL: String) -> AttributedString {
+        var attributedString = AttributedString(self)
+
+        if let linkRange = attributedString.range(of: linkText) {
+            attributedString[linkRange].link = URL(string: linkURL)
+            attributedString[linkRange].foregroundColor = color
+        }
+        return attributedString
     }
 }

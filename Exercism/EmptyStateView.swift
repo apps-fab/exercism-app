@@ -13,7 +13,7 @@ struct EmptyStateView: View {
     var body: some View {
         Spacer()
         VStack {
-            Image.exercismLogoSmall
+            Image.exercodeLogo
             Text(Strings.noResults.localized())
                 .bold()
                 .foregroundColor(.secondary)

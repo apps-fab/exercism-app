@@ -33,7 +33,7 @@ struct ProfileTableView: View {
             }.padding([.leading, .top])
             #if os(macOS)
             List(ProfileItems.allCases, selection: $selection) { item in
-                Text(item.rawValue).foregroundColor(selection == item ? .purple : .primary)
+                Text(item.rawValue).foregroundColor(selection == item ? .appAccent : .primary)
             }
             #else
             List(ProfileItems.allCases) { item in

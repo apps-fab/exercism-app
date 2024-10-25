@@ -18,7 +18,7 @@ struct LoginView: View {
                 leftView
                     .frame(width: geometry.size.width * 0.62,
                            height: geometry.size.height)
-                    .background(Color.appPurple)
+                    .background(Color.appAccent)
                 rightView
                     .frame(maxWidth: .infinity)
                     .frame(height: geometry.size.height)
@@ -75,9 +75,7 @@ struct LoginView: View {
         VStack {
             Spacer()
             HStack {
-                Image.exercismLogo.padding()
-                Text(Strings.exercism.localized())
-                    .font(.largeTitle.weight(.bold))
+                Image.exercodeLogo.resizable().frame(width: 150, height: 50)
             }
             .accessibilityAddTraits(.isHeader)
 
@@ -108,7 +106,10 @@ struct LoginView: View {
                                isLoading: $authenticationVM.isLoading) {
                     validateToken()
                 }
-                Text("You can find your token on your [settings page](https://exercism.org/settings/api_cli)")
+                Text("You can find your token on your Settings Page"
+                    .getLink(Color.appAccent,
+                             linkText: "Settings Page",
+                             linkURL: "https://exercism.org/settings/api_cli"))
                     .lineLimit(1)
                     .minimumScaleFactor(0.3)
 
@@ -134,6 +135,4 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-        .previewLayout(.fixed(width: 1000, height: 1000))
-
 }
