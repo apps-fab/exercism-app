@@ -59,6 +59,11 @@
 		FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = FDA25A8E2CBECFFD00848060 /* KeychainAccess */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB4F16E2CCBCB58005CC3C4 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDB4F16D2CCBCB58005CC3C4 /* ExercismSwift */; };
+		FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */; };
+		FDB4F1732CCCB482005CC3C4 /* SidebarCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1722CCCB46F005CC3C4 /* SidebarCommands.swift */; };
+		FDB4F1752CCCB4BA005CC3C4 /* WindowCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */; };
+		FDB4F1772CCCB651005CC3C4 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1762CCCB647005CC3C4 /* MainWindow.swift */; };
+		FDB4F1792CCCB91F005CC3C4 /* ViewCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1782CCCB91A005CC3C4 /* ViewCommands.swift */; };
 		FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6695D28E1B3320062FC2D /* LoginView.swift */; };
 		FDBC7C882C22E90B0008FEAB /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FDBC7C872C22E90B0008FEAB /* CodeEditor */; };
 		FDC1D58D2CCBAFE400021F88 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDC1D58C2CCBAFE400021F88 /* ExercismSwift */; };
@@ -128,6 +133,11 @@
 		FDA558A12B9DC8AA006BDE85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
 		FDB011B52AF8F6A700D29F77 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
+		FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommands.swift; sourceTree = "<group>"; };
+		FDB4F1722CCCB46F005CC3C4 /* SidebarCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCommands.swift; sourceTree = "<group>"; };
+		FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCommands.swift; sourceTree = "<group>"; };
+		FDB4F1762CCCB647005CC3C4 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		FDB4F1782CCCB91A005CC3C4 /* ViewCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCommands.swift; sourceTree = "<group>"; };
 		FDB6695D28E1B3320062FC2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FDD4575028DA474200B3834F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
@@ -239,7 +249,6 @@
 				FD7DC53829E2CA6700A1EBD9 /* AsyncResultView.swift */,
 				8480F413C4C2527414F3D692 /* SyntaxHighlighter */,
 				FDE4EBFB2A4B009C007ED19E /* EmptyStateView.swift */,
-				FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */,
 				FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */,
 			);
 			path = Exercism;
@@ -291,6 +300,18 @@
 			path = ExerciseList;
 			sourceTree = "<group>";
 		};
+		FDB4F17A2CCCBA9A005CC3C4 /* WindowCommands */ = {
+			isa = PBXGroup;
+			children = (
+				FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */,
+				FDB4F1722CCCB46F005CC3C4 /* SidebarCommands.swift */,
+				FDB4F1782CCCB91A005CC3C4 /* ViewCommands.swift */,
+				FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */,
+				FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */,
+			);
+			path = WindowCommands;
+			sourceTree = "<group>";
+		};
 		FDC8C07829C495AB0079D5F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +338,8 @@
 		FDC8C07A29C496160079D5F3 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FDB4F17A2CCCBA9A005CC3C4 /* WindowCommands */,
+				FDB4F1762CCCB647005CC3C4 /* MainWindow.swift */,
 				FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */,
 				FDFF5A822A66C31A00E36AA4 /* Strings.swift */,
 				FDFF5A802A66C2E700E36AA4 /* Images.swift */,
@@ -482,6 +505,7 @@
 				E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */,
 				FD6FE8F22A95514E0043A89F /* ExerciseEditorView.swift in Sources */,
 				E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */,
+				FDB4F1752CCCB4BA005CC3C4 /* WindowCommands.swift in Sources */,
 				CBA63CF42BD7F1C700151C19 /* NSNotification.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 				FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */,
@@ -489,7 +513,10 @@
 				FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */,
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
 				FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */,
+				FDB4F1772CCCB651005CC3C4 /* MainWindow.swift in Sources */,
+				FDB4F1732CCCB482005CC3C4 /* SidebarCommands.swift in Sources */,
 				CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */,
+				FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */,
 				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
 				8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */,
 				FD60950B29CC598000944379 /* SideBar.swift in Sources */,
@@ -505,6 +532,7 @@
 				8480F5457705DBACD7D3C2BB /* TestGroup.swift in Sources */,
 				FD7DC53529E0B0E900A1EBD9 /* FilterView.swift in Sources */,
 				8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */,
+				FDB4F1792CCCB91F005CC3C4 /* ViewCommands.swift in Sources */,
 				8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
