@@ -11,5 +11,8 @@ struct ExercismCommands: Commands {
 
     var body: some Commands {
         SidebarCommands()
+        WindowCommands()
+        ViewCommands()
+        MainCommands()
     }
 }
