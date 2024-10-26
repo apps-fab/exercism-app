@@ -31,7 +31,7 @@ struct MainWindow: Scene {
                 }
                 .navigationTitle(Strings.exercism.localized())
                 .preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
-        }
+        }.defaultSize(width: 1000, height: 800)
     }
 
     private func performSettingsSetUp() async {
