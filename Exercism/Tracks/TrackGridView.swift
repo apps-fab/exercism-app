@@ -60,23 +60,6 @@ struct TrackGridView: View {
                 Text(track.title)
                     .font(.title3.bold())
 
-                if track.course && !track.isJoined {
-                    Label {
-                        Text( Strings.learningMode.localized())
-                    } icon: {
-                        Image.checkmark
-                    }
-                    .roundEdges(
-                        backgroundColor: LinearGradient(
-                            colors: gradientColors,
-                            startPoint: .leading,
-                            endPoint: .trailing),
-                        lineColor: .clear,
-                        cornerRadius: 8)
-                    .foregroundStyle(.secondary)
-                    .font(.callout.weight(.semibold))
-                }
-
                 if track.isNew && !track.isJoined {
                     Label(title: {
                         Text(Strings.new.localized())
