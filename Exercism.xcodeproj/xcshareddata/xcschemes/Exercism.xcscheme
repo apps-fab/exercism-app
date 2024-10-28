@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E0C9672B28732A44004CE7E6"
-               BuildableName = "Exercism.app"
-               BlueprintName = "Exercism"
+               BuildableName = "Exercode.app"
+               BlueprintName = "Exercode"
                ReferencedContainer = "container:Exercism.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E0C9672B28732A44004CE7E6"
-            BuildableName = "Exercism.app"
-            BlueprintName = "Exercism"
+            BuildableName = "Exercode.app"
+            BlueprintName = "Exercode"
             ReferencedContainer = "container:Exercism.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,8 +71,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E0C9672B28732A44004CE7E6"
-            BuildableName = "Exercism.app"
-            BlueprintName = "Exercism"
+            BuildableName = "Exercode.app"
+            BlueprintName = "Exercode"
             ReferencedContainer = "container:Exercism.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

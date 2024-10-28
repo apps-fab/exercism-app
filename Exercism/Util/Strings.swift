@@ -9,7 +9,7 @@
 import Foundation
 
 enum Strings: String {
-    case exercism = "Exercism"
+    case exercode = "Exercode"
     case login = "Log in"
     case new = "New"
     case joined = "Joined"

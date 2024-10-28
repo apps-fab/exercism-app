@@ -60,7 +60,6 @@
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB4F16E2CCBCB58005CC3C4 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDB4F16D2CCBCB58005CC3C4 /* ExercismSwift */; };
 		FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */; };
-		FDB4F1732CCCB482005CC3C4 /* SidebarCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1722CCCB46F005CC3C4 /* SidebarCommands.swift */; };
 		FDB4F1752CCCB4BA005CC3C4 /* WindowCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */; };
 		FDB4F1772CCCB651005CC3C4 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1762CCCB647005CC3C4 /* MainWindow.swift */; };
 		FDB4F1792CCCB91F005CC3C4 /* ViewCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1782CCCB91A005CC3C4 /* ViewCommands.swift */; };
@@ -99,7 +98,7 @@
 		E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
 		E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRightSidebarView.swift; sourceTree = "<group>"; };
 		E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorWindowView.swift; sourceTree = "<group>"; };
-		E0C9672C28732A44004CE7E6 /* Exercism.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercism.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0C9672C28732A44004CE7E6 /* Exercode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C9672F28732A44004CE7E6 /* ExercismApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismApp.swift; sourceTree = "<group>"; };
 		E0C9673328732A45004CE7E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -134,7 +133,6 @@
 		FDABC239292BCC5200A2AB72 /* ExercisesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesList.swift; sourceTree = "<group>"; };
 		FDB011B52AF8F6A700D29F77 /* project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommands.swift; sourceTree = "<group>"; };
-		FDB4F1722CCCB46F005CC3C4 /* SidebarCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCommands.swift; sourceTree = "<group>"; };
 		FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCommands.swift; sourceTree = "<group>"; };
 		FDB4F1762CCCB647005CC3C4 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		FDB4F1782CCCB91A005CC3C4 /* ViewCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCommands.swift; sourceTree = "<group>"; };
@@ -225,7 +223,7 @@
 		E0C9672D28732A44004CE7E6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E0C9672C28732A44004CE7E6 /* Exercism.app */,
+				E0C9672C28732A44004CE7E6 /* Exercode.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -304,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */,
-				FDB4F1722CCCB46F005CC3C4 /* SidebarCommands.swift */,
 				FDB4F1782CCCB91A005CC3C4 /* ViewCommands.swift */,
 				FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */,
 				FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */,
@@ -361,9 +358,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E0C9672B28732A44004CE7E6 /* Exercism */ = {
+		E0C9672B28732A44004CE7E6 /* Exercode */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E0C9673B28732A45004CE7E6 /* Build configuration list for PBXNativeTarget "Exercism" */;
+			buildConfigurationList = E0C9673B28732A45004CE7E6 /* Build configuration list for PBXNativeTarget "Exercode" */;
 			buildPhases = (
 				E0C9672828732A44004CE7E6 /* Sources */,
 				E0C9672928732A44004CE7E6 /* Frameworks */,
@@ -374,7 +371,7 @@
 			);
 			dependencies = (
 			);
-			name = Exercism;
+			name = Exercode;
 			packageProductDependencies = (
 				FDC9F11E28E5DA9200488CE9 /* KeychainSwift */,
 				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
@@ -392,7 +389,7 @@
 				FDB4F16D2CCBCB58005CC3C4 /* ExercismSwift */,
 			);
 			productName = Exercism;
-			productReference = E0C9672C28732A44004CE7E6 /* Exercism.app */;
+			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -435,7 +432,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E0C9672B28732A44004CE7E6 /* Exercism */,
+				E0C9672B28732A44004CE7E6 /* Exercode */,
 			);
 		};
 /* End PBXProject section */
@@ -514,7 +511,6 @@
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
 				FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */,
 				FDB4F1772CCCB651005CC3C4 /* MainWindow.swift in Sources */,
-				FDB4F1732CCCB482005CC3C4 /* SidebarCommands.swift in Sources */,
 				CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */,
 				FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */,
 				8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */,
@@ -688,6 +684,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Exercism/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Exercode;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Main ";
@@ -735,6 +732,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Exercism/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Exercode;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Main ";
@@ -772,7 +770,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E0C9673B28732A45004CE7E6 /* Build configuration list for PBXNativeTarget "Exercism" */ = {
+		E0C9673B28732A45004CE7E6 /* Build configuration list for PBXNativeTarget "Exercode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E0C9673C28732A45004CE7E6 /* Debug */,

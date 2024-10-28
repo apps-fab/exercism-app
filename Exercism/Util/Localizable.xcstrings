@@ -36,7 +36,7 @@
     "%lld" : {
 
     },
-    "About Exercism" : {
+    "About Exercode" : {
 
     },
     "all" : {
@@ -260,9 +260,6 @@
           }
         }
       }
-    },
-    "Exercism" : {
-
     },
     "Exercode" : {
 

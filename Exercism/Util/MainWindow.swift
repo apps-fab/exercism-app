@@ -29,7 +29,7 @@ struct MainWindow: Scene {
                 .task {
                     await performSettingsSetUp()
                 }
-                .navigationTitle(Strings.exercism.localized())
+                .navigationTitle(Strings.exercode.localized())
                 .preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
         }.defaultSize(width: 1000, height: 800)
     }

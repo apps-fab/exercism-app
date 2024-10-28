@@ -10,11 +10,11 @@ import SwiftUI
 struct MainCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
-            Button("About Exercism") {
+            Button("About Exercode") {
                 NSApplication.shared.orderFrontStandardAboutPanel(
                     options: [
                         NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
-                            string: "Exercism is a software built off the Exercism web platform.",
+                            string: "Exercode is a software built off the Exercism web platform.",
                             attributes: [
                                 NSAttributedString.Key.font: NSFont.boldSystemFont(
                                     ofSize: NSFont.smallSystemFontSize
