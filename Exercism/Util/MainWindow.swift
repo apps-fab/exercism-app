@@ -14,7 +14,6 @@ struct MainWindow: Scene {
 #endif
 
     @StateObject private var settingsModel = SettingsModel()
-    @StateObject private var model = TrackModel.shared
     @AppStorage("settings") var settingsData: Data?
 
     init() {
@@ -24,7 +23,6 @@ struct MainWindow: Scene {
     var body: some Scene {
         Window("", id: "MainWindow") {
             ContentView()
-                .environmentObject(model)
                 .environmentObject(settingsModel)
                 .task {
                     await performSettingsSetUp()

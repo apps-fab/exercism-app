@@ -21,7 +21,6 @@ struct ExercismApp: App {
 #endif
 
     @StateObject private var settingsModel = SettingsModel()
-    @StateObject private var model = TrackModel.shared
     @AppStorage("settings") var settingsData: Data?
 
     init() {
@@ -32,9 +31,9 @@ struct ExercismApp: App {
         Group {
             MainWindow()
 #if os(macOS)
-            .commands {
-                ExercismCommands()
-            }
+                .commands {
+                    ExercismCommands()
+                }
 #endif
             Settings {
                 ExercismSettings().environmentObject(settingsModel)

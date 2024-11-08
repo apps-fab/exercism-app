@@ -28,6 +28,7 @@ struct ExercisesList: View {
     @State var asyncModel: AsyncModel<[Exercise]>
 
     @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var model: TrackModel
     @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
     @State private var solutions = [String: Solution]()
@@ -44,11 +45,11 @@ struct ExercisesList: View {
             exerciseListView(exercises)
         }
         .onChange(of: searchText) { newValue in
-            asyncModel.filterOperations  = { TrackModel.shared.filterExercises(newValue) }
+            asyncModel.filterOperations  = { model.filterExercises(newValue) }
         }
         .task {
             do {
-                let solutionsList = try await TrackModel.shared.getSolutions(track)
+                let solutionsList = try await model.getSolutions(track)
                 self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
             } catch {
                 alertItem = AlertItem(title: "Error", message: error.localizedDescription)

@@ -82,7 +82,6 @@ final class ExerciseViewModel: ObservableObject {
     @Published var selectedFile: ExerciseFile!
     @Published var instruction: String?
     @Published var selectedTab: SelectedTab = .instruction
-    @Published var exerciseDoc: ExerciseDocument?
     @Published var averageTestDuration: Double?
     @Published var submissionLink: String?
     @Published var testRun: TestRun?
@@ -97,38 +96,42 @@ final class ExerciseViewModel: ObservableObject {
             showTestSubmissionResponseMessage = operationStatus != .idle
         }
     }
-
+    @Published var resultViewState = ResultViewState.noTestsRun
     @Published var alertItem = AlertItem()
     @Published var currentSolutionIterations: [Iteration] = []
+    @Published var language: String?
 
     private let fetcher = Fetcher()
     private var codes = [String: String]()
-    static let shared = ExerciseViewModel()
-
+    private var solution: SolutionFile?
     private let nanosecondsPerSecond: Double = 1_000_000_000
 
     // MARK: - on Appear Operations
-
-    var language: String? {
-        guard let language = exerciseDoc?.solution.exercise.trackLanguage else {
-            return nil
-        }
-        return language
-    }
 
     var sortedIterations: [Iteration] {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
     func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
-        exerciseDoc = try await downloadSolutions(track, exercise)
-        if let instructionURL = exerciseDoc!.instructions {
-            instruction = try getInstruction(instructionURL)
+        let exercises = try await withThrowingTaskGroup(of: Optional<ExerciseFile>.self) { _ in
+            let exerciseDoc = try await downloadSolutions(track, exercise)
+            solution = exerciseDoc.solution
+            getLanguage(exerciseDoc)
+
+            if let instructionURL = exerciseDoc.instructions {
+                instruction = try getInstruction(instructionURL)
+            }
+
+            let exercises = getLocalExercise(track, exercise, exerciseDoc)
+            selectedFile = exercises.first
+            selectedCode = getSelectedCode() ?? ""
+            return exercises
         }
-        let exercises = getLocalExercise(track, exercise, exerciseDoc!)
-        selectedFile = exercises.first
-        selectedCode = getSelectedCode() ?? ""
         return exercises
+    }
+
+    private func getLanguage(_ exerciseDoc: ExerciseDocument?) {
+        language = exerciseDoc?.solution.exercise.trackLanguage
     }
 
     func getSelectedCode() -> String? {
@@ -228,7 +231,7 @@ final class ExerciseViewModel: ObservableObject {
         selectedTab = .result
         updateFile()
 
-        guard let exerciseSolutionId = exerciseDoc?.solution.id else {
+        guard let exerciseSolutionId = solution?.id else {
             operationStatus = .errorRunningTest
             return
         }

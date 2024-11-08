@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
-    private let model = TrackModel.shared
+    private let trackModel = TrackModel()
+    private let exerciseViewModel = ExerciseViewModel()
 
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
@@ -54,22 +55,25 @@ struct ContentView: View {
         switch route {
         case let .exercise(track, exercise, solution):
             ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
-                try await ExerciseViewModel.shared.getDocument(track, exercise) }),
+                try await exerciseViewModel.getDocument(track, exercise) }),
                                      solution: solution)
-                .environmentObject(navigationModel)
+            .environmentObject(navigationModel)
+            .environmentObject(exerciseViewModel)
 
         case let .track(track):
             ExercisesList(track: track,
-                          asyncModel: .init { try await model.getExercises(track) })
+                          asyncModel: .init { try await trackModel.getExercises(track) })
             .environmentObject(navigationModel)
+            .environmentObject(trackModel)
 
         case .login:
             LoginView()
                 .environmentObject(navigationModel)
 
         case .dashboard:
-            TracksListView(asyncModel: .init { try await model.getTracks() })
+            TracksListView(asyncModel: .init { try await trackModel.getTracks() })
                 .environmentObject(navigationModel)
+                .environmentObject(trackModel)
         }
     }
 }

@@ -14,7 +14,7 @@ struct TracksListView: View {
     @State private var searchText = ""
     @State private var filters = Set<String>()
     @State var asyncModel: AsyncModel<[Track]>
-    private let model = TrackModel.shared
+    @EnvironmentObject private var model: TrackModel
 
     private let gridColumns = [
         GridItem(.flexible()),

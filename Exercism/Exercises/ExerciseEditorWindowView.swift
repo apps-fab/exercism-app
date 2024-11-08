@@ -29,7 +29,8 @@ extension ExercismClientError {
 
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject var viewModel = ExerciseViewModel.shared
+    @EnvironmentObject private var viewModel: ExerciseViewModel
+
     @State private var showSubmissionTooltip = false
     @State var asyncModel: AsyncModel<[ExerciseFile]>
 
@@ -41,14 +42,14 @@ struct ExerciseEditorWindowView: View {
     var body: some View {
         AsyncResultView(source: asyncModel) { docs in
             NavigationSplitView {
-                ExerciseRightSidebarView(
-                    onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution) } : nil
-                )
-
+                ExerciseRightSidebarView().environmentObject(viewModel)
             } detail: {
                 CustomTabView(selectedItem: $viewModel.selectedFile) {
                     ForEach(docs) { file in
-                        ExerciseEditorView().tabItem(for: file)
+                        ExerciseEditorView()
+                        .tabItem(for: file)
+                    }.onChange(of: viewModel.selectedCode) { code in
+                        viewModel.updateCode(code)
                     }
                 }
             }
