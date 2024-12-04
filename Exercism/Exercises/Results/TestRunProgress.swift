@@ -26,3 +26,7 @@ struct TestRunProgress: View {
         }
     }
 }
+
+#Preview {
+    TestRunProgress(totalSecs: 0.4)
+}

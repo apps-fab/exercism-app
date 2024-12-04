@@ -40,6 +40,11 @@
 		FD368D4B2CDBEA48001BA3EE /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */; };
 		FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3F2B132AA750D300ADB248 /* ExercismButton.swift */; };
 		FD403C832C518ED700CD8D81 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD403C822C518ED700CD8D81 /* ExercismSwift */; };
+		FD4077FF2CEDD10400587584 /* TestPassed.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4077FE2CEDD0FE00587584 /* TestPassed.swift */; };
+		FD4078012CEDD12F00587584 /* TestErrored.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4078002CEDD12800587584 /* TestErrored.swift */; };
+		FD4078032CEDD17200587584 /* TestRunSummaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4078022CEDD16800587584 /* TestRunSummaryHeader.swift */; };
+		FD4078052CEDD19B00587584 /* TestGroupedByTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4078042CEDD19800587584 /* TestGroupedByTaskList.swift */; };
+		FD4078072CEDD1D100587584 /* CollapsibleTestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4078062CEDD1CF00587584 /* CollapsibleTestDetailView.swift */; };
 		FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedView.swift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
@@ -119,6 +124,11 @@
 		FD368D452CDBE325001BA3EE /* TestRunProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunProgress.swift; sourceTree = "<group>"; };
 		FD368D472CDBE46F001BA3EE /* NoTestRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTestRunView.swift; sourceTree = "<group>"; };
 		FD3F2B132AA750D300ADB248 /* ExercismButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismButton.swift; sourceTree = "<group>"; };
+		FD4077FE2CEDD0FE00587584 /* TestPassed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPassed.swift; sourceTree = "<group>"; };
+		FD4078002CEDD12800587584 /* TestErrored.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestErrored.swift; sourceTree = "<group>"; };
+		FD4078022CEDD16800587584 /* TestRunSummaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunSummaryHeader.swift; sourceTree = "<group>"; };
+		FD4078042CEDD19800587584 /* TestGroupedByTaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGroupedByTaskList.swift; sourceTree = "<group>"; };
+		FD4078062CEDD1CF00587584 /* CollapsibleTestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTestDetailView.swift; sourceTree = "<group>"; };
 		FD4A77642987E18E00E29436 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGridView.swift; sourceTree = "<group>"; };
 		FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
@@ -269,6 +279,11 @@
 		FD368D492CDBE7AD001BA3EE /* Results */ = {
 			isa = PBXGroup;
 			children = (
+				FD4078062CEDD1CF00587584 /* CollapsibleTestDetailView.swift */,
+				FD4078042CEDD19800587584 /* TestGroupedByTaskList.swift */,
+				FD4078022CEDD16800587584 /* TestRunSummaryHeader.swift */,
+				FD4078002CEDD12800587584 /* TestErrored.swift */,
+				FD4077FE2CEDD0FE00587584 /* TestPassed.swift */,
 				FD368D472CDBE46F001BA3EE /* NoTestRunView.swift */,
 				FD368D452CDBE325001BA3EE /* TestRunProgress.swift */,
 				FD368D432CDBE1B7001BA3EE /* ResultView.swift */,
@@ -517,7 +532,9 @@
 				FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
+				FD4078072CEDD1D100587584 /* CollapsibleTestDetailView.swift in Sources */,
 				FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */,
+				FD4077FF2CEDD10400587584 /* TestPassed.swift in Sources */,
 				FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */,
 				FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */,
 				FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */,
@@ -527,17 +544,20 @@
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */,
+				FD4078012CEDD12F00587584 /* TestErrored.swift in Sources */,
 				FDDAEB5A29B6667300C6F938 /* TrackModel.swift in Sources */,
 				E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */,
 				FD368D4B2CDBEA48001BA3EE /* ExerciseEditorView.swift in Sources */,
 				E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */,
 				FDB4F1752CCCB4BA005CC3C4 /* WindowCommands.swift in Sources */,
+				FD4078052CEDD19B00587584 /* TestGroupedByTaskList.swift in Sources */,
 				CBA63CF42BD7F1C700151C19 /* NSNotification.swift in Sources */,
 				E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */,
 				FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */,
 				FD7DC53929E2CA6700A1EBD9 /* AsyncResultView.swift in Sources */,
 				FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */,
 				E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */,
+				FD4078032CEDD17200587584 /* TestRunSummaryHeader.swift in Sources */,
 				FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */,
 				FD368D482CDBE475001BA3EE /* NoTestRunView.swift in Sources */,
 				FDB4F1772CCCB651005CC3C4 /* MainWindow.swift in Sources */,

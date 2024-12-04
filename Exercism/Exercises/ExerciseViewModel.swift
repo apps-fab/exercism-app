@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  ExerciseViewModel.swift
 //  Exercism
 //
 //  Created by Angie Mugo on 22/08/2023.
@@ -96,7 +96,6 @@ final class ExerciseViewModel: ObservableObject {
             showTestSubmissionResponseMessage = operationStatus != .idle
         }
     }
-    @Published var resultViewState = ResultViewState.noTestsRun
     @Published var alertItem = AlertItem()
     @Published var currentSolutionIterations: [Iteration] = []
     @Published var language: String?
@@ -239,7 +238,6 @@ final class ExerciseViewModel: ObservableObject {
             do {
                 let solutionData = try getSolutionFileData()
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
-
                 switch runResult.testsStatus {
                 case .queued:
                     try await getTestRun(runResult.links)
@@ -294,7 +292,7 @@ final class ExerciseViewModel: ObservableObject {
         submissionLink != nil
     }
 
-     private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
+    private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
         if testRun.status == .pass {
             submissionLink = links.submit
         }

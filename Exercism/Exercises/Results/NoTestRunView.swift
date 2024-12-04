@@ -17,3 +17,7 @@ struct NoTestRun: View {
         }.padding()
     }
 }
+
+#Preview {
+    NoTestRun()
+}

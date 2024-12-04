@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
+
     private let trackModel = TrackModel()
     private let exerciseViewModel = ExerciseViewModel()
 

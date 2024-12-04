@@ -25,8 +25,8 @@ struct ExerciseRightSidebarView: View {
     }
 
     private var language: String {
-         return viewModel.language ?? Strings.text.localized()
-     }
+        return viewModel.language ?? Strings.text.localized()
+    }
 
     var body: some View {
         CustomTabView(selectedItem: $viewModel.selectedTab) {
@@ -60,13 +60,13 @@ struct ExerciseRightSidebarView: View {
 
             }
             VStack(alignment: HorizontalAlignment.leading) {
-                ResultView(state: viewModel.resultViewState, language: language, theme: theme)
+                ResultView(language: language, theme: theme)
             }
             .tabItem(for: SelectedTab.result)
         }
     }
 }
 
- #Preview {
-     ExerciseRightSidebarView()
- }
+#Preview {
+    ExerciseRightSidebarView()
+}

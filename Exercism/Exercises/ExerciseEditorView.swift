@@ -26,12 +26,12 @@ struct ExerciseEditorView: View {
     var body: some View {
         VStack {
 #if os(macOS)
-            CodeEditor(source: source,
+            CodeEditor(source: $viewModel.selectedCode,
                        language: language,
                        theme: settingsModel.theme,
                        fontSize: .init(get: {CGFloat(settingsModel.fontSize)},
                                        set: {settingsModel.fontSize = Double($0)}))
-            .onChange(of: source) { code in
+            .onChange(of: viewModel.selectedCode) { code in
                 codeChanged = true
                 viewModel.updateCode(code)
             }
@@ -52,8 +52,18 @@ struct ExerciseEditorView: View {
                 }
             }
             .padding()
+        }.alert(String(Strings.submissionAlert.localized()), isPresented: $viewModel.showTestSubmissionResponseMessage) {
+            Button(Strings.ok.localized(), role: .cancel) {
+            }
+        } message: {
+            Text(viewModel.operationStatus.description)
         }
-
+        .alert(viewModel.alertItem.title, isPresented: $viewModel.alertItem.isPresented) {
+            Button(Strings.ok.localized(), role: .cancel) {
+            }
+        } message: {
+            Text(viewModel.alertItem.message)
+        }
     }
 }
 
