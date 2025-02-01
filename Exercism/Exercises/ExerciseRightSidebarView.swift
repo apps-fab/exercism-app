@@ -11,16 +11,18 @@ import Splash
 import MarkdownUI
 
 struct ExerciseRightSidebarView: View {
-    @EnvironmentObject var settingsData: SettingsModel
     @EnvironmentObject private var viewModel: ExerciseViewModel
+    @AppSettings(\.appAppearance) private var appAppearance
+    @AppSettings(\.theme) private var themeData
+    @AppSettings(\.fontSize) private var fontSize
     var onMarkAsComplete: (() -> Void)?
 
     private var theme: Splash.Theme {
-        switch settingsData.colorScheme {
+        switch appAppearance {
         case .dark:
-            return .wwdc18(withFont: .init(size: settingsData.fontSize))
+            return .wwdc18(withFont: .init(size: fontSize))
         default:
-            return .sunset(withFont: .init(size: settingsData.fontSize))
+            return .sunset(withFont: .init(size: fontSize))
         }
     }
 

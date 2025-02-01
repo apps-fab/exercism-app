@@ -33,6 +33,7 @@ struct TestPassed: View {
         .padding(.horizontal, 10)
     }
 }
+
 #Preview("Test Passed") {
-    TestErrored()
+//    TestPassed()
 }

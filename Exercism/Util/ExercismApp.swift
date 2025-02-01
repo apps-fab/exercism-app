@@ -16,16 +16,7 @@ enum Keys: String {
 
 @main
 struct ExercismApp: App {
-#if os(macOS)
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-#endif
-
-    @StateObject private var settingsModel = SettingsModel()
-    @AppStorage("settings") var settingsData: Data?
-
-    init() {
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-    }
+    @ObservedObject var settings = SettingsModel.shared
 
     var body: some Scene {
         Group {
@@ -36,9 +27,8 @@ struct ExercismApp: App {
                 }
 #endif
             Settings {
-                ExercismSettings().environmentObject(settingsModel)
+                ExercismSettings()
             }
-        }
+        }.environment(\.settings, settings.preferences)
     }
-
 }

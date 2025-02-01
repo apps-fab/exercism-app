@@ -111,6 +111,10 @@ final class ExerciseViewModel: ObservableObject {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
+    deinit {
+        print("Deinit ExerciseViewModel")
+    }
+
     func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
         let exercises = try await withThrowingTaskGroup(of: Optional<ExerciseFile>.self) { _ in
             let exerciseDoc = try await downloadSolutions(track, exercise)
@@ -123,7 +127,7 @@ final class ExerciseViewModel: ObservableObject {
 
             let exercises = getLocalExercise(track, exercise, exerciseDoc)
             selectedFile = exercises.first
-            selectedCode = getSelectedCode() ?? ""
+            selectedCode = getSelectedCode() ?? Strings.noFile.localized()
             return exercises
         }
         return exercises
@@ -133,7 +137,7 @@ final class ExerciseViewModel: ObservableObject {
         language = exerciseDoc?.solution.exercise.trackLanguage
     }
 
-    func getSelectedCode() -> String? {
+    private func getSelectedCode() -> String? {
         do {
             guard let code = codes[selectedFile.id] else {
                 let code = try String(contentsOf: selectedFile.url, encoding: .utf8)

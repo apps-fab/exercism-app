@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8480F498DAEF6240EF96EBA2 /* ExerciseFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */; };
 		8480F5457705DBACD7D3C2BB /* TestGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FC607C091F61494EC6B1 /* TestGroup.swift */; };
-		8480F81F9F5140CC9D27E0BD /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F02086E415F1B9F5DFD5 /* SettingModel.swift */; };
+		8480F81F9F5140CC9D27E0BD /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F02086E415F1B9F5DFD5 /* SettingsModel.swift */; };
 		8480F9CE43AE1D26747C9075 /* ExerciseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F60001E12133BDACC877 /* ExerciseItem.swift */; };
 		8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */; };
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
@@ -50,6 +50,8 @@
 		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
 		FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6467D42ADFD24700358E19 /* Metal.framework */; };
+		FD653F8C2D4CF5510013E732 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD653F8B2D4CF54B0013E732 /* SettingsData.swift */; };
+		FD653F8E2D4CF6310013E732 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD653F8D2D4CF62C0013E732 /* AppSettings.swift */; };
 		FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
@@ -91,7 +93,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8480F02086E415F1B9F5DFD5 /* SettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		8480F02086E415F1B9F5DFD5 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		8480F0B036F1420E0B72C7BC /* ViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
 		8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOutputFormat.swift; sourceTree = "<group>"; };
 		8480F2C5A207E6E66ADC6AAA /* TestRunExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRunExt.swift; sourceTree = "<group>"; };
@@ -135,6 +137,8 @@
 		FD60770C292E28D600A95E17 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		FD60950A29CC598000944379 /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		FD6467D42ADFD24700358E19 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		FD653F8B2D4CF54B0013E732 /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
+		FD653F8D2D4CF62C0013E732 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		FD73E10C29C3910E001B59D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD73E10E29C451E8001B59D3 /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
@@ -365,7 +369,9 @@
 		FDC8C07929C495E70079D5F3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8480F02086E415F1B9F5DFD5 /* SettingModel.swift */,
+				FD653F8D2D4CF62C0013E732 /* AppSettings.swift */,
+				FD653F8B2D4CF54B0013E732 /* SettingsData.swift */,
+				8480F02086E415F1B9F5DFD5 /* SettingsModel.swift */,
 				FDDAEB5929B6667300C6F938 /* TrackModel.swift */,
 				FD73E10E29C451E8001B59D3 /* Fetcher.swift */,
 				CB4F3C132B5EEB2300829CCD /* AlertModel.swift */,
@@ -545,6 +551,7 @@
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */,
 				FD4078012CEDD12F00587584 /* TestErrored.swift in Sources */,
+				FD653F8C2D4CF5510013E732 /* SettingsData.swift in Sources */,
 				FDDAEB5A29B6667300C6F938 /* TrackModel.swift in Sources */,
 				E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */,
 				FD368D4B2CDBEA48001BA3EE /* ExerciseEditorView.swift in Sources */,
@@ -575,8 +582,9 @@
 				FD79A4ED2A8CCF3900250711 /* CustomTabView.swift in Sources */,
 				FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */,
 				8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */,
+				FD653F8E2D4CF6310013E732 /* AppSettings.swift in Sources */,
 				FD368D422CDBE19F001BA3EE /* InstructionView.swift in Sources */,
-				8480F81F9F5140CC9D27E0BD /* SettingModel.swift in Sources */,
+				8480F81F9F5140CC9D27E0BD /* SettingsModel.swift in Sources */,
 				8480F5457705DBACD7D3C2BB /* TestGroup.swift in Sources */,
 				FD7DC53529E0B0E900A1EBD9 /* FilterView.swift in Sources */,
 				8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */,

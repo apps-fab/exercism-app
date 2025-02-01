@@ -41,7 +41,7 @@ enum Strings: String {
     case locked = "Locked"
     case solvedExercise = "Sweet. Looks like you’ve solved the exercise!"
     case submitCode = "Good job! You can continue to improve your code or, if you're done, submit an iteration to  get automated feedback and optionally request mentoring."
-    case errorDescription = "An error occurred while running your tests.%@ This might mean that there was an issue in Exercism infrastructure, or it might mean that you have something in your code that's causing our systems to break.%@ Please check your code, and if nothing seems to be wrong, try running the tests again."
+    case errorDescription = "Your tests timed out. This might mean that there was an issue in our infrastructure, but more likely it suggests that your code is running slowly. Is there an infinite loop or something similar? Please check your code, and if nothing seems to be wrong, try running the tests again."
     case taskCompleted = "%d/%d Tasks Completed"
     case testFailed = "Tests Failed"
     case taskPass = "All tasks passed"
