@@ -25,37 +25,37 @@ let exercismSettingsScreen: () -> SettingsPane  = {
     return Settings.PaneHostingController(pane: paneView)
 }
 
-enum ExercismAppearance: String, CaseIterable, Identifiable, Codable {
-    var id: Self {
-        return self
-    }
-
-    case dark = "Dark"
-    case light = "Light"
-}
-
 struct ExercismSettings: View {
-    @ObservedObject var settings = SettingsModel.shared
+    @AppSettings(\.appAppearance) private var appAppearance
+    @AppSettings(\.theme) private var themeData
+    @AppSettings(\.fontSize) private var fontSize
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
             Settings.Section(title: "Editor Theme") {
-                Picker("", selection: $settings.preferences.theme) {
+                Picker("", selection: $themeData) {
                     ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
                     }
                 }.labelsHidden()
 
                 Settings.Section(title: "Appearance") {
-                    Picker("", selection: $settings.preferences.appAppearance) {
-                        ForEach(ExercismAppearance.allCases) { appearance in
-                            Text("\(appearance.rawValue)")
-                        }
-                    }.labelsHidden()
+                    Picker("Appearance", selection: $appAppearance) {
+                        Text("System")
+                            .tag(SettingsData.Appearances.system)
+                        Divider()
+                        Text("Light")
+                            .tag(SettingsData.Appearances.light)
+                        Text("Dark")
+                            .tag(SettingsData.Appearances.dark)
+                    }
+                    .onChange(of: appAppearance) { tag in
+                        tag.applyAppearance()
+                    }
                 }
 
                 Settings.Section(title: "Font Size") {
-                    Picker("", selection: $settings.preferences.fontSize) {
+                    Picker("", selection: $fontSize) {
                         ForEach(8..<20) { fontSize in
                             Text(fontSize.description).tag(Double(fontSize))
                         }

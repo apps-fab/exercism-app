@@ -11,8 +11,8 @@ struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
 
-    private let trackModel = TrackModel()
-    private let exerciseViewModel = ExerciseViewModel()
+    @StateObject private var  trackModel = TrackModel()
+    @StateObject private var exerciseViewModel = ExerciseViewModel()
 
     var body: some View {
         NavigationStack(path: $navigationModel.path) {

@@ -7,9 +7,6 @@
     "@AngieMugo" : {
 
     },
-    "%@" : {
-
-    },
     "%@ (%lld)" : {
       "localizations" : {
         "en" : {
@@ -29,12 +26,6 @@
           }
         }
       }
-    },
-    "%lf" : {
-
-    },
-    "%lld" : {
-
     },
     "About Exercode" : {
 
@@ -57,6 +48,9 @@
 
     },
     "Angie Mugo" : {
+
+    },
+    "Appearance" : {
 
     },
     "apply" : {
@@ -167,6 +161,9 @@
           }
         }
       }
+    },
+    "Dark" : {
+
     },
     "Enter your token" : {
 
@@ -432,6 +429,9 @@
           }
         }
       }
+    },
+    "Light" : {
+
     },
     "locked" : {
       "extractionState" : "manual",
@@ -783,6 +783,9 @@
           }
         }
       }
+    },
+    "System" : {
+
     },
     "taskCompleted" : {
       "extractionState" : "manual",

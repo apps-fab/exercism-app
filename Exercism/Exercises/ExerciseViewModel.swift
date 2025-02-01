@@ -111,10 +111,6 @@ final class ExerciseViewModel: ObservableObject {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
-    deinit {
-        print("Deinit ExerciseViewModel")
-    }
-
     func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
         let exercises = try await withThrowingTaskGroup(of: Optional<ExerciseFile>.self) { _ in
             let exerciseDoc = try await downloadSolutions(track, exercise)
