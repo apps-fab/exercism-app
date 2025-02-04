@@ -11,9 +11,6 @@ struct ContentView: View {
     @StateObject private var navigationModel = NavigationModel()
     @SceneStorage("navigation") private var navigationData: Data?
 
-    @StateObject private var  trackModel = TrackModel()
-    @StateObject private var exerciseViewModel = ExerciseViewModel()
-
     var body: some View {
         NavigationStack(path: $navigationModel.path) {
             ZStack {
@@ -55,26 +52,20 @@ struct ContentView: View {
     private func handleDestinationRoute(_ route: Route) -> some View {
         switch route {
         case let .exercise(track, exercise, solution):
-            ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
-                try await exerciseViewModel.getDocument(track, exercise) }),
-                                     solution: solution)
+            ExerciseEditorWindowView(track: track, exercise: exercise, solution: solution)
             .environmentObject(navigationModel)
-            .environmentObject(exerciseViewModel)
 
         case let .track(track):
-            ExercisesList(track: track,
-                          asyncModel: .init { try await trackModel.getExercises(track) })
+            ExercisesList(track: track)
             .environmentObject(navigationModel)
-            .environmentObject(trackModel)
 
         case .login:
             LoginView()
                 .environmentObject(navigationModel)
 
         case .dashboard:
-            TracksListView(asyncModel: .init { try await trackModel.getTracks() })
+            TracksListView()
                 .environmentObject(navigationModel)
-                .environmentObject(trackModel)
         }
     }
 }

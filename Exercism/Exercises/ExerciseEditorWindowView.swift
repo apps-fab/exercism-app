@@ -29,30 +29,41 @@ extension ExercismClientError {
 
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @EnvironmentObject private var viewModel: ExerciseViewModel
+    @StateObject private var viewModel = ExerciseViewModel()
     @AppStorage("shouldWriteToFile") private var shouldWriteToFile = false
     @State private var showSubmissionTooltip = false
-    @State var asyncModel: AsyncModel<[ExerciseFile]>
-
+    let track: String
+    let exercise: String
     let solution: Solution?
     var canMarkAsComplete: Bool {
         solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
     }
 
     var body: some View {
-        AsyncResultView(source: asyncModel) { docs in
             NavigationSplitView {
                 ExerciseRightSidebarView(onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution)} : nil).environmentObject(viewModel)
             } detail: {
-                CustomTabView(selectedItem: $viewModel.selectedFile) {
-                    ForEach(docs) { file in
-                        ExerciseEditorView()
-                        .tabItem(for: file)
-                    }.onChange(of: viewModel.selectedCode) { code in
-                        viewModel.updateCode(code)
+                Group {
+                    if let doc = viewModel.doc {
+                        CustomTabView(selectedItem: Binding(
+                            get: { viewModel.doc ?? doc },
+                            set: { viewModel.doc = $0 }
+                        )) {
+                            ForEach(viewModel.documents) { file in
+                                ExerciseEditorView()
+                                    .tabItem(for: file)
+                                    .environmentObject(viewModel)
+                            }
+                        }
+                        .onChange(of: viewModel.selectedCode) { code in
+                            viewModel.updateCode(code)
+                        }
+                    }
+ else {
+                        Text("we are loading")
+
                     }
                 }
-            }
             .toolbar {
                 ToolbarItem {
                     Spacer()
@@ -95,12 +106,11 @@ struct ExerciseEditorWindowView: View {
         .task {
             guard let solution else { return }
             await viewModel.getIterations(for: solution)
+            try? await viewModel.getDocument(track, exercise)
         }
     }
 }
 
 #Preview {
-        ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
-            PreviewData.shared.getExerciseFile()
-        }), solution: PreviewData.shared.getSolutions()[0])
+    ExerciseEditorWindowView(track: "Swift", exercise: "hello world",solution: PreviewData.shared.getSolutions()[0])
 }

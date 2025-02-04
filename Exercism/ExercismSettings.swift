@@ -26,21 +26,19 @@ let exercismSettingsScreen: () -> SettingsPane  = {
 }
 
 struct ExercismSettings: View {
-    @AppSettings(\.appAppearance) private var appAppearance
-    @AppSettings(\.theme) private var themeData
-    @AppSettings(\.fontSize) private var fontSize
+    @AppSettings(\.general) private var general
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
             Settings.Section(title: "Editor Theme") {
-                Picker("", selection: $themeData) {
+                Picker("", selection: $general.theme) {
                     ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
                     }
                 }.labelsHidden()
 
                 Settings.Section(title: "Appearance") {
-                    Picker("Appearance", selection: $appAppearance) {
+                    Picker("Appearance", selection: $general.appAppearance) {
                         Text("System")
                             .tag(SettingsData.Appearances.system)
                         Divider()
@@ -49,13 +47,13 @@ struct ExercismSettings: View {
                         Text("Dark")
                             .tag(SettingsData.Appearances.dark)
                     }
-                    .onChange(of: appAppearance) { tag in
+                    .onChange(of: general.appAppearance) { tag in
                         tag.applyAppearance()
                     }
                 }
 
                 Settings.Section(title: "Font Size") {
-                    Picker("", selection: $fontSize) {
+                    Picker("", selection: $general.fontSize) {
                         ForEach(8..<20) { fontSize in
                             Text(fontSize.description).tag(Double(fontSize))
                         }

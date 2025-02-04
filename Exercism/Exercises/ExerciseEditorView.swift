@@ -11,9 +11,7 @@ import CodeEditor
 struct ExerciseEditorView: View {
     @State private var codeChanged = false
     @EnvironmentObject private var viewModel: ExerciseViewModel
-    @AppSettings(\.appAppearance) private var appAppearance
-    @AppSettings(\.theme) private var themeData
-    @AppSettings(\.fontSize) private var fontSize
+    @AppSettings(\.general) private var general
 
     private var language: CodeEditor.Language {
         CodeEditor.Language.init(rawValue: viewModel.language ?? "")
@@ -25,7 +23,7 @@ struct ExerciseEditorView: View {
 #if os(macOS)
             CodeEditor(source: $viewModel.selectedCode,
                        language: language,
-                       theme: themeData)
+                       theme: general.theme)
             .onChange(of: viewModel.selectedCode) { code in
                 codeChanged = true
                 viewModel.updateCode(code)
@@ -40,7 +38,7 @@ struct ExerciseEditorView: View {
 #endif
             Divider()
             HStack {
-                Picker(Strings.theme.localized(), selection: $themeData) {
+                Picker(Strings.theme.localized(), selection: $general.theme) {
                     ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
                     }

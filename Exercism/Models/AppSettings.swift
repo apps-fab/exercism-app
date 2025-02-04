@@ -10,7 +10,6 @@ import SwiftUI
 
 @propertyWrapper
 struct AppSettings<T>: DynamicProperty where T: Equatable {
-
     var settings: Environment<T>
 
     let keyPath: WritableKeyPath<SettingsData, T>

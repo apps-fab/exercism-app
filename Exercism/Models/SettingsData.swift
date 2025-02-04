@@ -9,41 +9,53 @@ import CodeEditor
 import SwiftUI
 
 struct SettingsData: Codable, Hashable {
-    var appAppearance: Appearances = .system
-    var fontSize: Double = 14
-    var theme: CodeEditor.ThemeName = .default
+    var general: GeneralSettings = .init()
 
     /// Default initializer
     init() {}
 
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.appAppearance = try container.decode(SettingsData.Appearances.self, forKey: .appAppearance)
-        self.fontSize = try container.decode(Double.self, forKey: .fontSize)
-        self.theme = try container.decode(CodeEditor.ThemeName.self, forKey: .theme)
+        self.general = try container.decode(GeneralSettings.self, forKey: .general)
     }
 
-    /// The appearance of the app
-    /// - **system**: uses the system appearance
-    /// - **dark**: always uses dark appearance
-    /// - **light**: always uses light appearance
-    enum Appearances: String, Codable {
-        case system
-        case light
-        case dark
+    struct GeneralSettings: Codable, Hashable {
+        var appAppearance: Appearances = .system
+        var fontSize: Double = 14
+        var theme: CodeEditor.ThemeName = .default
 
-        /// Applies the selected appearance
-        func applyAppearance() {
-            switch self {
-            case .system:
-                NSApp.appearance = nil
+        /// Default initializer
+        init() {}
 
-            case .dark:
-                NSApp.appearance = .init(named: .darkAqua)
-
-            case .light:
-                NSApp.appearance = .init(named: .aqua)
-            }
+        init(from decoder: any Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.appAppearance = try container.decode(Appearances.self, forKey: .appAppearance)
+            self.fontSize = try container.decode(Double.self, forKey: .fontSize)
+            self.theme = try container.decode(CodeEditor.ThemeName.self, forKey: .theme)
         }
+    }
+
+        /// The appearance of the app
+        /// - **system**: uses the system appearance
+        /// - **dark**: always uses dark appearance
+        /// - **light**: always uses light appearance
+        enum Appearances: String, Codable {
+            case system
+            case light
+            case dark
+
+            /// Applies the selected appearance
+            func applyAppearance() {
+                switch self {
+                case .system:
+                    NSApp.appearance = nil
+
+                case .dark:
+                    NSApp.appearance = .init(named: .darkAqua)
+
+                case .light:
+                    NSApp.appearance = .init(named: .aqua)
+                }
+            }
     }
 }

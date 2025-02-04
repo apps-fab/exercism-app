@@ -80,6 +80,7 @@ extension ExerciseFile: Tabbable {
 @MainActor
 final class ExerciseViewModel: ObservableObject {
     @Published var selectedFile: ExerciseFile!
+    @Published var doc: ExerciseFile?
     @Published var instruction: String?
     @Published var selectedTab: SelectedTab = .instruction
     @Published var averageTestDuration: Double?
@@ -99,6 +100,7 @@ final class ExerciseViewModel: ObservableObject {
     @Published var alertItem = AlertItem()
     @Published var currentSolutionIterations: [Iteration] = []
     @Published var language: String?
+    @Published var documents = [ExerciseFile]()
 
     private let fetcher = Fetcher()
     private var codes = [String: String]()
@@ -111,7 +113,7 @@ final class ExerciseViewModel: ObservableObject {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
-    func getDocument(_ track: String, _ exercise: String) async throws -> [ExerciseFile] {
+    func getDocument(_ track: String, _ exercise: String) async throws {
         let exercises = try await withThrowingTaskGroup(of: Optional<ExerciseFile>.self) { _ in
             let exerciseDoc = try await downloadSolutions(track, exercise)
             solution = exerciseDoc.solution
@@ -122,11 +124,12 @@ final class ExerciseViewModel: ObservableObject {
             }
 
             let exercises = getLocalExercise(track, exercise, exerciseDoc)
+            doc = exercises.first
             selectedFile = exercises.first
             selectedCode = getSelectedCode() ?? Strings.noFile.localized()
             return exercises
         }
-        return exercises
+        documents = exercises
     }
 
     private func getLanguage(_ exerciseDoc: ExerciseDocument?) {

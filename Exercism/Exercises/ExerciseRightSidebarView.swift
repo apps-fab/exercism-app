@@ -12,17 +12,15 @@ import MarkdownUI
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject private var viewModel: ExerciseViewModel
-    @AppSettings(\.appAppearance) private var appAppearance
-    @AppSettings(\.theme) private var themeData
-    @AppSettings(\.fontSize) private var fontSize
+    @AppSettings(\.general) private var general
     var onMarkAsComplete: (() -> Void)?
 
     private var theme: Splash.Theme {
-        switch appAppearance {
+        switch general.appAppearance {
         case .dark:
-            return .wwdc18(withFont: .init(size: fontSize))
+            return .wwdc18(withFont: .init(size: general.fontSize))
         default:
-            return .sunset(withFont: .init(size: fontSize))
+            return .sunset(withFont: .init(size: general.fontSize))
         }
     }
 

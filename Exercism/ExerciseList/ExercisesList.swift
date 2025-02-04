@@ -24,11 +24,10 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
 }
 
 struct ExercisesList: View {
-    @State var track: Track
-    @State var asyncModel: AsyncModel<[Exercise]>
+    let track: Track
 
     @EnvironmentObject private var navigationModel: NavigationModel
-    @EnvironmentObject private var model: TrackModel
+    @StateObject private  var viewModel: ExerciseListViewModel
     @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
     @State private var solutions = [String: Solution]()
@@ -40,16 +39,30 @@ struct ExercisesList: View {
         GridItem(.flexible())
     ]
 
+    init(track: Track) {
+        self.track = track
+        _viewModel = StateObject(wrappedValue: ExerciseListViewModel(track: track))
+    }
+
     var body: some View {
-        AsyncResultView(source: asyncModel) { exercises in
-            exerciseListView(exercises)
+        Group {
+            switch viewModel.state {
+            case .loading:
+                ProgressView()
+            case .failure(let error):
+                Text(error.localizedDescription)
+            case .success(let exercises):
+                exerciseListView(exercises)
+            case .idle:
+                EmptyView()
+            }
         }
         .onChange(of: searchText) { newValue in
-            asyncModel.filterOperations  = { model.filterExercises(newValue) }
+            viewModel.filterExercises(newValue)
         }
         .task {
             do {
-                let solutionsList = try await model.getSolutions(track)
+                let solutionsList = try await viewModel.getSolutions(track)
                 self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
             } catch {
                 alertItem = AlertItem(title: "Error", message: error.localizedDescription)
@@ -170,8 +183,7 @@ struct ExercisesList: View {
 }
 
 #Preview {
-    ExercisesList(track: PreviewData.shared.getTracks()[0],
-                  asyncModel: AsyncModel(operation: { PreviewData.shared.getExercises()}))
+    ExercisesList(track: PreviewData.shared.getTracks()[0])
         .frame(width: 1000, height: 800)
         .preferredColorScheme(.light)
 }

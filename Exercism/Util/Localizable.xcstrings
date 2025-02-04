@@ -911,6 +911,9 @@
         }
       }
     },
+    "we are loading" : {
+
+    },
     "wrongSolution" : {
       "extractionState" : "manual",
       "localizations" : {
