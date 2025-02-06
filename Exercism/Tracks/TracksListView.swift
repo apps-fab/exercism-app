@@ -56,7 +56,7 @@ struct TracksListView: View {
                 await viewModel.getTracks()
             }
         }
-    #if os(macOS)
+#if os(macOS)
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
             if shouldRefreshFromJoinTrack {
                 Task {
@@ -65,7 +65,7 @@ struct TracksListView: View {
                 }
             }
         }
-    #else
+#else
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             if shouldRefreshFromJoinTrack {
                 Task {
@@ -74,7 +74,7 @@ struct TracksListView: View {
                 }
             }
         }
-    #endif
+#endif
     }
 
 
