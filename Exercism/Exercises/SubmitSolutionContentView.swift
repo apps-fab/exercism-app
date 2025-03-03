@@ -21,14 +21,12 @@ enum SolutionShareOption: String, CaseIterable {
 struct SubmitSolutionContentView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var navigationModel: NavigationModel
-
-    @StateObject private var viewModel = ExerciseViewModel.shared
+    @EnvironmentObject private var viewModel: ExerciseViewModel
 
     @State private var shareOption = SolutionShareOption.share
     @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
-    @State private var selectedIteration: Int = 1
-    @State private var numberOfIterations = 4
     @State private var isSubmitting = false
+    @State private var selectedIteration: Int = 1
 
     var body: some View {
         HStack(spacing: 0) {
@@ -67,12 +65,9 @@ struct SubmitSolutionContentView: View {
         }
         .padding(25)
         .frame(width: 800, height: 450)
-        .onAppear {
-            selectedIteration = viewModel.getDefaultIterationIdx()
-        }
     }
 
-    private var listItems: some View {
+    @ViewBuilder private var listItems: some View {
         VStack(alignment: .leading) {
             Picker("Select Solution Sharing Option", selection: $shareOption) {
                 ForEach(SolutionShareOption.allCases, id: \.self) { option in
@@ -122,7 +117,7 @@ struct SubmitSolutionContentView: View {
         }
     }
 
-    private var callToActions: some View {
+    @ViewBuilder private var callToActions: some View {
         HStack(spacing: 20) {
 
             Button {

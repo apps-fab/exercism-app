@@ -13,9 +13,7 @@ struct MainWindow: Scene {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 #endif
 
-    @StateObject private var settingsModel = SettingsModel()
-    @StateObject private var model = TrackModel.shared
-    @AppStorage("settings") var settingsData: Data?
+    @ObservedObject var settings = SettingsModel.shared
 
     init() {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -24,23 +22,7 @@ struct MainWindow: Scene {
     var body: some Scene {
         Window("", id: "MainWindow") {
             ContentView()
-                .environmentObject(model)
-                .environmentObject(settingsModel)
-                .task {
-                    await performSettingsSetUp()
-                }
                 .navigationTitle(Strings.exercode.localized())
-                .preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
         }.defaultSize(width: 1000, height: 800)
-    }
-
-    private func performSettingsSetUp() async {
-        if let settingsData {
-            settingsModel.jsonData = settingsData
-        }
-
-        for await _ in settingsModel.objectWillChangeSequence {
-            settingsData = settingsModel.jsonData
-        }
     }
 }

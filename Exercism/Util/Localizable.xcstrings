@@ -7,9 +7,6 @@
     "@AngieMugo" : {
 
     },
-    "%@" : {
-
-    },
     "%@ (%lld)" : {
       "localizations" : {
         "en" : {
@@ -29,12 +26,6 @@
           }
         }
       }
-    },
-    "%lf" : {
-
-    },
-    "%lld" : {
-
     },
     "About Exercode" : {
 
@@ -57,6 +48,9 @@
 
     },
     "Angie Mugo" : {
+
+    },
+    "Appearance" : {
 
     },
     "apply" : {
@@ -168,6 +162,9 @@
         }
       }
     },
+    "Dark" : {
+
+    },
     "Enter your token" : {
 
     },
@@ -188,7 +185,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : " An error occurred while running your tests.%@ This might mean that there was an issue in Exercism infrastructure, or it might mean that you have something in your code that's causing our systems to break.%@ Please check your code, and if nothing seems to be wrong, try running the tests again."
+            "value" : " An error occurred while running your tests. This might mean that there was an issue in Exercism infrastructure, or it might mean that you have something in your code that's causing our systems to break. Please check your code, and if nothing seems to be wrong, try running the tests again."
           }
         }
       }
@@ -432,6 +429,9 @@
           }
         }
       }
+    },
+    "Light" : {
+
     },
     "locked" : {
       "extractionState" : "manual",
@@ -783,6 +783,9 @@
           }
         }
       }
+    },
+    "System" : {
+
     },
     "taskCompleted" : {
       "extractionState" : "manual",

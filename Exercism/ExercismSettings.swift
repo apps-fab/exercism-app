@@ -25,44 +25,42 @@ let exercismSettingsScreen: () -> SettingsPane  = {
     return Settings.PaneHostingController(pane: paneView)
 }
 
-enum ExercismAppearance: String, CaseIterable, Identifiable, Codable {
-    var id: Self {
-        return self
-    }
-
-    case dark = "Dark"
-    case light = "Light"
-}
-
 struct ExercismSettings: View {
-    @EnvironmentObject var settingsModel: SettingsModel
+    @AppSettings(\.general) private var general
 
     var body: some View {
         Settings.Container(contentWidth: 400) {
             Settings.Section(title: "Editor Theme") {
-                Picker("", selection: $settingsModel.theme) {
+                Picker("", selection: $general.theme) {
                     ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
                     }
                 }.labelsHidden()
 
                 Settings.Section(title: "Appearance") {
-                    Picker("", selection: $settingsModel.colorScheme) {
-                        ForEach(ExercismAppearance.allCases) { appearance in
-                            Text("\(appearance.rawValue)")
-                        }
-                    }.labelsHidden()
+                    Picker("Appearance", selection: $general.appAppearance) {
+                        Text("System")
+                            .tag(SettingsData.Appearances.system)
+                        Divider()
+                        Text("Light")
+                            .tag(SettingsData.Appearances.light)
+                        Text("Dark")
+                            .tag(SettingsData.Appearances.dark)
+                    }
+                    .onChange(of: general.appAppearance) { tag in
+                        tag.applyAppearance()
+                    }
                 }
 
                 Settings.Section(title: "Font Size") {
-                    Picker("", selection: $settingsModel.fontSize) {
+                    Picker("", selection: $general.fontSize) {
                         ForEach(8..<20) { fontSize in
                             Text(fontSize.description).tag(Double(fontSize))
                         }
                     }.labelsHidden()
                 }
             }
-        }.preferredColorScheme(settingsModel.colorScheme == .dark ? .dark : .light)
+        }
 
     }
 }

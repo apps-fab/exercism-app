@@ -29,29 +29,44 @@ extension ExercismClientError {
 
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject var viewModel = ExerciseViewModel.shared
+    @StateObject private var viewModel: ExerciseViewModel
+    @AppStorage("shouldWriteToFile") private var shouldWriteToFile = false
     @State private var showSubmissionTooltip = false
-    @State var asyncModel: AsyncModel<[ExerciseFile]>
-
     let solution: Solution?
     var canMarkAsComplete: Bool {
         solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
     }
 
-    var body: some View {
-        AsyncResultView(source: asyncModel) { docs in
-            NavigationSplitView {
-                ExerciseRightSidebarView(
-                    onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution) } : nil
-                )
+    init( track: String, exercise: String, solution: Solution?) {
+        self.solution = solution
+        _viewModel = StateObject(wrappedValue: ExerciseViewModel(track, exercise))
+    }
 
-            } detail: {
-                CustomTabView(selectedItem: $viewModel.selectedFile) {
-                    ForEach(docs) { file in
-                        ExerciseEditorView().tabItem(for: file)
-                    }
-                }
+    var body: some View {
+        Group {
+            switch viewModel.state {
+            case .idle:
+                EmptyView()
+            case .loading:
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            case .success(let document):
+                            NavigationSplitView {
+                                ExerciseRightSidebarView(onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution)} : nil).environmentObject(viewModel)
+                            } detail: {
+                                CustomTabView(selectedItem: $viewModel.selectedFile) {
+                                    ForEach(viewModel.documents) { file in
+                                        ExerciseEditorView()
+                                            .tabItem(for: file)
+                                            .environmentObject(viewModel)
+                                    }
+                                }
+                            }
+            case .failure(let exercismClientError):
+                Text(exercismClientError.localizedDescription)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+        }
             .toolbar {
                 ToolbarItem {
                     Spacer()
@@ -83,7 +98,8 @@ struct ExerciseEditorWindowView: View {
                     }
                     .help(Strings.runTestsError.localized())
                 }
-            }
+        }.onReceive(NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)) { _ in
+            viewModel.updateFile()
         }
         .navigationTitle(viewModel.title)
         .sheet(item: $viewModel.solutionToSubmit) { _ in
@@ -97,7 +113,5 @@ struct ExerciseEditorWindowView: View {
 }
 
 #Preview {
-        ExerciseEditorWindowView(asyncModel: AsyncModel(operation: {
-            PreviewData.shared.getExerciseFile()
-        }), solution: PreviewData.shared.getSolutions()[0])
+    ExerciseEditorWindowView(track: "Swift", exercise: "hello world", solution: PreviewData.shared.getSolutions()[0])
 }

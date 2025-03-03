@@ -9,64 +9,48 @@ import SwiftUI
 import CodeEditor
 
 struct ExerciseEditorView: View {
-    @State private var exerciseViewModel = ExerciseViewModel.shared
     @State private var codeChanged = false
-    @EnvironmentObject var settingsModel: SettingsModel
+    @EnvironmentObject private var viewModel: ExerciseViewModel
+    @AppSettings(\.general) private var general
 
-    private var source: String {
-        exerciseViewModel.getSelectedCode() ?? Strings.noFile.localized()
-    }
     private var language: CodeEditor.Language {
-        CodeEditor.Language.init(rawValue: exerciseViewModel.language ?? "")
+        CodeEditor.Language.init(rawValue: viewModel.language ?? "")
     }
-
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
 #if os(macOS)
-            CodeEditor(
-                source: $exerciseViewModel.selectedCode,
-                language: language,
-                theme: settingsModel.theme,
-                fontSize: .init(get: { CGFloat(settingsModel.fontSize) },
-                                set: { settingsModel.fontSize = Double($0) }))
-            .onChange(of: exerciseViewModel.selectedCode) { code in
+            CodeEditor(source: $viewModel.selectedCode,
+                       language: language,
+                       theme: general.theme)
+            .onChange(of: viewModel.selectedCode) { code in
                 codeChanged = true
-                exerciseViewModel.updateCode(code)
+                viewModel.updateCode(code)
             }
             .onReceive(timer) { _ in
-                if codeChanged && exerciseViewModel.updateFile() {
+                if codeChanged && viewModel.updateFile() {
                     codeChanged = false
                 }
             }
 #else
-            CodeEditor(source: source, language: language, theme: settingData.theme)
+            CodeEditor(source: $viewModel.selectedCode, language: language, theme: settingData.theme)
 #endif
-
             Divider()
-
             HStack {
-                Picker(Strings.theme.localized(), selection: $settingsModel.theme) {
+                Picker(Strings.theme.localized(), selection: $general.theme) {
                     ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
                     }
                 }
             }
             .padding()
-        }
-        .alert(String(Strings.submissionAlert.localized()),
-               isPresented: $exerciseViewModel.showTestSubmissionResponseMessage) {
+        }.alert(String(Strings.submissionAlert.localized()),
+                isPresented: $viewModel.showTestSubmissionResponseMessage) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
-            Text(exerciseViewModel.operationStatus.description)
-        }
-        .alert(exerciseViewModel.alertItem.title, isPresented: $exerciseViewModel.alertItem.isPresented) {
-            Button(Strings.ok.localized(), role: .cancel) {
-            }
-        } message: {
-            Text(exerciseViewModel.alertItem.message)
+            Text(viewModel.operationStatus.description)
         }
     }
 }

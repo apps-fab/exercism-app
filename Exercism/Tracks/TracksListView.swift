@@ -13,8 +13,7 @@ struct TracksListView: View {
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
     @State private var searchText = ""
     @State private var filters = Set<String>()
-    @State var asyncModel: AsyncModel<[Track]>
-    private let model = TrackModel.shared
+    @StateObject private var viewModel = TrackViewModel()
 
     private let gridColumns = [
         GridItem(.flexible()),
@@ -23,37 +22,56 @@ struct TracksListView: View {
     private let refreshPublisher = NotificationCenter.default.publisher(for: .didRequestRefresh)
 
     var body: some View {
-        GeometryReader { size in
-            AsyncResultView(source: asyncModel) { tracks in
-                HStack {
-                    SideBar(tracks: tracks).frame(maxWidth: size.size.width * 0.2)
-                    Divider().frame(width: 2)
-                    tracksView(tracks)
+        Group {
+            switch viewModel.state {
+            case .idle:
+                EmptyView()
+            case .loading:
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            case .success(let tracks):
+                GeometryReader { size in
+                    HStack {
+                        SideBar(tracks: tracks)
+                            .frame(maxWidth: size.size.width * 0.2)
+                        Divider().frame(width: 2)
+                        tracksView(tracks)
+                    }
                 }
-            }
-            .toolbar(.hidden)
-            .accessibilityLabel("All Tracks")
-            .onChange(of: searchText) { newValue in
-                asyncModel.filterOperations = { self.model.filterTracks(newValue) }
-            }.onChange(of: filters) { newValue in
-                asyncModel.filterOperations = { self.model.filterTags(newValue) }
+            case .failure(let exercismClientError):
+                Text(exercismClientError.localizedDescription)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .toolbar(.hidden)
+        .accessibilityLabel("All Tracks")
+        .onChange(of: searchText) { newValue in
+            viewModel.filterTracks(newValue)
+        }
+        .onChange(of: filters) { newValue in
+            viewModel.filterTags(newValue)
+        }
         .onReceive(refreshPublisher) { _ in
-            self.asyncModel = .init(operation: { try await model.getTracks() })
+            Task {
+                await viewModel.getTracks()
+            }
         }
 #if os(macOS)
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
             if shouldRefreshFromJoinTrack {
-                self.asyncModel = .init(operation: { try await model.getTracks() })
-                shouldRefreshFromJoinTrack = false
+                Task {
+                    await viewModel.getTracks()
+                    shouldRefreshFromJoinTrack = false
+                }
             }
         }
 #else
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             if shouldRefreshFromJoinTrack {
-                self.asyncModel = .init(operation: { try await model.getTracks() })
-                shouldRefreshFromJoinTrack = false
+                Task {
+                    await viewModel.getTracks()
+                    shouldRefreshFromJoinTrack = false
+                }
             }
         }
 #endif
@@ -73,8 +91,7 @@ struct TracksListView: View {
                     results: tracks.count,
                     searchText: $searchText,
                     filters: $filters) {
-                        asyncModel.filterOperations = { self.model.sortTracks()
-                        }
+                        viewModel.sortTracks()
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -157,5 +174,5 @@ struct TracksListView: View {
 }
 
 #Preview {
-    TracksListView(asyncModel: AsyncModel { PreviewData.shared.getTracks() })
+    TracksListView()
 }
