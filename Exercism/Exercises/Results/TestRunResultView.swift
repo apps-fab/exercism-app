@@ -18,7 +18,7 @@ struct TestRunResultView: View {
         case .pass:
             TestPassed(onSubmitTest: onSubmitTest)
         case .error, .ops_error, .timeout:
-            TestErrored()
+            TestErrored(errorDescription: testRun.message ?? Strings.errorDescription.localized())
         case .fail:
             VStack {
                 TestRunSummaryHeader(testRun: testRun)

@@ -7,16 +7,22 @@
 import SwiftUI
 
 struct TestErrored: View {
+    let errorDescription: String
+
     var body: some View {
         VStack {
             Text("AN ERROR OCCURRED.")
+                .frame(maxWidth: .infinity)
+                .padding()
                 .foregroundColor(.red)
+                .background(.red.opacity(0.2))
                 .fontWeight(.bold)
-            Text(Strings.errorDescription.localized())
+            Text(errorDescription).padding()
+            Spacer()
         }
     }
 }
 
 #Preview("Test Errored") {
-    TestErrored()
+    TestErrored(errorDescription: Strings.errorDescription.localized())
 }

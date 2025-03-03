@@ -19,7 +19,7 @@ final class TrackViewModel: ObservableObject {
             await getTracks()
         }
     }
-    
+
     func getTracks() async {
         state = .loading
         do {

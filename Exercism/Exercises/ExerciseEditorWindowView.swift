@@ -29,41 +29,44 @@ extension ExercismClientError {
 
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject private var viewModel = ExerciseViewModel()
+    @StateObject private var viewModel: ExerciseViewModel
     @AppStorage("shouldWriteToFile") private var shouldWriteToFile = false
     @State private var showSubmissionTooltip = false
-    let track: String
-    let exercise: String
     let solution: Solution?
     var canMarkAsComplete: Bool {
         solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
     }
 
-    var body: some View {
-            NavigationSplitView {
-                ExerciseRightSidebarView(onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution)} : nil).environmentObject(viewModel)
-            } detail: {
-                Group {
-                    if let doc = viewModel.doc {
-                        CustomTabView(selectedItem: Binding(
-                            get: { viewModel.doc ?? doc },
-                            set: { viewModel.doc = $0 }
-                        )) {
-                            ForEach(viewModel.documents) { file in
-                                ExerciseEditorView()
-                                    .tabItem(for: file)
-                                    .environmentObject(viewModel)
-                            }
-                        }
-                        .onChange(of: viewModel.selectedCode) { code in
-                            viewModel.updateCode(code)
-                        }
-                    }
- else {
-                        Text("we are loading")
+    init( track: String, exercise: String, solution: Solution?) {
+        self.solution = solution
+        _viewModel = StateObject(wrappedValue: ExerciseViewModel(track, exercise))
+    }
 
-                    }
-                }
+    var body: some View {
+        Group {
+            switch viewModel.state {
+            case .idle:
+                EmptyView()
+            case .loading:
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            case .success(let document):
+                            NavigationSplitView {
+                                ExerciseRightSidebarView(onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution)} : nil).environmentObject(viewModel)
+                            } detail: {
+                                CustomTabView(selectedItem: $viewModel.selectedFile) {
+                                    ForEach(viewModel.documents) { file in
+                                        ExerciseEditorView()
+                                            .tabItem(for: file)
+                                            .environmentObject(viewModel)
+                                    }
+                                }
+                            }
+            case .failure(let exercismClientError):
+                Text(exercismClientError.localizedDescription)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
             .toolbar {
                 ToolbarItem {
                     Spacer()
@@ -95,7 +98,6 @@ struct ExerciseEditorWindowView: View {
                     }
                     .help(Strings.runTestsError.localized())
                 }
-            }
         }.onReceive(NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)) { _ in
             viewModel.updateFile()
         }
@@ -106,11 +108,10 @@ struct ExerciseEditorWindowView: View {
         .task {
             guard let solution else { return }
             await viewModel.getIterations(for: solution)
-            try? await viewModel.getDocument(track, exercise)
         }
     }
 }
 
 #Preview {
-    ExerciseEditorWindowView(track: "Swift", exercise: "hello world",solution: PreviewData.shared.getSolutions()[0])
+    ExerciseEditorWindowView(track: "Swift", exercise: "hello world", solution: PreviewData.shared.getSolutions()[0])
 }

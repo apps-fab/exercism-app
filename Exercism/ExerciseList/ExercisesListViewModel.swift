@@ -34,7 +34,9 @@ final class ExerciseListViewModel: ObservableObject {
             exercises = fetchedExercises
             state = .success(fetchedExercises)
         } catch {
+            // swiftlint:disable force_cast
             state = .failure(error as! ExercismClientError)
+            // swiftlint:enable force_cast
         }
     }
 

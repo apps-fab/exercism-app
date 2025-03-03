@@ -35,5 +35,7 @@ struct TestPassed: View {
 }
 
 #Preview("Test Passed") {
-//    TestPassed()
+    TestPassed {
+        print("We passed test")
+    }
 }

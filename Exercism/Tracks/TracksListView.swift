@@ -77,7 +77,6 @@ struct TracksListView: View {
 #endif
     }
 
-
     @ViewBuilder
     func tracksView(_ tracks: [Track]) -> some View {
         let joinedTracks = tracks.filter { $0.isJoined }

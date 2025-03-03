@@ -45,17 +45,12 @@ struct ExerciseEditorView: View {
                 }
             }
             .padding()
-        }.alert(String(Strings.submissionAlert.localized()), isPresented: $viewModel.showTestSubmissionResponseMessage) {
+        }.alert(String(Strings.submissionAlert.localized()),
+                isPresented: $viewModel.showTestSubmissionResponseMessage) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
             Text(viewModel.operationStatus.description)
-        }
-        .alert(viewModel.alertItem.title, isPresented: $viewModel.alertItem.isPresented) {
-            Button(Strings.ok.localized(), role: .cancel) {
-            }
-        } message: {
-            Text(viewModel.alertItem.message)
         }
     }
 }
