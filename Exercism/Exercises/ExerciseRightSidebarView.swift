@@ -59,6 +59,11 @@ struct ExerciseRightSidebarView: View {
                 .tabItem(for: SelectedTab.instruction)
 
             }
+            if let tests = viewModel.tests, let language = viewModel.language {
+                VStack {
+                    TestsView(tests: tests, language: language)
+                }.tabItem(for: SelectedTab.tests)
+            }
             VStack(alignment: HorizontalAlignment.leading) {
                 ResultView(language: language, theme: theme)
             }
@@ -69,4 +74,5 @@ struct ExerciseRightSidebarView: View {
 
 #Preview {
     ExerciseRightSidebarView()
+        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
 }

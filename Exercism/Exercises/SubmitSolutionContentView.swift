@@ -182,4 +182,5 @@ struct SubmitSolutionContentView: View {
 
 #Preview {
     SubmitSolutionContentView()
+        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
 }

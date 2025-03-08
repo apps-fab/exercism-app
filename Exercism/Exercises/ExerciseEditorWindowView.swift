@@ -37,7 +37,7 @@ struct ExerciseEditorWindowView: View {
         solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
     }
 
-    init( track: String, exercise: String, solution: Solution?) {
+    init(track: String, exercise: String, solution: Solution?) {
         self.solution = solution
         _viewModel = StateObject(wrappedValue: ExerciseViewModel(track, exercise))
     }
@@ -51,53 +51,56 @@ struct ExerciseEditorWindowView: View {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .success(let document):
-                            NavigationSplitView {
-                                ExerciseRightSidebarView(onMarkAsComplete: canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution)} : nil).environmentObject(viewModel)
-                            } detail: {
-                                CustomTabView(selectedItem: $viewModel.selectedFile) {
-                                    ForEach(viewModel.documents) { file in
-                                        ExerciseEditorView()
-                                            .tabItem(for: file)
-                                            .environmentObject(viewModel)
-                                    }
-                                }
-                            }
-            case .failure(let exercismClientError):
-                Text(exercismClientError.localizedDescription)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        }
-            .toolbar {
-                ToolbarItem {
-                    Spacer()
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        viewModel.runTest()
-                    } label: {
-                        Label(Strings.runTests.localized(),
-                              systemImage: "play.circle")
-                        .labelStyle(.titleAndIcon)
-                        .fixedSize()
-                    }
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        viewModel.submitSolution()
-                    } label: {
-                        Label(Strings.submit.localized(),
-                              systemImage: "paperplane.circle")
-                        .labelStyle(.titleAndIcon)
-                        .fixedSize()
-                    }
-                    .disabled(!viewModel.canSubmitSolution)
-                    .onTapGesture {
-                        if !viewModel.canSubmitSolution {
-                            showSubmissionTooltip = true
+                NavigationSplitView {
+                    ExerciseRightSidebarView(onMarkAsComplete:
+                                                canMarkAsComplete ? { viewModel.setSolutionToSubmit(solution)} : nil)
+                    .environmentObject(viewModel)
+                } detail: {
+                    CustomTabView(selectedItem: $viewModel.selectedFile) {
+                        ForEach(viewModel.documents) { file in
+                            ExerciseEditorView()
+                                .tabItem(for: file)
+                                .environmentObject(viewModel)
                         }
                     }
-                    .help(Strings.runTestsError.localized())
                 }
+            case .failure(let exercismClientError):
+                Text(exercismClientError.localizedDescription)
+                    .frame(maxWidth: .infinity,
+                           maxHeight: .infinity)
+            }
+        }
+        .toolbar {
+            ToolbarItem {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    viewModel.runTest()
+                } label: {
+                    Label(Strings.runTests.localized(),
+                          systemImage: "play.circle")
+                    .labelStyle(.titleAndIcon)
+                    .fixedSize()
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    viewModel.submitSolution()
+                } label: {
+                    Label(Strings.submit.localized(),
+                          systemImage: "paperplane.circle")
+                    .labelStyle(.titleAndIcon)
+                    .fixedSize()
+                }
+                .disabled(!viewModel.canSubmitSolution)
+                .onTapGesture {
+                    if !viewModel.canSubmitSolution {
+                        showSubmissionTooltip = true
+                    }
+                }
+                .help(Strings.runTestsError.localized())
+            }
         }.onReceive(NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)) { _ in
             viewModel.updateFile()
         }
@@ -113,5 +116,7 @@ struct ExerciseEditorWindowView: View {
 }
 
 #Preview {
-    ExerciseEditorWindowView(track: "Swift", exercise: "hello world", solution: PreviewData.shared.getSolutions()[0])
+    ExerciseEditorWindowView(track: "Swift",
+                             exercise: "hello world",
+                             solution: PreviewData.shared.getSolutions()[0])
 }

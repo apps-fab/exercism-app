@@ -44,6 +44,7 @@ enum ExerciseModelResponse: Equatable {
 enum SelectedTab: Int, Tabbable {
     case instruction = 0
     case result
+    case tests
 
     var icon: String {
         switch self {
@@ -51,6 +52,8 @@ enum SelectedTab: Int, Tabbable {
             return "list.bullet"
         case .result:
             return "checkmark.icloud.fill"
+        case .tests:
+            return "checklist.unchecked"
         }
     }
 
@@ -60,6 +63,8 @@ enum SelectedTab: Int, Tabbable {
             return "Instruction"
         case .result:
             return "Result"
+        case .tests:
+            return "Tests"
         }
     }
 }
@@ -107,6 +112,7 @@ final class ExerciseViewModel: ObservableObject {
     @Published var language: String?
     @Published var documents = [ExerciseFile]()
     @Published var state: LoadingState<[ExerciseFile]> = .idle
+    @Published var tests: String?
 
     private let fetcher = Fetcher()
     private var codes = [String: String]()
@@ -137,6 +143,9 @@ final class ExerciseViewModel: ObservableObject {
                     instruction = try getInstruction(instructionURL)
                 }
 
+                if let testsURL = exerciseDoc.tests.first {
+                    tests = try getTests(testsURL)
+                }
                 let exercises = getLocalExercise(track, exercise, exerciseDoc)
                 selectedFile = exercises.first
                 selectedCode = getSelectedCode() ?? ""
@@ -169,6 +178,10 @@ final class ExerciseViewModel: ObservableObject {
 
     private func getInstruction(_ instructions: URL) throws -> String {
         return try String(contentsOf: instructions, encoding: .utf8)
+    }
+
+    private func getTests(_ tests: URL) throws -> String {
+        return try String(contentsOf: tests, encoding: .utf8)
     }
 
     private func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
@@ -247,6 +260,26 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Tests
 
+    func getResult() {
+        Task {
+            do {
+                let solutionData = try getSolutionFileData()
+                let runResult = try await performRunTest(solution?.id ?? "", solutionData)
+                try await getTestRun(runResult.links)
+                //            switch runResult.testsStatus {
+                //            case .queued:
+                //                try await getTestRun(runResult.links)
+                //            case .passed:
+                //                operationStatus = .solutionPassed
+                //            default:
+                //                operationStatus = .wrongSolution
+                //            }
+            } catch {
+                print("This is the error: \(error)")
+            }
+        }
+    }
+
     func runTest() {
         selectedTab = .result
         updateFile()
@@ -268,6 +301,7 @@ final class ExerciseViewModel: ObservableObject {
                     operationStatus = .wrongSolution
                 }
             } catch let error {
+                operationStatus = .errorRunningTest
                 if let clientError = error as? ExercismClientError {
                     if case let .apiError(_, type, message) = clientError, type == "duplicate_submission" {
                         operationStatus = .duplicateSubmission(message: message)

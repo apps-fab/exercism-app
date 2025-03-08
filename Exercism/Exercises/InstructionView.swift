@@ -7,6 +7,7 @@
 import SwiftUI
 import MarkdownUI
 import Splash
+import CodeEditor
 
 struct InstructionView: View {
     let instruction: String
@@ -31,4 +32,15 @@ struct InstructionView: View {
                 .markdownTheme(markdownTheme)
         }
     }
+}
+
+#Preview {
+    InstructionView(instruction: "Try this",
+                    theme: Splash.Theme(
+                        font: Font(size: 14),
+                        plainTextColor: Color.black,
+                        tokenColors: [TokenType.string: Color.black],
+                    backgroundColor: Color(white: 0.12, alpha: 1)),
+                    language: "Swift",
+                    markdownTheme: Theme.basic)
 }

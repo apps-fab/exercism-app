@@ -17,10 +17,16 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
     private var tabBarPosition: TabBarPosition
     private let content: Content
     @State private var items: [TabItem]
-    let gradientColors = [Color.appAccent.opacity(0.4),
-                                     Color.appAccent.opacity(0.6),
-                                     Color.appAccent.opacity(0.8),
-                                     Color.appAccent]
+    let gradient = LinearGradient(
+            gradient: Gradient(colors: [
+                Color.appAccent.opacity(0.4),
+                Color.appAccent.opacity(0.6),
+                Color.appAccent.opacity(0.8),
+                Color.appAccent
+            ]),
+            startPoint: .top,
+            endPoint: .bottom
+        )
 
     public init(selectedItem: Binding<TabItem>,
                 tabBarPosition: TabBarPosition = .top,
@@ -33,24 +39,32 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
 
     public var tabItems: some View {
         HStack(spacing: 0) {
-            ForEach(self.items, id: \.self) { item in
-                HStack {
-                    Image(systemName: item.icon)
-                    Text(item.title)
-                    Divider().frame(width: 2)
+            ForEach(self.items.indices, id: \.self) { index in
+                ZStack {
+                    if selectedItem.selection == items[index] {
+                        gradient.edgesIgnoringSafeArea(.all)
+                    }
+                    HStack {
+                        Image(systemName: items[index].icon)
+                        Text(items[index].title)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedItem.selection = items[index]
+                        selectedItem.objectWillChange.send()
+                    }
                 }
-                .padding(.leading)
-                .background(selectedItem.selection == item ? .appAccent : .clear)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    selectedItem.selection = item
-                    selectedItem.objectWillChange.send()
+
+                if index < items.count - 1 {
+                    Divider()
+                        .frame(width: 2, height: 40)
                 }
             }
-            Spacer()
-        }.frame(maxHeight: 50.0)
-            .frame(maxWidth: .infinity)
-
+        }
+        .frame(height: 50)
+        .background(Color.gray.opacity(0.2))
     }
 
     public var body: some View {
