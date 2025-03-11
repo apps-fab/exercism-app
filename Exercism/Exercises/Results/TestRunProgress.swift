@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct TestRunProgress: View {
-    let totalSecs: Double
     @State private var progress = 0.0
+    let totalSecs: Double
     private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+
+    let gradient = LinearGradient(
+            gradient: Gradient(colors: [
+                Color.appAccent.opacity(0.4),
+                Color.appAccent.opacity(0.6),
+                Color.appAccent.opacity(0.8),
+                Color.appAccent
+            ]),
+            startPoint: .top,
+            endPoint: .bottom
+        )
 
     var body: some View {
         VStack {
             ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
-                .tint(Color.appAccent)
+                .tint(gradient)
                 .padding()
                 .onReceive(timer) { _ in
                     if progress < 100 {

@@ -13,7 +13,6 @@ import MarkdownUI
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject private var viewModel: ExerciseViewModel
     @AppSettings(\.general) private var general
-    var onMarkAsComplete: (() -> Void)?
 
     private var theme: Splash.Theme {
         switch general.appAppearance {
@@ -38,8 +37,8 @@ struct ExerciseRightSidebarView: View {
                                     language: language,
                                     markdownTheme: markdownTheme)
 
-                    if let onMarkAsComplete {
-                        Button(action: onMarkAsComplete) {
+                    if viewModel.canMarkAsComplete {
+                        Button(action: viewModel.setSolutionToSubmit) {
                             Label {
                                 Text(Strings.markAsComplete.localized())
                             } icon: {
@@ -57,8 +56,8 @@ struct ExerciseRightSidebarView: View {
                 .padding(.horizontal)
                 .background(markdownTheme.textBackgroundColor)
                 .tabItem(for: SelectedTab.instruction)
-
             }
+
             if let tests = viewModel.tests, let language = viewModel.language {
                 VStack {
                     TestsView(tests: tests, language: language)
@@ -73,6 +72,7 @@ struct ExerciseRightSidebarView: View {
 }
 
 #Preview {
+    let solution = PreviewData.shared.getSolutions().first
     ExerciseRightSidebarView()
-        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
+        .environmentObject(ExerciseViewModel("Swift", "Hello-world", solution))
 }

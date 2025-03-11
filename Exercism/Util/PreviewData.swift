@@ -355,11 +355,7 @@ struct PreviewData {
     }
 
     func getExerciseFile() -> [ExerciseFile] {
-        [ExerciseFile(
-            url: getOrCreateDir()!,
-            id: "Sources/WingsQuest/WingsQuest.swift",
-            name: "Sources/WingsQuest/WingsQuest.swift",
-            type: .solution)]
+        [ExerciseFile(from: getOrCreateDir()!)]
     }
 
     func getSolutions() -> [Solution] {

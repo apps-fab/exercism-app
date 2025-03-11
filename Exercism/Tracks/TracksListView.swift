@@ -38,8 +38,8 @@ struct TracksListView: View {
                         tracksView(tracks)
                     }
                 }
-            case .failure(let exercismClientError):
-                Text(exercismClientError.localizedDescription)
+            case .failure(let error):
+                Text(error.description)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }

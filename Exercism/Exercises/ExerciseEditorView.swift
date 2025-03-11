@@ -16,7 +16,6 @@ struct ExerciseEditorView: View {
     private var language: CodeEditor.Language {
         CodeEditor.Language.init(rawValue: viewModel.language ?? "")
     }
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack {
@@ -24,17 +23,10 @@ struct ExerciseEditorView: View {
             CodeEditor(source: $viewModel.selectedCode,
                        language: language,
                        theme: general.theme)
-            .onChange(of: viewModel.selectedCode) { code in
-                codeChanged = true
-                viewModel.updateCode(code)
-            }
-            .onReceive(timer) { _ in
-                if codeChanged && viewModel.updateFile() {
-                    codeChanged = false
-                }
-            }
 #else
-            CodeEditor(source: $viewModel.selectedCode, language: language, theme: settingData.theme)
+            CodeEditor(source: $viewModel.selectedCode,
+                       language: language,
+                       theme: settingData.theme)
 #endif
             Divider()
             HStack {
@@ -51,6 +43,8 @@ struct ExerciseEditorView: View {
             }
         } message: {
             Text(viewModel.operationStatus.description)
+        }.onReceive(NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)) { _ in
+            viewModel.updateFile()
         }
     }
 }

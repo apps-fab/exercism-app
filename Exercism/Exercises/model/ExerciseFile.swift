@@ -16,14 +16,10 @@ struct ExerciseFile: Identifiable, Equatable {
         case test
     }
 
-    init(url: URL, id: String, name: String, type: ExerciseType) {
-        self.id = id
-        self.name = name
-        self.type = type
+    init(from url: URL) {
         self.url = url
-    }
-
-    static func fromURL(_ url: URL) -> ExerciseFile {
-        ExerciseFile(url: url, id: url.relativeString, name: url.relativeString, type: .solution)
+        self.id = url.relativeString
+        self.name = url.relativeString
+        self.type = .solution
     }
 }

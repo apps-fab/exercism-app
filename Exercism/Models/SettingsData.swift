@@ -35,27 +35,27 @@ struct SettingsData: Codable, Hashable {
         }
     }
 
-        /// The appearance of the app
-        /// - **system**: uses the system appearance
-        /// - **dark**: always uses dark appearance
-        /// - **light**: always uses light appearance
-        enum Appearances: String, Codable {
-            case system
-            case light
-            case dark
+    /// The appearance of the app
+    /// - **system**: uses the system appearance
+    /// - **dark**: always uses dark appearance
+    /// - **light**: always uses light appearance
+    enum Appearances: String, Codable {
+        case system
+        case light
+        case dark
 
-            /// Applies the selected appearance
-            func applyAppearance() {
-                switch self {
-                case .system:
-                    NSApp.appearance = nil
+        /// Applies the selected appearance
+        func applyAppearance() {
+            switch self {
+            case .system:
+                NSApp.appearance = nil
 
-                case .dark:
-                    NSApp.appearance = .init(named: .darkAqua)
+            case .dark:
+                NSApp.appearance = .init(named: .darkAqua)
 
-                case .light:
-                    NSApp.appearance = .init(named: .aqua)
-                }
+            case .light:
+                NSApp.appearance = .init(named: .aqua)
             }
+        }
     }
 }
