@@ -7,6 +7,7 @@
 
 import CodeEditor
 import SwiftUI
+import ExercismSwift
 
 struct SettingsData: Codable, Hashable {
     var general: GeneralSettings = .init()

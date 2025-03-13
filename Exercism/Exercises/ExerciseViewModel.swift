@@ -112,6 +112,7 @@ final class ExerciseViewModel: ObservableObject {
     @Published var state: LoadingState<[ExerciseFile]> = .idle
     @Published var tests: String?
     @Published var canRunTests: Bool = true
+    @Published var canMarkAsComplete: Bool = false
 
     private let fetcher = Fetcher()
     private var codes = [String: String]()
@@ -121,21 +122,18 @@ final class ExerciseViewModel: ObservableObject {
     var canSubmitSolution: Bool {
         submissionLink != nil
     }
+
     // MARK: - on Appear Operations
 
     var sortedIterations: [Iteration] {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
-    var canMarkAsComplete: Bool {
-        solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
-    }
-
     init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
         self.solution = solution
+        canMarkAsComplete = solution?.status == .iterated || solution?.status == .published || solution?.status == .completed
         Task {
             await getDocument(track, exercise)
-            await getIterations(for: solution)
         }
     }
 
@@ -151,9 +149,10 @@ final class ExerciseViewModel: ObservableObject {
                 let exercises = getLocalExercise(track, exercise, exerciseDoc)
                 selectedFile = exercises.first
                 selectedCode = getSelectedCode() ?? ""
-                getResult()
+                await getIterations(for: solution)
                 return exercises
             }
+
             state = .success(exercises)
         } catch {
             operationStatus = .genericError(error: error.localizedDescription)
@@ -173,6 +172,39 @@ final class ExerciseViewModel: ObservableObject {
     private func getExerciseInstructions(_ exerciseDoc: ExerciseDocument) throws -> String? {
         guard let instructionURL = exerciseDoc.instructions else { return nil }
         return try String(contentsOf: instructionURL, encoding: .utf8)
+    }
+
+    private func runUsingSavedLink() async throws {
+            guard let exerciseSolutionId = solution?.id else {
+                operationStatus = .errorRunningTest
+                return
+            }
+            Task {
+                do {
+                    let solutionData = try getSolutionFileData()
+                    let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
+                    switch runResult.testsStatus {
+                    case .queued:
+                        try await getTestRun(runResult.links)
+                    case .passed:
+                        operationStatus = .solutionPassed
+                    default:
+                        operationStatus = .wrongSolution
+                    }
+                } catch let error {
+                    canRunTests = true
+                    operationStatus = .errorRunningTest
+                    if let clientError = error as? ExercismClientError {
+                        if case let .apiError(_, type, message) = clientError, type == "duplicate_submission" {
+                            operationStatus = .duplicateSubmission(message: message)
+                        } else {
+                            operationStatus = .errorRunningTest
+                        }
+                    } else {
+                        operationStatus = .errorRunningTest
+                    }
+                }
+            }
     }
 
     private func getSelectedCode() -> String? {
@@ -268,29 +300,6 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Tests
 
-    func getResult() {
-        Task {
-            do {
-                if let lastRunTestLink = UserDefaults.standard.string(forKey: "lastRunTestLink") {
-                    SubmissionLinks
-                    try await getTestRun(lastRunTestLink)
-                }
-
-
-                //            switch runResult.testsStatus {
-                //            case .queued:
-                //                try await getTestRun(runResult.links)
-                //            case .passed:
-                //                operationStatus = .solutionPassed
-                //            default:
-                //                operationStatus = .wrongSolution
-                //            }
-            } catch {
-                print("This is the error: \(error)")
-            }
-        }
-    }
-
     func runTest() {
         canRunTests = false
         selectedTab = .result
@@ -306,7 +315,6 @@ final class ExerciseViewModel: ObservableObject {
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
                 switch runResult.testsStatus {
                 case .queued:
-                    UserDefaults.standard.set(runResult.links.testRun, forKey: "lastRunTestLink")
                     try await getTestRun(runResult.links)
                 case .passed:
                     operationStatus = .solutionPassed
@@ -330,7 +338,7 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
-        let result =  try await fetcher.getTestRun(submissionLink.testRun)
+        let result = try await fetcher.getTestRun(submissionLink.testRun)
 
         if let testRun = result.testRun {
             averageTestDuration = nil
@@ -346,12 +354,12 @@ final class ExerciseViewModel: ObservableObject {
         return try await fetcher.runTest(solutionId, contents: contents)
     }
 
-    private func getSolutionFileData() throws -> [SolutionFileData] {
+    private func getSolutionFileData(_ type: SolutionFileType = SolutionFileType.exercise) throws -> [SolutionFileData] {
         var solutionsData = [SolutionFileData]()
         if let exercise = exerciseItem {
             solutionsData = try exercise.files.map { exerciseFile in
                 let code = try String(contentsOf: exerciseFile.url, encoding: .utf8)
-                return SolutionFileData(fileName: exerciseFile.name, content: code)
+                return SolutionFileData(fileName: exerciseFile.name, content: code, type: type)
             }
         }
         return solutionsData

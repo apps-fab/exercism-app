@@ -17,40 +17,37 @@ struct TestGroupedByTaskList: View {
 
     var body: some View {
         let testGroup = testRun.testGroupedByTaskList()
-        let firstTest = testGroup.first?.first?.tests
-        let title = firstTest != nil ? "Task" : "Test"
 
         VStack(alignment: .leading) {
             ForEach(testGroup, id: \.self) { groupArray in
                 DisclosureGroup {
-                    VStack {
-                        ForEach(groupArray, id: \.self) { group in
-                            if let task = group.task {
-                                HStack {
-                                    Text("\(title) \(String(describing: task.id))")
-                                        .fontWeight(.bold)
-                                        .textCase(.uppercase)
-                                        .textFieldStyle(.roundedBorder)
-                                        .background(group.passed(taskId: task.id) ?
-                                                    Color.green : Color.appLightGold)
-                                        .foregroundColor(Color.white)
-                                    Text(task.title)
-                                        .fontWeight(.semibold)
-                                }
-                            }
-
-                            if let test = group.test, let id = group.testId {
-                                CollapsibleTestDetailView(test: test, testId: id, language: language, theme: theme)
-                            }
+                    ForEach(groupArray, id: \.self) { group in
+                        if let test = group.test, let id = group.testId {
+                            CollapsibleTestDetailView(test: test,
+                                                      testId: id,
+                                                      language: language,
+                                                      theme: theme)
                         }
                     }
-                } label: {
-                    disclosureLabel(groupArray)
-                }
-            }
-            Text(testRun.message ?? "Unknown")
 
-        }.padding()
+                } label: {
+                    HStack {
+                        if let tasks = groupArray.first?.task {
+                            Text("Task \(tasks.id)".uppercased())
+                                .fontWeight(.bold)
+                                .foregroundStyle(.black)
+                                .padding(.horizontal, 7)
+                                .roundEdges(backgroundColor: Color.appAccent, cornerRadius: 7)
+                            Text(tasks.title)
+                        }
+                    }
+                }
+
+                if let message = testRun.message {
+                    Text(message)
+                }
+            }.padding()
+        }
     }
 
     func disclosureLabel(_ tests: [TestGroup]) -> some View {

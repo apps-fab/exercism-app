@@ -13,7 +13,7 @@ struct ExerciseEditorWindowView: View {
     @StateObject private var viewModel: ExerciseViewModel
     @State private var showSubmissionTooltip = false
 
-    init(track: String, exercise: String, solution: Solution?) {
+    init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
         _viewModel = StateObject(wrappedValue: ExerciseViewModel(track, exercise, solution))
     }
 
@@ -28,16 +28,20 @@ struct ExerciseEditorWindowView: View {
             case .success(let document):
                 NavigationSplitView {
                     ExerciseRightSidebarView()
-                    .environmentObject(viewModel)
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
                         ForEach(document) { file in
                             ExerciseEditorView()
                                 .tabItem(for: file)
-                                .environmentObject(viewModel)
                         }
                     }
-                }
+                }.environmentObject(viewModel)
+                    .onAppear {
+                        print("ExerciseEditorWindowView appeared")
+                    }
+                    .onDisappear {
+                        print("ExerciseEditorWindowView disappeared")
+                    }
             case .failure(let error):
                 Text(error.description)
                     .frame(maxWidth: .infinity,
@@ -85,8 +89,8 @@ struct ExerciseEditorWindowView: View {
     }
 }
 
-#Preview {
-    ExerciseEditorWindowView(track: "Swift",
-                             exercise: "hello world",
-                             solution: PreviewData.shared.getSolutions()[0])
-}
+// #Preview {
+//    ExerciseEditorWindowView(track: "Swift",
+//                             exercise: "hello world",
+//                             solution: PreviewData.shared.getSolutions()[0])
+// }

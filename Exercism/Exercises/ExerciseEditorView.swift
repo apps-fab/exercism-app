@@ -49,7 +49,7 @@ struct ExerciseEditorView: View {
     }
 }
 
-#Preview {
-    ExerciseEditorView()
-        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
-}
+// #Preview {
+//    ExerciseEditorView()
+//        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
+// }

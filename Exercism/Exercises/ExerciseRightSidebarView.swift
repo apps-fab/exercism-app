@@ -18,6 +18,10 @@ struct ExerciseRightSidebarView: View {
         switch general.appAppearance {
         case .dark:
             return .wwdc18(withFont: .init(size: general.fontSize))
+        case .system:
+            return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+                ? .wwdc18(withFont: .init(size: general.fontSize))
+                : .sunset(withFont: .init(size: general.fontSize))
         default:
             return .sunset(withFont: .init(size: general.fontSize))
         }
@@ -71,8 +75,8 @@ struct ExerciseRightSidebarView: View {
     }
 }
 
-#Preview {
-    let solution = PreviewData.shared.getSolutions().first
-    ExerciseRightSidebarView()
-        .environmentObject(ExerciseViewModel("Swift", "Hello-world", solution))
-}
+// #Preview {
+//    let solution = PreviewData.shared.getSolutions().first
+//    ExerciseRightSidebarView()
+//        .environmentObject(ExerciseViewModel("Swift", "Hello-world", solution))
+// }

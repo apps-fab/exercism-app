@@ -31,3 +31,16 @@ struct TestRunResultView: View {
         }
     }
 }
+
+#Preview {
+    let testRun = PreviewData.shared.testRun()
+    TestRunResultView(testRun: testRun,
+                      language: "Swift",
+                      theme: Splash.Theme(
+                        font: Font(size: 14),
+                        plainTextColor: Color.black,
+                        tokenColors: [TokenType.string: Color.black],
+                    backgroundColor: Color(white: 0.12, alpha: 1))) {
+        print("we run")
+    }
+}

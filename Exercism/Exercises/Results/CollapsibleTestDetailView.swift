@@ -15,7 +15,7 @@ struct CollapsibleTestDetailView: View {
     let testId: Int
     let language: String
     let theme: Splash.Theme
-    @State var collapsed: Bool = true
+    @State var collapsed: Bool = false
     @State var showContent: Bool = false
 
     func statusLabel(status: TestStatus) -> some View {
