@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TestRunProgress: View {
     @State private var progress = 0.0
-    let totalSecs: Double
+    var totalSecs: Double
     private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
 
     let gradient = LinearGradient(
@@ -29,7 +29,8 @@ struct TestRunProgress: View {
                 .tint(gradient)
                 .padding()
                 .onReceive(timer) { _ in
-                    if progress < 100 {
+                    // TODO: figure a better way to do this
+                    if progress < 90 {
                         progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
                     }
                 }

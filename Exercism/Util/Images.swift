@@ -34,6 +34,7 @@ extension Image {
     static let play = Image(systemName: "play")
     static let circleFill = Image(systemName: "circle.fill")
     static let xCircle = Image(systemName: "x.circle")
+    static let xCircleFill = Image(systemName: "x.circle.fill")
     static let paperplaneCircle =  Image(systemName: "paperplane.circle")
     static let checkmark =  Image(systemName: "checkmark")
     static let profile = Image(systemName: "person.crop.circle.fill")

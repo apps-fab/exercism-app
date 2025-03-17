@@ -219,119 +219,177 @@ struct PreviewData {
         return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
     }
 
-    func getTracks() -> [Track] {
+    func testRunWithoutTasks() -> TestRun {
         let data = """
-             [
-{
-                 "slug": "swift",
-                 "title": "AWK",
-                 "course": false,
-                 "num_concepts": 0,
-                 "num_exercises": 59,
-                 "web_url": "https://exercism.org/tracks/awk",
-                 "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/awk.svg",
-                 "tags": [
-                     "Scripts",
-                     "Procedural",
-                     "Interpreted",
-                     "Standalone executable",
-                     "Weak",
-                     "Linux",
-                     "Mac OSX",
-                     "Windows"
-                 ],
-                 "last_touched_at": "2023-06-14T18:41:26Z",
-                 "is_new": false,
-                 "links": {
-                     "self": "https://exercism.org/tracks/awk",
-                     "exercises": "https://exercism.org/tracks/awk/exercises",
-                     "concepts": "https://exercism.org/tracks/awk/concepts"
-                 },
-                 "is_joined": true,
-                 "num_learnt_concepts": 0,
-                 "num_completed_exercises": 0,
-                 "num_solutions": 2,
-                 "has_notifications": false
-             },
-  {
-            "slug": "delphi",
-            "title": "Delphi Pascal",
-            "course": false,
-            "num_concepts": 0,
-            "num_exercises": 76,
-            "web_url": "https://exercism.org/tracks/delphi",
-            "icon_url": "https://assets.exercism.org/tracks/delphi.svg",
-            "tags": [
-                "Declarative",
-                "Imperative",
-                "Object-oriented",
-                "Procedural",
-                "Static",
-                "Strong",
-                "Compiled",
-                "Windows",
-                "Linux",
-                "iOS",
-                "Android",
-                "Web Browser",
-                "Standalone executable",
-                "Backends",
-                "Cross-platform development",
-                "Frontends",
-                "Games",
-                "GUIs",
-                "Web development",
-                "Financial systems",
-                "Mobile",
-                "Scientific calculations"
+        {
+            "uuid": "52296ea5-da53-4550-856c-eee75b711be3",
+            "submission_uuid": "76838d40e22648a7ad8124094633bb53",
+            "version": 3,
+            "status": "fail",
+            "message": null,
+            "message_html": null,
+            "output": null,
+            "output_html": null,
+            "tests": [
+                {
+                    "name": "test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app",
+                    "status": "fail",
+                    "test_code": "assert LogLevel.to_label(0, false) == :trace\nassert LogLevel.to_label(0, true) == :unknown",
+                    "message": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\n     test/log_level_test.exs:6\n     Assertion with == failed\n     code:  assert LogLevel.to_label(0, false) == :trace\n     left:  []\n     right: :trace\n     stacktrace:\n       test/log_level_test.exs:12: (test)\n",
+                    "message_html": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\n     <b><span style='color:#000;'>test/log_level_test.exs:6</span></b>\n     <span style='color:#A00;'>Assertion with == failed</span>\n     <span style='color:#0AA;'>code:  </span>assert LogLevel.to_label(0, false) == :trace\n     <span style='color:#0AA;'>left:  </span><span style='color:#A00;'>[]</span>\n     <span style='color:#0AA;'>right: </span><span style='color:#0A0;'>:trace</span>\n     <span style='color:#0AA;'>stacktrace:</span>\n       test/log_level_test.exs:12: (test)\n",
+                    "expected": null,
+                    "output": "",
+                    "output_html": "",
+                    "task_id": null
+                },
+                               {
+                                 "name": "test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2",
+                                 "status": "pass",
+                                 "test_code": "assert LogLevel.alert_recipient(6, false) == :dev2",
+                                 "message": " 12) test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2 (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:111\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.alert_recipient(6, false) == :dev2\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31mnil\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:dev2\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:117: (test)\\n",
+                                 "message_html": " 12) test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2 (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:111\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.alert_recipient(6, false) == :dev2\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003enil\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:dev2\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:117: (test)\\n",
+                                 "expected": null,
+                                 "output": "",
+                                 "output_html": "",
+                    "task_id": null
+                               },
+                               {
+                                 "name": "test LogLevel.alert_recipient/2 info code does not send alert",
+                                 "status": "pass",
+                                 "test_code": "refute LogLevel.alert_recipient(2, false)\\nrefute LogLevel.alert_recipient(2, true)",
+                                 "message": null,
+                                 "message_html": null,
+                                 "expected": null,
+                                 "output": "",
+                                 "output_html": "",
+                                 "task_id": 2
+                               },
             ],
-            "last_touched_at": null,
-            "is_new": false,
+            "tasks": [],
+            "highlightjs_language": "elixir",
             "links": {
-                "self": "https://exercism.org/tracks/delphi",
-                "exercises": "https://exercism.org/tracks/delphi/exercises",
-                "concepts": "https://exercism.org/tracks/delphi/concepts"
+                "self": "https://exercism.org/api/v2/solutions/e7bf53557d8145b1ac8eae7227e2e50e/submissions/76838d40e22648a7ad8124094633bb53/test_run"
             }
         }
+        """
 
-]
-"""
+        return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
+    }
+
+
+    func getTracks() -> [Track] {
+        let data = """
+                         [
+            {
+                             "slug": "swift",
+                             "title": "AWK",
+                             "course": false,
+                             "num_concepts": 0,
+                             "num_exercises": 59,
+                             "web_url": "https://exercism.org/tracks/awk",
+                             "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/awk.svg",
+                             "tags": [
+                                 "Scripts",
+                                 "Procedural",
+                                 "Interpreted",
+                                 "Standalone executable",
+                                 "Weak",
+                                 "Linux",
+                                 "Mac OSX",
+                                 "Windows"
+                             ],
+                             "last_touched_at": "2023-06-14T18:41:26Z",
+                             "is_new": false,
+                             "links": {
+                                 "self": "https://exercism.org/tracks/awk",
+                                 "exercises": "https://exercism.org/tracks/awk/exercises",
+                                 "concepts": "https://exercism.org/tracks/awk/concepts"
+                             },
+                             "is_joined": true,
+                             "num_learnt_concepts": 0,
+                             "num_completed_exercises": 0,
+                             "num_solutions": 2,
+                             "has_notifications": false
+                         },
+              {
+                        "slug": "delphi",
+                        "title": "Delphi Pascal",
+                        "course": false,
+                        "num_concepts": 0,
+                        "num_exercises": 76,
+                        "web_url": "https://exercism.org/tracks/delphi",
+                        "icon_url": "https://assets.exercism.org/tracks/delphi.svg",
+                        "tags": [
+                            "Declarative",
+                            "Imperative",
+                            "Object-oriented",
+                            "Procedural",
+                            "Static",
+                            "Strong",
+                            "Compiled",
+                            "Windows",
+                            "Linux",
+                            "iOS",
+                            "Android",
+                            "Web Browser",
+                            "Standalone executable",
+                            "Backends",
+                            "Cross-platform development",
+                            "Frontends",
+                            "Games",
+                            "GUIs",
+                            "Web development",
+                            "Financial systems",
+                            "Mobile",
+                            "Scientific calculations"
+                        ],
+                        "last_touched_at": null,
+                        "is_new": false,
+                        "links": {
+                            "self": "https://exercism.org/tracks/delphi",
+                            "exercises": "https://exercism.org/tracks/delphi/exercises",
+                            "concepts": "https://exercism.org/tracks/delphi/concepts"
+                        }
+                    }
+
+            ]
+            """
         return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
     }
 
     func getExercises() -> [Exercise] {
         let data = """
-   [
-{
-       "slug": "hello-world",
-       "type": "tutorial",
-       "title": "Hello World",
-       "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
-       "difficulty": "easy",
-       "blurb": "The classical introductory exercise. Just say Hello, World!.",
-       "is_external": false,
-       "is_unlocked": true,
-       "is_recommended": true,
-       "links": {
-         "self": "/tracks/awk/exercises/hello-world"
-       }
-     },
-{
-       "slug": "hello-world",
-       "type": "tutorial",
-       "title": "Hello World",
-       "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
-       "difficulty": "easy",
-       "blurb": "The classical introductory exercise. Just say Hello, World!.",
-       "is_external": false,
-       "is_unlocked": false,
-       "is_recommended": true,
-       "links": {
-         "self": "/tracks/awk/exercises/hello-world"
-       }
-     }
-]
-"""
+           [
+        {
+               "slug": "hello-world",
+               "type": "tutorial",
+               "title": "Hello World",
+               "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
+               "difficulty": "easy",
+               "blurb": "The classical introductory exercise. Just say Hello, World!.",
+               "is_external": false,
+               "is_unlocked": true,
+               "is_recommended": true,
+               "links": {
+                 "self": "/tracks/awk/exercises/hello-world"
+               }
+             },
+        {
+               "slug": "hello-world",
+               "type": "tutorial",
+               "title": "Hello World",
+               "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
+               "difficulty": "easy",
+               "blurb": "The classical introductory exercise. Just say Hello, World!.",
+               "is_external": false,
+               "is_unlocked": false,
+               "is_recommended": true,
+               "links": {
+                 "self": "/tracks/awk/exercises/hello-world"
+               }
+             }
+        ]
+        """
         return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
     }
     func getOrCreateDir() -> URL? {
@@ -360,36 +418,38 @@ struct PreviewData {
 
     func getSolutions() -> [Solution] {
         let data = """
-[{
-  "uuid": "bbf9b231b2a946ddbcd2db748e4c702c",
-  "private_url": "https://exercism.org/tracks/swift/exercises/wings-quest",
-  "public_url": "https://exercism.org/tracks/swift/exercises/wings-quest/solutions/cedricbahirwe",
-  "status": "iterated",
-  "mentoring_status": "none",
-  "published_iteration_head_tests_status": "not_queued",
-  "has_notifications": false,
-  "num_views": 0,
-  "num_stars": 0,
-  "num_comments": 0,
-  "num_iterations": 2,
-  "num_loc": 12,
-  "is_out_of_date": false,
-  "published_at": null,
-  "completed_at": null,
-  "updated_at": "2024-01-10T13:36:28+00:00",
-  "last_iterated_at": "2024-01-08T11:18:37+00:00",
-  "exercise": {
-    "slug": "wings-quest",
-    "title": "Wings Quest",
-    "icon_url": "https://assets.exercism.org/exercises/low-power-embedded-game.svg"
-  },
-  "track": {
-    "slug": "swift",
-    "title": "Swift",
-    "icon_url": "https://assets.exercism.org/tracks/swift.svg"
-  }
-}]
-"""
+        [
+        {
+          "uuid": "bbf9b231b2a946ddbcd2db748e4c702c",
+          "private_url": "https://exercism.org/tracks/swift/exercises/wings-quest",
+          "public_url": "https://exercism.org/tracks/swift/exercises/wings-quest/solutions/cedricbahirwe",
+          "status": "iterated",
+          "mentoring_status": "none",
+          "published_iteration_head_tests_status": "not_queued",
+          "has_notifications": false,
+          "num_views": 0,
+          "num_stars": 0,
+          "num_comments": 0,
+          "num_iterations": 2,
+          "num_loc": 12,
+          "is_out_of_date": false,
+          "published_at": null,
+          "completed_at": null,
+          "updated_at": "2024-01-10T13:36:28+00:00",
+          "last_iterated_at": "2024-01-08T11:18:37+00:00",
+          "exercise": {
+            "slug": "wings-quest",
+            "title": "Wings Quest",
+            "icon_url": "https://assets.exercism.org/exercises/low-power-embedded-game.svg"
+          },
+          "track": {
+            "slug": "swift",
+            "title": "Swift",
+            "icon_url": "https://assets.exercism.org/tracks/swift.svg"
+          }
+        }
+        ]
+        """
         return try! JSONDecoder().decode([Solution].self, from: Data(data.utf8))
     }
 }
