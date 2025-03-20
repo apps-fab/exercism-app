@@ -122,6 +122,7 @@ final class ExerciseViewModel: ObservableObject {
     var canSubmitSolution: Bool {
         submissionLink != nil
     }
+    @AppSettings(\.testSubmission) private var testSubmission
 
     // MARK: - on Appear Operations
 
@@ -131,9 +132,7 @@ final class ExerciseViewModel: ObservableObject {
 
     init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
         self.solution = solution
-        PreviewData.shared.testRunWithoutTasks()
-        canMarkAsComplete = solution?.status == .iterated
-        || solution?.status == .published || solution?.status == .completed
+        canMarkAsComplete = solution?.status == .iterated || solution?.status == .published
         Task {
             await getDocument(track, exercise)
         }
@@ -147,7 +146,7 @@ final class ExerciseViewModel: ObservableObject {
                 getLanguage(exerciseDoc)
                 instruction = try getExerciseInstructions(exerciseDoc)
                 tests = try getExerciseTests(exerciseDoc)
-
+                try await runUsingSavedLink()
                 let exercises = getLocalExercise(track, exercise, exerciseDoc)
                 selectedFile = exercises.first
                 selectedCode = getSelectedCode() ?? ""
@@ -176,8 +175,17 @@ final class ExerciseViewModel: ObservableObject {
         return try String(contentsOf: instructionURL, encoding: .utf8)
     }
 
-    private func runUsingSavedLink(_ iteration: Iteration) async throws {
-
+    private func runUsingSavedLink() async throws {
+        if let solutionId = solution?.id, let savedSubmission = testSubmission[solutionId] {
+            switch savedSubmission.testsStatus {
+            case .queued:
+                try await getTestRun(savedSubmission.links)
+            case .passed:
+                operationStatus = .solutionPassed
+            default:
+                operationStatus = .wrongSolution
+            }
+        }
     }
 
     private func getSelectedCode() -> String? {
@@ -241,6 +249,7 @@ final class ExerciseViewModel: ObservableObject {
             switch result.iteration.testsStatus {
             case .passed:
                 operationStatus = .solutionPassed
+                setSolutionToSubmit()
             default:
                 operationStatus = .wrongSolution
             }
@@ -288,6 +297,7 @@ final class ExerciseViewModel: ObservableObject {
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
                 switch runResult.testsStatus {
                 case .queued:
+                    testSubmission[exerciseSolutionId] = runResult
                     try await getTestRun(runResult.links)
                 case .passed:
                     operationStatus = .solutionPassed

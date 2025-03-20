@@ -119,7 +119,8 @@ actor Fetcher {
 
     func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution {
         try await withCheckedThrowingContinuation { continuation in
-            client.completeSolution(for: solutionId, publish: publish,
+            client.completeSolution(for: solutionId,
+                                    publish: publish,
                                     iteration: iterationIdx) { result in
                 switch result {
                 case .success(let solutions):

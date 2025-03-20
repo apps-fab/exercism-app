@@ -36,12 +36,6 @@ struct ExerciseEditorWindowView: View {
                         }
                     }
                 }.environmentObject(viewModel)
-                    .onAppear {
-                        print("ExerciseEditorWindowView appeared")
-                    }
-                    .onDisappear {
-                        print("ExerciseEditorWindowView disappeared")
-                    }
             case .failure(let error):
                 Text(error.description)
                     .frame(maxWidth: .infinity,
@@ -89,8 +83,8 @@ struct ExerciseEditorWindowView: View {
     }
 }
 
-// #Preview {
-//    ExerciseEditorWindowView(track: "Swift",
-//                             exercise: "hello world",
-//                             solution: PreviewData.shared.getSolutions()[0])
-// }
+ #Preview {
+     ExerciseEditorWindowView("Swift",
+                              "hello world",
+                              PreviewData.shared.getSolutions()[0])
+ }

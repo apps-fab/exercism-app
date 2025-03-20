@@ -23,7 +23,10 @@ struct TestRunResultView: View {
             VStack {
                 TestRunSummaryHeader(testRun: testRun)
                 ScrollView {
-                    TestGroupedByTaskList(testRun: testRun, language: language, theme: theme)
+                    TestGroupedByTaskList(testRun: testRun,
+                                          language: language,
+                                          theme: theme)
+                    .padding()
                 }
             }
         default:
@@ -40,7 +43,7 @@ struct TestRunResultView: View {
                         font: Font(size: 14),
                         plainTextColor: Color.black,
                         tokenColors: [TokenType.string: Color.black],
-                    backgroundColor: Color(white: 0.12, alpha: 1))) {
-        print("we run")
-    }
+                        backgroundColor: Color(white: 0.12, alpha: 1))) {
+                            print("we run")
+                        }
 }

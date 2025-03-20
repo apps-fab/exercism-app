@@ -20,8 +20,8 @@ struct ExerciseRightSidebarView: View {
             return .wwdc18(withFont: .init(size: general.fontSize))
         case .system:
             return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-                ? .wwdc18(withFont: .init(size: general.fontSize))
-                : .sunset(withFont: .init(size: general.fontSize))
+            ? .wwdc18(withFont: .init(size: general.fontSize))
+            : .sunset(withFont: .init(size: general.fontSize))
         default:
             return .sunset(withFont: .init(size: general.fontSize))
         }
@@ -64,19 +64,22 @@ struct ExerciseRightSidebarView: View {
 
             if let tests = viewModel.tests, let language = viewModel.language {
                 VStack {
-                    TestsView(tests: tests, language: language)
+                    TestsView(tests: tests,
+                              language: language)
+                    .padding()
                 }.tabItem(for: SelectedTab.tests)
             }
             VStack(alignment: HorizontalAlignment.leading) {
-                ResultView(language: language, theme: theme)
+                ResultView(language: language,
+                           theme: theme)
             }
             .tabItem(for: SelectedTab.result)
         }
     }
 }
 
-// #Preview {
-//    let solution = PreviewData.shared.getSolutions().first
-//    ExerciseRightSidebarView()
-//        .environmentObject(ExerciseViewModel("Swift", "Hello-world", solution))
-// }
+#Preview {
+    let solution = PreviewData.shared.getSolutions().first
+    ExerciseRightSidebarView()
+        .environmentObject(ExerciseViewModel("Swift", "Hello-world", solution))
+}

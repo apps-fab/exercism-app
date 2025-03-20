@@ -25,7 +25,7 @@ struct PreviewData {
                      "tests": [
                        {
                          "name": "test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(0, false) == :trace\\nassert LogLevel.to_label(0, true) == :unknown",
                          "message": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:6\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(0, false) == :trace\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:trace\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:12: (test)\\n",
                          "message_html": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:6\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(0, false) == :trace\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:trace\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:12: (test)\\n",
@@ -36,7 +36,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level 1 has label debug",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(1, false) == :debug\\nassert LogLevel.to_label(1, true) == :debug",
                          "message": "  2) test LogLevel.to_label/2 level 1 has label debug (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:17\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(1, false) == :debug\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:debug\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:19: (test)\\n",
                          "message_html": "  2) test LogLevel.to_label/2 level 1 has label debug (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:17\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(1, false) == :debug\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:debug\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:19: (test)\\n",
@@ -47,7 +47,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level 2 has label info",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(2, false) == :info\\nassert LogLevel.to_label(2, true) == :info",
                          "message": "  3) test LogLevel.to_label/2 level 2 has label info (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:24\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(2, false) == :info\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:info\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:26: (test)\\n",
                          "message_html": "  3) test LogLevel.to_label/2 level 2 has label info (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:24\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(2, false) == :info\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:info\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:26: (test)\\n",
@@ -58,7 +58,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level 3 has label warning",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(3, false) == :warning\\nassert LogLevel.to_label(3, true) == :warning",
                          "message": "  4) test LogLevel.to_label/2 level 3 has label warning (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:31\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(3, false) == :warning\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:warning\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:33: (test)\\n",
                          "message_html": "  4) test LogLevel.to_label/2 level 3 has label warning (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:31\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(3, false) == :warning\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:warning\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:33: (test)\\n",
@@ -69,7 +69,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level 4 has label error",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(4, false) == :error\\nassert LogLevel.to_label(4, true) == :error",
                          "message": "  5) test LogLevel.to_label/2 level 4 has label error (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:38\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(4, false) == :error\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:error\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:40: (test)\\n",
                          "message_html": "  5) test LogLevel.to_label/2 level 4 has label error (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:38\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(4, false) == :error\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:error\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:40: (test)\\n",
@@ -80,7 +80,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level 5 has label fatal only in a non-legacy app",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(5, false) == :fatal\\nassert LogLevel.to_label(5, true) == :unknown",
                          "message": "  6) test LogLevel.to_label/2 level 5 has label fatal only in a non-legacy app (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:45\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(5, false) == :fatal\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:fatal\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:51: (test)\\n",
                          "message_html": "  6) test LogLevel.to_label/2 level 5 has label fatal only in a non-legacy app (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:45\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(5, false) == :fatal\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:fatal\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:51: (test)\\n",
@@ -91,7 +91,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level 6 has label unknown",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(6, false) == :unknown\\nassert LogLevel.to_label(6, true) == :unknown",
                          "message": "  7) test LogLevel.to_label/2 level 6 has label unknown (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:56\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(6, false) == :unknown\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:unknown\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:58: (test)\\n",
                          "message_html": "  7) test LogLevel.to_label/2 level 6 has label unknown (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:56\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(6, false) == :unknown\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:unknown\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:58: (test)\\n",
@@ -102,7 +102,7 @@ struct PreviewData {
                        },
                        {
                          "name": "test LogLevel.to_label/2 level -1 has label unknown",
-                         "status": "fail",
+                         "status": "pass",
                          "test_code": "assert LogLevel.to_label(-1, false) == :unknown\\nassert LogLevel.to_label(-1, true) == :unknown",
                          "message": "  8) test LogLevel.to_label/2 level -1 has label unknown (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:63\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.to_label(-1, false) == :unknown\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31m[]\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:unknown\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:66: (test)\\n",
                          "message_html": "  8) test LogLevel.to_label/2 level -1 has label unknown (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:63\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.to_label(-1, false) == :unknown\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003e[]\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:unknown\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:66: (test)\\n",

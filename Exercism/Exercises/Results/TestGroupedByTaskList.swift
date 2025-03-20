@@ -71,7 +71,7 @@ struct TestGroupedByTaskList: View {
     private func taskHeader(for groupArray: [TestGroup]) -> some View {
         HStack {
             if let task = groupArray.first?.task {
-                let isPassed = groupArray.allSatisfy { $0.passed(taskId: task.id) }
+                let isPassed = groupArray.allSatisfy { $0.test?.status == .pass }
 
                 Text("Task \(task.id)".uppercased())
                     .fontWeight(.bold)
@@ -82,7 +82,7 @@ struct TestGroupedByTaskList: View {
                 Text(task.title)
                     .fontWeight(.bold)
 
-                Image(systemName: isPassed ? "checkmark.square.fill" : "x.circle.fill")
+                Image(systemName: isPassed ? "checkmark.circle.fill" : "x.circle.fill")
                     .foregroundStyle(isPassed ? .green : .red)
             }
         }

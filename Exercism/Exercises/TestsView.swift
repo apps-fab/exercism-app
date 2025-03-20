@@ -16,6 +16,7 @@ struct TestsView: View {
     private var editorLanguage: CodeEditor.Language {
         CodeEditor.Language.init(rawValue: language)
     }
+
     var body: some View {
         CodeEditor(source: tests, language: editorLanguage, theme: general.theme)
     }

@@ -11,6 +11,7 @@ import ExercismSwift
 
 struct SettingsData: Codable, Hashable {
     var general: GeneralSettings = .init()
+    var testSubmission: [String: TestSubmission] = [:]
 
     /// Default initializer
     init() {}
@@ -18,6 +19,8 @@ struct SettingsData: Codable, Hashable {
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.general = try container.decode(GeneralSettings.self, forKey: .general)
+        self.testSubmission = try container
+            .decodeIfPresent([String: TestSubmission].self, forKey: .testSubmission) ?? [:]
     }
 
     struct GeneralSettings: Codable, Hashable {

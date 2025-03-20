@@ -51,20 +51,20 @@ struct ContentView: View {
     @ViewBuilder
     private func handleDestinationRoute(_ route: Route) -> some View {
         switch route {
-        case let .exercise(track, exercise, solution):
-            ExerciseEditorWindowView(track, exercise, solution)
-                .environmentObject(navigationModel)
-
-        case let .track(track):
-            ExercisesList(track: track)
-                .environmentObject(navigationModel)
-
         case .login:
             LoginView()
                 .environmentObject(navigationModel)
 
         case .dashboard:
             TracksListView()
+                .environmentObject(navigationModel)
+
+        case let .exercise(track, exercise, solution):
+            ExerciseEditorWindowView(track, exercise, solution)
+                .environmentObject(navigationModel)
+
+        case let .track(track):
+            ExercisesList(track: track)
                 .environmentObject(navigationModel)
         }
     }

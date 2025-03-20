@@ -180,7 +180,7 @@ struct SubmitSolutionContentView: View {
     }
 }
 
-// #Preview {
-//    SubmitSolutionContentView()
-//        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
-// }
+ #Preview {
+    SubmitSolutionContentView()
+        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
+ }
