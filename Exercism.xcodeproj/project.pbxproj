@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -475,7 +475,7 @@
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				FDC4F8C82D7BCC89008CA0DC /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FD6E98712D8BC06F00501DC9 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -841,13 +841,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		FDC4F8C82D7BCC89008CA0DC /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../ExercismSwift;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -870,6 +863,14 @@
 			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
 			requirement = {
 				branch = master;
+				kind = branch;
+			};
+		};
+		FD6E98712D8BC06F00501DC9 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
+			requirement = {
+				branch = main;
 				kind = branch;
 			};
 		};
