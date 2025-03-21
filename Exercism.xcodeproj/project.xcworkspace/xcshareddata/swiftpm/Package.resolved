@@ -1,5 +1,5 @@
 {
-  "originHash" : "a42add1d1dadd052f21a441eb28909d931fe9da6dbd92416ada243046dcb7d50",
+  "originHash" : "17f4f01a10e60636d276f54dc3d157583a34715a333695b3e5e6887fc0bf465f",
   "pins" : [
     {
       "identity" : "codeeditor",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "master",
         "revision" : "00098338cf24993307f5127ed0d4fbfd06503545"
+      }
+    },
+    {
+      "identity" : "exercismswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apps-fab/ExercismSwift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5ae5b1fc3f246e66dc2b1b8dec10b615ba141222"
       }
     },
     {
@@ -43,7 +52,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "86e9185ef41c4238a93ad8efe61ddeb701e80bbf"
+        "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca"
       }
     },
     {
@@ -52,7 +61,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
       "state" : {
         "branch" : "master",
-        "revision" : "6de587af4f5b775c18665b90b86bec0ba7a4ac4e"
+        "revision" : "85b5d58ad02c207c496fa34426dc6560d6ae32f0"
       }
     },
     {
@@ -61,7 +70,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "5d462f7530677ae0c2b9510c26383aa25ba48751"
+        "revision" : "451c6dfd5ecec2cf626d1d9ca81c2d4a60355172"
       }
     },
     {
