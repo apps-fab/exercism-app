@@ -64,16 +64,22 @@ final class NavigationModel: ObservableObject, Codable {
     }
 
     func goToDashboard() {
-        path.append(Route.dashboard)
+        if path.last != .dashboard {
+            path.append(.dashboard)
+        }
     }
 
     func goToTrack(_ track: Track) {
-        path.append(Route.track(track))
+        if path.last != .track(track) {
+            path.append(.track(track))
+        }
     }
 
     func goToEditor(_ track: String, _ exercise: Exercise, solution: Solution?) {
         guard exercise.isUnlocked else { return }
-        path.append(Route.exercise(track, exercise.slug, solution))
+        if path.last != .exercise(track, exercise.slug, solution) {
+            path.append(.exercise(track, exercise.slug, solution))
+        }
     }
 
     func goToLogin() {

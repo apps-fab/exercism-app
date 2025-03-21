@@ -46,6 +46,15 @@ extension View {
     @MainActor public func tabItem<TabItem: Tabbable>(for item: TabItem) -> some View {
         return self.modifier(TabBarViewModifier(item: item))
     }
+
+    @ViewBuilder
+      func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+          if condition {
+              transform(self)
+          } else {
+              self
+          }
+      }
 }
 
 #if os(macOS)

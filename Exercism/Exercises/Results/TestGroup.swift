@@ -19,7 +19,7 @@ struct TestGroup: Identifiable, Hashable {
         self.testId = testId
     }
 
-    func passed(taskId: Int) -> Bool {
+    var passed: Bool {
         tests?.flatMap { $0 }.allSatisfy {
             $0.test?.status == .pass
         } ?? false

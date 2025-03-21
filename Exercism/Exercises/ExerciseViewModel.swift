@@ -8,6 +8,34 @@
 import Foundation
 import ExercismSwift
 
+enum SelectedTab: Int, Tabbable {
+    case instruction = 0
+    case result
+    case tests
+
+    var icon: String {
+        switch self {
+        case .instruction:
+            return "list.bullet"
+        case .result:
+            return "checkmark.icloud.fill"
+        case .tests:
+            return "checklist.unchecked"
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .instruction:
+            return "Instruction"
+        case .result:
+            return "Result"
+        case .tests:
+            return "Tests"
+        }
+    }
+}
+
 enum ExerciseModelResponse: Equatable {
     case solutionPassed, wrongSolution, runFailed, errorSubmitting, errorRunningTest, idle
     case duplicateSubmission(message: String)
@@ -41,29 +69,6 @@ enum ExerciseModelResponse: Equatable {
     }
 }
 
-enum SelectedTab: Int, Tabbable {
-    case instruction = 0
-    case result
-
-    var icon: String {
-        switch self {
-        case .instruction:
-            return "list.bullet"
-        case .result:
-            return "checkmark.icloud.fill"
-        }
-    }
-
-    var title: String {
-        switch self {
-        case .instruction:
-            return "Instruction"
-        case .result:
-            return "Result"
-        }
-    }
-}
-
 extension ExerciseFile: Tabbable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(icon)
@@ -93,7 +98,6 @@ final class ExerciseViewModel: ObservableObject {
             updateCode(selectedCode)
         }
     }
-    @Published var exerciseItem: ExerciseItem?
     @Published var testSubmissionResponseMessage: Bool = false
     @Published var showTestSubmissionResponseMessage = false
     @Published var solutionToSubmit: Solution?
@@ -105,13 +109,20 @@ final class ExerciseViewModel: ObservableObject {
     }
     @Published var currentSolutionIterations: [Iteration] = []
     @Published var language: String?
-    @Published var documents = [ExerciseFile]()
     @Published var state: LoadingState<[ExerciseFile]> = .idle
+    @Published var tests: String?
+    @Published var canRunTests: Bool = true
+    @Published var canMarkAsComplete: Bool = false
 
     private let fetcher = Fetcher()
     private var codes = [String: String]()
-    private var solution: SolutionFile?
+    private var solution: Solution?
     private let nanosecondsPerSecond: Double = 1_000_000_000
+    private var exerciseItem: ExerciseItem?
+    var canSubmitSolution: Bool {
+        submissionLink != nil
+    }
+    @AppSettings(\.testSubmission) private var testSubmission
 
     // MARK: - on Appear Operations
 
@@ -119,31 +130,31 @@ final class ExerciseViewModel: ObservableObject {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
-    init(_ track: String, _ exercise: String) {
+    init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
+        self.solution = solution
+        canMarkAsComplete = solution?.status == .iterated || solution?.status == .published
         Task {
             await getDocument(track, exercise)
         }
     }
 
-    func getDocument(_ track: String, _ exercise: String) async {
+    private func getDocument(_ track: String, _ exercise: String) async {
         state = .loading
         do {
             let exercises = try await withThrowingTaskGroup(of: Optional<ExerciseFile>.self) { _ in
                 let exerciseDoc = try await downloadSolutions(track, exercise)
-                solution = exerciseDoc.solution
                 getLanguage(exerciseDoc)
-
-                if let instructionURL = exerciseDoc.instructions {
-                    instruction = try getInstruction(instructionURL)
-                }
-
+                instruction = try getExerciseInstructions(exerciseDoc)
+                tests = try getExerciseTests(exerciseDoc)
+                try await runUsingSavedLink()
                 let exercises = getLocalExercise(track, exercise, exerciseDoc)
                 selectedFile = exercises.first
                 selectedCode = getSelectedCode() ?? ""
+                await getIterations(for: solution)
                 return exercises
             }
+
             state = .success(exercises)
-            documents = exercises
         } catch {
             operationStatus = .genericError(error: error.localizedDescription)
             state = .failure(error as? ExercismClientError ?? ExercismClientError.unsupportedResponseError)
@@ -152,6 +163,29 @@ final class ExerciseViewModel: ObservableObject {
 
     private func getLanguage(_ exerciseDoc: ExerciseDocument?) {
         language = exerciseDoc?.solution.exercise.trackLanguage
+    }
+
+    private func getExerciseTests(_ exerciseDoc: ExerciseDocument) throws -> String? {
+        guard let testsURL = exerciseDoc.tests.first else { return nil }
+        return try String(contentsOf: testsURL, encoding: .utf8)
+    }
+
+    private func getExerciseInstructions(_ exerciseDoc: ExerciseDocument) throws -> String? {
+        guard let instructionURL = exerciseDoc.instructions else { return nil }
+        return try String(contentsOf: instructionURL, encoding: .utf8)
+    }
+
+    private func runUsingSavedLink() async throws {
+        if let solutionId = solution?.id, let savedSubmission = testSubmission[solutionId] {
+            switch savedSubmission.testsStatus {
+            case .queued:
+                try await getTestRun(savedSubmission.links)
+            case .passed:
+                operationStatus = .solutionPassed
+            default:
+                operationStatus = .wrongSolution
+            }
+        }
     }
 
     private func getSelectedCode() -> String? {
@@ -167,17 +201,14 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    private func getInstruction(_ instructions: URL) throws -> String {
-        return try String(contentsOf: instructions, encoding: .utf8)
-    }
-
     private func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
-    private func getLocalExercise(_ track: String, _ exercise: String,
+    private func getLocalExercise(_ track: String,
+                                  _ exercise: String,
                                   _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
-        let solutionFiles =  exerciseDoc.solutions.map { ExerciseFile.fromURL($0) }
+        let solutionFiles = exerciseDoc.solutions.map { ExerciseFile(from: $0) }
         self.exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
         self.title = "\(track)/ \(exercise)"
         return solutionFiles
@@ -185,8 +216,9 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Iterations
 
-    func getIterations(for solution: Solution) async {
+    func getIterations(for solution: Solution?) async {
         do {
+            guard let solution else { return }
             currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
         } catch {
             if case let ExercismClientError.apiError(_, _, message) = error {
@@ -217,6 +249,7 @@ final class ExerciseViewModel: ObservableObject {
             switch result.iteration.testsStatus {
             case .passed:
                 operationStatus = .solutionPassed
+                setSolutionToSubmit()
             default:
                 operationStatus = .wrongSolution
             }
@@ -225,8 +258,10 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func setSolutionToSubmit(_ solution: Solution?) {
-        solutionToSubmit = solution
+    func setSolutionToSubmit() {
+        if canMarkAsComplete {
+            solutionToSubmit = solution
+        }
     }
 
     // MARK: - Complete Exercise
@@ -248,6 +283,7 @@ final class ExerciseViewModel: ObservableObject {
     // MARK: - Tests
 
     func runTest() {
+        canRunTests = false
         selectedTab = .result
         updateFile()
 
@@ -261,6 +297,7 @@ final class ExerciseViewModel: ObservableObject {
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
                 switch runResult.testsStatus {
                 case .queued:
+                    testSubmission[exerciseSolutionId] = runResult
                     try await getTestRun(runResult.links)
                 case .passed:
                     operationStatus = .solutionPassed
@@ -268,6 +305,8 @@ final class ExerciseViewModel: ObservableObject {
                     operationStatus = .wrongSolution
                 }
             } catch let error {
+                canRunTests = true
+                operationStatus = .errorRunningTest
                 if let clientError = error as? ExercismClientError {
                     if case let .apiError(_, type, message) = clientError, type == "duplicate_submission" {
                         operationStatus = .duplicateSubmission(message: message)
@@ -282,7 +321,7 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     private func getTestRun(_ submissionLink: SubmissionLinks) async throws {
-        let result =  try await fetcher.getTestRun(submissionLink.testRun)
+        let result = try await fetcher.getTestRun(submissionLink.testRun)
 
         if let testRun = result.testRun {
             averageTestDuration = nil
@@ -309,34 +348,25 @@ final class ExerciseViewModel: ObservableObject {
         return solutionsData
     }
 
-    var canSubmitSolution: Bool {
-        submissionLink != nil
-    }
-
     private func processTestRun(testRun: TestRun, links: SubmissionLinks) {
+        canRunTests = true
         if testRun.status == .pass {
             submissionLink = links.submit
         }
         self.testRun = testRun
     }
 
-    @discardableResult
-    func updateFile() -> Bool {
-        if !selectedCode.isEmpty {
-            do {
-                try selectedCode.write(to: selectedFile.url, atomically: false, encoding: .utf8)
-                return true
-            } catch {
-                let message = "Error updating \(selectedFile.id) with \(selectedCode)"
-                operationStatus = .genericError(error: message)
-                return false
-            }
+    func updateFile() {
+        guard !selectedCode.isEmpty else { return }
+        do {
+            try selectedCode.write(to: selectedFile.url, atomically: false, encoding: .utf8)
+        } catch {
+            let message = "Error updating \(selectedFile.id) with \(selectedCode)"
+            operationStatus = .genericError(error: message)
         }
-
-        return false
     }
 
-    func updateCode(_ code: String) {
+    private func updateCode(_ code: String) {
         codes[selectedFile.id] = code
     }
 }

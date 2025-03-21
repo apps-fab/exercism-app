@@ -13,12 +13,15 @@ import MarkdownUI
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject private var viewModel: ExerciseViewModel
     @AppSettings(\.general) private var general
-    var onMarkAsComplete: (() -> Void)?
 
     private var theme: Splash.Theme {
         switch general.appAppearance {
         case .dark:
             return .wwdc18(withFont: .init(size: general.fontSize))
+        case .system:
+            return NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+            ? .wwdc18(withFont: .init(size: general.fontSize))
+            : .sunset(withFont: .init(size: general.fontSize))
         default:
             return .sunset(withFont: .init(size: general.fontSize))
         }
@@ -38,8 +41,8 @@ struct ExerciseRightSidebarView: View {
                                     language: language,
                                     markdownTheme: markdownTheme)
 
-                    if let onMarkAsComplete {
-                        Button(action: onMarkAsComplete) {
+                    if viewModel.canMarkAsComplete {
+                        Button(action: viewModel.setSolutionToSubmit) {
                             Label {
                                 Text(Strings.markAsComplete.localized())
                             } icon: {
@@ -57,10 +60,18 @@ struct ExerciseRightSidebarView: View {
                 .padding(.horizontal)
                 .background(markdownTheme.textBackgroundColor)
                 .tabItem(for: SelectedTab.instruction)
+            }
 
+            if let tests = viewModel.tests, let language = viewModel.language {
+                VStack {
+                    TestsView(tests: tests,
+                              language: language)
+                    .padding()
+                }.tabItem(for: SelectedTab.tests)
             }
             VStack(alignment: HorizontalAlignment.leading) {
-                ResultView(language: language, theme: theme)
+                ResultView(language: language,
+                           theme: theme)
             }
             .tabItem(for: SelectedTab.result)
         }
@@ -68,5 +79,7 @@ struct ExerciseRightSidebarView: View {
 }
 
 #Preview {
+    let solution = PreviewData.shared.getSolutions().first
     ExerciseRightSidebarView()
+        .environmentObject(ExerciseViewModel("Swift", "Hello-world", solution))
 }

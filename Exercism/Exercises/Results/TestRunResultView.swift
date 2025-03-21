@@ -23,11 +23,27 @@ struct TestRunResultView: View {
             VStack {
                 TestRunSummaryHeader(testRun: testRun)
                 ScrollView {
-                    TestGroupedByTaskList(testRun: testRun, language: language, theme: theme)
+                    TestGroupedByTaskList(testRun: testRun,
+                                          language: language,
+                                          theme: theme)
+                    .padding()
                 }
             }
         default:
             TestRunSummaryHeader(testRun: testRun)
         }
     }
+}
+
+#Preview {
+    let testRun = PreviewData.shared.testRun()
+    TestRunResultView(testRun: testRun,
+                      language: "Swift",
+                      theme: Splash.Theme(
+                        font: Font(size: 14),
+                        plainTextColor: Color.black,
+                        tokenColors: [TokenType.string: Color.black],
+                        backgroundColor: Color(white: 0.12, alpha: 1))) {
+                            print("we run")
+                        }
 }

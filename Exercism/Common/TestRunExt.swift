@@ -60,7 +60,7 @@ extension TestRun {
                     }
                     .enumerated()
                     .map { testId, test in
-                        TestGroup(test: test, testId: testId + 1)
+                        TestGroup(test: test, task: task, testId: testId + 1)
                     }
                 }
                 return tests

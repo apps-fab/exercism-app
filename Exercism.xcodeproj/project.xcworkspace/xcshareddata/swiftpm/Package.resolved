@@ -16,7 +16,7 @@
       "location" : "https://github.com/apps-fab/ExercismSwift.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ea7717f4b285796421ab9981b8e816bef13079b5"
+        "revision" : "5ae5b1fc3f246e66dc2b1b8dec10b615ba141222"
       }
     },
     {
@@ -52,7 +52,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
         "branch" : "master",
-        "revision" : "86e9185ef41c4238a93ad8efe61ddeb701e80bbf"
+        "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
       "state" : {
         "branch" : "master",
-        "revision" : "6de587af4f5b775c18665b90b86bec0ba7a4ac4e"
+        "revision" : "85b5d58ad02c207c496fa34426dc6560d6ae32f0"
       }
     },
     {
@@ -70,7 +70,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
         "branch" : "master",
-        "revision" : "5d462f7530677ae0c2b9510c26383aa25ba48751"
+        "revision" : "451c6dfd5ecec2cf626d1d9ca81c2d4a60355172"
       }
     },
     {
