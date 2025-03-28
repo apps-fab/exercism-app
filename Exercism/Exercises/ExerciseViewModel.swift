@@ -177,7 +177,7 @@ final class ExerciseViewModel: ObservableObject {
 
     private func runUsingSavedLink() async throws {
         if let solutionId = solution?.id, let savedSubmission = testSubmission[solutionId] {
-            switch savedSubmission.testsStatus {
+            switch savedSubmission.testStatus {
             case .queued:
                 try await getTestRun(savedSubmission.links)
             case .passed:
@@ -198,6 +198,22 @@ final class ExerciseViewModel: ObservableObject {
             return code
         } catch {
             return nil
+        }
+    }
+
+    func revertToStart() {
+        guard let solution else { return }
+        Task {
+            do {
+                let solution = try await fetcher.revertToStart(solution.uuid)
+                selectedCode = solution.files.first?.content ?? ""
+            } catch {
+                if case let ExercismClientError.apiError(_, _, message) = error {
+                    operationStatus = .genericError(error: message)
+                } else {
+                    operationStatus = .genericError(error: error.localizedDescription)
+                }
+            }
         }
     }
 
@@ -295,7 +311,7 @@ final class ExerciseViewModel: ObservableObject {
             do {
                 let solutionData = try getSolutionFileData()
                 let runResult = try await self.performRunTest(exerciseSolutionId, solutionData)
-                switch runResult.testsStatus {
+                switch runResult.testStatus {
                 case .queued:
                     testSubmission[exerciseSolutionId] = runResult
                     try await getTestRun(runResult.links)

@@ -46,7 +46,7 @@ struct TrackGridView: View {
         .padding()
         .scaleEffect(isHover ? 1.05 : 1)
         .onHover { hover in
-            if track.isJoined {
+            if track._isJoined {
                 withAnimation {
                     isHover = hover
                 }
@@ -60,7 +60,7 @@ struct TrackGridView: View {
                 Text(track.title)
                     .font(.title3.bold())
 
-                if track.isNew && !track.isJoined {
+                if track.isNew && track._isJoined {
                     Label(title: {
                         Text(Strings.new.localized())
                     }, icon: {
@@ -74,7 +74,7 @@ struct TrackGridView: View {
                     .font(.callout.weight(.semibold))
                 }
 
-                if track.isJoined {
+                if track._isJoined {
                     Spacer()
                     Label {
                         Text( Strings.joined.localized())
@@ -102,9 +102,9 @@ struct TrackGridView: View {
 
             HStack(spacing: 20) {
                 Label(title: {
-                    if track.isJoined {
+                    if track._isJoined {
                         Text(String(format: Strings.completedExercises.localized(),
-                                    track.numCompletedExercises, track.numExercises))
+                                    track._numCompletedExercises, track.numExercises))
                         .fontWeight(.medium)
                     } else {
                         Text(String(format: Strings.exercises.localized(), track.numExercises))
@@ -126,8 +126,8 @@ struct TrackGridView: View {
                 })
             }
 
-            if track.isJoined {
-                let completedExercises = Float(track.numCompletedExercises)
+            if track._isJoined {
+                let completedExercises = Float(track._numCompletedExercises)
                 let numberOfExercises = Float(track.numExercises)
 
                 Gauge(value: completedExercises, in: 0...numberOfExercises) {

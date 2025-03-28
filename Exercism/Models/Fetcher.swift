@@ -80,7 +80,7 @@ actor Fetcher {
 
     func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> TestSubmission {
         return try await withCheckedThrowingContinuation { continuation in
-            client.runTest(for: solutionId, withFileContents: contents) { result in
+            client.runTest(for: solutionId, with: contents) { result in
                 switch result {
                 case .success(let solutions):
                     continuation.resume(returning: solutions)
@@ -125,6 +125,19 @@ actor Fetcher {
                 switch result {
                 case .success(let solutions):
                     continuation.resume(returning: solutions)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
+    func revertToStart(_ solutionId: String) async throws -> InitialFiles {
+        try await withCheckedThrowingContinuation { continuation in
+            client.initialSolution(for: solutionId) { result in
+                switch result {
+                case .success(let solution):
+                    continuation.resume(returning: solution)
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }

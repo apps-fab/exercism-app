@@ -15,7 +15,7 @@ struct SideBar: View {
     let tracks: [Track]
 
     private var joinedTracks: [Track] {
-        tracks.filter(\.isJoined)
+        tracks.filter(\._isJoined)
     }
 
     var body: some View {
@@ -78,7 +78,7 @@ private extension SideBar {
 
                         Label {
                             Text(String(format: Strings.exerciseNumber.localized(),
-                                        track.numCompletedExercises,
+                                        track._numCompletedExercises,
                                         track.numExercises))
                         } icon: {
                             Image.dumbell

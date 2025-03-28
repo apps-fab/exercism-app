@@ -79,8 +79,8 @@ struct TracksListView: View {
 
     @ViewBuilder
     func tracksView(_ tracks: [Track]) -> some View {
-        let joinedTracks = tracks.filter { $0.isJoined }
-        let unjoinedTracks = tracks.filter { !$0.isJoined }
+        let joinedTracks = tracks.filter { $0._isJoined }
+        let unjoinedTracks = tracks.filter { !$0._isJoined }
 
         VStack(spacing: 0) {
             VStack {

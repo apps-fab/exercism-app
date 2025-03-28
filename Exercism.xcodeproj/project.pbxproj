@@ -68,7 +68,6 @@
 		FD95C9122C518B89007B4E5B /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD95C9112C518B89007B4E5B /* ExercismSwift */; };
 		FD9B57E92A8264AB0042C6B0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */; };
 		FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = FDA25A8E2CBECFFD00848060 /* KeychainAccess */; };
-		FDA5A6862D8D475E00D05563 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDA5A6852D8D475E00D05563 /* ExercismSwift */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */; };
 		FDB4F1752CCCB4BA005CC3C4 /* WindowCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */; };
@@ -89,6 +88,11 @@
 		FDDAEB5A29B6667300C6F938 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDAEB5929B6667300C6F938 /* TrackViewModel.swift */; };
 		FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */; };
 		FDE4EBFC2A4B009C007ED19E /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE4EBFB2A4B009C007ED19E /* EmptyStateView.swift */; };
+		FDE58F652D946A3C002618BD /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDE58F642D946A3C002618BD /* ExercismSwift */; };
+		FDE58F682D946A8E002618BD /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDE58F672D946A8E002618BD /* ExercismSwift */; };
+		FDE58F6E2D946C92002618BD /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDE58F6D2D946C92002618BD /* ExercismSwift */; };
+		FDE58F712D946CB2002618BD /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDE58F702D946CB2002618BD /* ExercismSwift */; };
+		FDE72BC62D96ADC3008BAA2F /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDE72BC52D96ADC3008BAA2F /* ExercismSwift */; };
 		FDFF5A812A66C2E700E36AA4 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFF5A802A66C2E700E36AA4 /* Images.swift */; };
 		FDFF5A832A66C31A00E36AA4 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFF5A822A66C31A00E36AA4 /* Strings.swift */; };
 /* End PBXBuildFile section */
@@ -175,15 +179,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDE72BC62D96ADC3008BAA2F /* ExercismSwift in Frameworks */,
 				FDC1D5902CCBC4C400021F88 /* ExercismSwift in Frameworks */,
 				FDC1D58D2CCBAFE400021F88 /* ExercismSwift in Frameworks */,
 				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
 				FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */,
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
+				FDE58F682D946A8E002618BD /* ExercismSwift in Frameworks */,
 				FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */,
+				FDE58F6E2D946C92002618BD /* ExercismSwift in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
-				FDA5A6862D8D475E00D05563 /* ExercismSwift in Frameworks */,
+				FDE58F712D946CB2002618BD /* ExercismSwift in Frameworks */,
+				FDE58F652D946A3C002618BD /* ExercismSwift in Frameworks */,
 				FD95C9122C518B89007B4E5B /* ExercismSwift in Frameworks */,
 				FD403C832C518ED700CD8D81 /* ExercismSwift in Frameworks */,
 				FDC4F8CA2D7BCC89008CA0DC /* ExercismSwift in Frameworks */,
@@ -438,7 +446,11 @@
 				FDC1D58C2CCBAFE400021F88 /* ExercismSwift */,
 				FDC1D58F2CCBC4C400021F88 /* ExercismSwift */,
 				FDC4F8C92D7BCC89008CA0DC /* ExercismSwift */,
-				FDA5A6852D8D475E00D05563 /* ExercismSwift */,
+				FDE58F642D946A3C002618BD /* ExercismSwift */,
+				FDE58F672D946A8E002618BD /* ExercismSwift */,
+				FDE58F6D2D946C92002618BD /* ExercismSwift */,
+				FDE58F702D946CB2002618BD /* ExercismSwift */,
+				FDE72BC52D96ADC3008BAA2F /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
@@ -478,7 +490,7 @@
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				FDA5A6842D8D475E00D05563 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
+				FDE72BC42D96ADC3008BAA2F /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -885,14 +897,6 @@
 				kind = branch;
 			};
 		};
-		FDA5A6842D8D475E00D05563 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		FDBC7C862C22E90B0008FEAB /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
@@ -933,6 +937,14 @@
 				kind = branch;
 			};
 		};
+		FDE72BC42D96ADC3008BAA2F /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
+			requirement = {
+				branch = ft/generateDocC;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -968,11 +980,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
-		};
-		FDA5A6852D8D475E00D05563 /* ExercismSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FDA5A6842D8D475E00D05563 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
-			productName = ExercismSwift;
 		};
 		FDBC7C872C22E90B0008FEAB /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1010,6 +1017,27 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		FDE58F642D946A3C002618BD /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FDE58F672D946A8E002618BD /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FDE58F6D2D946C92002618BD /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FDE58F702D946CB2002618BD /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FDE72BC52D96ADC3008BAA2F /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDE72BC42D96ADC3008BAA2F /* XCRemoteSwiftPackageReference "ExercismSwift" */;
+			productName = ExercismSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

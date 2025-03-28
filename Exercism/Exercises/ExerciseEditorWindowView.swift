@@ -48,6 +48,13 @@ struct ExerciseEditorWindowView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button {
+                    viewModel.revertToStart()
+                } label: {
+                    Image(systemName: "gobackward")
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
                     viewModel.runTest()
                 } label: {
                     Label(Strings.runTests.localized(),
