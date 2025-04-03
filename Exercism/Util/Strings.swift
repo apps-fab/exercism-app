@@ -21,7 +21,7 @@ enum Strings: String {
     case learningMode = "Learning Mode"
     case lastTouched = "Last touched %@ ago"
     case languageIntro = "Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors."
-    case languageNumber = "67+ languages for you to master"
+    case languageNumber = "75 languages for you to master"
     case searchLanguage = "Search language filters"
     case filterBy = "Filter by"
     case showingTracks = "Showing all %d tracks"
@@ -30,6 +30,7 @@ enum Strings: String {
     case apply = "Apply"
     case close = "Close"
     case submit = "Submit"
+    case confirm = "Confirm"
     case runTests = "Run Tests"
     case runTestsError = "You need to run the tests before submitting."
     case toggleInstructions = "Toggle instructions"
@@ -59,6 +60,7 @@ enum Strings: String {
     case publishCodeTitle = "Publish your code and share\nyour knowledge"
     case publishCodeSubtitle = "By publishing your code, you'll help others learn from your work.\nYou can choose which iterations you publish, add more iterations once it's published, and unpublish it at any time."
     case markAsComplete = "Mark as complete"
+    case iteration = "Iteration %d"
 
     // Login
     case introTitle = "Exercode is built using Exercism APIs and off of the exercism concept. It's free, open source, and community driven."
@@ -82,10 +84,10 @@ enum Strings: String {
     case correctSolution = "This solution correctly solves the latest version of this exercise."
     case wrongSolution = "This solution does not fully solve the latest version of this exercise"
     case solutionPublished = "Your solution has been published successfully."
-    case solutionNotPublished = "Error publishing your solution. Try again later."
     case solutionAlreadySubmitted = "Error publishing solution. A solution has already been published"
     case searchString = "Search by title"
     case searchTrackString = "Search language tracks"
+    case sharingOption = "Select Solution Sharing Option"
 
     // Error strings
     case errorOccurred = "An error occurred"
@@ -95,6 +97,7 @@ enum Strings: String {
     case errorSubmitting = "Error submitting solution. Try again."
     case runFailed = "Test run failed. Try again."
     case tokenEmptyWarning = "API token cannot be empty"
+    case revertExercise = "Revert to exercise start"
 
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

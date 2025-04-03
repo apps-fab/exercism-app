@@ -15,6 +15,7 @@ extension Image {
     static let mainLogo = Image("mainLogo")
     static let starsLogo = Image("stars")
     static let trackImages = Image("trackImages")
+    static let publishMan =  Image("publishMan")
 
     // System Images
     static let magnifyingGlass = Image(systemName: "magnifyingglass")
@@ -46,4 +47,5 @@ extension Image {
     static let gear = Image(systemName: "doc.badge.gearshape")
     static let terminal = Image(systemName: "terminal")
     static let checkmarkSeal = Image(systemName: "checkmark.seal")
+    static let revert = Image(systemName: "gobackward")
 }

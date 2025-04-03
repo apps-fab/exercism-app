@@ -23,3 +23,18 @@ struct ExerciseFile: Identifiable, Equatable {
         self.type = .solution
     }
 }
+
+extension ExerciseFile: Tabbable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(icon)
+        hasher.combine(title)
+    }
+
+    var icon: String {
+        self.iconName
+    }
+
+    var title: String {
+        self.name
+    }
+}

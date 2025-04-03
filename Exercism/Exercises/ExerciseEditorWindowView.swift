@@ -11,10 +11,10 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
-    @State private var showSubmissionTooltip = false
 
     init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
-        _viewModel = StateObject(wrappedValue: ExerciseViewModel(track, exercise, solution))
+        let viewModel = ExerciseViewModel(track, exercise, solution)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -28,6 +28,7 @@ struct ExerciseEditorWindowView: View {
             case .success(let document):
                 NavigationSplitView {
                     ExerciseRightSidebarView()
+                        .environmentObject(viewModel)
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
                         ForEach(document) { file in
@@ -46,52 +47,60 @@ struct ExerciseEditorWindowView: View {
             ToolbarItem {
                 Spacer()
             }
+
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     viewModel.revertToStart()
                 } label: {
-                    Image(systemName: "gobackward")
-                }
+                    Image.revert
+                }.tooltip(Strings.revertExercise.localized())
             }
+
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    viewModel.runTest()
+                    Task {
+                        await viewModel.runTests()
+                    }
                 } label: {
-                    Label(Strings.runTests.localized(),
-                          systemImage: "play.circle")
+                    Label {
+                        Text(Strings.runTests.localized())
+                    } icon: {
+                        Image.playCircle
+                    }
                     .labelStyle(.titleAndIcon)
                     .fixedSize()
                 }.disabled(!viewModel.canRunTests)
-                    .if(!viewModel.canSubmitSolution) { button in
-                        button.tooltip("cannot run tests right now")
+                    .if(viewModel.canRunTests) { button in
+                        button.tooltip(Strings.runTestsTitle.localized())
                     }
             }
+
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    viewModel.submitSolution()
+                    Task {
+                        await viewModel.submitSolution()
+                    }
                 } label: {
-                    Label(Strings.submit.localized(),
-                          systemImage: "paperplane.circle")
+                    Label {
+                        Text(Strings.submit.localized())
+                    } icon: {
+                        Image.paperplaneCircle
+                    }
                     .labelStyle(.titleAndIcon)
                     .fixedSize()
                 }
-                .disabled(!viewModel.canSubmitSolution)
-                .if(!viewModel.canSubmitSolution) { button in
+                .disabled(!viewModel.canSubmit)
+                .if(!viewModel.canSubmit) { button in
                     button.tooltip(Strings.runTestsError.localized())
                 }
             }
-
         }
         .navigationTitle(viewModel.title)
-        .sheet(item: $viewModel.solutionToSubmit) { _ in
-            SubmitSolutionContentView()
-                .environmentObject(viewModel)
-        }
     }
 }
 
- #Preview {
-     ExerciseEditorWindowView("Swift",
-                              "hello world",
-                              PreviewData.shared.getSolutions()[0])
- }
+#Preview {
+    ExerciseEditorWindowView("Swift",
+                             "hello world",
+                             PreviewData.shared.getSolutions()[0])
+}

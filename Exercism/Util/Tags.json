@@ -13,7 +13,7 @@
     },
     {
         "type": "Platform",
-        "tags": ["Windows", "Mac OSX", "Linux", "iOS", "Android", "Web Browser"]
+        "tags": ["Windows", "Mac OS", "Linux", "iOS", "Android", "Web Browser"]
     },
     {
         "type": "Runtime",

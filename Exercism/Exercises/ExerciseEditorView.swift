@@ -42,14 +42,14 @@ struct ExerciseEditorView: View {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
-            Text(viewModel.operationStatus.description)
+            Text(viewModel.runStatus.description)
         }.onReceive(NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)) { _ in
             viewModel.updateFile()
         }
     }
 }
 
- #Preview {
+#Preview {
     ExerciseEditorView()
         .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
- }
+}

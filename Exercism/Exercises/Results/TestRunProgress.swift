@@ -13,15 +13,15 @@ struct TestRunProgress: View {
     private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
 
     let gradient = LinearGradient(
-            gradient: Gradient(colors: [
-                Color.appAccent.opacity(0.4),
-                Color.appAccent.opacity(0.6),
-                Color.appAccent.opacity(0.8),
-                Color.appAccent
-            ]),
-            startPoint: .top,
-            endPoint: .bottom
-        )
+        gradient: Gradient(colors: [
+            Color.appAccent.opacity(0.4),
+            Color.appAccent.opacity(0.6),
+            Color.appAccent.opacity(0.8),
+            Color.appAccent
+        ]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
 
     var body: some View {
         VStack {
@@ -29,9 +29,9 @@ struct TestRunProgress: View {
                 .tint(gradient)
                 .padding()
                 .onReceive(timer) { _ in
-                    // TODO: figure a better way to do this
-                    if progress < 90 {
-                        progress += ((100.0 / (totalSecs * 10.0))).rounded(.towardZero)
+                    if progress < 100.0 {
+                        let tempProgress = max(100, (100.0 / (totalSecs * 10.0)))
+                        progress += tempProgress.rounded(.towardZero)
                     }
                 }
             Text(String(format: Strings.estimatedTime.localized(), Int(totalSecs)))

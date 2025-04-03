@@ -11,7 +11,7 @@ import Splash
 import MarkdownUI
 
 struct ExerciseRightSidebarView: View {
-    @EnvironmentObject private var viewModel: ExerciseViewModel
+    @EnvironmentObject var viewModel: ExerciseViewModel
     @AppSettings(\.general) private var general
 
     private var theme: Splash.Theme {
@@ -42,19 +42,19 @@ struct ExerciseRightSidebarView: View {
                                     markdownTheme: markdownTheme)
 
                     if viewModel.canMarkAsComplete {
-                        Button(action: viewModel.setSolutionToSubmit) {
+                        Button {
+                            viewModel.showPublishModal = true
+                        } label: {
                             Label {
                                 Text(Strings.markAsComplete.localized())
                             } icon: {
                                 Image.checkmarkSeal
-                            }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 45)
-                            .background(Color.appAccent, in: .rect(cornerRadius: 15))
-                            .foregroundStyle(.white)
-                        }
-                        .buttonStyle(.plain)
-                        .padding(.vertical, 10)
+                            }.frame(maxWidth: .infinity)
+                                .frame(height: 45)
+                                .background(Color.appAccent, in: .rect(cornerRadius: 15))
+                                .foregroundStyle(.white)
+                        }.buttonStyle(.plain)
+                            .padding(.vertical, 10)
                     }
                 }
                 .padding(.horizontal)
@@ -72,8 +72,15 @@ struct ExerciseRightSidebarView: View {
             VStack(alignment: HorizontalAlignment.leading) {
                 ResultView(language: language,
                            theme: theme)
+            }.tabItem(for: SelectedTab.result)
+        }.sheet(isPresented: $viewModel.showPublishModal) {
+            SubmitSolutionContentView().environmentObject(viewModel)
+        }.alert(String(Strings.submissionAlert.localized()),
+                isPresented: $viewModel.showErrorAlert) {
+            Button(Strings.ok.localized(), role: .cancel) {
             }
-            .tabItem(for: SelectedTab.result)
+        } message: {
+            Text(viewModel.runStatus.description)
         }
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import KeychainSwift
 
 struct LoginView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
@@ -30,8 +29,7 @@ struct LoginView: View {
                 isPresented: $authenticationVM.showAlert,
                 actions: { },
                 message: { Text(authenticationVM.error ?? "") }
-            )
-            .toolbar(.hidden)
+            ).toolbar(.hidden)
         }
     }
 
@@ -110,8 +108,8 @@ struct LoginView: View {
                     .getLink(Color.appAccent,
                              linkText: "Settings Page",
                              linkURL: "https://exercism.org/settings/api_cli"))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.3)
+                .lineLimit(1)
+                .minimumScaleFactor(0.3)
 
                 Text(Strings.importantToken.localized())
                     .fontWeight(.semibold)

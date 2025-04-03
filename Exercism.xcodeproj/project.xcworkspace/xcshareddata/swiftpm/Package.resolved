@@ -1,5 +1,5 @@
 {
-  "originHash" : "918684ae8a94f4935806571ad2eeed948516b6adb7c9b5cbd490937159326107",
+  "originHash" : "6da3ca2ea77f586e767fe5332073e17c71e9a46ae928d99c846946323d13965c",
   "pins" : [
     {
       "identity" : "codeeditor",
@@ -11,30 +11,12 @@
       }
     },
     {
-      "identity" : "exercismswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apps-fab/ExercismSwift.git",
-      "state" : {
-        "branch" : "ft/generateDocC",
-        "revision" : "5c281f794e8112c41025ec46df0fd9a7be2aefc6"
-      }
-    },
-    {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apps-fab/Highlightr.git",
       "state" : {
         "branch" : "master",
         "revision" : "f2881cf0498905280ac1943675cd4f1ef637231d"
-      }
-    },
-    {
-      "identity" : "keychain-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/evgenyneu/keychain-swift.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "5e1b02b6a9dac2a759a1d5dbc175c86bd192a608"
       }
     },
     {

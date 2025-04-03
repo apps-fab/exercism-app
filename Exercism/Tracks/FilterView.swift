@@ -9,13 +9,12 @@ import SwiftUI
 import ExercismSwift
 
 struct FilterView: View {
-    var results: Int
-    @Binding var searchText: String
-    @Binding var filters: Set<String>
-    var sortAction: () -> Void
-
     @State private var showingSheet = false
     @FocusState private var fieldFocused: Bool
+    @Binding var searchText: String
+    @Binding var filters: Set<String>
+    var results: Int
+    var sortAction: () -> Void
 
     var body: some View {
         HStack {
@@ -26,13 +25,11 @@ struct FilterView: View {
                 TextField(Strings.searchTrackString.localized(),
                           text: $searchText)
                 .textFieldStyle(.plain)
-            }
-            .padding(8)
-            .roundEdges(
-                lineColor: fieldFocused ? .appAccent : .gray,
-                cornerRadius: 8
-            )
-            .focused($fieldFocused)
+            }.padding(8)
+                .roundEdges(
+                    lineColor: fieldFocused ? .appAccent : .gray,
+                    cornerRadius: 8
+                ).focused($fieldFocused)
 
             Button {
                 showingSheet.toggle()
@@ -41,32 +38,23 @@ struct FilterView: View {
                     Text(Strings.filterBy.localized())
                 } icon: {
                     Image.slider
+                }.padding(8)
+                    .roundEdges(lineColor: showingSheet ? .appAccent : .gray,
+                                cornerRadius: 8).contentShape(Rectangle())
+            }.buttonStyle(.plain)
+                .popover(isPresented: $showingSheet) {
+                    FilterTableView(selectedTags: $filters,
+                                    isPresented: $showingSheet).interactiveDismissDisabled(false)
                 }
-                .padding(8)
-                .roundEdges(
-                    lineColor: showingSheet ? .appAccent : .gray,
-                    cornerRadius: 8
-                )
-                .contentShape(Rectangle())
-            }
 
-            .buttonStyle(.plain)
-            .popover(isPresented: $showingSheet) {
-                FilterTableView(tags: Tag.loadTags(),
-                                selectedTags: $filters,
-                                isPresented: $showingSheet)
-                .interactiveDismissDisabled(false)
-            }
             Text(String(format: Strings.showingTracks.localized(), results))
                 .fontWeight(.semibold)
                 .minimumScaleFactor(0.9)
                 .lineLimit(1)
                 .padding(8)
-                .roundEdges(
-                    backgroundColor: Color.appAccent.opacity(0.5),
-                    lineColor: .clear,
-                    cornerRadius: 8
-                )
+                .roundEdges(backgroundColor: Color.appAccent.opacity(0.5),
+                            lineColor: .clear,
+                            cornerRadius: 8)
 
             Button {
                 sortAction()
@@ -75,39 +63,29 @@ struct FilterView: View {
                     Text(Strings.sortBy.localized())
                 } icon: {
                     Image.chevronDown
-                }
-                .padding(8)
-                .roundEdges(
-                    cornerRadius: 8
-                )
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-        }
-        .onAppear {
+                }.padding(8)
+                    .roundEdges(cornerRadius: 8)
+                    .contentShape(Rectangle())
+            }.buttonStyle(.plain)
+        }.onAppear {
             fieldFocused = false
         }
     }
 }
 
 #Preview("Primary") {
-    FilterView(results: 10,
-               searchText: .constant(""),
-               filters: .constant([""])
-    ) {
+    FilterView(searchText: .constant(""),
+               filters: .constant([""]),
+               results: 10) {
         print("Filter View pressed")
-    }
-    .padding()
+    }.padding()
 }
 
 #Preview("Primary - Light Mode"){
-    FilterView(results: 10,
-               searchText: .constant(""),
-               filters: .constant([""])
-    ) {
+    FilterView(searchText: .constant(""),
+               filters: .constant([""]),
+               results: 10) {
         print("Filter View pressed")
-    }
-    .padding()
-    .environment(\.colorScheme, .light)
-
+    }.padding()
+        .environment(\.colorScheme, .light)
 }

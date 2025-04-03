@@ -24,7 +24,9 @@ struct ResultView: View {
                     language: language,
                     theme: theme,
                     onSubmitTest: {
-                        viewModel.submitSolution()
+                        Task {
+                            await viewModel.submitSolution()
+                        }
                     }
                 )
             } else {

@@ -11,9 +11,9 @@ import ExercismSwift
 struct TracksListView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
+    @StateObject private var viewModel = TrackViewModel()
     @State private var searchText = ""
     @State private var filters = Set<String>()
-    @StateObject private var viewModel = TrackViewModel()
 
     private let gridColumns = [
         GridItem(.flexible()),
@@ -42,38 +42,37 @@ struct TracksListView: View {
                 Text(error.description)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-        }
-        .toolbar(.hidden)
-        .accessibilityLabel("All Tracks")
-        .onChange(of: searchText) { newValue in
-            viewModel.filterTracks(newValue)
-        }
-        .onChange(of: filters) { newValue in
-            viewModel.filterTags(newValue)
-        }
-        .onReceive(refreshPublisher) { _ in
-            Task {
-                await viewModel.getTracks()
+        }.toolbar(.hidden)
+            .accessibilityLabel("All Tracks")
+            .onChange(of: searchText) { newValue in
+                viewModel.filterTracks(newValue)
             }
-        }
+            .onChange(of: filters) { newValue in
+                viewModel.filterTags(newValue)
+            }
+            .onReceive(refreshPublisher) { _ in
+                Task {
+                    await viewModel.getTracks()
+                }
+            }
 #if os(macOS)
-        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
-            if shouldRefreshFromJoinTrack {
-                Task {
-                    await viewModel.getTracks()
-                    shouldRefreshFromJoinTrack = false
+            .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+                if shouldRefreshFromJoinTrack {
+                    Task {
+                        await viewModel.getTracks()
+                        shouldRefreshFromJoinTrack = false
+                    }
                 }
             }
-        }
 #else
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            if shouldRefreshFromJoinTrack {
-                Task {
-                    await viewModel.getTracks()
-                    shouldRefreshFromJoinTrack = false
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                if shouldRefreshFromJoinTrack {
+                    Task {
+                        await viewModel.getTracks()
+                        shouldRefreshFromJoinTrack = false
+                    }
                 }
             }
-        }
 #endif
     }
 
@@ -87,17 +86,14 @@ struct TracksListView: View {
                 headerView
                     .padding()
 
-                FilterView(
-                    results: tracks.count,
-                    searchText: $searchText,
-                    filters: $filters) {
-                        viewModel.sortTracks()
-                    }
-                    .padding()
+                FilterView(searchText: $searchText,
+                           filters: $filters,
+                           results: tracks.count) {
+                    viewModel.sortTracks()
+                }.padding()
                     .frame(maxWidth: .infinity)
-            }
-            .frame(maxWidth: .infinity)
-            .background(Color.appDarkBackground)
+            }.frame(maxWidth: .infinity)
+                .background(Color.appDarkBackground)
 
             ScrollView {
                 if tracks.isEmpty {
@@ -111,10 +107,8 @@ struct TracksListView: View {
                             Text(Strings.joinedTracks.localized())
                                 .font(.largeTitle)
                                 .fontWeight(.semibold)
-                            LazyVGrid(
-                                columns: gridColumns,
-                                alignment: .leading
-                            ) {
+                            LazyVGrid(columns: gridColumns,
+                                      alignment: .leading) {
                                 ForEach(joinedTracks) { track in
                                     Button {
                                         navigationModel.goToTrack(track)
@@ -132,10 +126,7 @@ struct TracksListView: View {
                                 .font(.largeTitle)
                                 .fontWeight(.semibold)
 
-                            LazyVGrid(
-                                columns: gridColumns,
-                                alignment: .leading
-                            ) {
+                            LazyVGrid(columns: gridColumns, alignment: .leading) {
                                 ForEach(unjoinedTracks) { track in
                                     TrackGridView(track: track).accessibilityElement(children: .contain)
                                 }

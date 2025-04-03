@@ -9,13 +9,14 @@ import SwiftUI
 import ExercismSwift
 
 struct FilterTableView: View {
-    @State var tags = [Tag]()
+    @State private var tags = [Tag]()
     @Binding var selectedTags: Set<String>
     @Binding var isPresented: Bool
     let gradientColors = [Color.appAccent.opacity(0.4),
-                                     Color.appAccent.opacity(0.6),
-                                     Color.appAccent.opacity(0.8),
-                                     Color.appAccent]
+                          Color.appAccent.opacity(0.6),
+                          Color.appAccent.opacity(0.8),
+                          Color.appAccent]
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
@@ -45,6 +46,9 @@ struct FilterTableView: View {
                     .roundEdges(backgroundColor: Color.gray)
             }.frame(alignment: .bottomLeading)
         }.padding()
+            .task {
+                tags = Tag.loadTags()
+            }
     }
 
     func setupTag(_ tag: String) -> some View {

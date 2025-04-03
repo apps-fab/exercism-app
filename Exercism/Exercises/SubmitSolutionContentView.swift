@@ -51,36 +51,33 @@ struct SubmitSolutionContentView: View {
                 listItems
 
                 callToActions
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
 
             Group {
-                Image("publishMan")
+                Image.publishMan
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200, maxHeight: 200)
                     .drawingGroup()
                     .padding(30)
             }
-        }
-        .padding(25)
-        .frame(width: 800, height: 450)
+        }.padding(25)
+            .frame(width: 800, height: 450)
     }
 
     @ViewBuilder private var listItems: some View {
         VStack(alignment: .leading) {
-            Picker("Select Solution Sharing Option", selection: $shareOption) {
+            Picker(Strings.sharingOption.localized(), selection: $shareOption) {
                 ForEach(SolutionShareOption.allCases, id: \.self) { option in
                     Text(option.rawValue).bold()
                         .tag(option)
                         .id(option)
                 }
-            }
-            .labelsHidden()
+            }.labelsHidden()
 #if os(macOS)
-            .pickerStyle(.radioGroup)
+                .pickerStyle(.radioGroup)
 #else
-            .pickerStyle(.automatic)
+                .pickerStyle(.automatic)
 #endif
 
             if shareOption == .share {
@@ -100,37 +97,36 @@ struct SubmitSolutionContentView: View {
 
                         Menu {
                             ForEach(viewModel.sortedIterations, id: \.idx) { iteration in
-                                Button("Iteration \(iteration.idx)") {
+                                Button(String(format: Strings.iteration.localized(), iteration.idx)) {
                                     selectedIteration = iteration.idx
                                 }
                             }
                         } label: {
-                            Text("Iteration \(selectedIteration)").roundEdges()
+                            Text(String(format: Strings.iteration.localized(), selectedIteration))
+                                .roundEdges()
                         }
                         .frame(width: 100)
                         .opacity(shareIterationsOptions == .all ? 0 : 1)
                     }
-                }
-                .padding(.vertical, 10)
-                .padding(.leading)
+                }.padding(.vertical, 10)
+                    .padding(.leading)
             }
         }
     }
 
-    @ViewBuilder private var callToActions: some View {
+    @ViewBuilder
+    private var callToActions: some View {
         HStack(spacing: 20) {
-
             Button {
                 dismiss()
             } label: {
-                Text("Close")
+                Text(Strings.close.localized())
                     .frame(width: 100, height: 30)
                     .roundEdges(
                         backgroundColor: Color.gray.opacity(0.25),
                         lineColor: Color.appAccent,
                         cornerRadius: 10)
-            }
-            .buttonStyle(.plain)
+            }.buttonStyle(.plain)
 
             Button {
                 Task {
@@ -138,7 +134,7 @@ struct SubmitSolutionContentView: View {
                 }
             } label: {
                 Label {
-                    Text("Confirm")
+                    Text(Strings.confirm.localized())
                 } icon: {
                     if isSubmitting {
                         ProgressView()
@@ -149,38 +145,28 @@ struct SubmitSolutionContentView: View {
                             .padding(.trailing, 1)
 
                     }
-                }
-                .foregroundStyle(.white)
-                .frame(width: 100, height: 30)
-                .roundEdges(backgroundColor: Color.appAccent, lineColor: .clear, cornerRadius: 10)
-            }
-            .buttonStyle(.plain)
-            .disabled(isSubmitting)
+                }.foregroundStyle(.white)
+                    .frame(width: 100, height: 30)
+                    .roundEdges(backgroundColor: Color.appAccent, lineColor: .clear, cornerRadius: 10)
+            }.buttonStyle(.plain)
+                .disabled(isSubmitting)
 
-        }
-        .fontWeight(.semibold)
-        .padding(.vertical)
+        }.fontWeight(.semibold)
+            .padding(.vertical)
     }
 
     private func completeExercise() async {
-        guard let solution = viewModel.solutionToSubmit else { return }
         let shouldPublish = shareOption == .share
         let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
-        isSubmitting = true
-        do {
-            let completeSolution =  try await viewModel.completeExercise(solutionId: solution.uuid,
-                                                                         publish: shouldPublish,
-                                                                         iterationIdx: iterationIdx)
-            isSubmitting = false
-            navigationModel.goToTrack(completeSolution.track)
+        let result = await viewModel.completeExercise(shouldPublish, iterationIdx)
 
-        } catch {
-            isSubmitting = false
+        if result {
+            navigationModel.goBack()
         }
     }
 }
 
- #Preview {
+#Preview {
     SubmitSolutionContentView()
         .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
- }
+}

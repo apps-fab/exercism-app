@@ -13,7 +13,11 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var tokenInput = ""
     @Published var isLoading = false
     @Published var showAlert = false
-    @Published var error: String?
+    @Published var error: String? {
+        didSet {
+            showAlert = true
+        }
+    }
 
     func validateToken() async -> Bool {
         guard !tokenInput.isEmpty else {
@@ -27,19 +31,15 @@ final class AuthenticationViewModel: ObservableObject {
             let isValid = try await performAsyncTokenValidation(token: tokenInput)
             self.isLoading = false
             return isValid
+        } catch let appError as ExercismClientError {
+            self.isLoading = false
+            error = appError.description
+            return false
         } catch {
             self.isLoading = false
-
-            if case let ExercismClientError.apiError(_, _, message) = error {
-                self.error = message
-            } else {
-                self.error = Strings.errorOccurred.localized()
-            }
-
-            showAlert = true
+            self.error = ExercismClientError.unsupportedResponseError.description
             return false
         }
-
     }
 
     private func performAsyncTokenValidation(token: String) async throws -> Bool {

@@ -23,10 +23,8 @@ struct TestRunSummaryHeader: View {
                 headerText = String(format: Strings.taskCompleted.localized(), taskRun, testRun.tasks.count)
             } else {
                 if testRun.version == 2 || testRun.version == 3 {
-                    // TODO: - (@Kirk - 5/02/23: Convert this to stringdict for proper localisation)
                     let numFailedTests = self.testRun.numFailedTest()
-                    let failureWord = numFailedTests == 1 ? "failure" : "failures"
-                    headerText = "\(String(describing: numFailedTests)) test \(failureWord)"
+                    headerText = String(format: Strings.testFailure.localized(), numFailedTests)
                 } else {
                     headerText = Strings.testFailed.localized()
                 }
@@ -47,14 +45,13 @@ struct TestRunSummaryHeader: View {
             Text(headerText)
         } icon: {
             Image.circleFill
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(testRun.status == .pass ? .green : .red.opacity(0.2))
-        .foregroundColor(testRun.status == .pass ? .green : .red)
-        .bold()
-        .textCase(.uppercase)
-        .multilineTextAlignment(.center)
+        }.frame(maxWidth: .infinity)
+            .padding()
+            .background(testRun.status == .pass ? .green : .red.opacity(0.2))
+            .foregroundColor(testRun.status == .pass ? .green : .red)
+            .bold()
+            .textCase(.uppercase)
+            .multilineTextAlignment(.center)
     }
 }
 

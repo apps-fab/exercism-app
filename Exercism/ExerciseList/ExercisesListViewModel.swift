@@ -33,10 +33,10 @@ final class ExerciseListViewModel: ObservableObject {
             let fetchedExercises = try await fetcher.getExercises(track)
             exercises = fetchedExercises
             state = .success(fetchedExercises)
+        } catch let appError as  ExercismClientError {
+            state = .failure(appError)
         } catch {
-            // swiftlint:disable force_cast
-            state = .failure(error as! ExercismClientError)
-            // swiftlint:enable force_cast
+            state = .failure(ExercismClientError.genericError(error))
         }
     }
 

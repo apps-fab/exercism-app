@@ -87,6 +87,10 @@ final class NavigationModel: ObservableObject, Codable {
         path.append(Route.login)
     }
 
+    func goBack() {
+        path.removeLast()
+    }
+
     enum CodingKeys: String, CodingKey {
         case path
         case columnVisibility
