@@ -24,15 +24,14 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
 }
 
 struct ExercisesList: View {
-    let track: Track
-
+    @FocusState private var fieldFocused: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private  var viewModel: ExerciseListViewModel
     @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
     @State private var solutions = [String: Solution]()
-    @FocusState private var fieldFocused: Bool
     @State private var alertItem = AlertItem()
+    let track: Track
 
     private let columns = [
         GridItem(.flexible()),
@@ -56,19 +55,17 @@ struct ExercisesList: View {
             case .idle:
                 EmptyView()
             }
-        }
-        .onChange(of: searchText) { newValue in
+        }.onChange(of: searchText) { newValue in
             viewModel.filterExercises(newValue)
-        }
-        .task {
-            do {
-                let solutionsList = try await viewModel.getSolutions(track)
-                self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
-            } catch {
-                alertItem = AlertItem(title: "Error", message: error.localizedDescription)
+        }.onAppear {
+            Task {
+                do {
+                    let solutionsList = try await viewModel.getSolutions(track)
+                    self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+                } catch {
+                    alertItem = AlertItem(title: "Error", message: error.localizedDescription)
+                }
             }
-        }
-        .onAppear {
             fieldFocused = false
         }
         .toolbar {
@@ -138,8 +135,7 @@ struct ExercisesList: View {
             TextField(Strings.searchString.localized(),
                       text: $searchText)
             .textFieldStyle(.plain)
-        }
-        .padding(8)
+        }.padding(8)
         .roundEdges(
             lineColor: fieldFocused ? .appAccent : .gray,
             cornerRadius: 8

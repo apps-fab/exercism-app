@@ -11,11 +11,11 @@ import ExercismSwift
 import Splash
 
 struct CollapsibleTestDetailView: View {
+    @State private var showContent: Bool = true
     let test: Test
     let testId: Int
     let language: String
     let theme: Splash.Theme
-    @State private var showContent: Bool = true
 
     func statusLabel(status: TestStatus) -> some View {
         var label = ""

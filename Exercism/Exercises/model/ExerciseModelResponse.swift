@@ -8,6 +8,7 @@
 enum ExerciseModelResponse: Equatable {
     case solutionPassed, wrongSolution, runFailed, idle
     case solutionPublished
+    case success(message: String)
     case genericError(error: String)
 
     var description: String {
@@ -22,6 +23,8 @@ enum ExerciseModelResponse: Equatable {
             return ""
         case .solutionPublished:
             return Strings.solutionPublished.localized()
+        case .success(let message):
+            return message
         case .genericError(let error):
             return error
         }

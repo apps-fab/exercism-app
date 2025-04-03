@@ -60,6 +60,7 @@
 		FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
 		FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */; };
 		FD7DC53529E0B0E900A1EBD9 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B071128F5F77300FCA956 /* FilterView.swift */; };
+		FD8AF28C2D9EE04000194AFB /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD8AF28B2D9EE04000194AFB /* ExercismSwift */; };
 		FD9262FF28F6EA3300C9476C /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = FD9262FE28F6EA3300C9476C /* Tags.json */; };
 		FD92DC652A854EAC00673445 /* Settings in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = FD92DC642A854EAC00673445 /* Settings */; };
 		FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksListView.swift */; };
@@ -185,6 +186,7 @@
 				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
 				FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */,
 				FDE58F6E2D946C92002618BD /* ExercismSwift in Frameworks */,
+				FD8AF28C2D9EE04000194AFB /* ExercismSwift in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				FDE58F712D946CB2002618BD /* ExercismSwift in Frameworks */,
 				FDE72BCD2D971D8D008BAA2F /* ExercismSwift in Frameworks */,
@@ -445,6 +447,7 @@
 				FDE58F6D2D946C92002618BD /* ExercismSwift */,
 				FDE58F702D946CB2002618BD /* ExercismSwift */,
 				FDE72BCC2D971D8D008BAA2F /* ExercismSwift */,
+				FD8AF28B2D9EE04000194AFB /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
@@ -483,7 +486,7 @@
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				FDE72BCB2D971D8D008BAA2F /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FD8AF28A2D9EE04000194AFB /* XCLocalSwiftPackageReference "../ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -852,7 +855,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FDE72BCB2D971D8D008BAA2F /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
+		FD8AF28A2D9EE04000194AFB /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ExercismSwift;
 		};
@@ -950,6 +953,10 @@
 			productName = CodeEditor;
 		};
 		FD403C822C518ED700CD8D81 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FD8AF28B2D9EE04000194AFB /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ExercismSwift;
 		};

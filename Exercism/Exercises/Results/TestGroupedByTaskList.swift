@@ -10,10 +10,10 @@ import ExercismSwift
 import Splash
 
 struct TestGroupedByTaskList: View {
+    @State private var isExpanded: Bool = true
     var testRun: TestRun
     let language: String
     let theme: Splash.Theme
-    @State private var isExpanded: Bool = true
 
     var body: some View {
         let testGroups = testRun.testGroupedByTaskList()

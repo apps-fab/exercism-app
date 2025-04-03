@@ -44,6 +44,7 @@ final class ExerciseViewModel: ObservableObject {
     private let fetcher = Fetcher()
     private var codes = [String: String]()
     private var exerciseItem: ExerciseItem?
+    private var initialCode = ""
 
     // MARK: - on Appear Operations
 
@@ -99,6 +100,7 @@ final class ExerciseViewModel: ObservableObject {
         do {
             guard let code = codes[selectedFile.id] else {
                 let code = try String(contentsOf: selectedFile.url, encoding: .utf8)
+                initialCode = code
                 codes[selectedFile.id] = code
                 return code
             }
@@ -109,11 +111,18 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     func revertToStart() {
-        guard let solution else { return }
+        // we don't have a solution since not started yet, just go back to solution on backend. Is this hacky?
+        guard let solution else {
+            selectedCode = initialCode
+            runStatus = .success(message: "Successfully reverted to start")
+            return
+        }
+
         Task {
             do {
                 let solution = try await fetcher.revertToStart(solution.uuid)
                 selectedCode = solution.files.first?.content ?? ""
+                runStatus = .success(message: "Successfully reverted to start")
             } catch let appError as ExercismClientError {
                 canRunTests = true
                 runStatus = .genericError(error: appError.description)
@@ -131,7 +140,9 @@ final class ExerciseViewModel: ObservableObject {
     private func getLocalExercise(_ track: String,
                                   _ exercise: String,
                                   _ exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
-        let solutionFiles = exerciseDoc.solutions.map { ExerciseFile(from: $0) }
+        let solutionFiles = exerciseDoc.solutions.map {
+            return ExerciseFile(from: $0)
+        }
         exerciseItem = ExerciseItem(name: exercise, language: track, files: solutionFiles)
         self.title = "\(track)/ \(exercise)"
         return solutionFiles
@@ -139,7 +150,7 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Iterations
 
-    func getIterations(for solution: Solution?) async {
+    private func getIterations(for solution: Solution?) async {
         do {
             guard let solution else { return }
             currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
@@ -219,7 +230,7 @@ final class ExerciseViewModel: ObservableObject {
         switch runStatus {
         case .idle:
             return
-        case .solutionPublished, .genericError, .runFailed, .wrongSolution, .solutionPassed:
+        case .solutionPublished, .genericError, .runFailed, .wrongSolution, .solutionPassed, .success:
             showErrorAlert = true
         }
     }
@@ -282,8 +293,7 @@ final class ExerciseViewModel: ObservableObject {
         return false
     }
 
-    // Pre-select the most recent iteration
-    func getDefaultIterationIdx() -> Int {
+    private func getDefaultIterationIdx() -> Int {
         currentSolutionIterations.last?.idx ?? 1
     }
 

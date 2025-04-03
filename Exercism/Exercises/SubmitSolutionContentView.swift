@@ -22,7 +22,6 @@ struct SubmitSolutionContentView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var viewModel: ExerciseViewModel
-
     @State private var shareOption = SolutionShareOption.share
     @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
     @State private var isSubmitting = false
@@ -65,7 +64,8 @@ struct SubmitSolutionContentView: View {
             .frame(width: 800, height: 450)
     }
 
-    @ViewBuilder private var listItems: some View {
+    @ViewBuilder
+    private var listItems: some View {
         VStack(alignment: .leading) {
             Picker(Strings.sharingOption.localized(), selection: $shareOption) {
                 ForEach(SolutionShareOption.allCases, id: \.self) { option in
@@ -156,11 +156,13 @@ struct SubmitSolutionContentView: View {
     }
 
     private func completeExercise() async {
+        isSubmitting = true
         let shouldPublish = shareOption == .share
         let iterationIdx: Int? = shouldPublish && shareIterationsOptions == .single ? selectedIteration : nil
         let result = await viewModel.completeExercise(shouldPublish, iterationIdx)
 
         if result {
+            isSubmitting = false
             navigationModel.goBack()
         }
     }

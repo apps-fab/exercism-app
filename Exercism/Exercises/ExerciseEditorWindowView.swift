@@ -12,7 +12,8 @@ struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
 
-    init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
+    init(_ track: String, _ exercise: String, _ solution: Solution?) {
+        print("This is the solution: \(solution)")
         let viewModel = ExerciseViewModel(track, exercise, solution)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -48,13 +49,14 @@ struct ExerciseEditorWindowView: View {
                 Spacer()
             }
 
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    viewModel.revertToStart()
-                } label: {
-                    Image.revert
-                }.tooltip(Strings.revertExercise.localized())
-            }
+            // hide for now 
+//            ToolbarItem(placement: .primaryAction) {
+//                Button {
+//                    viewModel.revertToStart()
+//                } label: {
+//                    Image.revert
+//                }.tooltip(Strings.revertExercise.localized())
+//            }
 
             ToolbarItem(placement: .primaryAction) {
                 Button {

@@ -9,9 +9,9 @@ import SwiftUI
 import CodeEditor
 
 struct TestsView: View {
+    @AppSettings(\.general) private var general
     let tests: String
     let language: String
-    @AppSettings(\.general) private var general
 
     private var editorLanguage: CodeEditor.Language {
         CodeEditor.Language.init(rawValue: language)
