@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,6 +46,7 @@
 		FD4078052CEDD19B00587584 /* TestGroupedByTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4078042CEDD19800587584 /* TestGroupedByTaskList.swift */; };
 		FD4078072CEDD1D100587584 /* CollapsibleTestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4078062CEDD1CF00587584 /* CollapsibleTestDetailView.swift */; };
 		FD4A77662987EC9400E29436 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4A77642987E18E00E29436 /* RoundedView.swift */; };
+		FD4A95692DA6B62E00D7F7F3 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD4A95682DA6B62E00D7F7F3 /* ExercismSwift */; };
 		FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57BB4F2930C0C2006D0B9C /* ExerciseGridView.swift */; };
 		FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60770C292E28D600A95E17 /* NavigationModel.swift */; };
 		FD60950B29CC598000944379 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60950A29CC598000944379 /* SideBar.swift */; };
@@ -188,6 +189,7 @@
 				FDE58F6E2D946C92002618BD /* ExercismSwift in Frameworks */,
 				FD8AF28C2D9EE04000194AFB /* ExercismSwift in Frameworks */,
 				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
+				FD4A95692DA6B62E00D7F7F3 /* ExercismSwift in Frameworks */,
 				FDE58F712D946CB2002618BD /* ExercismSwift in Frameworks */,
 				FDE72BCD2D971D8D008BAA2F /* ExercismSwift in Frameworks */,
 				FDE58F652D946A3C002618BD /* ExercismSwift in Frameworks */,
@@ -448,6 +450,7 @@
 				FDE58F702D946CB2002618BD /* ExercismSwift */,
 				FDE72BCC2D971D8D008BAA2F /* ExercismSwift */,
 				FD8AF28B2D9EE04000194AFB /* ExercismSwift */,
+				FD4A95682DA6B62E00D7F7F3 /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
@@ -486,7 +489,7 @@
 				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
 				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 				FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				FD8AF28A2D9EE04000194AFB /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FD4A95672DA6B62E00D7F7F3 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -854,13 +857,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		FD8AF28A2D9EE04000194AFB /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../ExercismSwift;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -883,6 +879,14 @@
 			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
 			requirement = {
 				branch = master;
+				kind = branch;
+			};
+		};
+		FD4A95672DA6B62E00D7F7F3 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
+			requirement = {
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -954,6 +958,11 @@
 		};
 		FD403C822C518ED700CD8D81 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FD4A95682DA6B62E00D7F7F3 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD4A95672DA6B62E00D7F7F3 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
 			productName = ExercismSwift;
 		};
 		FD8AF28B2D9EE04000194AFB /* ExercismSwift */ = {
