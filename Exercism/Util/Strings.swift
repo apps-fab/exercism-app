@@ -88,7 +88,8 @@ enum Strings: String {
     case searchString = "Search by title"
     case searchTrackString = "Search language tracks"
     case sharingOption = "Select Solution Sharing Option"
-
+    case logOut = "Are you sure you want to log out?"
+    
     // Error strings
     case errorOccurred = "An error occurred"
     case loginError = "Error logging in"

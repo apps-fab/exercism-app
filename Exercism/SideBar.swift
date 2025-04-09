@@ -19,15 +19,13 @@ struct SideBar: View {
     }
 
     var body: some View {
-        List {
-            ForEach(joinedTracks) { track in
+        List(joinedTracks) { track in
                 TrackRowView(track: track) {
                     navigationModel.goToTrack(track)
                 }
                 .listRowSeparator(.visible)
                 .buttonStyle(.plain)
-            }
-        }
+        }.listStyle(.plain)
         .safeAreaInset(edge: .top) {
             Text(Strings.joinedTracks.localized())
                 .font(.title.bold())
@@ -41,14 +39,14 @@ struct SideBar: View {
                 Button {
                     showingAlert = true
                 } label: {
-                    Text("Sign Out")
+                    Text(Strings.signOut.localized())
                 }.font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .buttonStyle(.plain)
                     .padding()
             }.background(.thickMaterial)
         }.alert(isPresented: $showingAlert) {
-            Alert(title: Text("Are you sure you want to log out?"),
+            Alert(title: Text(Strings.logOut.localized()),
                   primaryButton: .default(Text("Yes"), action: logout), secondaryButton: .cancel())
         }
     }
@@ -64,6 +62,7 @@ private extension SideBar {
     struct TrackRowView: View {
         let track: Track
         let action: () -> Void
+
         var body: some View {
             Button(action: action) {
                 HStack(alignment: .top) {
@@ -96,7 +95,7 @@ private extension SideBar {
                         .frame(maxHeight: .infinity)
                 }
                 .contentShape(Rectangle())
-            }
+            }.padding()
         }
     }
 }

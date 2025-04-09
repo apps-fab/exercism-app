@@ -12,9 +12,8 @@ struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
 
-    init(_ track: String, _ exercise: String, _ solution: Solution?) {
-        print("This is the solution: \(solution)")
-        let viewModel = ExerciseViewModel(track, exercise, solution)
+    init(_ track: String, _ exercise: String) {
+        let viewModel = ExerciseViewModel(track, exercise)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -103,6 +102,5 @@ struct ExerciseEditorWindowView: View {
 
 #Preview {
     ExerciseEditorWindowView("Swift",
-                             "hello world",
-                             PreviewData.shared.getSolutions()[0])
+                             "hello world")
 }

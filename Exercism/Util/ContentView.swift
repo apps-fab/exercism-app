@@ -59,8 +59,8 @@ struct ContentView: View {
             TracksListView()
                 .environmentObject(navigationModel)
 
-        case let .exercise(track, exercise, solution):
-            ExerciseEditorWindowView(track, exercise, solution)
+        case let .exercise(track, exercise):
+            ExerciseEditorWindowView(track, exercise)
                 .environmentObject(navigationModel)
 
         case let .track(track):

@@ -55,20 +55,18 @@ struct ExercisesList: View {
             case .idle:
                 EmptyView()
             }
-        }.onChange(of: searchText) { newValue in
-            viewModel.filterExercises(newValue)
-        }.onAppear {
-            Task {
+        }.task {
                 do {
                     let solutionsList = try await viewModel.getSolutions(track)
                     self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
                 } catch {
                     alertItem = AlertItem(title: "Error", message: error.localizedDescription)
                 }
-            }
+        }.onChange(of: searchText) { newValue in
+            viewModel.filterExercises(newValue)
+        }.onAppear {
             fieldFocused = false
-        }
-        .toolbar {
+        }.toolbar {
             ToolbarItem(placement: .principal) {
                 Text(track.slug)
                     .textCase(.uppercase)
@@ -114,7 +112,7 @@ struct ExercisesList: View {
                             let solution = getSolution(for: exercise)
 
                             Button {
-                                navigationModel.goToEditor(track.slug, exercise, solution: solution)
+                                navigationModel.goToEditor(track.slug, exercise)
                             } label: {
                                 ExerciseGridView(exercise: exercise, solution: solution)
                             }
@@ -136,11 +134,11 @@ struct ExercisesList: View {
                       text: $searchText)
             .textFieldStyle(.plain)
         }.padding(8)
-        .roundEdges(
-            lineColor: fieldFocused ? .appAccent : .gray,
-            cornerRadius: 8
-        )
-        .focused($fieldFocused)
+            .roundEdges(
+                lineColor: fieldFocused ? .appAccent : .gray,
+                cornerRadius: 8
+            )
+            .focused($fieldFocused)
     }
 
     private func getSolution(for exercise: Exercise) -> Solution? {

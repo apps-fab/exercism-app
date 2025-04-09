@@ -64,9 +64,6 @@
         }
       }
     },
-    "Are you sure you want to log out?" : {
-
-    },
     "close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -412,7 +409,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "67 languages for you to master"
+            "value" : "75  languages for you to master"
           }
         }
       }
@@ -734,9 +731,6 @@
           }
         }
       }
-    },
-    "Sign Out" : {
-
     },
     "signOut" : {
       "extractionState" : "manual",

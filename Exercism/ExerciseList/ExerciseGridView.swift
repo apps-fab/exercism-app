@@ -10,8 +10,8 @@ import ExercismSwift
 import SDWebImageSwiftUI
 
 struct ExerciseGridView: View {
-    var exercise: Exercise
-    var solution: Solution?
+    let exercise: Exercise
+    let solution: Solution?
     @State var isHover = false
 
     var body: some View {

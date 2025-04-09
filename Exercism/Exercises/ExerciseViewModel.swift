@@ -20,7 +20,7 @@ final class ExerciseViewModel: ObservableObject {
     @Published var state: LoadingState<[ExerciseFile]> = .idle
     @Published var tests: String?
     @Published var submissionLink: String?
-    @Published var solutionToSubmit: Solution?
+    @Published var solutionToSubmit: String?
     @Published var testRun: TestRun?
     @Published var averageTestDuration: Double?
     @Published var selectedTab: SelectedTab = .instruction
@@ -34,7 +34,7 @@ final class ExerciseViewModel: ObservableObject {
             showTestSubmissionResponseMessage = runStatus != .idle
         }
     }
-    @Published var solution: Solution?
+    @Published var solutionUUID: String!
     @Published var selectedCode: String = "" {
         didSet {
             updateCode(selectedCode)
@@ -52,8 +52,7 @@ final class ExerciseViewModel: ObservableObject {
         currentSolutionIterations.sorted { $0.idx > $1.idx }
     }
 
-    init(_ track: String, _ exercise: String, _ solution: Solution? = nil) {
-        self.solution = solution
+    init(_ track: String, _ exercise: String) {
         Task {
             await getDocument(track, exercise)
         }
@@ -64,13 +63,14 @@ final class ExerciseViewModel: ObservableObject {
         do {
             let exercises = try await withThrowingTaskGroup(of: Optional<ExerciseFile>.self) { _ in
                 let exerciseDoc = try await downloadSolutions(track, exercise)
+                solutionUUID = exerciseDoc.solution.id
                 getLanguage(exerciseDoc)
                 instruction = try getExerciseInstructions(exerciseDoc)
                 tests = try getExerciseTests(exerciseDoc)
                 let exercises = getLocalExercise(track, exercise, exerciseDoc)
                 selectedFile = exercises.first
                 selectedCode = getSelectedCode() ?? ""
-                await getIterations(for: solution)
+                await getIterations(for: solutionUUID)
                 return exercises
             }
 
@@ -111,8 +111,7 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     func revertToStart() {
-        // we don't have a solution since not started yet, just go back to solution on backend. Is this hacky?
-        guard let solution else {
+        guard let solutionUUID else {
             selectedCode = initialCode
             runStatus = .success(message: "Successfully reverted to start")
             return
@@ -120,7 +119,7 @@ final class ExerciseViewModel: ObservableObject {
 
         Task {
             do {
-                let solution = try await fetcher.revertToStart(solution.uuid)
+                let solution = try await fetcher.revertToStart(solutionUUID)
                 selectedCode = solution.files.first?.content ?? ""
                 runStatus = .success(message: "Successfully reverted to start")
             } catch let appError as ExercismClientError {
@@ -150,10 +149,9 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Iterations
 
-    private func getIterations(for solution: Solution?) async {
+    private func getIterations(for solution: String) async {
         do {
-            guard let solution else { return }
-            currentSolutionIterations = try await fetcher.getIterations(solution.uuid)
+            currentSolutionIterations = try await fetcher.getIterations(solution)
         } catch let appError as ExercismClientError {
             canRunTests = true
             runStatus = .genericError(error: appError.description)
@@ -167,17 +165,17 @@ final class ExerciseViewModel: ObservableObject {
         canRunTests = false
         selectedTab = .result
         updateFile()
-        guard let solutionId = solution?.id else {
+        guard let solutionUUID else {
             runStatus = .runFailed
             return
         }
 
         do {
             let solutionData = try getSolutionFileData()
-            let runResult = try await fetcher.runTest(solutionId, contents: solutionData)
+            let runResult = try await fetcher.runTest(solutionUUID, contents: solutionData)
             switch runResult.testStatus {
             case .queued:
-                saveTestRun(runResult, solutionId)
+                saveTestRun(runResult, solutionUUID)
                 try await getTestRun(for: runResult.links)
             case .passed:
                 runStatus = .solutionPassed
@@ -209,7 +207,7 @@ final class ExerciseViewModel: ObservableObject {
 
     func runUsingSavedLink() {
         Task {
-            if let solutionId = solution?.id, let savedSubmission = testSubmission[solutionId] {
+            if let solutionUUID, let savedSubmission = testSubmission[solutionUUID] {
                 switch savedSubmission.testStatus {
                 case .queued:
                     try await getTestRun(for: savedSubmission.links)
@@ -264,7 +262,7 @@ final class ExerciseViewModel: ObservableObject {
             switch result.iteration.testsStatus {
             case .passed:
                 runStatus = .solutionPassed
-                solutionToSubmit = solution
+                solutionToSubmit = solutionUUID
                 selectedTab = .instruction
                 canMarkAsComplete = true
             default:
@@ -278,9 +276,9 @@ final class ExerciseViewModel: ObservableObject {
     }
 
     func completeExercise(_ publish: Bool, _ selectedIteration: Int?) async -> Bool {
-        guard let solutionId = solution?.id else { return false }
+        guard let solutionUUID else { return false }
         do {
-            _ = try await fetcher.completeSolution(solutionId,
+            _ = try await fetcher.completeSolution(solutionUUID,
                                                    publish: publish,
                                                    iterationIdx: selectedIteration)
             runStatus = .solutionPublished
