@@ -24,6 +24,12 @@ struct LoginView: View {
             }
             .background(.white)
             .foregroundStyle(.black)
+            .onChange(of: authenticationVM.authSuccess) { authSuccess in
+                if authSuccess {
+                    ExercismKeychain.shared.set(authenticationVM.tokenInput, for: Keys.token.rawValue)
+                    navigationModel.goToDashboard()
+                }
+            }
             .alert(
                 Strings.loginError.localized(),
                 isPresented: $authenticationVM.showAlert,
@@ -122,11 +128,7 @@ struct LoginView: View {
 
     private func validateToken() {
         Task {
-            let isValid = await authenticationVM.validateToken()
-            if isValid {
-                ExercismKeychain.shared.set(authenticationVM.tokenInput, for: Keys.token.rawValue)
-                navigationModel.goToDashboard()
-            }
+            await authenticationVM.validateToken()
         }
     }
 }

@@ -86,7 +86,6 @@ struct ExerciseRightSidebarView: View {
 }
 
 #Preview {
-    let solution = PreviewData.shared.getSolutions().first
     ExerciseRightSidebarView()
         .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
 }

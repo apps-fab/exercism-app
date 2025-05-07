@@ -13,42 +13,41 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var tokenInput = ""
     @Published var isLoading = false
     @Published var showAlert = false
+    @Published var authSuccess = false
     @Published var error: String? {
         didSet {
             showAlert = true
         }
     }
 
-    func validateToken() async -> Bool {
+    func validateToken() async {
         guard !tokenInput.isEmpty else {
             error = Strings.tokenEmptyWarning.localized()
             showAlert = true
-            return false
+            return
         }
         isLoading = true
 
         do {
-            let isValid = try await performAsyncTokenValidation(token: tokenInput)
-            self.isLoading = false
-            return isValid
+            try await performAsyncTokenValidation(token: tokenInput)
+            isLoading = false
+            authSuccess = true
         } catch let appError as ExercismClientError {
-            self.isLoading = false
+            isLoading = false
             error = appError.description
-            return false
         } catch {
-            self.isLoading = false
+            isLoading = false
             self.error = ExercismClientError.unsupportedResponseError.description
-            return false
         }
     }
 
-    private func performAsyncTokenValidation(token: String) async throws -> Bool {
+    private func performAsyncTokenValidation(token: String) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             let client = ExercismClient(apiToken: token)
             client.validateToken { response in
                 switch response {
                 case .success:
-                    continuation.resume(returning: true)
+                    continuation.resume()
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }
