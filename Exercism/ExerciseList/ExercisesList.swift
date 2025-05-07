@@ -26,7 +26,7 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
 struct ExercisesList: View {
     @FocusState private var fieldFocused: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject private  var viewModel: ExerciseListViewModel
+    @StateObject private var viewModel: ExerciseListViewModel
     @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
     @State private var solutions = [String: Solution]()
@@ -56,12 +56,7 @@ struct ExercisesList: View {
                 EmptyView()
             }
         }.task {
-                do {
-                    let solutionsList = try await viewModel.getSolutions(track)
-                    self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
-                } catch {
-                    alertItem = AlertItem(title: "Error", message: error.localizedDescription)
-                }
+            await getExercises()
         }.onChange(of: searchText) { newValue in
             viewModel.filterExercises(newValue)
         }.onAppear {
@@ -78,6 +73,15 @@ struct ExercisesList: View {
             }
         } message: {
             Text(alertItem.message)
+        }
+    }
+
+    private func getExercises() async {
+        do {
+            let solutionsList = try await viewModel.getSolutions(track)
+            self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+        } catch {
+            alertItem = AlertItem(title: "Error", message: error.localizedDescription)
         }
     }
 

@@ -163,7 +163,7 @@ struct SubmitSolutionContentView: View {
 
         if result {
             isSubmitting = false
-            navigationModel.goBack()
+            navigationModel.pop(number: 2)
         }
     }
 }
