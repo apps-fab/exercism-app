@@ -91,6 +91,10 @@ final class NavigationModel: ObservableObject, Codable {
         path.removeLast()
     }
 
+    func pop(number: Int) {
+        path.removeLast(number)
+    }
+
     enum CodingKeys: String, CodingKey {
         case path
         case columnVisibility
