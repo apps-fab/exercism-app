@@ -11,23 +11,29 @@ struct EmptyStateView: View {
     let reloadAction: () -> Void
 
     var body: some View {
-        Spacer()
         VStack {
-            Image.exercodeLogo
-            Text(Strings.noResults.localized())
-                .bold()
-                .foregroundColor(.secondary)
-            Button {
-                reloadAction()
-            } label: {
-                Label {
-                    Text(Strings.resetFilters.localized())
-                } icon: {
-                    Image.undo
-                }.bold()
+            Spacer()
+            VStack(spacing: 16) {
+                Image.exercodeLogo
+                    .resizable()
+                    .frame(width: 100, height: 50)
+
+                Text(Strings.noResults.localized())
+                    .bold()
+                    .foregroundColor(.secondary)
+
+                Button(action: reloadAction) {
+                    Label {
+                        Text(Strings.resetFilters.localized())
+                    } icon: {
+                        Image.undo
+                    }
+                    .bold()
+                }
             }
+            Spacer()
         }
-        Spacer()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
