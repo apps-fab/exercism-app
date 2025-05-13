@@ -50,15 +50,13 @@ struct ExerciseEditorWindowView: View {
             ToolbarItem {
                 Spacer()
             }
-
-            // hide for now
-            //            ToolbarItem(placement: .primaryAction) {
-            //                Button {
-            //                    viewModel.revertToStart()
-            //                } label: {
-            //                    Image.revert
-            //                }.tooltip(Strings.revertExercise.localized())
-            //            }
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                viewModel.revertToStart()
+                            } label: {
+                                Image.revert
+                            }.tooltip(Strings.revertExercise.localized())
+                        }
 
             ToolbarItem(placement: .primaryAction) {
                 Button {
