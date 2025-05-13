@@ -31,11 +31,14 @@ struct ExercismButton: View {
                     .opacity(isLoading ? 0 : 1)
                     .contentShape(Rectangle())
             }
-        }
-        .frame(height: 55)
-        .background(backgroundColor)
-        .cornerRadius(7)
-        .buttonStyle(.plain)
+        }.onChange(of: isLoading) { isLoading in
+            if isLoading {
+                announce("Loading in progress")
+            }
+        }.frame(height: 55)
+            .background(backgroundColor)
+            .cornerRadius(7)
+            .buttonStyle(.plain)
     }
 }
 
@@ -43,5 +46,15 @@ struct ExercismButton: View {
     ExercismButton(title: "Exercism Button", isLoading: .constant(false)) {
         print("Button pressed")
 
+    }
+}
+
+func announce(_ message: String) {
+    if #available(macOS 14.0, *) {
+        var announcement = AttributedString(message)
+        announcement.accessibilitySpeechAnnouncementPriority = .high
+        AccessibilityNotification.Announcement(announcement).post()
+    } else {
+        NSAccessibility.post(element: message, notification: .announcementRequested)
     }
 }

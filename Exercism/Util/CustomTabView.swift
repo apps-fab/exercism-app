@@ -18,15 +18,15 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
     private let content: Content
     @State private var items: [TabItem]
     let gradient = LinearGradient(
-            gradient: Gradient(colors: [
-                Color.appAccent.opacity(0.4),
-                Color.appAccent.opacity(0.6),
-                Color.appAccent.opacity(0.8),
-                Color.appAccent
-            ]),
-            startPoint: .top,
-            endPoint: .bottom
-        )
+        gradient: Gradient(colors: [
+            Color.appAccent.opacity(0.4),
+            Color.appAccent.opacity(0.6),
+            Color.appAccent.opacity(0.8),
+            Color.appAccent
+        ]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
 
     public init(selectedItem: Binding<TabItem>,
                 tabBarPosition: TabBarPosition = .top,
@@ -46,7 +46,10 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
                     }
                     HStack {
                         Image(systemName: items[index].icon)
+                            .accessibilityHidden(true)
                         Text(items[index].title)
+                            .font(.subheadline)
+                            .accessibilityLabel(items[index].title)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
@@ -76,7 +79,9 @@ public struct CustomTabView<TabItem: Tabbable, Content: View>: View {
                     tabItems
                     Divider().frame(height: 2)
                     ZStack {
-                        content.frame(maxWidth: .infinity, maxHeight: .infinity)
+                        content
+                            .font(.callout)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
                 .environmentObject(selectedItem)

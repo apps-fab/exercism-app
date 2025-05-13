@@ -52,11 +52,14 @@ struct FilterTableView: View {
     }
 
     func setupTag(_ tag: String) -> some View {
-        let button = Button {
+        Button {
             toggleTags(tag)
         } label: {
             Label {
                 Text(tag)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .frame(minWidth: 40, alignment: .leading)
             } icon: {
                 if selectedTags.contains(tag) {
                     Image.checkmarkSquareFill
@@ -68,7 +71,7 @@ struct FilterTableView: View {
             }
         }.buttonStyle(.plain)
             .padding(2)
-        return button
+
     }
 
     func toggleTags(_ tag: String) {
