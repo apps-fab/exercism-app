@@ -64,6 +64,9 @@
         }
       }
     },
+    "Click to change the theme" : {
+
+    },
     "close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -160,6 +163,9 @@
       }
     },
     "Dark" : {
+
+    },
+    "Editor Window" : {
 
     },
     "Enter your token" : {
@@ -483,6 +489,9 @@
         }
       }
     },
+    "Main Editor Window" : {
+
+    },
     "new" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -595,6 +604,9 @@
           }
         }
       }
+    },
+    "Run Tests Button" : {
+
     },
     "runFailed" : {
       "extractionState" : "manual",
@@ -732,6 +744,9 @@
         }
       }
     },
+    "Side Bar Window" : {
+
+    },
     "signOut" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -786,6 +801,9 @@
           }
         }
       }
+    },
+    "Submit Button" : {
+
     },
     "submitCode" : {
       "extractionState" : "manual",

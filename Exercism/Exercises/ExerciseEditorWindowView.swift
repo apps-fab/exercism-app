@@ -29,14 +29,17 @@ struct ExerciseEditorWindowView: View {
                 NavigationSplitView {
                     ExerciseRightSidebarView()
                         .environmentObject(viewModel)
+                        .accessibilityLabel("Side Bar Window")
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
                         ForEach(document) { file in
                             ExerciseEditorView()
                                 .tabItem(for: file)
+                                .accessibilityLabel("Editor Window")
                         }
                     }
                 }.environmentObject(viewModel)
+                    .accessibilityLabel("Main Editor Window")
             case .failure(let error):
                 Text(error.description)
                     .frame(maxWidth: .infinity,
@@ -73,7 +76,7 @@ struct ExerciseEditorWindowView: View {
                 }.disabled(!viewModel.canRunTests)
                     .if(viewModel.canRunTests) { button in
                         button.tooltip(Strings.runTestsTitle.localized())
-                    }
+                    }.accessibilityLabel("Run Tests Button")
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -93,7 +96,7 @@ struct ExerciseEditorWindowView: View {
                 .disabled(!viewModel.canSubmit)
                 .if(!viewModel.canSubmit) { button in
                     button.tooltip(Strings.runTestsError.localized())
-                }
+                }.accessibilityLabel("Submit Button")
             }
         }
         .navigationTitle(viewModel.title)

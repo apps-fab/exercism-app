@@ -33,8 +33,12 @@ struct ExerciseEditorView: View {
                 Picker(Strings.theme.localized(), selection: $general.theme) {
                     ForEach(CodeEditor.availableThemes, id: \.self) { theme in
                         Text(theme.rawValue.capitalized)
+                            .tag(theme)
                     }
                 }
+                .accessibilityLabel(Text(Strings.theme.localized()))
+                .accessibilityValue(Text(general.theme.description))
+                .accessibilityHint(Text("Click to change the theme"))
             }
             .padding()
         }.alert(String(Strings.submissionAlert.localized()),

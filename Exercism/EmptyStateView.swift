@@ -27,8 +27,7 @@ struct EmptyStateView: View {
                         Text(Strings.resetFilters.localized())
                     } icon: {
                         Image.undo
-                    }
-                    .bold()
+                    }.bold()
                 }
             }
             Spacer()
