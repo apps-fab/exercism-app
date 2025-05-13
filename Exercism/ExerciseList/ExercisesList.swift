@@ -29,7 +29,6 @@ struct ExercisesList: View {
     @StateObject private var viewModel: ExerciseListViewModel
     @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
-    @State private var solutions = [String: Solution]()
     @State private var alertItem = AlertItem()
     let track: Track
 
@@ -78,8 +77,7 @@ struct ExercisesList: View {
 
     private func getExercises() async {
         do {
-            let solutionsList = try await viewModel.getSolutions(track)
-            self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+            try await viewModel.getSolutions(track)
         } catch {
             alertItem = AlertItem(title: "Error", message: error.localizedDescription)
         }
@@ -87,7 +85,7 @@ struct ExercisesList: View {
 
     @ViewBuilder
     private func exerciseListView(_ exercises: [Exercise]) -> some View {
-        let groupedExercises = groupExercises(exercises)
+        let groupedExercises = viewModel.groupExercises(exercises)
         let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
 
         VStack(spacing: 0) {
@@ -97,7 +95,6 @@ struct ExercisesList: View {
 
                 CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
                     Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
-
                 }
             }
             .padding()
@@ -113,7 +110,7 @@ struct ExercisesList: View {
                 } else {
                     LazyVGrid(columns: columns) {
                         ForEach(filteredExercises, id: \.self) { exercise in
-                            let solution = getSolution(for: exercise)
+                            let solution = viewModel.getSolution(for: exercise)
 
                             Button {
                                 navigationModel.goToEditor(track.slug, exercise)
@@ -143,40 +140,6 @@ struct ExercisesList: View {
                 cornerRadius: 8
             )
             .focused($fieldFocused)
-    }
-
-    private func getSolution(for exercise: Exercise) -> Solution? {
-        solutions[exercise.slug]
-    }
-
-    /// Group exercises by category
-    /// - Parameter exercises:
-    /// - Returns: [ExerciseCategory: [Exercise]]
-    private func groupExercises(_ exercises: [Exercise]) -> [ExerciseCategory: [Exercise]] {
-        var groupedExercises = [ExerciseCategory: [Exercise]]()
-        for category in ExerciseCategory.allCases {
-            groupedExercises[category] = filterExercises(by: category, exercises: exercises)
-        }
-        return groupedExercises
-    }
-
-    private func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
-        switch category {
-        case .allExercises:
-            return exercises
-        case .completed:
-            return exercises.filter {
-                getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published
-            }
-        case .inProgress:
-            return exercises.filter {
-                getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated
-            }
-        case .available:
-            return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .locked:
-            return exercises.filter { !$0.isUnlocked }
-        }
     }
 }
 

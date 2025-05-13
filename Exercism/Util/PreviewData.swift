@@ -10,6 +10,12 @@ import ExercismSwift
 struct PreviewData {
     static let shared = PreviewData()
     let fileManager = FileManager.default
+    let decoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
 
     func testRun() -> TestRun {
         let data = """
@@ -216,7 +222,7 @@ struct PreviewData {
                      }
                    }
                    """
-        return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
+        return try! decoder().decode(TestRun.self, from: Data(data.utf8))
     }
 
     func testRunWithoutTasks() -> TestRun {
@@ -273,7 +279,7 @@ struct PreviewData {
         }
         """
 
-        return try! JSONDecoder().decode(TestRun.self, from: Data(data.utf8))
+        return try! decoder().decode(TestRun.self, from: Data(data.utf8))
     }
 
 
@@ -281,7 +287,7 @@ struct PreviewData {
         let data = """
                          [
             {
-                             "slug": "swift",
+                             "slug": "AWK",
                              "title": "AWK",
                              "course": false,
                              "num_concepts": 0,
@@ -351,10 +357,10 @@ struct PreviewData {
                             "concepts": "https://exercism.org/tracks/delphi/concepts"
                         }
                     }
-
+            
             ]
             """
-        return try! JSONDecoder().decode([Track].self, from: Data(data.utf8))
+        return try! decoder().decode([Track].self, from: Data(data.utf8))
     }
 
     func getExercises() -> [Exercise] {
@@ -390,7 +396,7 @@ struct PreviewData {
              }
         ]
         """
-        return try! JSONDecoder().decode([Exercise].self, from: Data(data.utf8))
+        return try! decoder().decode([Exercise].self, from: Data(data.utf8))
     }
     func getOrCreateDir() -> URL? {
         do {
@@ -412,9 +418,9 @@ struct PreviewData {
         return nil
     }
 
-    func getExerciseFile() -> [ExerciseFile] {
-        [ExerciseFile(from: getOrCreateDir()!)]
-    }
+    //    func getExerciseFile() -> [ExerciseFile] {
+    //        [ExerciseFile(from: getOrCreateDir()!)]
+    //    }
 
     func getSolutions() -> [Solution] {
         let data = """
@@ -447,9 +453,67 @@ struct PreviewData {
             "title": "Swift",
             "icon_url": "https://assets.exercism.org/tracks/swift.svg"
           }
-        }
+        }, 
+         {
+                    "uuid": "42d190e79ca74b918fde14bcd4ddf472",
+                    "private_url": "https://exercism.org/tracks/groovy/exercises/hello-world",
+                    "public_url": "https://exercism.org/tracks/groovy/exercises/hello-world/solutions/angiemugo",
+                    "status": "started",
+                    "mentoring_status": "none",
+                    "published_iteration_head_tests_status": "not_queued",
+                    "has_notifications": false,
+                    "num_views": 0,
+                    "num_stars": 0,
+                    "num_comments": 0,
+                    "num_iterations": 0,
+                    "num_loc": null,
+                    "is_out_of_date": false,
+                    "published_at": null,
+                    "completed_at": null,
+                    "updated_at": "2024-06-12T19:55:34Z",
+                    "last_iterated_at": null,
+                    "exercise": {
+                        "slug": "hello-world",
+                        "title": "Hello World",
+                        "icon_url": "https://assets.exercism.org/exercises/hello-world.svg"
+                    },
+                    "track": {
+                        "slug": "groovy",
+                        "title": "Groovy",
+                        "icon_url": "https://assets.exercism.org/tracks/groovy.svg"
+                    }
+                },
+                {
+                    "uuid": "c0dec64e644840fc9d786517ecf81a85",
+                    "private_url": "https://exercism.org/tracks/bash/exercises/two-fer",
+                    "public_url": "https://exercism.org/tracks/bash/exercises/two-fer/solutions/angiemugo",
+                    "status": "started",
+                    "mentoring_status": "none",
+                    "published_iteration_head_tests_status": "not_queued",
+                    "has_notifications": false,
+                    "num_views": 0,
+                    "num_stars": 0,
+                    "num_comments": 0,
+                    "num_iterations": 0,
+                    "num_loc": null,
+                    "is_out_of_date": false,
+                    "published_at": null,
+                    "completed_at": null,
+                    "updated_at": "2025-04-01T09:20:19Z",
+                    "last_iterated_at": null,
+                    "exercise": {
+                        "slug": "two-fer",
+                        "title": "Two Fer",
+                        "icon_url": "https://assets.exercism.org/exercises/two-fer.svg"
+                    },
+                    "track": {
+                        "slug": "bash",
+                        "title": "Bash",
+                        "icon_url": "https://assets.exercism.org/tracks/bash.svg"
+                    }
+                }
         ]
         """
-        return try! JSONDecoder().decode([Solution].self, from: Data(data.utf8))
+        return try! decoder().decode([Solution].self, from: Data(data.utf8))
     }
 }
