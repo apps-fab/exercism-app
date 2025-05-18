@@ -605,9 +605,6 @@
         }
       }
     },
-    "Run Tests Button" : {
-
-    },
     "runFailed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -801,9 +798,6 @@
           }
         }
       }
-    },
-    "Submit Button" : {
-
     },
     "submitCode" : {
       "extractionState" : "manual",

@@ -17,6 +17,7 @@ public protocol FetchingProtocol {
     func getTestRun(_ link: String) async throws -> TestRunResponse
     func submitSolution(_ submissionLink: String) async throws -> SubmitSolutionResponse
     func revertToStart(_ solutionId: String) async throws -> InitialFiles
+    func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution
 }
 
 actor Fetcher: FetchingProtocol {

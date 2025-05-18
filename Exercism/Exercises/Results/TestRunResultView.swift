@@ -11,12 +11,11 @@ struct TestRunResultView: View {
     var testRun: TestRun
     let language: String
     let theme: Splash.Theme
-    let onSubmitTest: () -> Void
 
     var body: some View {
         switch testRun.status {
         case .pass:
-            TestPassed(onSubmitTest: onSubmitTest)
+            TestPassed()
         case .error, .ops_error, .timeout:
             TestErrored(errorDescription: testRun.message ?? Strings.errorDescription.localized())
         case .fail:
@@ -43,7 +42,5 @@ struct TestRunResultView: View {
                         font: Font(size: 14),
                         plainTextColor: Color.black,
                         tokenColors: [TokenType.string: Color.black],
-                        backgroundColor: Color(white: 0.12, alpha: 1))) {
-                            print("we run")
-                        }
+                        backgroundColor: Color(white: 0.12, alpha: 1)))
 }

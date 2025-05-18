@@ -1,5 +1,5 @@
 //
-//  SubmitSolutionContentView.swift
+//  CompleteSolutionContentView.swift
 //  Exercism
 //
 //  Created by Cédric Bahirwe on 22/12/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import ExercismSwift
 
-enum SolutionShareOption: String, CaseIterable {
+enum CompleteShareOption: String, CaseIterable {
     case complete = "No, I just want to mark the exercise as complete."
     case share = "Yes I'd like to share my solution with the community"
 
@@ -18,12 +18,12 @@ enum SolutionShareOption: String, CaseIterable {
     }
 }
 
-struct SubmitSolutionContentView: View {
+struct CompleteSolutionContentView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var navigationModel: NavigationModel
-    @EnvironmentObject private var viewModel: ExerciseViewModel
-    @State private var shareOption = SolutionShareOption.share
-    @State private var shareIterationsOptions = SolutionShareOption.Iteration.all
+    @EnvironmentObject var viewModel: EditorActionsViewModel
+    @State private var shareOption = CompleteShareOption.share
+    @State private var shareIterationsOptions = CompleteShareOption.Iteration.all
     @State private var isSubmitting = false
     @State private var selectedIteration: Int = 1
 
@@ -68,7 +68,7 @@ struct SubmitSolutionContentView: View {
     private var listItems: some View {
         VStack(alignment: .leading) {
             Picker(Strings.sharingOption.localized(), selection: $shareOption) {
-                ForEach(SolutionShareOption.allCases, id: \.self) { option in
+                ForEach(CompleteShareOption.allCases, id: \.self) { option in
                     Text(option.rawValue).bold()
                         .tag(option)
                         .id(option)
@@ -84,7 +84,7 @@ struct SubmitSolutionContentView: View {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
                         Picker("", selection: $shareIterationsOptions) {
-                            ForEach(SolutionShareOption.Iteration.allCases, id: \.self) { iteration in
+                            ForEach(CompleteShareOption.Iteration.allCases, id: \.self) { iteration in
                                 Text(iteration.rawValue)
                             }
                         }
@@ -169,6 +169,6 @@ struct SubmitSolutionContentView: View {
 }
 
 #Preview {
-    SubmitSolutionContentView()
-        .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
+    CompleteSolutionContentView()
+        .environmentObject(EditorActionsViewModel(solutionUUID: "", exerciseItem: nil, iterations: []))
 }

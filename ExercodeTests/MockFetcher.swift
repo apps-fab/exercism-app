@@ -11,9 +11,6 @@ import Exercode
 
 final class MockFetcher: FetchingProtocol {
     private let client: MockExercismClient
-    var onRunTest: ((String, [SolutionFileData]) -> TestSubmission)?
-    var onGetTestRun: ((String) -> TestRunResponse)?
-    var onSubmitSolution: ((String) -> SubmitSolutionResponse)?
 
     init(client: MockExercismClient) {
         self.client = client
@@ -97,15 +94,55 @@ final class MockFetcher: FetchingProtocol {
         }
     }
 
-    func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> ExercismSwift.TestSubmission {
-        return onRunTest!(solutionId, contents)
+    func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> TestSubmission {
+        try await withCheckedThrowingContinuation { continuation in
+            client.runTest(for: solutionId, with: contents) { result in
+                switch result {
+                case .success(let document):
+                    continuation.resume(returning: document)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 
     func getTestRun(_ link: String) async throws -> TestRunResponse {
-        return onGetTestRun!(link)
+        try await withCheckedThrowingContinuation { continuation in
+            client.getTestRun(withLink: link) { result in
+                switch result {
+                case .success(let testRun):
+                    continuation.resume(returning: testRun)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 
     func submitSolution(_ submissionLink: String) async throws -> SubmitSolutionResponse {
-        return onSubmitSolution!(submissionLink)
+        try await withCheckedThrowingContinuation { continuation in
+            client.submitSolution(withLink: submissionLink) { result in
+                switch result {
+                case .success(let submitResponse):
+                    continuation.resume(returning: submitResponse)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
+    func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution {
+        try await withCheckedThrowingContinuation { continuation in
+            client.completeSolution(for: solutionId, publish: false, iteration: nil) { result in
+                switch result {
+                case .success(let submitResponse):
+                    continuation.resume(returning: submitResponse)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 }

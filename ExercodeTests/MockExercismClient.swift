@@ -13,7 +13,7 @@ final class MockExercismClient: ExercismClientType {
     var onExercises: ((String, @escaping (Result<ListResponse<Exercise>, ExercismClientError>) -> Void) -> Void)?
     var onValidateToken: ((@escaping (Result<ValidateTokenResponse, ExercismClientError>) -> Void) -> Void)?
     var onSolutions: ((@escaping (Result<ListResponse<Solution>, ExercismClientError>) -> Void) -> Void)?
-    var onDownloadSolution: ((String, String, String,
+    var onDownloadSolution: ((String, String,
                               @escaping (Result<ExerciseDocument, ExercismClientError>) -> Void) -> Void)?
     var onInitialSolution: ((String, @escaping (Result<InitialFiles, ExercismClientError>) -> Void) -> Void)?
     var onGetIterations: ((String, @escaping (Result<IterationResponse, ExercismClientError>) -> Void) -> Void)?
@@ -21,6 +21,8 @@ final class MockExercismClient: ExercismClientType {
     var onGetTestRun: ((String, @escaping (Result<TestRunResponse, ExercismClientError>) -> Void) -> Void)?
     var onSubmitSolution: ((String, @escaping (Result<SubmitSolutionResponse, ExercismClientError>) -> Void) -> Void)?
     var onCompleteSolution: ((String, @escaping (Result<CompletedSolution, ExercismClientError>) -> Void) -> Void)?
+    var onRunTest: ((String, [SolutionFileData],
+                     @escaping (Result<TestSubmission, ExercismClientError>) -> Void) -> Void)?
 
     func tracks(completed: @escaping (Result<ListResponse<Track>, ExercismClientError>) -> Void) {
         onTracks?(completed)
@@ -42,7 +44,7 @@ final class MockExercismClient: ExercismClientType {
 
     func downloadSolution(with id: String, for track: String, exercise: String,
                           completed: @escaping (Result<ExerciseDocument, ExercismClientError>) -> Void) {
-        onDownloadSolution?(id, track, exercise, completed)
+        onDownloadSolution?(track, exercise, completed)
     }
 
     func initialSolution(for track: String, completed: @escaping (Result<InitialFiles, ExercismClientError>) -> Void) {
@@ -73,4 +75,8 @@ final class MockExercismClient: ExercismClientType {
         onCompleteSolution?(solution, completed)
     }
 
+    func runTest(for solution: String, with contents: [SolutionFileData],
+                 completed: @escaping (Result<TestSubmission, ExercismClientError>) -> Void) {
+        onRunTest?(solution, contents, completed)
+    }
 }

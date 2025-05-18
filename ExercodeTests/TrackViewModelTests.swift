@@ -19,7 +19,7 @@ final class TrackViewModelTests: XCTestCase {
     // MARK: - Helpers
 
     private func loadTracks() -> [Track] {
-        return PreviewData.shared.getTracks()
+        PreviewData.shared.getTracks()
     }
 
     // MARK: - Setup & Teardown
@@ -114,7 +114,6 @@ final class TrackViewModelTests: XCTestCase {
     }
 
     func test_sortTracks_sortsByLastTouchedAtDescending() async {
-        let now = Date()
         let mockTracks = loadTracks()
         client.onTracks = { completion in
             completion(.success(ListResponse(results: mockTracks)))

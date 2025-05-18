@@ -25,15 +25,16 @@ struct ExerciseEditorWindowView: View {
             case .loading:
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-            case .success(let document):
+            case .success(let result):
                 NavigationSplitView {
                     ExerciseRightSidebarView()
-                        .environmentObject(viewModel)
+                        .environmentObject(result.1)
                         .accessibilityLabel("Side Bar Window")
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
-                        ForEach(document) { file in
+                        ForEach(result.0) { file in
                             ExerciseEditorView()
+                                .environmentObject(result.1)
                                 .tabItem(for: file)
                                 .accessibilityLabel("Editor Window")
                         }
@@ -50,13 +51,13 @@ struct ExerciseEditorWindowView: View {
             ToolbarItem {
                 Spacer()
             }
-                        ToolbarItem(placement: .primaryAction) {
-                            Button {
-                                viewModel.revertToStart()
-                            } label: {
-                                Image.revert
-                            }.tooltip(Strings.revertExercise.localized())
-                        }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    Task { await viewModel.revertToStart() }
+                } label: {
+                    Image.revert
+                }.tooltip(Strings.revertExercise.localized())
+            }
 
             ToolbarItem(placement: .primaryAction) {
                 Button {
@@ -71,30 +72,11 @@ struct ExerciseEditorWindowView: View {
                     }
                     .labelStyle(.titleAndIcon)
                     .fixedSize()
-                }.disabled(!viewModel.canRunTests)
-                    .if(viewModel.canRunTests) { button in
-                        button.tooltip(Strings.runTestsTitle.localized())
-                    }.accessibilityLabel("Run Tests Button")
-            }
-
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    Task {
-                        await viewModel.submitSolution()
-                    }
-                } label: {
-                    Label {
-                        Text(Strings.submit.localized())
-                    } icon: {
-                        Image.paperplaneCircle
-                    }
-                    .labelStyle(.titleAndIcon)
-                    .fixedSize()
                 }
-                .disabled(!viewModel.canSubmit)
-                .if(!viewModel.canSubmit) { button in
-                    button.tooltip(Strings.runTestsError.localized())
-                }.accessibilityLabel("Submit Button")
+                //                .disabled(!viewModel.actionsViewModel!.canRunTests ?? false)
+                //                    .if(viewModel.canRunTests) { button in
+                //                        button.tooltip(Strings.runTestsTitle.localized())
+                //                    }.accessibilityLabel("Run Tests Button")
             }
         }
         .navigationTitle(viewModel.title)

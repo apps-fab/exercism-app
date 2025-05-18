@@ -14,7 +14,7 @@
 		8480FC703A3429432C6529BB /* TextOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F29C24F1DBB1698B0475 /* TextOutputFormat.swift */; };
 		8480FD426CE878D36671074B /* SplashCodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */; };
 		8480FFB00FCA20A0268145B0 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480F0B036F1420E0B72C7BC /* ViewUtils.swift */; };
-		CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */; };
+		CB370BC12B3618F400C1009D /* CompleteSolutionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB370BC02B3618F400C1009D /* CompleteSolutionContentView.swift */; };
 		CB4F3C142B5EEB2300829CCD /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4F3C132B5EEB2300829CCD /* AlertModel.swift */; };
 		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		CBA63CF42BD7F1C700151C19 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA63CF32BD7F1C700151C19 /* NSNotification.swift */; };
@@ -29,6 +29,7 @@
 		FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */; };
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
 		FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B06F028F592E000FCA956 /* AppDelegate.swift */; };
+		FD0DB1332DD731940007AB91 /* EditorActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0DB1322DD731870007AB91 /* EditorActionsViewModel.swift */; };
 		FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD32367B2DD3A95400CCC6D2 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
@@ -111,7 +112,7 @@
 		8480FAAE164E0D3680DDFBE7 /* SplashCodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashCodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		8480FC607C091F61494EC6B1 /* TestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroup.swift; sourceTree = "<group>"; };
 		8480FFCE7C49D6C4D1D5E747 /* ExerciseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseFile.swift; sourceTree = "<group>"; };
-		CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSolutionContentView.swift; sourceTree = "<group>"; };
+		CB370BC02B3618F400C1009D /* CompleteSolutionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSolutionContentView.swift; sourceTree = "<group>"; };
 		CB4F3C132B5EEB2300829CCD /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		CBA63CF32BD7F1C700151C19 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
@@ -127,6 +128,7 @@
 		FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismCommands.swift; sourceTree = "<group>"; };
 		FD0B06F028F592E000FCA956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD0B071128F5F77300FCA956 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		FD0DB1322DD731870007AB91 /* EditorActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionsViewModel.swift; sourceTree = "<group>"; };
 		FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismSettings.swift; sourceTree = "<group>"; };
 		FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismTextField.swift; sourceTree = "<group>"; };
 		FD3236652DD387D000CCC6D2 /* ExercodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExercodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,8 +235,9 @@
 				E049F21928E4D7B30022CECD /* ExerciseEditorView.swift */,
 				E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */,
 				E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */,
+				FD0DB1322DD731870007AB91 /* EditorActionsViewModel.swift */,
 				FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */,
-				CB370BC02B3618F400C1009D /* SubmitSolutionContentView.swift */,
+				CB370BC02B3618F400C1009D /* CompleteSolutionContentView.swift */,
 				FDC4F8CB2D7BD321008CA0DC /* TestsView.swift */,
 			);
 			path = Exercises;
@@ -586,6 +589,7 @@
 				FD368D462CDBE330001BA3EE /* TestRunProgress.swift in Sources */,
 				FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */,
 				FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */,
+				FD0DB1332DD731940007AB91 /* EditorActionsViewModel.swift in Sources */,
 				CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */,
 				FDE72BC82D96B50A008BAA2F /* SelectedTab.swift in Sources */,
 				FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */,
@@ -621,7 +625,7 @@
 				FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */,
 				FD368D482CDBE475001BA3EE /* NoTestRunView.swift in Sources */,
 				FDB4F1772CCCB651005CC3C4 /* MainWindow.swift in Sources */,
-				CB370BC12B3618F400C1009D /* SubmitSolutionContentView.swift in Sources */,
+				CB370BC12B3618F400C1009D /* CompleteSolutionContentView.swift in Sources */,
 				FDC4F8CC2D7BD328008CA0DC /* TestsView.swift in Sources */,
 				FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */,
 				FD368D442CDBE1BD001BA3EE /* ResultView.swift in Sources */,
