@@ -707,4 +707,35 @@ struct PreviewData {
             """
         return try! decoder().decode(SubmitSolutionResponse.self, from: Data(data.utf8))
     }
+
+    func getSubmissionSuccess() -> SubmitSolutionResponse {
+        let data = """
+            {
+                "iteration": {
+                    "uuid": "e411d428bc324462aab844f2d80adca1",
+                    "submission_uuid": "c99fde0cdba7417e82210ecada8a7860",
+                    "idx": 1,
+                    "status": "tests_failed",
+                    "num_essential_automated_comments": 0,
+                    "num_actionable_automated_comments": 0,
+                    "num_non_actionable_automated_comments": 0,
+                    "num_celebratory_automated_comments": 0,
+                    "submission_method": "api",
+                    "created_at": "2025-05-18T12:32:04Z",
+                    "tests_status": "passed",
+                    "is_published": false,
+                    "is_latest": true,
+                    "links": {
+                        "self": "https://exercism.org/tracks/swift/exercises/leap/iterations?idx=1",
+                        "automated_feedback": "https://exercism.org/api/v2/solutions/e026ab07640644dcb46f82368aac1b39/iterations/e411d428bc324462aab844f2d80adca1/automated_feedback",
+                        "delete": "https://exercism.org/api/v2/solutions/e026ab07640644dcb46f82368aac1b39/iterations/e411d428bc324462aab844f2d80adca1",
+                        "solution": "https://exercism.org/tracks/swift/exercises/leap",
+                        "test_run": "https://exercism.org/api/v2/solutions/e026ab07640644dcb46f82368aac1b39/submissions/c99fde0cdba7417e82210ecada8a7860/test_run",
+                        "files": "https://exercism.org/api/v2/solutions/e026ab07640644dcb46f82368aac1b39/submissions/c99fde0cdba7417e82210ecada8a7860/files"
+                    }
+                }
+            }
+            """
+        return try! decoder().decode(SubmitSolutionResponse.self, from: Data(data.utf8))
+    }
 }

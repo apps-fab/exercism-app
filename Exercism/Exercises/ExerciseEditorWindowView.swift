@@ -18,7 +18,7 @@ struct ExerciseEditorWindowView: View {
     }
 
     var body: some View {
-        Group {
+        VStack {
             switch viewModel.state {
             case .idle:
                 EmptyView()
@@ -46,17 +46,36 @@ struct ExerciseEditorWindowView: View {
                     .frame(maxWidth: .infinity,
                            maxHeight: .infinity)
             }
+        }.task {
+            await viewModel.getDocument()
         }
         .toolbar {
             ToolbarItem {
                 Spacer()
             }
+
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     Task { await viewModel.revertToStart() }
                 } label: {
                     Image.revert
                 }.tooltip(Strings.revertExercise.localized())
+            }
+
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    Task {
+                        await viewModel.submitSolution()
+                    }
+                } label: {
+                    Label {
+                        Text(Strings.submit.localized())
+                    } icon: {
+                        Image.paperplaneCircle
+                    }
+                    .labelStyle(.titleAndIcon)
+                    .fixedSize()
+                }
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -73,17 +92,67 @@ struct ExerciseEditorWindowView: View {
                     .labelStyle(.titleAndIcon)
                     .fixedSize()
                 }
-                //                .disabled(!viewModel.actionsViewModel!.canRunTests ?? false)
-                //                    .if(viewModel.canRunTests) { button in
-                //                        button.tooltip(Strings.runTestsTitle.localized())
-                //                    }.accessibilityLabel("Run Tests Button")
             }
-        }
-        .navigationTitle(viewModel.title)
+        }.navigationTitle(viewModel.title)
+
+        //        .toolbar {
+        //            ToolbarItem {
+        //                Spacer()
+        //            }
+        //
+        //            ToolbarItem(placement: .primaryAction) {
+        //                Button {
+        //                    Task { await viewModel.revertToStart() }
+        //                } label: {
+        //                    Image.revert
+        //                }.tooltip(Strings.revertExercise.localized())
+        //            }
+        //
+        //            ToolbarItem(placement: .primaryAction) {
+        //                Button {
+        //                    Task {
+        //                        await viewModel.submitSolution()
+        //                    }
+        //                } label: {
+        //                    Label {
+        //                        Text(Strings.submit.localized())
+        //                    } icon: {
+        //                        Image.paperplaneCircle
+        //                    }
+        //                    .labelStyle(.titleAndIcon)
+        //                    .fixedSize()
+        //                }
+        //                .disabled(!viewModel.canSubmit)
+        //                .if(!viewModel.canSubmit) { button in
+        //                    button.tooltip(Strings.runTestsError.localized())
+        //                }.accessibilityLabel("Submit Button")
+        //            }
+        //
+        //
+        //            ToolbarItem(placement: .primaryAction) {
+        //                Button {
+        //                    Task {
+        //                        await viewModel.runTests()
+        //                    }
+        //                } label: {
+        //                    Label {
+        //                        Text(Strings.runTests.localized())
+        //                    } icon: {
+        //                        Image.playCircle
+        //                    }
+        //                    .labelStyle(.titleAndIcon)
+        //                    .fixedSize()
+        //                }
+        //                //                .disabled(!viewModel.actionsViewModel!.canRunTests ?? false)
+        //                //                    .if(viewModel.canRunTests) { button in
+        //                //                        button.tooltip(Strings.runTestsTitle.localized())
+        //                //                    }.accessibilityLabel("Run Tests Button")
+        //            }
+        //        }
+        //            .navigationTitle(viewModel.title)
     }
 }
 
 #Preview {
-    ExerciseEditorWindowView("Swift",
-                             "hello world")
+    ExerciseEditorWindowView("Swift", "hello world")
 }

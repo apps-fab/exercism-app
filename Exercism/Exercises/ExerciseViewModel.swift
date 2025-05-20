@@ -37,7 +37,7 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    private func getDocument() async {
+    func getDocument() async {
         state = .loading
         do {
             let exerciseDoc = try await downloadExerciseDoc()
@@ -64,38 +64,38 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func getLanguage(_ exerciseDoc: ExerciseDocument?) {
+    private func getLanguage(_ exerciseDoc: ExerciseDocument?) {
         language = exerciseDoc?.solution.exercise.trackLanguage
     }
 
-    func getExerciseTests(_ exerciseDoc: ExerciseDocument) throws {
+    private func getExerciseTests(_ exerciseDoc: ExerciseDocument) throws {
         guard let testsURL = exerciseDoc.tests.first else { return }
         let tests = try String(contentsOf: testsURL, encoding: .utf8)
         self.tests = tests
     }
 
-    func getExerciseInstructions(_ exerciseDoc: ExerciseDocument) throws {
+    private func getExerciseInstructions(_ exerciseDoc: ExerciseDocument) throws {
         guard let instructionURL = exerciseDoc.instructions else { return  }
         let instruction = try String(contentsOf: instructionURL, encoding: .utf8)
         self.instruction = instruction
     }
 
-    func getSelectedCode(for selectedFile: ExerciseFile) -> String? {
+    private func getSelectedCode(for selectedFile: ExerciseFile) -> String? {
         try? String(contentsOf: selectedFile.url, encoding: .utf8)
     }
 
-    func downloadExerciseDoc() async throws -> ExerciseDocument {
+    private func downloadExerciseDoc() async throws -> ExerciseDocument {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
-    func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+   private func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let exerciseFiles = exerciseDoc.solutions.map {
             return ExerciseFile(from: $0)
         }
         return exerciseFiles
     }
 
-    func createExerciseItem(from exerciseFiles: [ExerciseFile]) -> ExerciseItem {
+    private func createExerciseItem(from exerciseFiles: [ExerciseFile]) -> ExerciseItem {
         return ExerciseItem(name: exercise, language: track, files: exerciseFiles)
     }
 
@@ -112,6 +112,10 @@ final class ExerciseViewModel: ObservableObject {
     func runTests() async {
         selectedTab = SelectedTab.result
         await actionsVM?.runTests()
+    }
+
+    func submitSolution() async {
+        await actionsVM?.submitSolution()
     }
 
     func updateFile() -> Bool {

@@ -47,7 +47,8 @@ final class MockExercismClient: ExercismClientType {
         onDownloadSolution?(track, exercise, completed)
     }
 
-    func initialSolution(for track: String, completed: @escaping (Result<InitialFiles, ExercismClientError>) -> Void) {
+    func initialSolution(for track: String,
+                         completed: @escaping (Result<InitialFiles, ExercismClientError>) -> Void) {
         onInitialSolution?(track, completed)
     }
 

@@ -33,6 +33,7 @@ class EditorActionsViewModel: ObservableObject {
         self.solutionUUID = solutionUUID
         self.exerciseItem = exerciseItem
         sortedIterations = currentSolutionIterations.sorted { $0.idx > $1.idx }
+        Task { try? await runSavedTest() }
     }
 
     private func handleActionState() {
@@ -66,7 +67,7 @@ class EditorActionsViewModel: ObservableObject {
     }
 
     func runTests() async {
-        selectedTab = .tests
+        selectedTab = .result
         do {
             let solutionsData = try getSolutionFileData()
             let runResult = try await fetcher.runTest(solutionUUID, contents: solutionsData)
@@ -103,6 +104,8 @@ class EditorActionsViewModel: ObservableObject {
             default:
                 return
             }
+        } else {
+            await runTests()
         }
     }
 

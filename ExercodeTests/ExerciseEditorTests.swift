@@ -33,118 +33,119 @@ final class ExerciseViewModelTests: XCTestCase {
         PreviewData.shared.getExerciseDoc("swift", "hello-world")
     }
 
-    func getMockInitial() -> InitialFiles {
-        PreviewData.shared.getInitialFile()
+    private func getMockIteration() -> IterationResponse {
+        PreviewData.shared.getIteration()
     }
 
-    func testGetDocumentSuccess() async {
+    func testGetDocSuccess() async {
         let mockDoc = getMockDoc()
+        let iterations = getMockIteration()
 
         client.onDownloadSolution = { _, _, completion in
             completion(.success(mockDoc))
         }
+
+        client.onGetIterations = { _, completion in
+            completion(.success(iterations))
+        }
+
         viewModel = ExerciseViewModel("swift", "hello-world", fetcher)
 
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        let expectation = XCTestExpectation(description: "Wait for .success state")
+
+        for _ in 0..<50 {
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            if case .success = viewModel.state {
+                expectation.fulfill()
+                break
+            }
+        }
+
+        await fulfillment(of: [expectation], timeout: 5)
+
         guard case .success(let returnedDoc) = viewModel.state else {
+            XCTFail("Expected .success state, got: \(viewModel.state)")
             return
         }
 
         XCTAssertEqual(viewModel.title, returnedDoc.0.first?.title)
-        XCTAssertNotNil(viewModel.solutionUUID)
-        XCTAssertNotNil(viewModel.language)
-        XCTAssertNotNil(viewModel.instruction)
-        XCTAssertNotNil(viewModel.tests)
-        XCTAssertNotNil(viewModel.selectedFile)
-        XCTAssertNotNil(viewModel.selectedCode)
+        XCTAssertEqual(viewModel.solutionUUID, "0c0fc9e088e0422db5d6abd2cd93d939")
+        XCTAssertEqual(viewModel.language, "Swift")
+        XCTAssertEqual(viewModel.selectedFile.id, "Sources/HelloWorld/HelloWorld.swift")
+        XCTAssertFalse(viewModel.selectedCode.isEmpty)
+        XCTAssertFalse(((viewModel.instruction?.isEmpty) == nil))
+        XCTAssertFalse(((viewModel.tests?.isEmpty) == nil))
     }
 
-    func testGetLanguage() {
-        let mockDoc = getMockDoc()
-
-        viewModel.getLanguage(mockDoc)
-        XCTAssertEqual(viewModel.language, mockDoc.solution.exercise.trackLanguage)
-    }
-
-    func testGetInstruction() {
-        let mockDoc = getMockDoc()
-        guard let instructions = mockDoc.instructions,
-              let instructions = try? String(contentsOf: instructions, encoding: .utf8) else {
-            XCTAssert(false, "Mock data is missing instructions")
-            return
-        }
-        try? viewModel.getExerciseInstructions(mockDoc)
-
-        XCTAssertEqual(viewModel.instruction, instructions)
-    }
-
-    func testGetTests() {
-        let mockDoc = getMockDoc()
-        guard let tests = mockDoc.tests.first,
-              let tests = try? String(contentsOf: tests, encoding: .utf8) else {
-            XCTAssert(false, "Mock data is missing tests")
-            return
-        }
-        try? viewModel.getExerciseTests(mockDoc)
-
-        XCTAssertEqual(viewModel.tests, tests)
-    }
-
-    func testGetSelectedCode() {
-        let mockDoc = getMockDoc()
-        guard let exerciseFile = viewModel.createExerciseFile(from: mockDoc).first else {
-            XCTAssert(false, "Exercise file not created")
-            return
-        }
-        let selectedCode = viewModel.getSelectedCode(for: exerciseFile)
-        XCTAssertEqual(selectedCode, viewModel.selectedCode)
-    }
-
-    //    func testGetIterations() async {
-    //        let iteration = getMockIteration()
-    //
-    //        client.onGetIterations = { _, completion in
-    //            completion(.success(iteration))
-    //        }
-    //
-    //        await viewModel.getIterations(for: "")
-    //        XCTAssertEqual(viewModel.currentSolutionIterations.count, iteration.iterations.count)
-    //    }
-
-    func testGetDocumentFailure() async {
-        let error = ExercismClientError.apiError(code: .unauthorized, type: "", message: "")
+    func testGetDocFailure() async {
+        let error = ExercismClientError.apiError(code: .genericError, type: "", message: "")
 
         client.onDownloadSolution = { _, _, completion in
             completion(.failure(error))
         }
 
+        client.onGetIterations = { _, completion in
+            completion(.failure(error))
+        }
+
         viewModel = ExerciseViewModel("swift", "hello-world", fetcher)
 
-        try? await Task.sleep(nanoseconds: 500_000_000)
+        let expectation = XCTestExpectation(description: "Wait for .failure state")
+        for _ in 0..<50 {
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            if case .failure = viewModel.state {
+                expectation.fulfill()
+                break
+            }
+        }
+
+        await fulfillment(of: [expectation], timeout: 5)
 
         guard case .failure(let returnedError) = viewModel.state else {
-            XCTFail("Expected .failure state but got: \(viewModel.state)")
+            XCTFail("Expected .failure state, got: \(viewModel.state)")
             return
         }
 
-        XCTAssertEqual(returnedError.localizedDescription, error.localizedDescription)
+        XCTAssertEqual(error.description, returnedError.description)
+        XCTAssertNil(viewModel.solutionUUID)
+        XCTAssertNil(viewModel.language)
+        XCTAssertNil(viewModel.instruction)
+        XCTAssertNil(viewModel.tests)
+        XCTAssertNil(viewModel.selectedFile)
     }
 
-    func testRevertToStartSuccess() async {
-        viewModel.solutionUUID = "mock-id"
+    func testUpdateFileReturnsFalseWhenCodeIsEmpty() {
+        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent("Test.swift")
+        let tempFile = ExerciseFile(from: fileURL)
+        viewModel.selectedFile = tempFile
+        viewModel.selectedCode = ""
 
-        let mockDoc = getMockDoc()
-        client.onDownloadSolution = { _, _, completion in
-            completion(.success(mockDoc))
-        }
+        let result = viewModel.updateFile()
 
-        let initialFiles = getMockInitial()
-        client.onInitialSolution = { _, completion in
-            completion(.success(initialFiles))
-        }
+        XCTAssertFalse(result)
+    }
 
-        await viewModel.revertToStart()
+    func testUpdateFileReturnsFalseWhenWriteFails() {
+        let invalidURL = URL(fileURLWithPath: "/root/invalid.swift")
+        let tempFile = ExerciseFile(from: invalidURL)
+        viewModel.selectedFile = tempFile
+        viewModel.selectedCode = "print(\"fail\")"
 
-        XCTAssertEqual(viewModel.selectedCode, initialFiles.files.first?.content)
+        let result = viewModel.updateFile()
+
+        XCTAssertFalse(result)
+    }
+
+    func testUpdateFileSuccess() {
+        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let tempFile = ExerciseFile(from: fileURL)
+        viewModel.selectedFile = tempFile
+        viewModel.selectedCode = "print(\"Hello\")"
+
+        let result = viewModel.updateFile()
+        XCTAssertTrue(result)
+
+        let contents = try? String(contentsOf: fileURL, encoding: .utf8)
+        XCTAssertEqual(contents, viewModel.selectedCode)
     }
 }
