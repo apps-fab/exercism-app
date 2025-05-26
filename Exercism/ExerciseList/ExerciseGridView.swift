@@ -9,6 +9,19 @@ import SwiftUI
 import ExercismSwift
 import SDWebImageSwiftUI
 
+extension ExerciseDifficulty {
+    var difficultyColor: Color {
+        switch self {
+        case .easy:
+            return .green
+        case .medium:
+            return .yellow
+        case .hard:
+            return .red
+        }
+    }
+}
+
 struct ExerciseGridView: View {
     let exercise: Exercise
     let solution: Solution?
@@ -21,7 +34,7 @@ struct ExerciseGridView: View {
                 .frame(width: 64, height: 64)
 
             VStack(alignment: .leading) {
-                Text(exercise.slug.capitalized)
+                Text(exercise.title.capitalized)
                     .font(.title2.bold())
                 tags
                 Text(exercise.blurb)
@@ -57,78 +70,83 @@ struct ExerciseGridView: View {
 
     private var tags: some View {
         HStack {
-            if solution?.status == .published || solution?.status == .completed {
-                Label {
-                    Text(Strings.completed.localized())
-                } icon: {
-                    Image.checkmarkCircleFill
-                        .foregroundStyle(.foreground, .green)
-                }
-                .padding(.vertical, 2)
-                .roundEdges(
-                    backgroundColor: Color.green.opacity(0.2), lineColor: .green)
-                .font(.callout.weight(.semibold))
-                .foregroundStyle(.green)
-            }
-
-            if let numIterations = solution?.numIterations,
-               numIterations > 0 {
-                // @Todo(Kirk) Convert this to stringdict for proper localisation)
-                let iterationText =
-                "\(String(describing: numIterations)) \(numIterations == 1 ? "iteration" : "iterations")"
-                Label {
-                    Text(iterationText)
-                } icon: {
-                    Image.arrowSquare
-                }
-                .font(.callout.weight(.semibold))
-            }
-
-            if (exercise.isRecommended && exercise.isUnlocked) ||
-                solution?.status == .iterated ||
-                solution?.status == .started {
-                Text(Strings.inProgress.localized())
-                    .padding(.vertical, 2)
-                    .roundEdges(
-                        backgroundColor: Color.blue.opacity(0.2), lineColor: .blue
+            Group {
+                switch solution?.status {
+                case .published, .completed:
+                    statusLabel(
+                        text: solution?.status.rawValue.capitalized ?? "",
+                        icon: Image.checkmarkCircleFill,
+                        color: .green,
+                        background: Color.green.opacity(0.2)
                     )
-                    .font(.callout.weight(.semibold))
-                    .foregroundStyle(.blue)
+
+                case .iterated, .started:
+                    simpleTag(
+                        text: Strings.inProgress.localized(),
+                        color: .blue,
+                        background: Color.blue.opacity(0.2)
+                    )
+
+                default:
+                    if !exercise.isUnlocked {
+                        statusLabel(
+                            text: Strings.locked.localized(),
+                            icon: Image.lock,
+                            background: Color.blue.opacity(0.2)
+                        )
+                        statusLabel(
+                            text: exercise.type.rawValue.capitalized,
+                            icon: Image.lightBulb
+                        )
+                    } else {
+                        simpleTag(text: "Available")
+                        statusLabel(
+                            text: exercise.difficulty.rawValue.capitalized,
+                            icon: Image.stopFill,
+                            color: exercise.difficulty.difficultyColor,
+                            background: exercise.difficulty.difficultyColor.opacity(0.2)
+                        )
+                    }
+                }
             }
 
-            if !exercise.isUnlocked {
-                Label {
-                    Text(Strings.locked.localized())
-                } icon: {
-                    Image.lock
-                }
-                .roundEdges(backgroundColor: Color.blue.opacity(0.2))
-                .font(.callout.weight(.semibold))
-
-                if exercise.type == "concept" {
-                    Label {
-                        Text(Strings.learningExercise.localized())
-                    } icon: {
-                        Image.lightBulb
-                    }
-                    .roundEdges()
-                    .font(.callout.weight(.semibold))
-
-                } else {
-                    Label {
-                        Text(exercise.difficulty)
-                    } icon: {
-                        Image.squareFill
-                    }
-                    .roundEdges(
-                        backgroundColor: Color.green.opacity(0.2),
-                        lineColor: Color.appDarkBackground
-                    )
-                    .font(.callout.weight(.semibold))
-                }
+            if let numIterations = solution?.numIterations, numIterations > 0 {
+                statusLabel(
+                    text: String(format: Strings.iterations.localized(), numIterations),
+                    icon: Image.arrowSquare
+                )
             }
         }
     }
+
+    @ViewBuilder
+    private func statusLabel(text: String,
+                             icon: Image,
+                             color: Color = .primary,
+                             background: Color = .clear) -> some View {
+        Label {
+            Text(text)
+        } icon: {
+            icon
+                .foregroundStyle(.foreground, color)
+        }
+        .padding(.vertical, 2)
+        .roundEdges(backgroundColor: background, lineColor: color)
+        .font(.callout.weight(.semibold))
+        .foregroundStyle(color)
+    }
+
+    @ViewBuilder
+    private func simpleTag(text: String,
+                           color: Color = .primary,
+                           background: Color = .clear) -> some View {
+        Text(text)
+            .padding(.vertical, 2)
+            .roundEdges(backgroundColor: background, lineColor: color)
+            .font(.callout.weight(.semibold))
+            .foregroundStyle(color)
+    }
+
 }
 
 #Preview("Joined Exercise View") {

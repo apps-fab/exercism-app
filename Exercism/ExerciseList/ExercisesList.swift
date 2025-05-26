@@ -48,7 +48,7 @@ struct ExercisesList: View {
             case .loading:
                 ProgressView()
             case .failure(let error):
-                Text(error.localizedDescription)
+                Text(error.description)
             case .success(let exercises):
                 exerciseListView(exercises)
             case .idle:
@@ -62,7 +62,7 @@ struct ExercisesList: View {
             fieldFocused = false
         }.toolbar {
             ToolbarItem(placement: .principal) {
-                Text(track.slug)
+                Text(track.title)
                     .textCase(.uppercase)
                     .font(.headline)
             }
@@ -94,7 +94,7 @@ struct ExercisesList: View {
                     .frame(minWidth: 200)
 
                 CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
-                    Text("\(option.rawValue) (\((groupedExercises[option] ?? exercises).count))")
+                    Text("\(option.rawValue.capitalized) (\((groupedExercises[option] ?? exercises).count))")
                 }
             }
             .padding()

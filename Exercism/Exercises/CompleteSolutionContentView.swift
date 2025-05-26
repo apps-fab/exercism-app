@@ -97,12 +97,12 @@ struct CompleteSolutionContentView: View {
 
                         Menu {
                             ForEach(viewModel.sortedIterations, id: \.idx) { iteration in
-                                Button(String(format: Strings.iteration.localized(), iteration.idx)) {
+                                Button(String(format: Strings.iterations.localized(), iteration.idx)) {
                                     selectedIteration = iteration.idx
                                 }
                             }
                         } label: {
-                            Text(String(format: Strings.iteration.localized(), selectedIteration))
+                            Text(String(format: Strings.iterations.localized(), selectedIteration))
                                 .roundEdges()
                         }
                         .frame(width: 100)

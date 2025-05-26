@@ -17,18 +17,19 @@
         }
       }
     },
-    "%@ %@" : {
+    "About Exercode" : {
+
+    },
+    "alert" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ %2$@"
+            "state" : "translated",
+            "value" : "Alert"
           }
         }
       }
-    },
-    "About Exercode" : {
-
     },
     "all" : {
       "extractionState" : "manual",
@@ -63,6 +64,9 @@
           }
         }
       }
+    },
+    "Available" : {
+
     },
     "Click to change the theme" : {
 
@@ -364,6 +368,17 @@
         }
       }
     },
+    "introSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level up your programming skills over 5,521 exercises across 67+ languages, and insightful discussion with our dedicated team of welcoming mentors."
+          }
+        }
+      }
+    },
     "introTitle" : {
       "comment" : "Login",
       "extractionState" : "manual",
@@ -372,6 +387,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Exercode is built using Exercism APIs and off of the exercism concept."
+          }
+        }
+      }
+    },
+    "iterations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d iteration"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d iterations"
+                }
+              }
+            }
           }
         }
       }
@@ -397,6 +435,20 @@
           }
         }
       }
+    },
+    "joinTrack" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join Track"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "languageIntro" : {
       "extractionState" : "manual",
@@ -489,8 +541,30 @@
         }
       }
     },
+    "logOutAlert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to log out?"
+          }
+        }
+      }
+    },
     "Main Editor Window" : {
 
+    },
+    "markAsComplete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as complete"
+          }
+        }
+      }
     },
     "new" : {
       "extractionState" : "manual",
@@ -605,6 +679,17 @@
         }
       }
     },
+    "revertExercise" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revert to exercise start"
+          }
+        }
+      }
+    },
     "runFailed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -704,8 +789,16 @@
         }
       }
     },
-    "Select Solution Sharing Option" : {
-
+    "searchTrackString" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search language tracks"
+          }
+        }
+      }
     },
     "settingsText" : {
       "extractionState" : "manual",
@@ -714,6 +807,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You can find your token on your [settings page](https://exercism.org/settings/api_cli)"
+          }
+        }
+      }
+    },
+    "sharingOption" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Solution Sharing Option"
           }
         }
       }
@@ -751,6 +855,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign out"
+          }
+        }
+      }
+    },
+    "solutionPublished" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your solution has been published successfully."
           }
         }
       }
@@ -926,6 +1041,17 @@
         }
       }
     },
+    "tokenEmpty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API token cannot be empty"
+          }
+        }
+      }
+    },
     "unjoinedTracks" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -949,9 +1075,6 @@
       }
     },
     "Yes" : {
-
-    },
-    "You can find your token on your [settings page](https://exercism.org/settings/api_cli)" : {
 
     }
   },
