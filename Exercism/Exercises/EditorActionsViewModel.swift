@@ -52,7 +52,7 @@ class EditorActionsViewModel: ObservableObject {
             selectedTab = .instruction
             canSubmitSolution = true
 
-        case .submitWrongSolution, .solutionPublished, .submitError:
+        case .submitWrongSolution, .solutionPublished, .submitError, .revertSuccess:
             errorMessage = state.description
             showErrorAlert = true
 
@@ -174,6 +174,7 @@ class EditorActionsViewModel: ObservableObject {
     func revertToStart() async -> String {
         do {
             let solution = try await fetcher.revertToStart(solutionUUID)
+            state = .revertSuccess
             return solution.files.first?.content ?? ""
         } catch let appError as ExercismClientError {
             state = .actionErrored(appError.description)

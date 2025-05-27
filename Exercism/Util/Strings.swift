@@ -102,6 +102,7 @@ enum Strings: String {
     case runFailed = "Test run failed. Try again."
     case tokenEmptyWarning = "API token cannot be empty"
     case revertExercise = "Revert to exercise start"
+    case revertSuccess = "Revert to exercise successful"
 
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

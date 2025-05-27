@@ -17,6 +17,7 @@ enum EditorActionState {
     case testInProgress(Double)
     case submitInProgress
     case submitError
+    case revertSuccess
     case idle
 
     var description: String {
@@ -29,6 +30,8 @@ enum EditorActionState {
             return Strings.solutionPublished.localized()
         case .submitError:
             return Strings.submitError.localized()
+        case .revertSuccess:
+            return Strings.revertSuccess.localized()
         default:
             return ""
         }
