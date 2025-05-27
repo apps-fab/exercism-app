@@ -29,7 +29,6 @@ final class AuthenticationViewModel: ObservableObject {
     func validateToken() async {
         guard !tokenInput.isEmpty else {
             error = Strings.tokenEmptyWarning.localized()
-            showAlert = true
             return
         }
 

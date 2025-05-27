@@ -1,5 +1,5 @@
 {
-  "originHash" : "82b60b06a8d7e63bedb526d8048842e3e6e06bdfaf0cc6b0bdb40c461d66e80e",
+  "originHash" : "fa8757e13fab71d623af3aebddcf3c53627fd562ff92a6c9fd59c898cf613bd3",
   "pins" : [
     {
       "identity" : "codeeditor",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "f5c076b94f4ceb05abff88ba91d75a8d57143f0c"
+      }
+    },
+    {
+      "identity" : "exercismswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apps-fab/ExercismSwift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9b7fa609c23c6fe2eb3e85e921bbfae344bdbbf8"
       }
     },
     {

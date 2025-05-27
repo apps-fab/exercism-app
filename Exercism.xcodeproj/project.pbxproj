@@ -56,6 +56,7 @@
 		FD653F8E2D4CF6310013E732 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD653F8D2D4CF62C0013E732 /* AppSettings.swift */; };
 		FD653F902D529B5F0013E732 /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD653F8F2D529A940013E732 /* ExercisesListViewModel.swift */; };
 		FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5800DA2A94B9520045CDCC /* ExerciseViewModel.swift */; };
+		FD70C5662DE64F3A00056B79 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD70C5652DE64F3A00056B79 /* ExercismSwift */; };
 		FD73E10D29C3910E001B59D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10C29C3910E001B59D3 /* ContentView.swift */; };
 		FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73E10E29C451E8001B59D3 /* Fetcher.swift */; };
 		FD79A4ED2A8CCF3900250711 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD79A4EC2A8CCF3900250711 /* CustomTabView.swift */; };
@@ -197,6 +198,7 @@
 				FD403C832C518ED700CD8D81 /* ExercismSwift in Frameworks */,
 				FD14592A2DE4EBB50078B93E /* Splash in Frameworks */,
 				FD86D48D2DE4E8EC0033419F /* KeychainAccess in Frameworks */,
+				FD70C5662DE64F3A00056B79 /* ExercismSwift in Frameworks */,
 				FDC4F8CA2D7BCC89008CA0DC /* ExercismSwift in Frameworks */,
 				FD86D4932DE4E9B00033419F /* CodeEditor in Frameworks */,
 				FD86D48A2DE4E8D00033419F /* Settings in Frameworks */,
@@ -455,6 +457,7 @@
 				FD1459292DE4EBB50078B93E /* Splash */,
 				FD14592C2DE4EBE50078B93E /* SDWebImageSwiftUI */,
 				FD14592F2DE4EC210078B93E /* SDWebImageSVGCoder */,
+				FD70C5652DE64F3A00056B79 /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
@@ -512,7 +515,6 @@
 			);
 			mainGroup = E0C9672328732A44004CE7E6;
 			packageReferences = (
-				FDD418B62DE4E62E000A6CCA /* XCLocalSwiftPackageReference "../ExercismSwift" */,
 				FDD418C32DE4E899000A6CCA /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				FD86D4882DE4E8D00033419F /* XCRemoteSwiftPackageReference "Settings" */,
 				FD86D48B2DE4E8EC0033419F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
@@ -520,6 +522,7 @@
 				FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */,
 				FD14592B2DE4EBE50078B93E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				FD14592E2DE4EBFF0078B93E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				FD70C5642DE64F3A00056B79 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -963,13 +966,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		FDD418B62DE4E62E000A6CCA /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../ExercismSwift;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -993,6 +989,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.8.0;
+			};
+		};
+		FD70C5642DE64F3A00056B79 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		FD86D4882DE4E8D00033419F /* XCRemoteSwiftPackageReference "Settings" */ = {
@@ -1055,6 +1059,11 @@
 		};
 		FD403C822C518ED700CD8D81 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = ExercismSwift;
+		};
+		FD70C5652DE64F3A00056B79 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD70C5642DE64F3A00056B79 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
 			productName = ExercismSwift;
 		};
 		FD86D4892DE4E8D00033419F /* Settings */ = {
