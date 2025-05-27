@@ -240,36 +240,36 @@ struct PreviewData {
                 {
                     "name": "test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app",
                     "status": "fail",
-                    "test_code": "assert LogLevel.to_label(0, false) == :trace\nassert LogLevel.to_label(0, true) == :unknown",
-                    "message": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\n     test/log_level_test.exs:6\n     Assertion with == failed\n     code:  assert LogLevel.to_label(0, false) == :trace\n     left:  []\n     right: :trace\n     stacktrace:\n       test/log_level_test.exs:12: (test)\n",
-                    "message_html": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\n     <b><span style='color:#000;'>test/log_level_test.exs:6</span></b>\n     <span style='color:#A00;'>Assertion with == failed</span>\n     <span style='color:#0AA;'>code:  </span>assert LogLevel.to_label(0, false) == :trace\n     <span style='color:#0AA;'>left:  </span><span style='color:#A00;'>[]</span>\n     <span style='color:#0AA;'>right: </span><span style='color:#0A0;'>:trace</span>\n     <span style='color:#0AA;'>stacktrace:</span>\n       test/log_level_test.exs:12: (test)\n",
+                    "test_code": "assert LogLevel.to_label(0, false) == :trace\\nassert LogLevel.to_label(0, true) == :unknown",
+                    "message": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\\n     test/log_level_test.exs:6\\n     Assertion with == failed\\n     code:  assert LogLevel.to_label(0, false) == :trace\\n     left:  []\\n     right: :trace\\n     stacktrace:\\n       test/log_level_test.exs:12: (test)\\n",
+                    "message_html": "  1) test LogLevel.to_label/2 level 0 has label trace only in a non-legacy app (LogLevelTest)\\n     <b><span style='color:#000;'>test/log_level_test.exs:6</span></b>\\n     <span style='color:#A00;'>Assertion with == failed</span>\\n     <span style='color:#0AA;'>code:  </span>assert LogLevel.to_label(0, false) == :trace\\n     <span style='color:#0AA;'>left:  </span><span style='color:#A00;'>[]</span>\\n     <span style='color:#0AA;'>right: </span><span style='color:#0A0;'>:trace</span>\\n     <span style='color:#0AA;'>stacktrace:</span>\\n       test/log_level_test.exs:12: (test)\\n",
                     "expected": null,
                     "output": "",
                     "output_html": "",
                     "task_id": null
                 },
-                               {
-                                 "name": "test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2",
-                                 "status": "pass",
-                                 "test_code": "assert LogLevel.alert_recipient(6, false) == :dev2",
-                                 "message": " 12) test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2 (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:111\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.alert_recipient(6, false) == :dev2\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31mnil\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:dev2\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:117: (test)\\n",
-                                 "message_html": " 12) test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2 (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:111\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.alert_recipient(6, false) == :dev2\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003enil\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:dev2\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:117: (test)\\n",
-                                 "expected": null,
-                                 "output": "",
-                                 "output_html": "",
+                {
+                    "name": "test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2",
+                    "status": "fail",
+                    "test_code": "assert LogLevel.alert_recipient(6, false) == :dev2",
+                    "message": " 12) test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2 (LogLevelTest)\\n     \\u001b[1m\\u001b[30mtest/log_level_test.exs:111\\u001b[0m\\n     \\u001b[31mAssertion with == failed\\u001b[0m\\n     \\u001b[36mcode:  \\u001b[0massert LogLevel.alert_recipient(6, false) == :dev2\\n     \\u001b[36mleft:  \\u001b[0m\\u001b[31mnil\\u001b[0m\\n     \\u001b[36mright: \\u001b[0m\\u001b[32m:dev2\\u001b[0m\\n     \\u001b[36mstacktrace:\\u001b[0m\\n       test/log_level_test.exs:117: (test)\\n",
+                    "message_html": " 12) test LogLevel.alert_recipient/2 unknown code sends alert to dev team 2 (LogLevelTest)\\n     \\u003cb\\u003e\\u003cspan style='color:#000;'\\u003etest/log_level_test.exs:111\\u003c/span\\u003e\\u003c/b\\u003e\\n     \\u003cspan style='color:#A00;'\\u003eAssertion with == failed\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003ecode:  \\u003c/span\\u003eassert LogLevel.alert_recipient(6, false) == :dev2\\n     \\u003cspan style='color:#0AA;'\\u003eleft:  \\u003c/span\\u003e\\u003cspan style='color:#A00;'\\u003enil\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003eright: \\u003c/span\\u003e\\u003cspan style='color:#0A0;'\\u003e:dev2\\u003c/span\\u003e\\n     \\u003cspan style='color:#0AA;'\\u003estacktrace:\\u003c/span\\u003e\\n       test/log_level_test.exs:117: (test)\\n",
+                    "expected": null,
+                    "output": "",
+                    "output_html": "",
                     "task_id": null
-                               },
-                               {
-                                 "name": "test LogLevel.alert_recipient/2 info code does not send alert",
-                                 "status": "pass",
-                                 "test_code": "refute LogLevel.alert_recipient(2, false)\\nrefute LogLevel.alert_recipient(2, true)",
-                                 "message": null,
-                                 "message_html": null,
-                                 "expected": null,
-                                 "output": "",
-                                 "output_html": "",
-                                 "task_id": 2
-                               },
+                },
+                {
+                    "name": "test LogLevel.alert_recipient/2 info code does not send alert",
+                    "status": "pass",
+                    "test_code": "refute LogLevel.alert_recipient(2, false)\\nrefute LogLevel.alert_recipient(2, true)",
+                    "message": null,
+                    "message_html": null,
+                    "expected": null,
+                    "output": "",
+                    "output_html": "",
+                    "task_id": 2
+                }
             ],
             "tasks": [],
             "highlightjs_language": "elixir",
@@ -281,7 +281,6 @@ struct PreviewData {
 
         return try! decoder().decode(TestRun.self, from: Data(data.utf8))
     }
-
 
     func getTracks() -> [Track] {
         let data = """

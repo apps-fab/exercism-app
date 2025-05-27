@@ -94,6 +94,7 @@ enum Strings: String {
     // Error strings
     case errorOccurred = "An error occurred"
     case loginError = "Error logging in"
+    case testFailures = "%d Test Failures"
     case testFailure = "Test Failure"
     case testError = "Test Error"
     case errorSubmitting = "Error submitting solution. Try again."

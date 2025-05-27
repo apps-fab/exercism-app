@@ -19,8 +19,6 @@
 		CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DFA7E2AF97A1D0093566C /* AuthenticationViewModel.swift */; };
 		CBA63CF42BD7F1C700151C19 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA63CF32BD7F1C700151C19 /* NSNotification.swift */; };
 		E049F22428E5766B0022CECD /* ExerciseRightSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E049F22328E5766B0022CECD /* ExerciseRightSidebarView.swift */; };
-		E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0629E0D04D00E5C42A /* MarkdownUI */; };
-		E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = E07F6B0929E0D5DA00E5C42A /* Splash */; };
 		E09BA7EA28E4E83800D7CC91 /* ExerciseEditorWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09BA7E928E4E83800D7CC91 /* ExerciseEditorWindowView.swift */; };
 		E0C9673028732A44004CE7E6 /* ExercismApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C9672F28732A44004CE7E6 /* ExercismApp.swift */; };
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
@@ -30,10 +28,12 @@
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
 		FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B06F028F592E000FCA956 /* AppDelegate.swift */; };
 		FD0DB1332DD731940007AB91 /* EditorActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0DB1322DD731870007AB91 /* EditorActionsViewModel.swift */; };
+		FD14592A2DE4EBB50078B93E /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = FD1459292DE4EBB50078B93E /* Splash */; };
+		FD14592D2DE4EBE50078B93E /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FD14592C2DE4EBE50078B93E /* SDWebImageSwiftUI */; };
+		FD1459302DE4EC210078B93E /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = FD14592F2DE4EC210078B93E /* SDWebImageSVGCoder */; };
 		FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD32367B2DD3A95400CCC6D2 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
-		FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD33A9232C22F81B00E602D2 /* CodeEditor */; };
 		FD36808029B1054E004D53C8 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD36807F29B1054E004D53C8 /* CustomPicker.swift */; };
 		FD368D422CDBE19F001BA3EE /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD368D412CDBE197001BA3EE /* InstructionView.swift */; };
 		FD368D442CDBE1BD001BA3EE /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD368D432CDBE1B7001BA3EE /* ResultView.swift */; };
@@ -62,13 +62,14 @@
 		FD7DC53029E0B00700A1EBD9 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
 		FD7DC53429E0B03600A1EBD9 /* TestRunExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC53229E0B03600A1EBD9 /* TestRunExt.swift */; };
 		FD7DC53529E0B0E900A1EBD9 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B071128F5F77300FCA956 /* FilterView.swift */; };
+		FD86D48A2DE4E8D00033419F /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = FD86D4892DE4E8D00033419F /* Settings */; };
+		FD86D48D2DE4E8EC0033419F /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = FD86D48C2DE4E8EC0033419F /* KeychainAccess */; };
+		FD86D4932DE4E9B00033419F /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = FD86D4922DE4E9B00033419F /* CodeEditor */; };
 		FD9262FF28F6EA3300C9476C /* Tags.json in Resources */ = {isa = PBXBuildFile; fileRef = FD9262FE28F6EA3300C9476C /* Tags.json */; };
-		FD92DC652A854EAC00673445 /* Settings in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = FD92DC642A854EAC00673445 /* Settings */; };
 		FD93F5C228E1E3260078A062 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C128E1E3260078A062 /* TracksListView.swift */; };
 		FD93F5C428E1E5BC0078A062 /* TrackGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5C328E1E5BC0078A062 /* TrackGridView.swift */; };
 		FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD93F5D628E398770078A062 /* Date+Exercism.swift */; };
 		FD9B57E92A8264AB0042C6B0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FD9B57E82A8264AB0042C6B0 /* Localizable.xcstrings */; };
-		FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = FDA25A8E2CBECFFD00848060 /* KeychainAccess */; };
 		FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC239292BCC5200A2AB72 /* ExercisesList.swift */; };
 		FDB4F1712CCCB46A005CC3C4 /* MainCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1702CCCB44B005CC3C4 /* MainCommands.swift */; };
 		FDB4F1752CCCB4BA005CC3C4 /* WindowCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB4F1742CCCB4B3005CC3C4 /* WindowCommands.swift */; };
@@ -79,9 +80,7 @@
 		FDC4F8CA2D7BCC89008CA0DC /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FDC4F8C92D7BCC89008CA0DC /* ExercismSwift */; };
 		FDC4F8CC2D7BD328008CA0DC /* TestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC4F8CB2D7BD321008CA0DC /* TestsView.swift */; };
 		FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC9F12028E5DC7F00488CE9 /* KeychainHelper.swift */; };
-		FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12328E5E6C800488CE9 /* SDWebImage */; };
-		FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */; };
-		FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */; };
+		FDD418C52DE4E899000A6CCA /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDD418C42DE4E899000A6CCA /* MarkdownUI */; };
 		FDD4575128DA474200B3834F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD4575028DA474200B3834F /* Color.xcassets */; };
 		FDDAEB5A29B6667300C6F938 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDAEB5929B6667300C6F938 /* TrackViewModel.swift */; };
 		FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */; };
@@ -192,18 +191,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E07F6B0729E0D04D00E5C42A /* MarkdownUI in Frameworks */,
+				FD1459302DE4EC210078B93E /* SDWebImageSVGCoder in Frameworks */,
+				FD14592D2DE4EBE50078B93E /* SDWebImageSwiftUI in Frameworks */,
 				FD6467D52ADFD24700358E19 /* Metal.framework in Frameworks */,
-				FDA25A8F2CBECFFD00848060 /* KeychainAccess in Frameworks */,
-				FDC9F12A28E5E86500488CE9 /* SDWebImageSwiftUI in Frameworks */,
-				FD33A9242C22F81B00E602D2 /* CodeEditor in Frameworks */,
-				E07F6B0A29E0D5DA00E5C42A /* Splash in Frameworks */,
 				FD403C832C518ED700CD8D81 /* ExercismSwift in Frameworks */,
+				FD14592A2DE4EBB50078B93E /* Splash in Frameworks */,
+				FD86D48D2DE4E8EC0033419F /* KeychainAccess in Frameworks */,
 				FDC4F8CA2D7BCC89008CA0DC /* ExercismSwift in Frameworks */,
-				FDC9F12428E5E6C800488CE9 /* SDWebImage in Frameworks */,
-				FD92DC652A854EAC00673445 /* Settings in Frameworks */,
-				FDC9F12728E5E71900488CE9 /* SDWebImageSVGCoder in Frameworks */,
+				FD86D4932DE4E9B00033419F /* CodeEditor in Frameworks */,
+				FD86D48A2DE4E8D00033419F /* Settings in Frameworks */,
 				FDBC7C882C22E90B0008FEAB /* CodeEditor in Frameworks */,
+				FDD418C52DE4E899000A6CCA /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,16 +446,15 @@
 			);
 			name = Exercode;
 			packageProductDependencies = (
-				FDC9F12328E5E6C800488CE9 /* SDWebImage */,
-				FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */,
-				FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */,
-				E07F6B0629E0D04D00E5C42A /* MarkdownUI */,
-				E07F6B0929E0D5DA00E5C42A /* Splash */,
-				FD92DC642A854EAC00673445 /* Settings */,
-				FD33A9232C22F81B00E602D2 /* CodeEditor */,
 				FD403C822C518ED700CD8D81 /* ExercismSwift */,
-				FDA25A8E2CBECFFD00848060 /* KeychainAccess */,
 				FDC4F8C92D7BCC89008CA0DC /* ExercismSwift */,
+				FDD418C42DE4E899000A6CCA /* MarkdownUI */,
+				FD86D4892DE4E8D00033419F /* Settings */,
+				FD86D48C2DE4E8EC0033419F /* KeychainAccess */,
+				FD86D4922DE4E9B00033419F /* CodeEditor */,
+				FD1459292DE4EBB50078B93E /* Splash */,
+				FD14592C2DE4EBE50078B93E /* SDWebImageSwiftUI */,
+				FD14592F2DE4EC210078B93E /* SDWebImageSVGCoder */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
@@ -515,15 +512,14 @@
 			);
 			mainGroup = E0C9672328732A44004CE7E6;
 			packageReferences = (
-				FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
-				FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
-				E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */,
-				FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */,
-				FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
-				FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				FD3236712DD38CDA00CCC6D2 /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FDD418B62DE4E62E000A6CCA /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FDD418C32DE4E899000A6CCA /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+				FD86D4882DE4E8D00033419F /* XCRemoteSwiftPackageReference "Settings" */,
+				FD86D48B2DE4E8EC0033419F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				FD86D4912DE4E9B00033419F /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */,
+				FD14592B2DE4EBE50078B93E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				FD14592E2DE4EBFF0078B93E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -968,50 +964,58 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FD3236712DD38CDA00CCC6D2 /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
+		FDD418B62DE4E62E000A6CCA /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ExercismSwift;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */ = {
+		FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JohnSundell/Splash";
 			requirement = {
-				kind = upToNextMinorVersion;
+				kind = upToNextMajorVersion;
 				minimumVersion = 0.16.0;
 			};
 		};
-		FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+		FD14592B2DE4EBE50078B93E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apps-fab/CodeEditor.git";
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
 			};
 		};
-		FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */ = {
+		FD14592E2DE4EBFF0078B93E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
+		FD86D4882DE4E8D00033419F /* XCRemoteSwiftPackageReference "Settings" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/Settings";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
 			};
 		};
-		FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+		FD86D48B2DE4E8EC0033419F /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
 			requirement = {
 				branch = master;
+				kind = branch;
+			};
+		};
+		FD86D4912DE4E9B00033419F /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor";
+			requirement = {
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -1023,61 +1027,50 @@
 				kind = branch;
 			};
 		};
-		FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		FDD418C32DE4E899000A6CCA /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
 			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
-			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E07F6B0629E0D04D00E5C42A /* MarkdownUI */ = {
+		FD1459292DE4EBB50078B93E /* Splash */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E07F6B0529E0D04D00E5C42A /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
-			productName = MarkdownUI;
-		};
-		E07F6B0929E0D5DA00E5C42A /* Splash */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E07F6B0829E0D5DA00E5C42A /* XCRemoteSwiftPackageReference "Splash" */;
+			package = FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */;
 			productName = Splash;
 		};
-		FD33A9232C22F81B00E602D2 /* CodeEditor */ = {
+		FD14592C2DE4EBE50078B93E /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FD33A9222C22F81B00E602D2 /* XCRemoteSwiftPackageReference "CodeEditor" */;
-			productName = CodeEditor;
+			package = FD14592B2DE4EBE50078B93E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		FD14592F2DE4EC210078B93E /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD14592E2DE4EBFF0078B93E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
 		};
 		FD403C822C518ED700CD8D81 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ExercismSwift;
 		};
-		FD92DC642A854EAC00673445 /* Settings */ = {
+		FD86D4892DE4E8D00033419F /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FD92DC632A854EAC00673445 /* XCRemoteSwiftPackageReference "Settings" */;
+			package = FD86D4882DE4E8D00033419F /* XCRemoteSwiftPackageReference "Settings" */;
 			productName = Settings;
 		};
-		FDA25A8E2CBECFFD00848060 /* KeychainAccess */ = {
+		FD86D48C2DE4E8EC0033419F /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FDA25A8D2CBECFFD00848060 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			package = FD86D48B2DE4E8EC0033419F /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		FD86D4922DE4E9B00033419F /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD86D4912DE4E9B00033419F /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
 		};
 		FDBC7C872C22E90B0008FEAB /* CodeEditor */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1088,20 +1081,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = ExercismSwift;
 		};
-		FDC9F12328E5E6C800488CE9 /* SDWebImage */ = {
+		FDD418C42DE4E899000A6CCA /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FDC9F12228E5E6C800488CE9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		FDC9F12628E5E71900488CE9 /* SDWebImageSVGCoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FDC9F12528E5E71900488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
-			productName = SDWebImageSVGCoder;
-		};
-		FDC9F12928E5E86500488CE9 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FDC9F12828E5E86500488CE9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
+			package = FDD418C32DE4E899000A6CCA /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

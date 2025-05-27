@@ -29,7 +29,8 @@ struct TestGroupedByTaskList: View {
             }
 
             if let message = testRun.message {
-                Text(message).padding()
+                Text(message)
+                    .padding()
             }
         }
     }
@@ -97,12 +98,18 @@ struct TestGroupedByTaskList: View {
         let icon = passedTests > 0 ? "checkmark.square.fill" : "x.circle"
         let color: SwiftUICore.Color = passedTests > 0 ? Color.green : Color.red
 
-        return Label(title, systemImage: icon).foregroundColor(color)
+        return Label(title, systemImage: icon).foregroundColor(color).roundEdges()
     }
 }
 
 #Preview("Test Grouped") {
     TestGroupedByTaskList(testRun: PreviewData.shared.testRun(),
+                          language: "Swift",
+                          theme: Splash.Theme.wwdc18(withFont: Font(size: 18)))
+}
+
+#Preview("Test Grouped (no tasks)") {
+    TestGroupedByTaskList(testRun: PreviewData.shared.testRunWithoutTasks(),
                           language: "Swift",
                           theme: Splash.Theme.wwdc18(withFont: Font(size: 18)))
 }

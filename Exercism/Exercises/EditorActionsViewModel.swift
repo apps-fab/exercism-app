@@ -66,8 +66,14 @@ class EditorActionsViewModel: ObservableObject {
         }
     }
 
-    func runTests() async {
+    func runTests() {
         selectedTab = .result
+        Task {
+            await executeRunTest()
+        }
+    }
+
+    private func executeRunTest() async {
         do {
             let solutionsData = try getSolutionFileData()
             let runResult = try await fetcher.runTest(solutionUUID, contents: solutionsData)
@@ -105,7 +111,7 @@ class EditorActionsViewModel: ObservableObject {
                 return
             }
         } else {
-            await runTests()
+            await executeRunTest()
         }
     }
 

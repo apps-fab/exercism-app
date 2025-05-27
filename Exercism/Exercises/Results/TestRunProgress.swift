@@ -25,13 +25,13 @@ struct TestRunProgress: View {
 
     var body: some View {
         VStack {
-            ProgressView(Strings.runningTests.localized(), value: progress, total: 100)
+            ProgressView(Strings.runningTests.localized(), value: progress, total: totalSecs)
                 .tint(gradient)
                 .padding()
+                .animation(.linear(duration: 0.01), value: progress)
                 .onReceive(timer) { _ in
-                    if progress < 100.0 {
-                        let tempProgress = min(100, (100.0 / (totalSecs * 10.0)))
-                        progress += tempProgress.rounded(.towardZero)
+                    if progress < totalSecs {
+                            progress = min(totalSecs, (progress + 0.01))
                     }
                 }
             Text(String(format: Strings.estimatedTime.localized(), Int(totalSecs)))
