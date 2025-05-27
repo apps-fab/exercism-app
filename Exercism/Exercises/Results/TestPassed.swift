@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TestPassed: View {
-    let onSubmitTest: () -> Void
+    @EnvironmentObject var viewModel: EditorActionsViewModel
 
     var body: some View {
         VStack(spacing: 10) {
@@ -18,7 +18,7 @@ struct TestPassed: View {
             Text(Strings.submitCode.localized())
                 .multilineTextAlignment(.center)
             Button {
-                onSubmitTest()
+                Task {await viewModel.submitSolution() }
             } label: {
                 Label {
                     Text(Strings.submit.localized())
@@ -35,7 +35,5 @@ struct TestPassed: View {
 }
 
 #Preview("Test Passed") {
-    TestPassed {
-        print("We passed test")
-    }
+    TestPassed()
 }

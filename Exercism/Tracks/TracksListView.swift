@@ -22,7 +22,7 @@ struct TracksListView: View {
     private let refreshPublisher = NotificationCenter.default.publisher(for: .didRequestRefresh)
 
     var body: some View {
-        Group {
+        VStack {
             switch viewModel.state {
             case .idle:
                 EmptyView()

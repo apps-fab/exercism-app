@@ -28,6 +28,7 @@ extension Image {
     static let checkmarkCircleFill = Image(systemName: "checkmark.circle.fill")
     static let arrowSquare = Image(systemName: "arrow.2.squarepath")
     static let lightBulb = Image(systemName: "lightbulb")
+    static let stopFill = Image(systemName: "stop.fill")
     static let squareFill = Image(systemName: "square.fill")
     static let sidebarLeading = Image(systemName: "sidebar.leading")
     static let sidebarTrailing = Image(systemName: "sidebar.trailing")

@@ -46,7 +46,7 @@ struct SideBar: View {
                     .padding()
             }.background(.thickMaterial)
         }.alert(isPresented: $showingAlert) {
-            Alert(title: Text(Strings.logOut.localized()),
+            Alert(title: Text(Strings.logOutAlert.localized()),
                   primaryButton: .default(Text("Yes"), action: logout), secondaryButton: .cancel())
         }
     }

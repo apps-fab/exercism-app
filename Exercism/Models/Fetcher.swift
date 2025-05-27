@@ -7,7 +7,20 @@
 
 import ExercismSwift
 
-actor Fetcher {
+public protocol FetchingProtocol {
+    func getTracks() async throws -> [Track]
+    func getExercises(_ track: Track) async throws -> [Exercise]
+    func getSolutions(_ track: Track) async throws -> [Solution]
+    func getIterations(_ solutionId: String) async throws -> [Iteration]
+    func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument
+    func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> TestSubmission
+    func getTestRun(_ link: String) async throws -> TestRunResponse
+    func submitSolution(_ submissionLink: String) async throws -> SubmitSolutionResponse
+    func revertToStart(_ solutionId: String) async throws -> InitialFiles
+    func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution
+}
+
+actor Fetcher: FetchingProtocol {
     private var client: ExercismClient {
         let token = ExercismKeychain.shared.get(for: "token")
         return ExercismClient(apiToken: token ?? "")

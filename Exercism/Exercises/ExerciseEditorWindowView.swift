@@ -18,22 +18,23 @@ struct ExerciseEditorWindowView: View {
     }
 
     var body: some View {
-        Group {
+        VStack {
             switch viewModel.state {
             case .idle:
                 EmptyView()
             case .loading:
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-            case .success(let document):
+            case .success(let result):
                 NavigationSplitView {
                     ExerciseRightSidebarView()
-                        .environmentObject(viewModel)
+                        .environmentObject(result.1)
                         .accessibilityLabel("Side Bar Window")
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
-                        ForEach(document) { file in
+                        ForEach(result.0) { file in
                             ExerciseEditorView()
+                                .environmentObject(result.1)
                                 .tabItem(for: file)
                                 .accessibilityLabel("Editor Window")
                         }
@@ -45,38 +46,19 @@ struct ExerciseEditorWindowView: View {
                     .frame(maxWidth: .infinity,
                            maxHeight: .infinity)
             }
-        }
-        .toolbar {
+        }.toolbar {
             ToolbarItem {
                 Spacer()
             }
 
-            // hide for now
-            //            ToolbarItem(placement: .primaryAction) {
-            //                Button {
-            //                    viewModel.revertToStart()
-            //                } label: {
-            //                    Image.revert
-            //                }.tooltip(Strings.revertExercise.localized())
-            //            }
-
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     Task {
-                        await viewModel.runTests()
+                        await viewModel.revertToStart()
                     }
                 } label: {
-                    Label {
-                        Text(Strings.runTests.localized())
-                    } icon: {
-                        Image.playCircle
-                    }
-                    .labelStyle(.titleAndIcon)
-                    .fixedSize()
-                }.disabled(!viewModel.canRunTests)
-                    .if(viewModel.canRunTests) { button in
-                        button.tooltip(Strings.runTestsTitle.localized())
-                    }.accessibilityLabel("Run Tests Button")
+                    Image.revert
+                }.tooltip(Strings.revertExercise.localized())
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -93,17 +75,28 @@ struct ExerciseEditorWindowView: View {
                     .labelStyle(.titleAndIcon)
                     .fixedSize()
                 }
-                .disabled(!viewModel.canSubmit)
-                .if(!viewModel.canSubmit) { button in
-                    button.tooltip(Strings.runTestsError.localized())
-                }.accessibilityLabel("Submit Button")
             }
-        }
-        .navigationTitle(viewModel.title)
+
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    Task {
+                        await viewModel.runTests()
+                    }
+                } label: {
+                    Label {
+                        Text(Strings.runTests.localized())
+                    } icon: {
+                        Image.playCircle
+                    }
+                    .labelStyle(.titleAndIcon)
+                    .fixedSize()
+                }
+            }
+        }.navigationTitle(viewModel.title)
     }
 }
 
 #Preview {
-    ExerciseEditorWindowView("Swift",
-                             "hello world")
+    ExerciseEditorWindowView("Swift", "hello-world")
+        .frame(width: 800, height: 400)
 }

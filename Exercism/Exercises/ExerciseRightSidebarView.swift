@@ -12,7 +12,9 @@ import MarkdownUI
 
 struct ExerciseRightSidebarView: View {
     @EnvironmentObject var viewModel: ExerciseViewModel
+    @EnvironmentObject var actionsVM: EditorActionsViewModel
     @AppSettings(\.general) private var general
+    @State private var showCompleteExerciseModal = false
 
     private var theme: Splash.Theme {
         switch general.appAppearance {
@@ -32,33 +34,14 @@ struct ExerciseRightSidebarView: View {
     }
 
     var body: some View {
-        CustomTabView(selectedItem: $viewModel.selectedTab) {
+        CustomTabView(selectedItem: $actionsVM.selectedTab) {
             if let instruction = viewModel.instruction {
                 let markdownTheme = Theme.gitHub
-                VStack(spacing: 0) {
-                    InstructionView(instruction: instruction,
-                                    theme: theme,
-                                    language: language,
-                                    markdownTheme: markdownTheme)
-
-                    if viewModel.canMarkAsComplete {
-                        Button {
-                            viewModel.showPublishModal = true
-                        } label: {
-                            Label {
-                                Text(Strings.markAsComplete.localized())
-                            } icon: {
-                                Image.checkmarkSeal
-                            }.frame(maxWidth: .infinity)
-                                .frame(height: 45)
-                                .background(Color.appAccent, in: .rect(cornerRadius: 15))
-                                .foregroundStyle(.white)
-                        }.buttonStyle(.plain)
-                            .padding(.vertical, 10)
-                    }
-                }
-                .padding(.horizontal)
-                .background(markdownTheme.textBackgroundColor)
+                InstructionView(instruction: instruction,
+                                theme: theme,
+                                language: language,
+                                markdownTheme: markdownTheme,
+                                presentModal: $showCompleteExerciseModal)
                 .tabItem(for: SelectedTab.instruction)
             }
 
@@ -73,14 +56,8 @@ struct ExerciseRightSidebarView: View {
                 ResultView(language: language,
                            theme: theme)
             }.tabItem(for: SelectedTab.result)
-        }.sheet(isPresented: $viewModel.showPublishModal) {
-            SubmitSolutionContentView().environmentObject(viewModel)
-        }.alert(String(Strings.submissionAlert.localized()),
-                isPresented: $viewModel.showErrorAlert) {
-            Button(Strings.ok.localized(), role: .cancel) {
-            }
-        } message: {
-            Text(viewModel.runStatus.description)
+        }.sheet(isPresented: $showCompleteExerciseModal) {
+            CompleteSolutionContentView()
         }
     }
 }
@@ -88,4 +65,5 @@ struct ExerciseRightSidebarView: View {
 #Preview {
     ExerciseRightSidebarView()
         .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
+        .environmentObject(EditorActionsViewModel(solutionUUID: "", exerciseItem: nil, iterations: []))
 }

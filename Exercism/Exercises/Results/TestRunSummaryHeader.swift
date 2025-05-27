@@ -24,7 +24,7 @@ struct TestRunSummaryHeader: View {
             } else {
                 if testRun.version == 2 || testRun.version == 3 {
                     let numFailedTests = self.testRun.numFailedTest()
-                    headerText = String(format: Strings.testFailure.localized(), numFailedTests)
+                    headerText = String(format: Strings.testFailures.localized(), numFailedTests)
                 } else {
                     headerText = Strings.testFailed.localized()
                 }

@@ -15,23 +15,51 @@ struct InstructionView: View {
     let theme: Splash.Theme
     let language: String
     let markdownTheme: MarkdownUI.Theme
+    @EnvironmentObject var viewModel: EditorActionsViewModel
+    @Binding var presentModal: Bool
 
     var body: some View {
-        ScrollView {
-            Markdown(instruction)
-                .markdownTheme(markdownTheme)
-                .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+        VStack(spacing: 0) {
+            ScrollView {
+                Markdown(instruction)
+                    .markdownTheme(markdownTheme)
+                    .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
+            }
+
+            if case .submitSuccess = viewModel.state {
+                Button {
+                    presentModal.toggle()
+                } label: {
+                    Label {
+                        Text(Strings.markAsComplete.localized())
+                    } icon: {
+                        Image.checkmarkSeal
+                    }.frame(maxWidth: .infinity)
+                        .frame(height: 45)
+                        .background(Color.appAccent, in: .rect(cornerRadius: 15))
+                        .foregroundStyle(.white)
+                }.buttonStyle(.plain)
+                    .padding(.vertical, 10)
+            }
         }
+        .padding(.horizontal)
+        .background(markdownTheme.textBackgroundColor)
     }
 }
 
 #Preview {
-    InstructionView(instruction: "Try this",
-                    theme: Splash.Theme(
-                        font: Font(size: 14),
-                        plainTextColor: Color.black,
-                        tokenColors: [TokenType.string: Color.black],
-                    backgroundColor: Color(white: 0.12, alpha: 1)),
+    let theme = Splash.Theme(
+        font: Font(size: 14),
+        plainTextColor: Color.black,
+        tokenColors: [TokenType.string: Color.black],
+        backgroundColor: Color(white: 0.12, alpha: 1))
+
+    let viewModel = EditorActionsViewModel(solutionUUID: "", exerciseItem: nil, iterations: [])
+    viewModel.state = .submitSuccess("")
+
+    return InstructionView(instruction: "Try this",
+                    theme: theme,
                     language: "Swift",
-                    markdownTheme: Theme.basic)
+                    markdownTheme: Theme.basic, presentModal: .constant(false))
+    .environmentObject(viewModel)
 }

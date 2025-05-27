@@ -5,28 +5,32 @@
 //  Created by Angie Mugo on 28/03/2025.
 //
 
-enum ExerciseModelResponse: Equatable {
-    case solutionPassed, wrongSolution, runFailed, idle
+import ExercismSwift
+
+enum EditorActionState {
+    case testRunSuccess(SubmissionLinks, TestRun)
+    case getTestRunSuccess(Double)
+    case actionErrored(String)
+    case submitSuccess(String)
+    case submitWrongSolution
     case solutionPublished
-    case success(message: String)
-    case genericError(error: String)
+    case testInProgress(Double)
+    case submitInProgress
+    case submitError
+    case idle
 
     var description: String {
         switch self {
-        case .solutionPassed:
-            return Strings.correctSolution.localized()
-        case .wrongSolution:
-            return Strings.wrongSolution.localized()
-        case .runFailed:
-            return Strings.runFailed.localized()
-        case .idle:
-            return ""
+        case .actionErrored(let error):
+            return error
+        case .submitSuccess(let message):
+            return message
         case .solutionPublished:
             return Strings.solutionPublished.localized()
-        case .success(let message):
-            return message
-        case .genericError(let error):
-            return error
+        case .submitError:
+            return Strings.submitError.localized()
+        default:
+            return ""
         }
     }
 }

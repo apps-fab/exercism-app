@@ -10,6 +10,12 @@ import ExercismSwift
 
 @MainActor
 final class AuthenticationViewModel: ObservableObject {
+    private let clientFactory: (String) -> ExercismClientType
+
+    init(clientFactory: @escaping (String) -> ExercismClientType = { ExercismClient(apiToken: $0) }) {
+        self.clientFactory = clientFactory
+    }
+
     @Published var tokenInput = ""
     @Published var isLoading = false
     @Published var showAlert = false
@@ -26,8 +32,8 @@ final class AuthenticationViewModel: ObservableObject {
             showAlert = true
             return
         }
-        isLoading = true
 
+        isLoading = true
         do {
             try await performAsyncTokenValidation(token: tokenInput)
             isLoading = false
@@ -43,7 +49,7 @@ final class AuthenticationViewModel: ObservableObject {
 
     private func performAsyncTokenValidation(token: String) async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            let client = ExercismClient(apiToken: token)
+            let client = clientFactory(token)
             client.validateToken { response in
                 switch response {
                 case .success:

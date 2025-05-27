@@ -12,7 +12,10 @@ struct TestGroup: Identifiable, Hashable {
     let task: ExercismTask?
     let tests: [[TestGroup]]?
 
-    init(test: Test? = nil, task: ExercismTask? = nil, tests: [[TestGroup]]? = nil, testId: Int? = nil) {
+    init(test: Test? = nil,
+         task: ExercismTask? = nil,
+         tests: [[TestGroup]]? = nil,
+         testId: Int? = nil) {
         self.test = test
         self.task = task
         self.tests = tests

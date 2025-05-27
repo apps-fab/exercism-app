@@ -9,9 +9,11 @@ import SwiftUI
 import CodeEditor
 
 struct ExerciseEditorView: View {
-    @State private var codeChanged = false
+    @State var codeChanged = false
     @EnvironmentObject private var viewModel: ExerciseViewModel
+    @EnvironmentObject private var actionsVM: EditorActionsViewModel
     @AppSettings(\.general) private var general
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     private var language: CodeEditor.Language {
         CodeEditor.Language.init(rawValue: viewModel.language ?? "")
@@ -23,6 +25,14 @@ struct ExerciseEditorView: View {
             CodeEditor(source: $viewModel.selectedCode,
                        language: language,
                        theme: general.theme)
+            .onChange(of: viewModel.selectedCode) { _ in
+                codeChanged = true
+            }
+            .onReceive(timer) { _ in
+                if codeChanged && viewModel.updateFile() {
+                    codeChanged = false
+                }
+            }
 #else
             CodeEditor(source: $viewModel.selectedCode,
                        language: language,
@@ -42,13 +52,11 @@ struct ExerciseEditorView: View {
             }
             .padding()
         }.alert(String(Strings.submissionAlert.localized()),
-                isPresented: $viewModel.showTestSubmissionResponseMessage) {
+                isPresented: $actionsVM.showErrorAlert) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
-            Text(viewModel.runStatus.description)
-        }.onReceive(NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)) { _ in
-            viewModel.updateFile()
+            Text(actionsVM.errorMessage)
         }
     }
 }
@@ -56,4 +64,5 @@ struct ExerciseEditorView: View {
 #Preview {
     ExerciseEditorView()
         .environmentObject(ExerciseViewModel("Swift", "Hello-world"))
+        .environmentObject(EditorActionsViewModel(solutionUUID: "", exerciseItem: nil, iterations: []))
 }

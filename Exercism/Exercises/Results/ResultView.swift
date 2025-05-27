@@ -12,22 +12,23 @@ import Splash
 struct ResultView: View {
     let language: String
     let theme: Splash.Theme
-    @EnvironmentObject private var viewModel: ExerciseViewModel
+    @EnvironmentObject private var viewModel: EditorActionsViewModel
 
     public var body: some View {
-        if let averageTestDuration = viewModel.averageTestDuration {
-            TestRunProgress(totalSecs: averageTestDuration)
-        } else {
+        if case let .testInProgress(progress) = viewModel.state {
+            TestRunProgress(totalSecs: progress)
+        } else if case let .testRunSuccess(_, testRun) = viewModel.state {
+            TestRunResultView(
+                testRun: testRun,
+                language: language,
+                theme: theme
+            )
+        } else if case _ = viewModel.state {
             if let testRun = viewModel.testRun {
                 TestRunResultView(
                     testRun: testRun,
                     language: language,
-                    theme: theme,
-                    onSubmitTest: {
-                        Task {
-                            await viewModel.submitSolution()
-                        }
-                    }
+                    theme: theme
                 )
             } else {
                 NoTestRun()
@@ -37,5 +38,15 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(language: "Swift", theme: Theme.wwdc18(withFont: Font(size: 16.0)))
+    let testRun = PreviewData.shared.testRun()
+    let submission = PreviewData.shared.runTest()
+
+    let viewModel = EditorActionsViewModel(solutionUUID: "", exerciseItem: nil, iterations: [])
+    viewModel.state = .testRunSuccess(submission.links, testRun)
+
+    return ResultView(
+        language: "Swift",
+        theme: Theme.wwdc18(withFont: Font(size: 16.0))
+    )
+    .environmentObject(viewModel)
 }

@@ -12,9 +12,10 @@ import Foundation
 final class TrackViewModel: ObservableObject {
     @Published var state: LoadingState<[Track]> = .idle
     private var tracks = [Track]()
-    private let fetcher = Fetcher()
+    private let fetcher: FetchingProtocol
 
-    init() {
+    init(fetcher: FetchingProtocol? = nil) {
+        self.fetcher = fetcher ?? Fetcher()
         Task {
             await getTracks()
         }
