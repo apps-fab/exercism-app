@@ -14,7 +14,7 @@ struct ExerciseRightSidebarView: View {
     @EnvironmentObject var viewModel: ExerciseViewModel
     @EnvironmentObject var actionsVM: EditorActionsViewModel
     @AppSettings(\.general) private var general
-    @State var showCompleteExerciseModal = false
+    @State private var showCompleteExerciseModal = false
 
     private var theme: Splash.Theme {
         switch general.appAppearance {

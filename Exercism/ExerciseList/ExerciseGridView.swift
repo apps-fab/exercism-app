@@ -23,9 +23,9 @@ extension ExerciseDifficulty {
 }
 
 struct ExerciseGridView: View {
+    @State private var isHover = false
     let exercise: Exercise
     let solution: Solution?
-    @State var isHover = false
 
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
@@ -151,12 +151,10 @@ struct ExerciseGridView: View {
 
 #Preview("Joined Exercise View") {
     ExerciseGridView(exercise: PreviewData.shared.getExercises()[0],
-                     solution: PreviewData.shared.getSolutions()[0],
-                     isHover: true)
+                     solution: PreviewData.shared.getSolutions()[0])
 }
 
 #Preview("Unjoined Exercise View") {
     ExerciseGridView(exercise: PreviewData.shared.getExercises()[1],
-                     solution: PreviewData.shared.getSolutions()[0],
-                     isHover: true)
+                     solution: PreviewData.shared.getSolutions()[0])
 }
