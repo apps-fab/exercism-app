@@ -51,14 +51,13 @@ struct ExerciseEditorView: View {
                 .accessibilityHint(Text("Click to change the theme"))
             }
             .padding()
-        }     .alert(String(Strings.submissionAlert.localized()),
-                     isPresented: $actionsVM.showErrorAlert) {
+        }.alert(String(Strings.submissionAlert.localized()),
+                isPresented: $actionsVM.showErrorAlert) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
             Text(actionsVM.errorMessage)
         }
-
     }
 }
 

@@ -113,6 +113,7 @@ struct TestGroupedByTaskList: View {
     TestGroupedByTaskList(testRun: PreviewData.shared.testRun(),
                           language: "Swift",
                           theme: Splash.Theme.wwdc18(withFont: Font(size: 18)))
+    .frame(width: 400, height: 4000)
 }
 
 #Preview("Test Grouped (no tasks)") {

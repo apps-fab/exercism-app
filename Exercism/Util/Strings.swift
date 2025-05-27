@@ -86,6 +86,7 @@ enum Strings: String {
     case wrongSolution = "This solution does not fully solve the latest version of this exercise"
     case solutionPublished = "Your solution has been published successfully."
     case solutionAlreadySubmitted = "Error publishing solution. A solution has already been published"
+    case submitError = "Error submitting solution. All tests need to be passing first!"
     case searchString = "Search by title"
     case searchTrackString = "Search language tracks"
     case sharingOption = "Select Solution Sharing Option"

@@ -53,17 +53,16 @@ extension TestRun {
                 }
             }
         } else {
+            var globalTestId = 1
             return tasks.map { task in
-                let tests = testsByStatus.flatMap { _, value in
-                    value.filter {
-                        $0.taskId == task.id
+                let taskTests = testsByStatus.values
+                    .flatMap { $0 }
+                    .filter { $0.taskId == task.id }
+                    .map { test in
+                        defer { globalTestId += 1 }
+                        return TestGroup(test: test, task: task, testId: globalTestId)
                     }
-                    .enumerated()
-                    .map { testId, test in
-                        TestGroup(test: test, task: task, testId: testId + 1)
-                    }
-                }
-                return tests
+                return taskTests
             }
         }
     }

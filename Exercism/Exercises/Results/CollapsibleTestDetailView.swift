@@ -11,7 +11,7 @@ import ExercismSwift
 import Splash
 
 struct CollapsibleTestDetailView: View {
-    @State private var showContent: Bool = true
+    @State private var showContent = false
     let test: Test
     let testId: Int
     let language: String
@@ -112,4 +112,5 @@ struct CollapsibleTestDetailView: View {
                               testId: 0,
                               language: "Swift",
                               theme: Splash.Theme.wwdc18(withFont: Font(size: 18)))
+    .frame(height: 400)
 }

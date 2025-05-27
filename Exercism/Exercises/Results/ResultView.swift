@@ -24,7 +24,15 @@ struct ResultView: View {
                 theme: theme
             )
         } else if case _ = viewModel.state {
-            NoTestRun()
+            if let testRun = viewModel.testRun {
+                TestRunResultView(
+                    testRun: testRun,
+                    language: language,
+                    theme: theme
+                )
+            } else {
+                NoTestRun()
+            }
         }
     }
 }

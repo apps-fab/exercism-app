@@ -16,6 +16,7 @@ class EditorActionsViewModel: ObservableObject {
     @Published var canSubmitSolution = false
     @Published var solutionUUID: String
     @Published var exerciseItem: ExerciseItem?
+    @Published var testRun: TestRun?
     @Published var selectedTab: SelectedTab = .instruction
     @Published var showErrorAlert = false
     @Published var errorMessage: String = ""
@@ -38,21 +39,22 @@ class EditorActionsViewModel: ObservableObject {
 
     private func handleActionState() {
         switch state {
-        case .testRunSuccess:
+        case .testRunSuccess(_, let testRun):
+            self.testRun = testRun
             canSubmitSolution = true
             canRunTests = true
 
         case .actionErrored(let message):
-            showErrorAlert = true
             errorMessage = message
+            showErrorAlert = true
 
         case .submitSuccess:
             selectedTab = .instruction
             canSubmitSolution = true
 
-        case .submitWrongSolution, .solutionPublished:
-            showErrorAlert = true
+        case .submitWrongSolution, .solutionPublished, .submitError:
             errorMessage = state.description
+            showErrorAlert = true
 
         case .testInProgress:
             canRunTests = false
@@ -62,15 +64,12 @@ class EditorActionsViewModel: ObservableObject {
 
         case .idle, .getTestRunSuccess:
             canRunTests = true
-            return
         }
     }
 
-    func runTests() {
+    func runTests() async {
         selectedTab = .result
-        Task {
-            await executeRunTest()
-        }
+        await executeRunTest()
     }
 
     private func executeRunTest() async {
@@ -102,7 +101,7 @@ class EditorActionsViewModel: ObservableObject {
         return solutionsData
     }
 
-    func runSavedTest() async throws {
+    private func runSavedTest() async throws {
         if let savedSubmission = savedTestSubmission[solutionUUID] {
             switch savedSubmission.testStatus {
             case .queued:
@@ -133,9 +132,12 @@ class EditorActionsViewModel: ObservableObject {
     }
 
     func submitSolution() async {
-        guard case let .testRunSuccess(link, _) = state else {
+        selectedTab = .result
+        guard case let .testRunSuccess(link, test) = state, test.status == .pass else {
+            state = .submitError
             return
         }
+
         do {
             let result = try await fetcher.submitSolution(link.submit)
             switch result.iteration.testsStatus {

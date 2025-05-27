@@ -46,17 +46,16 @@ struct ExerciseEditorWindowView: View {
                     .frame(maxWidth: .infinity,
                            maxHeight: .infinity)
             }
-        }.task {
-            await viewModel.getDocument()
-        }
-        .toolbar {
+        }.toolbar {
             ToolbarItem {
                 Spacer()
             }
 
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    Task { await viewModel.revertToStart() }
+                    Task {
+                        await viewModel.revertToStart()
+                    }
                 } label: {
                     Image.revert
                 }.tooltip(Strings.revertExercise.localized())
@@ -94,65 +93,10 @@ struct ExerciseEditorWindowView: View {
                 }
             }
         }.navigationTitle(viewModel.title)
-
-        //        .toolbar {
-        //            ToolbarItem {
-        //                Spacer()
-        //            }
-        //
-        //            ToolbarItem(placement: .primaryAction) {
-        //                Button {
-        //                    Task { await viewModel.revertToStart() }
-        //                } label: {
-        //                    Image.revert
-        //                }.tooltip(Strings.revertExercise.localized())
-        //            }
-        //
-        //            ToolbarItem(placement: .primaryAction) {
-        //                Button {
-        //                    Task {
-        //                        await viewModel.submitSolution()
-        //                    }
-        //                } label: {
-        //                    Label {
-        //                        Text(Strings.submit.localized())
-        //                    } icon: {
-        //                        Image.paperplaneCircle
-        //                    }
-        //                    .labelStyle(.titleAndIcon)
-        //                    .fixedSize()
-        //                }
-        //                .disabled(!viewModel.canSubmit)
-        //                .if(!viewModel.canSubmit) { button in
-        //                    button.tooltip(Strings.runTestsError.localized())
-        //                }.accessibilityLabel("Submit Button")
-        //            }
-        //
-        //
-        //            ToolbarItem(placement: .primaryAction) {
-        //                Button {
-        //                    Task {
-        //                        await viewModel.runTests()
-        //                    }
-        //                } label: {
-        //                    Label {
-        //                        Text(Strings.runTests.localized())
-        //                    } icon: {
-        //                        Image.playCircle
-        //                    }
-        //                    .labelStyle(.titleAndIcon)
-        //                    .fixedSize()
-        //                }
-        //                //                .disabled(!viewModel.actionsViewModel!.canRunTests ?? false)
-        //                //                    .if(viewModel.canRunTests) { button in
-        //                //                        button.tooltip(Strings.runTestsTitle.localized())
-        //                //                    }.accessibilityLabel("Run Tests Button")
-        //            }
-        //        }
-        //            .navigationTitle(viewModel.title)
     }
 }
 
 #Preview {
-    ExerciseEditorWindowView("Swift", "hello world")
+    ExerciseEditorWindowView("Swift", "hello-world")
+        .frame(width: 800, height: 400)
 }

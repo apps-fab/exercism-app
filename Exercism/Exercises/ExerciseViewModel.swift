@@ -37,7 +37,7 @@ final class ExerciseViewModel: ObservableObject {
         }
     }
 
-    func getDocument() async {
+    private func getDocument() async {
         state = .loading
         do {
             let exerciseDoc = try await downloadExerciseDoc()
