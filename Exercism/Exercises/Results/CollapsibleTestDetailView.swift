@@ -29,7 +29,9 @@ struct CollapsibleTestDetailView: View {
                             .padding()
 
                         Markdown(testCode)
-                            .roundEdges(backgroundColor: Color.black, lineColor: .clear, cornerRadius: 7)
+                            .roundEdges(backgroundColor: Color.appDarkBackground,
+                                        lineColor: .clear,
+                                        cornerRadius: 7)
                             .markdownTheme(.docC)
                             .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
                     }
@@ -41,7 +43,9 @@ struct CollapsibleTestDetailView: View {
                             .bold()
 
                         Markdown(messageHtml)
-                            .roundEdges(backgroundColor: Color.black, lineColor: .clear, cornerRadius: 7)
+                            .roundEdges(backgroundColor: Color.appDarkBackground,
+                                        lineColor: .clear,
+                                        cornerRadius: 7)
                             .markdownTheme(.docC)
                     }
 
