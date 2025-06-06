@@ -1,5 +1,5 @@
 # Exercism App
-Mac and iPad app for exercism 
+Mac and iPad app for exercism. You can find us on [app store](https://apps.apple.com/ke/app/exercode/id6477780023?mt=12) 
 
 ## Architecture 
 The current architecture is straightforward since most of the features built are very simple. It is however evolving with need. 
