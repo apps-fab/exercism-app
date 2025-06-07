@@ -88,7 +88,7 @@ final class ExerciseViewModel: ObservableObject {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
-   private func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+    private func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let exerciseFiles = exerciseDoc.solutions.map {
             return ExerciseFile(from: $0)
         }

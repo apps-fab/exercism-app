@@ -46,8 +46,7 @@ struct ExercismSettings: View {
                             .tag(SettingsData.Appearances.light)
                         Text("Dark")
                             .tag(SettingsData.Appearances.dark)
-                    }
-                    .onChange(of: general.appAppearance) { tag in
+                    }.onChange(of: general.appAppearance) { tag in
                         tag.applyAppearance()
                     }
                 }

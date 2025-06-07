@@ -25,6 +25,7 @@ class EditorActionsViewModel: ObservableObject {
             handleActionState()
         }
     }
+
     private let nanosecondsPerSecond: Double = 1_000_000_000
     private let fetcher: FetchingProtocol
     var sortedIterations = [Iteration]()
