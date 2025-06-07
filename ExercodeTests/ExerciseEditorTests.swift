@@ -49,7 +49,7 @@ final class ExerciseViewModelTests: XCTestCase {
             completion(.success(iterations))
         }
 
-        viewModel = ExerciseViewModel("swift", "hello-world", fetcher)
+        await viewModel.getDocument()
 
         let expectation = XCTestExpectation(description: "Wait for .success state")
 
@@ -88,9 +88,10 @@ final class ExerciseViewModelTests: XCTestCase {
             completion(.failure(error))
         }
 
-        viewModel = ExerciseViewModel("swift", "hello-world", fetcher)
+        await viewModel.getDocument()
 
         let expectation = XCTestExpectation(description: "Wait for .failure state")
+
         for _ in 0..<50 {
             try? await Task.sleep(nanoseconds: 100_000_000)
             if case .failure = viewModel.state {

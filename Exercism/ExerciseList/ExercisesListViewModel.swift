@@ -21,15 +21,14 @@ final class ExerciseListViewModel: ObservableObject {
     @Published var solutions = [String: Solution]()
     private var exercises = [Exercise]()
     private let fetcher: FetchingProtocol
-    private let track: Track
+    let track: Track
 
-    init(track: Track, fetcher: FetchingProtocol? = nil) {
-        self.fetcher = fetcher ?? Fetcher()
+    init(_ track: Track, _ fetcher: FetchingProtocol? = nil) {
         self.track = track
-        Task { await getExercises(track) }
+        self.fetcher = fetcher ?? Fetcher()
     }
 
-    func getExercises(_ track: Track) async {
+    func getExercises() async {
         state = .loading
         do {
             let fetchedExercises = try await fetcher.getExercises(track)
@@ -42,7 +41,7 @@ final class ExerciseListViewModel: ObservableObject {
         }
     }
 
-    func getSolutions(_ track: Track) async throws {
+    func getSolutions() async throws {
         let solutionsList = try await fetcher.getSolutions(track)
         self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
     }

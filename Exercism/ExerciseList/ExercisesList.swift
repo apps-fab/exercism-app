@@ -30,7 +30,6 @@ struct ExercisesList: View {
     @State private var exerciseCategory: ExerciseCategory = .allExercises
     @State private var searchText = ""
     @State private var alertItem = AlertItem()
-    let track: Track
 
     private let columns = [
         GridItem(.flexible()),
@@ -38,8 +37,7 @@ struct ExercisesList: View {
     ]
 
     init(track: Track) {
-        self.track = track
-        _viewModel = StateObject(wrappedValue: ExerciseListViewModel(track: track))
+        _viewModel = StateObject(wrappedValue: ExerciseListViewModel(track))
     }
 
     var body: some View {
@@ -47,25 +45,31 @@ struct ExercisesList: View {
             switch viewModel.state {
             case .loading:
                 ProgressView()
+                    .frame(maxWidth: .infinity,
+                           maxHeight: .infinity)
             case .failure(let error):
                 Text(error.description)
+                    .frame(maxWidth: .infinity,
+                           maxHeight: .infinity)
             case .success(let exercises):
                 exerciseListView(exercises)
             case .idle:
                 EmptyView()
             }
-        }.task {
-            await getExercises()
         }.onChange(of: searchText) { newValue in
             viewModel.filterExercises(newValue)
         }.onAppear {
             fieldFocused = false
         }.toolbar {
             ToolbarItem(placement: .principal) {
-                Text(track.title)
+                Text(viewModel.track.title)
                     .textCase(.uppercase)
                     .font(.headline)
             }
+        }
+        .task {
+            await viewModel.getExercises()
+            await getExercises()
         }
         .alert(alertItem.title, isPresented: $alertItem.isPresented) {
             Button(Strings.ok.localized(), role: .cancel) {
@@ -73,11 +77,12 @@ struct ExercisesList: View {
         } message: {
             Text(alertItem.message)
         }
+
     }
 
     private func getExercises() async {
         do {
-            try await viewModel.getSolutions(track)
+            try await viewModel.getSolutions()
         } catch {
             alertItem = AlertItem(title: "Error", message: error.localizedDescription)
         }
@@ -113,7 +118,8 @@ struct ExercisesList: View {
                             let solution = viewModel.getSolution(for: exercise)
 
                             Button {
-                                navigationModel.goToEditor(track.slug, exercise)
+                                navigationModel.goToEditor(viewModel.track.slug,
+                                                           exercise)
                             } label: {
                                 ExerciseGridView(exercise: exercise, solution: solution)
                             }
@@ -143,8 +149,7 @@ struct ExercisesList: View {
     }
 }
 
-#Preview {
+ #Preview {
     ExercisesList(track: PreviewData.shared.getTracks()[0])
         .frame(width: 1000, height: 800)
-        .preferredColorScheme(.light)
-}
+ }

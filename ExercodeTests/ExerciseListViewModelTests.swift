@@ -36,7 +36,7 @@ final class ExerciseListViewModelTests: XCTestCase {
         client = MockExercismClient()
         fetcher = MockFetcher(client: client)
         mockTrack = loadTracks()[0]
-        viewModel = ExerciseListViewModel(track: mockTrack, fetcher: fetcher)
+        viewModel = ExerciseListViewModel(mockTrack, fetcher)
     }
 
     override func tearDown() async throws {
@@ -57,7 +57,7 @@ final class ExerciseListViewModelTests: XCTestCase {
             completion(.success(ListResponse(results: mockExercises)))
         }
 
-        await viewModel.getExercises(mockTrack)
+        await viewModel.getExercises()
 
         guard case .success(let exercises) = viewModel.state else {
             XCTFail("Expected .success state")
@@ -74,7 +74,7 @@ final class ExerciseListViewModelTests: XCTestCase {
             completion(.failure(error))
         }
 
-        await viewModel.getExercises(mockTrack)
+        await viewModel.getExercises()
 
         guard case .failure(let returnedError) = viewModel.state else {
             XCTFail("Expected .failure state")
@@ -91,7 +91,7 @@ final class ExerciseListViewModelTests: XCTestCase {
             completion(.success(ListResponse(results: mockExercises)))
         }
 
-        await viewModel.getExercises(mockTrack)
+        await viewModel.getExercises()
         viewModel.filterExercises("he")
 
         guard case .success(let filtered) = viewModel.state else {
@@ -113,7 +113,7 @@ final class ExerciseListViewModelTests: XCTestCase {
             completion(.success(ListResponse(results: solutions)))
         }
 
-        try await viewModel.getSolutions(mockTrack)
+        try await viewModel.getSolutions()
 
         XCTAssertEqual(viewModel.solutions.count, 3)
 
