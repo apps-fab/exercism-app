@@ -18,58 +18,78 @@ struct FilterView: View {
 
     var body: some View {
         HStack {
-            HStack(spacing: 12) {
-                Image.magnifyingGlass
-                    .imageScale(.large)
-
-                TextField(Strings.searchTrackString.localized(),
-                          text: $searchText)
-                .textFieldStyle(.plain)
-            }.padding(8)
-                .roundEdges(
-                    lineColor: fieldFocused ? .appAccent : .gray,
-                    cornerRadius: 8
-                ).focused($fieldFocused)
-
-            Button {
-                showingSheet.toggle()
-            } label: {
-                Label {
-                    Text(Strings.filterBy.localized())
-                } icon: {
-                    Image.slider
-                }.padding(8)
-                    .roundEdges(lineColor: showingSheet ? .appAccent : .gray,
-                                cornerRadius: 8).contentShape(Rectangle())
-            }.buttonStyle(.plain)
-                .popover(isPresented: $showingSheet) {
-                    FilterTableView(selectedTags: $filters,
-                                    isPresented: $showingSheet).interactiveDismissDisabled(false)
-                }
-
-            Text(String(format: Strings.showingTracks.localized(), results))
-                .fontWeight(.semibold)
-                .minimumScaleFactor(0.9)
-                .lineLimit(1)
-                .padding(8)
-                .roundEdges(backgroundColor: Color.appAccent.opacity(0.5),
-                            lineColor: .clear,
-                            cornerRadius: 8)
-
-            Button {
-                sortAction()
-            } label: {
-                Label {
-                    Text(Strings.sortBy.localized())
-                } icon: {
-                    Image.chevronDown
-                }.padding(8)
-                    .roundEdges(cornerRadius: 8)
-                    .contentShape(Rectangle())
-            }.buttonStyle(.plain)
-        }.onAppear {
+            searchField
+            filterButton
+            resultCountLabel
+            sortButton
+        }
+        .onAppear {
             fieldFocused = false
         }
+    }
+
+    @ViewBuilder
+    private var searchField: some View {
+        HStack(spacing: 12) {
+            Image.magnifyingGlass
+                .imageScale(.large)
+
+            TextField(Strings.searchTrackString.localized(), text: $searchText)
+                .textFieldStyle(.plain)
+        }
+        .padding(8)
+        .roundEdges(lineColor: fieldFocused ? .appAccent : .gray, cornerRadius: 8)
+        .focused($fieldFocused)
+    }
+
+    @ViewBuilder
+    private var filterButton: some View {
+        Button {
+            showingSheet.toggle()
+        } label: {
+            Label {
+                Text(Strings.filterBy.localized())
+            } icon: {
+                Image.slider
+            }
+            .padding(8)
+            .roundEdges(lineColor: showingSheet ? .appAccent : .gray, cornerRadius: 8)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .popover(isPresented: $showingSheet) {
+            FilterTableView(selectedTags: $filters, isPresented: $showingSheet)
+                .interactiveDismissDisabled(false)
+        }
+    }
+
+    @ViewBuilder
+    private var resultCountLabel: some View {
+        Text(String(format: Strings.showingTracks.localized(), results))
+            .fontWeight(.semibold)
+            .minimumScaleFactor(0.9)
+            .lineLimit(1)
+            .padding(8)
+            .roundEdges(backgroundColor: Color.appAccent.opacity(0.5),
+                        lineColor: .clear,
+                        cornerRadius: 8)
+    }
+
+    @ViewBuilder
+    private var sortButton: some View {
+        Button {
+            sortAction()
+        } label: {
+            Label {
+                Text(Strings.sortBy.localized())
+            } icon: {
+                Image.chevronDown
+            }
+            .padding(8)
+            .roundEdges(cornerRadius: 8)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 }
 
