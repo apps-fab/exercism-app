@@ -32,12 +32,9 @@ final class ExerciseViewModel: ObservableObject {
         self.fetcher = fetcher ?? Fetcher()
         self.exercise = exercise
         self.track = track
-        Task {
-            await getDocument()
-        }
     }
 
-    private func getDocument() async {
+    func getDocument() async {
         state = .loading
         do {
             let exerciseDoc = try await downloadExerciseDoc()
@@ -88,7 +85,7 @@ final class ExerciseViewModel: ObservableObject {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
-   private func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
+    private func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let exerciseFiles = exerciseDoc.solutions.map {
             return ExerciseFile(from: $0)
         }

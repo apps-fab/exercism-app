@@ -29,6 +29,7 @@ struct FilterTableView: View {
                     }
                 }
             }
+
             HStack(spacing: 5) {
                 Button(Strings.apply.localized()) {
                     isPresented = false
@@ -46,6 +47,7 @@ struct FilterTableView: View {
                     .roundEdges(backgroundColor: Color.gray)
             }.frame(alignment: .bottomLeading)
         }.padding()
+            .frame(maxWidth: .infinity)
             .task {
                 tags = Tag.loadTags()
             }
@@ -58,8 +60,7 @@ struct FilterTableView: View {
             Label {
                 Text(tag)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.8)
-                    .frame(minWidth: 40, alignment: .leading)
+                    .frame(minWidth: 80, alignment: .leading)
             } icon: {
                 if selectedTags.contains(tag) {
                     Image.checkmarkSquareFill
@@ -71,7 +72,6 @@ struct FilterTableView: View {
             }
         }.buttonStyle(.plain)
             .padding(2)
-
     }
 
     func toggleTags(_ tag: String) {
@@ -83,6 +83,8 @@ struct FilterTableView: View {
     }
 }
 
-#Preview {
-    FilterTableView(selectedTags: .constant(["Functional"]), isPresented: .constant(false))
-}
+ #Preview {
+    FilterTableView(selectedTags: .constant(["Functional"]),
+                    isPresented: .constant(false))
+    .frame(maxWidth: .infinity)
+ }

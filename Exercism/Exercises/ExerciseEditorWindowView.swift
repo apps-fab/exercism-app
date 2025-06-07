@@ -93,6 +93,9 @@ struct ExerciseEditorWindowView: View {
                 }
             }
         }.navigationTitle(viewModel.title)
+            .task {
+                await viewModel.getDocument()
+            }
     }
 }
 

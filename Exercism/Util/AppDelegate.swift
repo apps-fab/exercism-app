@@ -20,6 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         false
     }
 
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        SettingsModel.shared.preferences.general.appAppearance.applyAppearance()
+    }
+
     private lazy var panes: [SettingsPane]  = [
         exercismSettingsScreen()
     ]
