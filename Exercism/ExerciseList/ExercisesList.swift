@@ -21,6 +21,21 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
     case locked
 
     var id: Self { return self }
+
+    var imageName: String {
+        switch self {
+        case .completed:
+            return "checkmark.circle.fill"
+        case .inProgress:
+            return "circle.fill"
+        case .available:
+            return "lock.open"
+        case .locked:
+            return "lock"
+        case .allExercises:
+            return ""
+        }
+    }
 }
 
 struct ExercisesList: View {
@@ -99,7 +114,11 @@ struct ExercisesList: View {
                     .frame(minWidth: 200)
 
                 CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
-                    Text("\(option.rawValue.capitalized) (\((groupedExercises[option] ?? exercises).count))")
+                    Label {
+                        Text("\(option.rawValue.capitalized) (\((groupedExercises[option] ?? exercises).count))")
+                    } icon: {
+                        Image(systemName: option.imageName)
+                    }
                 }
             }
             .padding()
