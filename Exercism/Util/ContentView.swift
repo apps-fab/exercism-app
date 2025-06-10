@@ -24,7 +24,8 @@ struct ContentView: View {
             }
             .navigationDestination(for: Route.self, destination: handleDestinationRoute)
             .navigationBarBackButtonHidden(false)
-        }.frame(
+        }
+        .frame(
             minWidth: 800, idealWidth: 1000, maxWidth: .infinity,
             minHeight: 500, idealHeight: 800, maxHeight: .infinity
         )

@@ -11,6 +11,7 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
+    @Environment(\.streakManager) var streak
 
     init(_ track: String, _ exercise: String) {
         let viewModel = ExerciseViewModel(track, exercise)
@@ -49,6 +50,10 @@ struct ExerciseEditorWindowView: View {
         }.toolbar {
             ToolbarItem {
                 Spacer()
+            }
+
+            ToolbarItem(placement: .primaryAction) {
+              StreakView()
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -94,7 +99,9 @@ struct ExerciseEditorWindowView: View {
             }
         }.navigationTitle(viewModel.title)
             .task {
+                print("Streak object:", streak)
                 await viewModel.getDocument()
+                streak.updateStreak()
             }
     }
 }

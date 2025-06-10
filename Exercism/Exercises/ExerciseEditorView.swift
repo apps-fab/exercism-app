@@ -23,7 +23,7 @@ struct ExerciseEditorView: View {
             CodeEditor(source: $viewModel.selectedCode,
                        language: cachedLanguage,
                        theme: general.theme)
-            .onChange(of: viewModel.selectedCode) { _ in
+            .onChange(of: viewModel.selectedCode) {
                 codeChanged = true
             }
             .onReceive(timer) { _ in
@@ -55,8 +55,8 @@ struct ExerciseEditorView: View {
         } message: {
             Text(actionsVM.errorMessage)
         }
-        .onChange(of: viewModel.language) { newValue in
-            cachedLanguage = CodeEditor.Language(rawValue: newValue ?? "")
+        .onChange(of: viewModel.language) {
+            cachedLanguage = CodeEditor.Language(rawValue: viewModel.language ?? "")
         }
     }
 }

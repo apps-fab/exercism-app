@@ -24,35 +24,35 @@ struct TracksListView: View {
         }
         .toolbar(.hidden)
         .accessibilityLabel("All Tracks")
-        .onChange(of: searchText) { newValue in
-              viewModel.filterTracks(newValue)
-          }
-          .onChange(of: filters) { newValue in
-              viewModel.filterTags(newValue)
-          }
-          .onReceive(refreshPublisher) { _ in
-              Task {
-                  await viewModel.getTracks()
-              }
-          }
+        .onChange(of: searchText) {
+            viewModel.filterTracks(searchText)
+        }
+        .onChange(of: filters) {
+            viewModel.filterTags(filters)
+        }
+        .onReceive(refreshPublisher) { _ in
+            Task {
+                await viewModel.getTracks()
+            }
+        }
 #if os(macOS)
-          .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
-              if shouldRefreshFromJoinTrack {
-                  Task {
-                      await viewModel.getTracks()
-                      shouldRefreshFromJoinTrack = false
-                  }
-              }
-          }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+            if shouldRefreshFromJoinTrack {
+                Task {
+                    await viewModel.getTracks()
+                    shouldRefreshFromJoinTrack = false
+                }
+            }
+        }
 #else
-          .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-              if shouldRefreshFromJoinTrack {
-                  Task {
-                      await viewModel.getTracks()
-                      shouldRefreshFromJoinTrack = false
-                  }
-              }
-          }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            if shouldRefreshFromJoinTrack {
+                Task {
+                    await viewModel.getTracks()
+                    shouldRefreshFromJoinTrack = false
+                }
+            }
+        }
 #endif
     }
 
@@ -122,8 +122,8 @@ struct TracksListView: View {
                        results: tracks.count) {
                 viewModel.sortTracks()
             }
-            .padding()
-            .frame(maxWidth: .infinity)
+                       .padding()
+                       .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
         .background(Color.appDarkBackground)

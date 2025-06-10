@@ -100,3 +100,17 @@ final class NavigationModel: ObservableObject, Codable {
         case columnVisibility
     }
 }
+
+extension NavigationModel: EnvironmentKey {
+    static nonisolated(unsafe) let defaultValue: NavigationModel = .init()
+}
+
+extension EnvironmentValues {
+    var navigationModel: NavigationModel {
+        get {
+            self[NavigationModel.self]
+        } set {
+            self[NavigationModel.self] = newValue
+        }
+    }
+}
