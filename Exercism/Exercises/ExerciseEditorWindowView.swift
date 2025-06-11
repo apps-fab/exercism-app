@@ -12,6 +12,11 @@ struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
     @Environment(\.streakManager) var streak
+    @Namespace private var flameNamespace
+    @State private var scale: CGFloat = 0.5
+    @State private var animateToToolbar = false
+    @State private var fadeOut = true
+    @State private var showStreakView = false
 
     init(_ track: String, _ exercise: String) {
         let viewModel = ExerciseViewModel(track, exercise)
@@ -34,10 +39,22 @@ struct ExerciseEditorWindowView: View {
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
                         ForEach(result.0) { file in
-                            ExerciseEditorView()
-                                .environmentObject(result.1)
-                                .tabItem(for: file)
-                                .accessibilityLabel("Editor Window")
+                            ZStack(alignment: .center) {
+
+                                ExerciseEditorView()
+                                    .environmentObject(result.1)
+                                    .tabItem(for: file)
+                                    .accessibilityLabel("Editor Window")
+                                if !animateToToolbar {
+                                    Image(systemName: "flame.fill")
+                                        .resizable()
+                                        .scaleEffect(scale)
+                                        .frame(width: 300, height: 300)
+                                        .foregroundColor(.orange)
+                                        .matchedGeometryEffect(id: "flame", in: flameNamespace)
+                                }
+
+                            }
                         }
                     }
                 }.environmentObject(viewModel)
@@ -48,12 +65,18 @@ struct ExerciseEditorWindowView: View {
                            maxHeight: .infinity)
             }
         }.toolbar {
-            ToolbarItem {
-                Spacer()
-            }
-
             ToolbarItem(placement: .primaryAction) {
-              StreakView()
+                if showStreakView {
+                    StreakView()
+                        .matchedGeometryEffect(id: "flame", in: flameNamespace)
+                } else {
+                    Image(systemName: "flame.fill")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.orange)
+                        .matchedGeometryEffect(id: "flame", in: flameNamespace)
+                        .opacity(fadeOut ? 0 : 1)
+                }
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -99,10 +122,27 @@ struct ExerciseEditorWindowView: View {
             }
         }.navigationTitle(viewModel.title)
             .task {
-                print("Streak object:", streak)
                 await viewModel.getDocument()
                 streak.updateStreak()
+                animateStreak()
             }
+    }
+
+    func animateStreak() {
+        withAnimation(.easeInOut(duration: 1.0)) {
+            scale = 2.0
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            withAnimation(.spring(duration: 1.0)) {
+                animateToToolbar = true
+                fadeOut = false
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            showStreakView = true
+        }
     }
 }
 

@@ -43,4 +43,3 @@ class StreakOptions: @unchecked Sendable {
 
     private init() {}
 }
-
