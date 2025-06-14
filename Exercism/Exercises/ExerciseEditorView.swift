@@ -18,45 +18,48 @@ struct ExerciseEditorView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        VStack {
+        ZStack {
+            VStack {
 #if os(macOS)
-            CodeEditor(source: $viewModel.selectedCode,
-                       language: cachedLanguage,
-                       theme: general.theme)
-            .onChange(of: viewModel.selectedCode) { _ in
-                codeChanged = true
-            }
-            .onReceive(timer) { _ in
-                if codeChanged && viewModel.updateFile() {
-                    codeChanged = false
+                CodeEditor(source: $viewModel.selectedCode,
+                           language: cachedLanguage,
+                           theme: general.theme)
+                .onChange(of: viewModel.selectedCode) {
+                    codeChanged = true
                 }
-            }
-#else
-            CodeEditor(source: $viewModel.selectedCode,
-                       language: language,
-                       theme: settingData.theme)
-#endif
-            Divider()
-            HStack {
-                Picker(Strings.theme.localized(), selection: $general.theme) {
-                    ForEach(CodeEditor.availableThemes, id: \.self) { theme in
-                        Text(theme.rawValue.capitalized)
-                            .tag(theme)
+                .onReceive(timer) { _ in
+                    if codeChanged && viewModel.updateFile() {
+                        codeChanged = false
                     }
                 }
-                .accessibilityLabel(Text(Strings.theme.localized()))
-                .accessibilityValue(Text(general.theme.description))
-                .accessibilityHint(Text("Click to change the theme"))
-            }.padding()
-        }.alert(String(Strings.submissionAlert.localized()),
-                isPresented: $actionsVM.showErrorAlert) {
-            Button(Strings.ok.localized(), role: .cancel) {
+#else
+                CodeEditor(source: $viewModel.selectedCode,
+                           language: language,
+                           theme: settingData.theme)
+#endif
+                Divider()
+                HStack {
+                    Picker(Strings.theme.localized(), selection: $general.theme) {
+                        ForEach(CodeEditor.availableThemes, id: \.self) { theme in
+                            Text(theme.rawValue.capitalized)
+                                .tag(theme)
+                        }
+                    }
+                    .accessibilityLabel(Text(Strings.theme.localized()))
+                    .accessibilityValue(Text(general.theme.description))
+                    .accessibilityHint(Text("Click to change the theme"))
+                }.padding()
+            }.alert(String(Strings.submissionAlert.localized()),
+                    isPresented: $actionsVM.showErrorAlert) {
+                Button(Strings.ok.localized(), role: .cancel) {
+                }
+            } message: {
+                Text(actionsVM.errorMessage)
             }
-        } message: {
-            Text(actionsVM.errorMessage)
-        }
-        .onChange(of: viewModel.language) { newValue in
-            cachedLanguage = CodeEditor.Language(rawValue: newValue ?? "")
+            .onChange(of: viewModel.language) {
+                cachedLanguage = CodeEditor.Language(rawValue: viewModel.language ?? "")
+            }
+
         }
     }
 }

@@ -70,11 +70,16 @@ class EditorActionsViewModel: ObservableObject {
 
     func runTests() async {
         selectedTab = .result
-        await executeRunTest()
+        do {
+            try await executeRunTest()
+        } catch let appError as ExercismClientError {
+            state = .actionErrored(appError.description)
+        } catch {
+            state = .actionErrored(error.localizedDescription)
+        }
     }
 
-    private func executeRunTest() async {
-        do {
+    private func executeRunTest() async throws {
             let solutionsData = try getSolutionFileData()
             let runResult = try await fetcher.runTest(solutionUUID, contents: solutionsData)
             switch runResult.testStatus {
@@ -84,11 +89,6 @@ class EditorActionsViewModel: ObservableObject {
             default:
                 return
             }
-        } catch let appError as ExercismClientError {
-            state = .actionErrored(appError.description)
-        } catch {
-            state = .actionErrored(error.localizedDescription)
-        }
     }
 
     private func getSolutionFileData() throws -> [SolutionFileData] {
@@ -111,7 +111,7 @@ class EditorActionsViewModel: ObservableObject {
                 return
             }
         } else {
-            await executeRunTest()
+            try await executeRunTest()
         }
     }
 

@@ -11,6 +11,11 @@ import ExercismSwift
 struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
+    @Environment(\.streakManager) var streak
+    @Namespace private var flameNamespace
+    @State private var scale: CGFloat = 0.5
+    @State private var animateToToolbar = false
+    @State private var fadeOut = true
 
     init(_ track: String, _ exercise: String) {
         let viewModel = ExerciseViewModel(track, exercise)
@@ -33,10 +38,12 @@ struct ExerciseEditorWindowView: View {
                 } detail: {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
                         ForEach(result.0) { file in
-                            ExerciseEditorView()
-                                .environmentObject(result.1)
-                                .tabItem(for: file)
-                                .accessibilityLabel("Editor Window")
+                            ZStack(alignment: .center) {
+                                ExerciseEditorView()
+                                    .environmentObject(result.1)
+                                    .tabItem(for: file)
+                                    .accessibilityLabel("Editor Window")
+                            }
                         }
                     }
                 }.environmentObject(viewModel)
@@ -47,8 +54,8 @@ struct ExerciseEditorWindowView: View {
                            maxHeight: .infinity)
             }
         }.toolbar {
-            ToolbarItem {
-                Spacer()
+            ToolbarItem(placement: .primaryAction) {
+                    StreakView()
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -95,6 +102,7 @@ struct ExerciseEditorWindowView: View {
         }.navigationTitle(viewModel.title)
             .task {
                 await viewModel.getDocument()
+                streak.updateStreak()
             }
     }
 }

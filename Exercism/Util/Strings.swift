@@ -22,7 +22,7 @@ enum Strings: String {
     case learningMode = "Learning Mode"
     case lastTouched = "Last touched %@ ago"
     case languageIntro = "Become fluent in your chosen programming languages by completing these tracks created by our awesome team of contributors."
-    case languageNumber = "75 languages for you to master"
+    case languageNumber = "76 languages for you to master"
     case searchLanguage = "Search language filters"
     case filterBy = "Filter by"
     case showingTracks = "Showing all %d tracks"
