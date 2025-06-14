@@ -16,7 +16,6 @@ struct ExerciseEditorWindowView: View {
     @State private var scale: CGFloat = 0.5
     @State private var animateToToolbar = false
     @State private var fadeOut = true
-    @State private var showStreakView = false
 
     init(_ track: String, _ exercise: String) {
         let viewModel = ExerciseViewModel(track, exercise)
@@ -40,20 +39,10 @@ struct ExerciseEditorWindowView: View {
                     CustomTabView(selectedItem: $viewModel.selectedFile) {
                         ForEach(result.0) { file in
                             ZStack(alignment: .center) {
-
                                 ExerciseEditorView()
                                     .environmentObject(result.1)
                                     .tabItem(for: file)
                                     .accessibilityLabel("Editor Window")
-                                if !animateToToolbar {
-                                    Image(systemName: "flame.fill")
-                                        .resizable()
-                                        .scaleEffect(scale)
-                                        .frame(width: 300, height: 300)
-                                        .foregroundColor(.orange)
-                                        .matchedGeometryEffect(id: "flame", in: flameNamespace)
-                                }
-
                             }
                         }
                     }
@@ -66,17 +55,7 @@ struct ExerciseEditorWindowView: View {
             }
         }.toolbar {
             ToolbarItem(placement: .primaryAction) {
-                if showStreakView {
                     StreakView()
-                        .matchedGeometryEffect(id: "flame", in: flameNamespace)
-                } else {
-                    Image(systemName: "flame.fill")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.orange)
-                        .matchedGeometryEffect(id: "flame", in: flameNamespace)
-                        .opacity(fadeOut ? 0 : 1)
-                }
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -124,25 +103,7 @@ struct ExerciseEditorWindowView: View {
             .task {
                 await viewModel.getDocument()
                 streak.updateStreak()
-                animateStreak()
             }
-    }
-
-    func animateStreak() {
-        withAnimation(.easeInOut(duration: 1.0)) {
-            scale = 2.0
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            withAnimation(.spring(duration: 1.0)) {
-                animateToToolbar = true
-                fadeOut = false
-            }
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            showStreakView = true
-        }
     }
 }
 
