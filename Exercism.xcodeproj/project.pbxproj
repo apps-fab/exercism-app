@@ -524,7 +524,6 @@
 					};
 					FD3236642DD387D000CCC6D2 = {
 						CreatedOnToolsVersion = 16.3;
-						TestTargetID = E0C9672B28732A44004CE7E6;
 					};
 				};
 			};
@@ -924,7 +923,6 @@
 		FD32366C2DD387D000CCC6D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -941,14 +939,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exercode.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Exercode";
 			};
 			name = Debug;
 		};
 		FD32366D2DD387D000CCC6D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -964,7 +960,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exercode.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Exercode";
 			};
 			name = Release;
 		};
