@@ -86,7 +86,7 @@ final class StreakManagerTests: XCTestCase {
         XCTAssertEqual(outcome, .streakBroken)
     }
 
-    func test_alreadyCompleted() {
+    func testAlreadyCompleted() {
         let today = calendar.startOfDay(for: .now)
         let existingStreak = Streak(length: 3, lastDate: today)
         mockPersistence.saveEncoded(existingStreak)
