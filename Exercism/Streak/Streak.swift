@@ -16,6 +16,7 @@ extension Streak {
     func determineOutcome(for date: Date) -> Outcome {
         guard let lastDate else { return .streakContinues }
         let calendar = Calendar.current
+
         if calendar.isDate(date, inSameDayAs: lastDate) {
             return .alreadyCompletedToday
         }

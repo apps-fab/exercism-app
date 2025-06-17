@@ -21,28 +21,17 @@ class StreakManager: ObservableObject {
         return outcome == .streakContinues
     }
 
-    @MainActor
-    func getStreakLength(forDate date: Date = .now) -> Int {
-        let outcome = currentStreak.determineOutcome(for: date)
-        if outcome == .streakBroken {
-            currentStreak.length = 0
-            save(streak: currentStreak)
-        }
-        return currentStreak.length
-    }
-
-    func updateStreak(onDate date: Date = .now) {
+    func evaluateAndUpdateStreak(for date: Date = .now) {
         let outcome = currentStreak.determineOutcome(for: date)
         switch outcome {
         case .alreadyCompletedToday:
             return
         case .streakContinues:
-            currentStreak.lastDate = date
             currentStreak.length += 1
         case .streakBroken:
-            currentStreak.lastDate = date
             currentStreak.length = 1
         }
+        currentStreak.lastDate = date
         save(streak: currentStreak)
     }
 
@@ -55,21 +44,21 @@ class StreakManager: ObservableObject {
             let fetched = try decoder.decode(Streak.self, from: data)
             return fetched
         } catch {
-            print("Failed to decode streak. Error: \(error.localizedDescription)")
+            debugPrint("Failed to decode streak. Error: \(error.localizedDescription)")
             return Streak()
         }
     }
 
     func save(streak: Streak, encoder: JSONEncoder = .init()) {
         guard let encoded = try? encoder.encode(streak) else {
-            print("Failed to encode current streak")
+            debugPrint("Failed to encode current streak")
             return
         }
+
         do {
             try persistence.save(data: encoded)
         } catch {
-            print("Error saving streak: \(error)")
+            debugPrint("Error saving streak: \(error)")
         }
     }
-
 }

@@ -12,10 +12,6 @@ struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
     @Environment(\.streakManager) var streak
-    @Namespace private var flameNamespace
-    @State private var scale: CGFloat = 0.5
-    @State private var animateToToolbar = false
-    @State private var fadeOut = true
 
     init(_ track: String, _ exercise: String) {
         let viewModel = ExerciseViewModel(track, exercise)
@@ -55,7 +51,7 @@ struct ExerciseEditorWindowView: View {
             }
         }.toolbar {
             ToolbarItem(placement: .primaryAction) {
-                    StreakView()
+                StreakView()
             }
 
             ToolbarItem(placement: .primaryAction) {
@@ -102,7 +98,7 @@ struct ExerciseEditorWindowView: View {
         }.navigationTitle(viewModel.title)
             .task {
                 await viewModel.getDocument()
-                streak.updateStreak()
+                streak.evaluateAndUpdateStreak()
             }
     }
 }

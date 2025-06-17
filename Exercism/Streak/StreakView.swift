@@ -35,7 +35,7 @@ struct StreakView: View {
 
     public var body: some View {
         HStack {
-            Text("\(streak.getStreakLength())")
+            Text("\(streak.currentStreak.length)")
                 .font(font)
             image
         }
@@ -76,9 +76,7 @@ extension EnvironmentValues {
 }
 
 extension View {
-    func setupStreak(persistence: StreakPersistenceType = .userDefaults,
-                     key: String = "DailyStreak") -> some View {
-        StreakOptions.shared.key = key
+    func setupStreak(persistence: StreakPersistenceType = .userDefaults) -> some View {
         return self
             .environment(\.streakManager, .init(persistence: persistence.makePersistence()))
     }
