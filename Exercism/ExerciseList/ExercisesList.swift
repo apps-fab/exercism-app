@@ -71,8 +71,8 @@ struct ExercisesList: View {
             case .idle:
                 EmptyView()
             }
-        }.onChange(of: searchText) { newValue in
-            viewModel.filterExercises(newValue)
+        }.onChange(of: searchText) {
+            viewModel.filterExercises(searchText)
         }.onAppear {
             fieldFocused = false
         }.toolbar {

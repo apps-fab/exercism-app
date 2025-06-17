@@ -31,7 +31,7 @@ struct ExercismButton: View {
                     .opacity(isLoading ? 0 : 1)
                     .contentShape(Rectangle())
             }
-        }.onChange(of: isLoading) { isLoading in
+        }.onChange(of: isLoading) {
             if isLoading {
                 announce("Loading in progress")
             }

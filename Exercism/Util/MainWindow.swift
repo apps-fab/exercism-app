@@ -22,6 +22,7 @@ struct MainWindow: Scene {
     var body: some Scene {
         Window("", id: "MainWindow") {
             ContentView()
+                .setupStreak()
                 .navigationTitle(Strings.exercode.localized())
         }.defaultSize(width: 1000, height: 800)
     }
