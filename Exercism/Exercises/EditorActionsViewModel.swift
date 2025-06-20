@@ -84,8 +84,8 @@ class EditorActionsViewModel: ObservableObject {
             default:
                 return
             }
-        } catch let appError as ExercismClientError {
-            state = .actionErrored(appError.description)
+        } catch let error as ExercismClientError {
+            state = .actionErrored(error.description)
         } catch {
             state = .actionErrored(error.localizedDescription)
         }
@@ -147,8 +147,6 @@ class EditorActionsViewModel: ObservableObject {
             default:
                 state = .submitWrongSolution
             }
-        } catch let appError as ExercismClientError {
-            state = .actionErrored(appError.description)
         } catch {
             state = .actionErrored(error.localizedDescription)
         }
@@ -163,9 +161,6 @@ class EditorActionsViewModel: ObservableObject {
             _ = try await fetcher.completeSolution(submissionUUID, publish: publish, iterationIdx: selectedIteration)
             state = .solutionPublished
             return true
-        } catch let appError as ExercismClientError {
-            state = .actionErrored(appError.description)
-            return  false
         } catch {
             state = .actionErrored(error.localizedDescription)
             return  false
@@ -177,11 +172,9 @@ class EditorActionsViewModel: ObservableObject {
             let solution = try await fetcher.revertToStart(solutionUUID)
             state = .revertSuccess
             return solution.files.first?.content ?? ""
-        } catch let appError as ExercismClientError {
-            state = .actionErrored(appError.description)
         } catch {
             canRunTests = true
-            state = .actionErrored(error.localizedDescription)
+            state = .actionErrored(error.description)
         }
         return ""
     }

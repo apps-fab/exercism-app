@@ -34,29 +34,17 @@ final class AuthenticationViewModel: ObservableObject {
 
         isLoading = true
         do {
-            try await performAsyncTokenValidation(token: tokenInput)
+            _ = try await performAsyncTokenValidation(token: tokenInput)
             isLoading = false
             authSuccess = true
-        } catch let appError as ExercismClientError {
-            isLoading = false
-            error = appError.description
         } catch {
             isLoading = false
-            self.error = ExercismClientError.unsupportedResponseError.description
+            self.error = error.description
         }
     }
 
-    private func performAsyncTokenValidation(token: String) async throws {
-        return try await withCheckedThrowingContinuation { continuation in
-            let client = clientFactory(token)
-            client.validateToken { response in
-                switch response {
-                case .success:
-                    continuation.resume()
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    private func performAsyncTokenValidation(token: String) async throws(ExercismClientError) -> ValidateTokenResponse {
+        let client = clientFactory(token)
+        return try await client.validateToken()
     }
 }

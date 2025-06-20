@@ -12,7 +12,7 @@ enum LoadingState<Value: Sendable> {
     case idle
     case loading
     case success(Value)
-    case failure(ExercismClientError)
+    case failure(String)
 }
 
 @MainActor
@@ -34,10 +34,8 @@ final class ExerciseListViewModel: ObservableObject {
             let fetchedExercises = try await fetcher.getExercises(track)
             exercises = fetchedExercises
             state = .success(fetchedExercises)
-        } catch let appError as  ExercismClientError {
-            state = .failure(appError)
         } catch {
-            state = .failure(ExercismClientError.genericError(error))
+            state = .failure(error.description)
         }
     }
 

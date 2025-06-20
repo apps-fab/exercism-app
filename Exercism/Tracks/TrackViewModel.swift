@@ -27,10 +27,8 @@ final class TrackViewModel: ObservableObject {
             let fetchedTracks = try await fetcher.getTracks()
             tracks = fetchedTracks
             state = .success(fetchedTracks)
-        } catch let appError as ExercismClientError {
-            state = .failure(appError)
         } catch {
-            state = .failure(ExercismClientError.genericError(error))
+            state = .failure(error.description)
         }
     }
 

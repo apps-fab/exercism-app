@@ -10,6 +10,7 @@ import ExercismSwift
 
 struct FilterTableView: View {
     @State private var tags = [Tag]()
+    @State private var isLoading = true
     @Binding var selectedTags: Set<String>
     @Binding var isPresented: Bool
     let gradientColors = [Color.appAccent.opacity(0.4),
@@ -18,42 +19,49 @@ struct FilterTableView: View {
                           Color.appAccent]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 20) {
-                ForEach(tags, id: \.self) { tag in
-                    VStack(alignment: .leading) {
-                        Text(tag.type).bold().padding(.vertical, 5)
-                        ForEach(tag.tags, id: \.self) { tag in
-                            setupTag(tag)
+        Group {
+            if isLoading {
+                EmptyView()
+            } else {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top, spacing: 20) {
+                        ForEach(tags, id: \.self) { tag in
+                            VStack(alignment: .leading) {
+                                Text(tag.type).bold().padding(.vertical, 5)
+                                ForEach(tag.tags, id: \.self) { tag in
+                                    setupTag(tag)
+                                }
+                            }
                         }
                     }
+
+                    HStack(spacing: 5) {
+                        Button(Strings.apply.localized()) {
+                            isPresented = false
+                        }.frame(width: 100, height: 30)
+                            .buttonStyle(.plain)
+                            .roundEdges(backgroundColor: LinearGradient(colors: gradientColors,
+                                                                        startPoint: .leading,
+                                                                        endPoint: .trailing),
+                                        lineColor: .clear)
+                        Button(Strings.close.localized()) {
+                            selectedTags.removeAll()
+                            isPresented = false
+                        }.frame(width: 100, height: 30)
+                            .buttonStyle(.plain)
+                            .roundEdges(backgroundColor: Color.gray)
+                    }.frame(alignment: .bottomLeading)
                 }
             }
-
-            HStack(spacing: 5) {
-                Button(Strings.apply.localized()) {
-                    isPresented = false
-                }.frame(width: 100, height: 30)
-                    .buttonStyle(.plain)
-                    .roundEdges(backgroundColor: LinearGradient(colors: gradientColors,
-                                                                startPoint: .leading,
-                                                                endPoint: .trailing),
-                                lineColor: .clear)
-                Button(Strings.close.localized()) {
-                    selectedTags.removeAll()
-                    isPresented = false
-                }.frame(width: 100, height: 30)
-                    .buttonStyle(.plain)
-                    .roundEdges(backgroundColor: Color.gray)
-            }.frame(alignment: .bottomLeading)
         }.padding()
             .frame(maxWidth: .infinity)
             .task {
                 tags = Tag.loadTags()
+                isLoading = false
             }
     }
 
-    func setupTag(_ tag: String) -> some View {
+    private func setupTag(_ tag: String) -> some View {
         Button {
             toggleTags(tag)
         } label: {
@@ -74,7 +82,7 @@ struct FilterTableView: View {
             .padding(2)
     }
 
-    func toggleTags(_ tag: String) {
+    private func toggleTags(_ tag: String) {
         if selectedTags.contains(tag) {
             selectedTags.remove(tag)
         } else {
@@ -83,8 +91,8 @@ struct FilterTableView: View {
     }
 }
 
- #Preview {
+#Preview {
     FilterTableView(selectedTags: .constant(["Functional"]),
                     isPresented: .constant(false))
     .frame(maxWidth: .infinity)
- }
+}

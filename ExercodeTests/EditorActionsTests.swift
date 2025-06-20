@@ -60,12 +60,12 @@ final class EditorActionsTests: XCTestCase {
         let runTest = mockRunTest()
         let testRun = getMockTestRunPassed()
 
-        client.onRunTest = { _, _, completion in
-            completion(.success(runTest))
+        client.onRunTest = { _, _ in
+            return runTest
         }
 
-        client.onGetTestRun = { _, completion in
-            completion(.success(testRun))
+        client.onGetTestRun = { _ in
+            return testRun
         }
 
         await viewModel.runTests()
@@ -83,18 +83,19 @@ final class EditorActionsTests: XCTestCase {
 
     func testRunTestsError() async {
         let error = ExercismClientError.apiError(code: .genericError, type: "", message: "")
-        client.onRunTest = { _, _, completion in
-            completion(.failure(error))
+        client.onRunTest = { _, _ throws(ExercismClientError) in
+            throw error
         }
 
         await viewModel.runTests()
+
         guard case .actionErrored(let returnedError) = viewModel.state else {
-            XCTFail("Expected .success state, got: \(viewModel.state)")
+            XCTFail("Expected .failure state, got: \(viewModel.state)")
             return
         }
 
+        XCTAssertEqual(returnedError.description, error.description)
         XCTAssertEqual(viewModel.selectedTab, SelectedTab.result)
-        XCTAssertEqual(error.description, returnedError.description)
         XCTAssertTrue(viewModel.canRunTests)
         XCTAssertTrue(viewModel.showErrorAlert)
     }
@@ -105,14 +106,15 @@ final class EditorActionsTests: XCTestCase {
         let submitResponse = getSubmissionResponse()
 
         viewModel.state = .testRunSuccess(runTest.links, testRun.testRun!)
-        client.onSubmitSolution = { _, completion in
-            completion(.success(submitResponse))
+
+        client.onSubmitSolution = { _ in
+            return submitResponse
         }
 
         await viewModel.submitSolution()
 
         guard case .submitWrongSolution = viewModel.state else {
-            XCTFail("Expected .success state, got: \(viewModel.state)")
+            XCTFail("Expected .submitWrongSolution state, got: \(viewModel.state)")
             return
         }
     }
@@ -123,27 +125,28 @@ final class EditorActionsTests: XCTestCase {
         let submitResponse = getSubmissionResponse()
 
         viewModel.state = .testRunSuccess(runTest.links, testRun.testRun!)
-        client.onSubmitSolution = { _, completion in
-            completion(.success(submitResponse))
+
+        client.onSubmitSolution = { _ in
+            return submitResponse
         }
 
         await viewModel.submitSolution()
 
         guard case .submitWrongSolution = viewModel.state else {
-            XCTFail("Expected .success state, got: \(viewModel.state)")
+            XCTFail("Expected .submitWrongSolution state, got: \(viewModel.state)")
             return
         }
     }
 
     func testComplete() async {
-
+        // You can implement this test similarly by mocking client.onCompleteSolution
     }
 
     func testRevertToStart() async {
         let initialFiles = PreviewData.shared.getInitialFile()
 
-        client.onInitialSolution = { _, completion in
-            completion(.success(initialFiles))
+        client.onInitialSolution = { _ in
+            return initialFiles
         }
 
         let newInit = await viewModel.revertToStart()
@@ -153,16 +156,18 @@ final class EditorActionsTests: XCTestCase {
 
     func testRevertError() async {
         let error = ExercismClientError.apiError(code: .genericError, type: "", message: "")
-        client.onInitialSolution = { _, completion in
-            completion(.failure(error))
+        client.onInitialSolution = { _ throws(ExercismClientError) in
+            throw error
         }
 
         _ = await viewModel.revertToStart()
+
         guard case .actionErrored(let returnedError) = viewModel.state else {
-            XCTFail("Expected .success state, got: \(viewModel.state)")
+            XCTFail("Expected .actionErrored state, got: \(viewModel.state)")
             return
         }
-        XCTAssertEqual(error.description, returnedError.description)
+
+        XCTAssertEqual(returnedError.description, error.description)
         XCTAssertTrue(viewModel.showErrorAlert)
     }
 }

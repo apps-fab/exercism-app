@@ -8,16 +8,18 @@
 import ExercismSwift
 
 public protocol FetchingProtocol {
-    func getTracks() async throws -> [Track]
-    func getExercises(_ track: Track) async throws -> [Exercise]
-    func getSolutions(_ track: Track) async throws -> [Solution]
-    func getIterations(_ solutionId: String) async throws -> [Iteration]
-    func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument
-    func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> TestSubmission
-    func getTestRun(_ link: String) async throws -> TestRunResponse
-    func submitSolution(_ submissionLink: String) async throws -> SubmitSolutionResponse
-    func revertToStart(_ solutionId: String) async throws -> InitialFiles
-    func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution
+    func getTracks() async throws(ExercismClientError) -> [Track]
+    func getExercises(_ track: Track) async throws(ExercismClientError) -> [Exercise]
+    func getSolutions(_ track: Track) async throws(ExercismClientError) -> [Solution]
+    func getIterations(_ solutionId: String) async throws(ExercismClientError) -> [Iteration]
+    func downloadSolutions(_ track: String, _ exercise: String) async throws(ExercismClientError) -> ExerciseDocument
+    func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws(ExercismClientError) -> TestSubmission
+    func getTestRun(_ link: String) async throws(ExercismClientError) -> TestRunResponse
+    func submitSolution(_ submissionLink: String) async throws(ExercismClientError) -> SubmitSolutionResponse
+    func revertToStart(_ solutionId: String) async throws(ExercismClientError) -> InitialFiles
+    func completeSolution(_ solutionId: String,
+                          publish: Bool,
+                          iterationIdx: Int?) async throws(ExercismClientError) -> CompletedSolution
 }
 
 actor Fetcher: FetchingProtocol {
@@ -26,135 +28,48 @@ actor Fetcher: FetchingProtocol {
         return ExercismClient(apiToken: token ?? "")
     }
 
-    func getTracks() async throws -> [Track] {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.tracks { tracks in
-                switch tracks {
-                case .success(let tracks):
-                    continuation.resume(returning: tracks.results)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func getTracks() async throws(ExercismClientError) -> [Track] {
+       try await client.tracks().results
     }
 
-    func getExercises(_ track: Track) async throws -> [Exercise] {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.exercises(for: track.slug) { result in
-                switch result {
-                case .success(let exerciseList):
-                    continuation.resume(returning: exerciseList.results)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func getExercises(_ track: Track) async throws(ExercismClientError) -> [Exercise] {
+        try await client.exercises(for: track.slug).results
     }
 
-    func getSolutions(_ track: Track) async throws -> [Solution] {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.solutions(for: track.slug) { result in
-                switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions.results)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func getSolutions(_ track: Track) async throws(ExercismClientError) -> [Solution] {
+      try await client.solutions(for: track.slug).results
     }
 
-    func getIterations(_ solutionId: String) async throws -> [Iteration] {
-        try await withCheckedThrowingContinuation { continuation in
-            client.getIterations(for: solutionId) { result in
-                switch result {
-                case .success(let iterationResponse):
-                    continuation.resume(returning: iterationResponse.iterations)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func getIterations(_ solutionId: String) async throws(ExercismClientError) -> [Iteration] {
+        try await client.getIterations(for: solutionId).iterations
     }
 
-    func downloadSolutions(_ track: String, _ exercise: String) async throws -> ExerciseDocument {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.downloadSolution(for: track, exercise: exercise) { result in
-                switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func downloadSolutions(_ track: String, _ exercise: String) async throws(ExercismClientError) -> ExerciseDocument {
+        try await client.downloadSolution(for: track, exercise: exercise)
     }
 
-    func runTest(_ solutionId: String, contents: [SolutionFileData]) async throws -> TestSubmission {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.runTest(for: solutionId, with: contents) { result in
-                switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func runTest(_ solutionId: String,
+                 contents: [SolutionFileData]) async throws(ExercismClientError) -> TestSubmission {
+        try await client.runTest(for: solutionId, with: contents)
     }
 
-    func getTestRun(_ link: String) async throws -> TestRunResponse {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.getTestRun(withLink: link) { result in
-                switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func getTestRun(_ link: String) async throws(ExercismClientError) -> TestRunResponse {
+        try await client.getTestRun(withLink: link)
     }
 
-    func submitSolution(_ submissionLink: String) async throws -> SubmitSolutionResponse {
-        return try await withCheckedThrowingContinuation { continuation in
-            client.submitSolution(withLink: submissionLink) { result in
-                switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func submitSolution(_ submissionLink: String) async throws(ExercismClientError) -> SubmitSolutionResponse {
+        try await client.submitSolution(withLink: submissionLink)
     }
 
-    func completeSolution(_ solutionId: String, publish: Bool, iterationIdx: Int?) async throws -> CompletedSolution {
-        try await withCheckedThrowingContinuation { continuation in
-            client.completeSolution(for: solutionId,
+    func completeSolution(_ solutionId: String,
+                          publish: Bool,
+                          iterationIdx: Int?) async throws(ExercismClientError) -> CompletedSolution {
+        try await client.completeSolution(for: solutionId,
                                     publish: publish,
-                                    iteration: iterationIdx) { result in
-                switch result {
-                case .success(let solutions):
-                    continuation.resume(returning: solutions)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+                                    iteration: iterationIdx)
     }
 
-    func revertToStart(_ solutionId: String) async throws -> InitialFiles {
-        try await withCheckedThrowingContinuation { continuation in
-            client.initialSolution(for: solutionId) { result in
-                switch result {
-                case .success(let solution):
-                    continuation.resume(returning: solution)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    func revertToStart(_ solutionId: String) async throws(ExercismClientError) -> InitialFiles {
+        try await client.initialSolution(for: solutionId)
     }
 }

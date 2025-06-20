@@ -75,8 +75,8 @@ struct TracksListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private func errorView(_ error: ExercismClientError) -> some View {
-        Text(error.description)
+    private func errorView(_ error: String) -> some View {
+        Text(error)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 

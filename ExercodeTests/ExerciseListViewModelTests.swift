@@ -52,9 +52,8 @@ final class ExerciseListViewModelTests: XCTestCase {
 
     func testGetExercisesSuccess() async {
         let mockExercises = loadExercises()
-
-        client.onExercises = { _, completion in
-            completion(.success(ListResponse(results: mockExercises)))
+        client.onExercises = { _ in
+            return ListResponse(results: mockExercises)
         }
 
         await viewModel.getExercises()
@@ -69,9 +68,9 @@ final class ExerciseListViewModelTests: XCTestCase {
     }
 
     func testGetExercisesFailure() async {
-        let error = ExercismClientError.apiError(code: .unauthorized, type: "", message: "")
-        client.onExercises = { _, completion in
-            completion(.failure(error))
+        let expectedError = ExercismClientError.apiError(code: .unauthorized, type: "", message: "")
+        client.onExercises = { _ throws(ExercismClientError) in
+            throw expectedError
         }
 
         await viewModel.getExercises()
@@ -81,14 +80,13 @@ final class ExerciseListViewModelTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(returnedError.localizedDescription, error.localizedDescription)
+        XCTAssertEqual(returnedError, expectedError.description)
     }
 
     func testFilterExercises() async {
         let mockExercises = loadExercises()
-
-        client.onExercises = { _, completion in
-            completion(.success(ListResponse(results: mockExercises)))
+        client.onExercises = { _ in
+            return ListResponse(results: mockExercises)
         }
 
         await viewModel.getExercises()
@@ -98,19 +96,19 @@ final class ExerciseListViewModelTests: XCTestCase {
             XCTFail("Expected .success state"); return
         }
 
-        XCTAssertTrue(filtered.map { $0.slug }.contains( "hello-world"))
+        XCTAssertTrue(filtered.map { $0.slug }.contains("hello-world"))
     }
 
     func testGroupExercisesByCategory() async throws {
         let exercises = loadExercises()
         let solutions = loadSolutions()
 
-        client.onExercises = { _, completion in
-            completion(.success(ListResponse(results: exercises)))
+        client.onExercises = { _ in
+            return ListResponse(results: exercises)
         }
 
-        client.onSolutions = { completion in
-            completion(.success(ListResponse(results: solutions)))
+        client.onSolutions = { _, _, _ in
+            return ListResponse(results: solutions)
         }
 
         try await viewModel.getSolutions()

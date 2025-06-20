@@ -44,14 +44,15 @@ final class TrackViewModelTests: XCTestCase {
 
     func testGetTracksSuccess() async {
         let mockTracks = loadTracks()
-        client.onTracks = { completion in
-            completion(.success(ListResponse(results: mockTracks)))
+        client.onTracks = {
+            return ListResponse(results: mockTracks)
         }
 
         await viewModel.getTracks()
 
         guard case .success(let tracks) = viewModel.state else {
-            XCTFail("Expected .success state"); return
+            XCTFail("Expected .success state")
+            return
         }
 
         XCTAssertEqual(tracks.count, 2)
@@ -60,39 +61,41 @@ final class TrackViewModelTests: XCTestCase {
 
     func testGetTracksFailure() async {
         let error = ExercismClientError.apiError(code: .unauthorized, type: "", message: "")
-        client.onTracks = { completion in
-            completion(.failure(error))
+        client.onTracks = { () throws(ExercismClientError) in
+            throw error
         }
 
         await viewModel.getTracks()
 
         guard case .failure(let returnedError) = viewModel.state else {
-            XCTFail("Expected .failure state"); return
+            XCTFail("Expected .failure state")
+            return
         }
 
-        XCTAssertEqual(returnedError.localizedDescription, error.localizedDescription)
+        XCTAssertEqual(returnedError, error.description)
     }
 
     func testFilterTracks() async {
         let mockTracks = loadTracks()
-        client.onTracks = { completion in
-            completion(.success(ListResponse(results: mockTracks)))
+        client.onTracks = {
+            return ListResponse(results: mockTracks)
         }
 
         await viewModel.getTracks()
         viewModel.filterTracks("de")
 
         guard case .success(let filtered) = viewModel.state else {
-            XCTFail("Expected .success state"); return
+            XCTFail("Expected .success state")
+            return
         }
 
-        XCTAssertTrue(filtered.map { $0.slug }.contains( "delphi"))
+        XCTAssertTrue(filtered.map { $0.slug }.contains("delphi"))
     }
 
     func testTags() async {
         let mockTracks = loadTracks()
-        client.onTracks = { completion in
-            completion(.success(ListResponse(results: mockTracks)))
+        client.onTracks = {
+            return ListResponse(results: mockTracks)
         }
 
         await viewModel.getTracks()
@@ -113,17 +116,18 @@ final class TrackViewModelTests: XCTestCase {
         }
     }
 
-    func test_sortTracks_sortsByLastTouchedAtDescending() async {
+    func testSort() async {
         let mockTracks = loadTracks()
-        client.onTracks = { completion in
-            completion(.success(ListResponse(results: mockTracks)))
+        client.onTracks = {
+            return ListResponse(results: mockTracks)
         }
 
         await viewModel.getTracks()
         viewModel.sortTracks()
 
         guard case .success(let sorted) = viewModel.state else {
-            XCTFail("Expected .success state"); return
+            XCTFail("Expected .success state")
+            return
         }
 
         let dates = sorted.compactMap(\.lastTouchedAt)
