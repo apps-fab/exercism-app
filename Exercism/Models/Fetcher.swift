@@ -29,7 +29,7 @@ actor Fetcher: FetchingProtocol {
     }
 
     func getTracks() async throws(ExercismClientError) -> [Track] {
-       try await client.tracks().results
+        try await client.tracks().results
     }
 
     func getExercises(_ track: Track) async throws(ExercismClientError) -> [Exercise] {
@@ -37,14 +37,15 @@ actor Fetcher: FetchingProtocol {
     }
 
     func getSolutions(_ track: Track) async throws(ExercismClientError) -> [Solution] {
-      try await client.solutions(for: track.slug).results
+        try await client.solutions(for: track.slug).results
     }
 
     func getIterations(_ solutionId: String) async throws(ExercismClientError) -> [Iteration] {
         try await client.getIterations(for: solutionId).iterations
     }
 
-    func downloadSolutions(_ track: String, _ exercise: String) async throws(ExercismClientError) -> ExerciseDocument {
+    func downloadSolutions(_ track: String,
+                           _ exercise: String) async throws(ExercismClientError) -> ExerciseDocument {
         try await client.downloadSolution(for: track, exercise: exercise)
     }
 
@@ -65,8 +66,8 @@ actor Fetcher: FetchingProtocol {
                           publish: Bool,
                           iterationIdx: Int?) async throws(ExercismClientError) -> CompletedSolution {
         try await client.completeSolution(for: solutionId,
-                                    publish: publish,
-                                    iteration: iterationIdx)
+                                          publish: publish,
+                                          iteration: iterationIdx)
     }
 
     func revertToStart(_ solutionId: String) async throws(ExercismClientError) -> InitialFiles {

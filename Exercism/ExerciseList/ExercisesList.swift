@@ -42,8 +42,6 @@ struct ExercisesList: View {
     @FocusState private var fieldFocused: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseListViewModel
-    @State private var exerciseCategory: ExerciseCategory = .allExercises
-    @State private var searchText = ""
     @State private var alertItem = AlertItem()
 
     private let columns = [
@@ -71,8 +69,6 @@ struct ExercisesList: View {
             case .idle:
                 EmptyView()
             }
-        }.onChange(of: searchText) { newValue in
-            viewModel.filterExercises(newValue)
         }.onAppear {
             fieldFocused = false
         }.toolbar {
@@ -83,8 +79,7 @@ struct ExercisesList: View {
             }
         }
         .task {
-            await viewModel.getExercises()
-            await getExercises()
+            await viewModel.loadData()
         }
         .alert(alertItem.title, isPresented: $alertItem.isPresented) {
             Button(Strings.ok.localized(), role: .cancel) {
@@ -95,25 +90,16 @@ struct ExercisesList: View {
 
     }
 
-    private func getExercises() async {
-        do {
-            try await viewModel.getSolutions()
-        } catch {
-            alertItem = AlertItem(title: "Error", message: error.localizedDescription)
-        }
-    }
-
     @ViewBuilder
     private func exerciseListView(_ exercises: [Exercise]) -> some View {
-        let groupedExercises = viewModel.groupExercises(exercises)
-        let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
+        let groupedExercises = viewModel.filteredGroupedExercises
 
         VStack(spacing: 0) {
             HStack {
                 searchField
                     .frame(minWidth: 200)
 
-                CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
+                CustomPicker(selection: $viewModel.selectedCategory, items: ExerciseCategory.allCases) { option in
                     Label {
                         Text("\(option.rawValue.capitalized) (\((groupedExercises[option] ?? exercises).count))")
                     } icon: {
@@ -127,13 +113,14 @@ struct ExercisesList: View {
             Divider()
 
             ScrollView {
-                if filteredExercises.isEmpty {
+                if exercises.isEmpty {
                     EmptyStateView {
-                        searchText = ""
+                        viewModel.searchText = ""
+                        viewModel.selectedCategory = .allExercises
                     }
                 } else {
                     LazyVGrid(columns: columns) {
-                        ForEach(filteredExercises, id: \.self) { exercise in
+                        ForEach(exercises, id: \.self) { exercise in
                             let solution = viewModel.getSolution(for: exercise)
 
                             Button {
@@ -157,7 +144,7 @@ struct ExercisesList: View {
                 .imageScale(.large)
 
             TextField(Strings.searchString.localized(),
-                      text: $searchText)
+                      text: $viewModel.searchText)
             .textFieldStyle(.plain)
         }.padding(8)
             .roundEdges(
