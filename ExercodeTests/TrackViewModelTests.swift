@@ -42,13 +42,13 @@ final class TrackViewModelTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGetTracksSuccess() async {
+    func testLoadSuccess() async {
         let mockTracks = loadTracks()
         client.onTracks = {
             return ListResponse(results: mockTracks)
         }
 
-        await viewModel.getTracks()
+        await viewModel.loadTracks()
 
         guard case .success(let tracks) = viewModel.state else {
             XCTFail("Expected .success state")
@@ -59,13 +59,13 @@ final class TrackViewModelTests: XCTestCase {
         XCTAssertEqual(tracks.first?.title, "AWK")
     }
 
-    func testGetTracksFailure() async {
+    func testLoadFailure() async {
         let error = ExercismClientError.apiError(code: .unauthorized, type: "", message: "")
         client.onTracks = { () throws(ExercismClientError) in
             throw error
         }
 
-        await viewModel.getTracks()
+        await viewModel.loadTracks()
 
         guard case .failure(let returnedError) = viewModel.state else {
             XCTFail("Expected .failure state")
@@ -81,8 +81,8 @@ final class TrackViewModelTests: XCTestCase {
             return ListResponse(results: mockTracks)
         }
 
-        await viewModel.getTracks()
-        viewModel.filterTracks("de")
+        await viewModel.loadTracks()
+        viewModel.searchText = "de"
 
         guard case .success(let filtered) = viewModel.state else {
             XCTFail("Expected .success state")
@@ -98,8 +98,8 @@ final class TrackViewModelTests: XCTestCase {
             return ListResponse(results: mockTracks)
         }
 
-        await viewModel.getTracks()
-        viewModel.filterTags(["Compiled"])
+        await viewModel.loadTracks()
+        viewModel.selectedTags = ["Compiled"]
 
         guard case .success(let filteredTracks) = viewModel.state else {
             XCTFail("Expected .success state but got \(viewModel.state)")
@@ -122,7 +122,7 @@ final class TrackViewModelTests: XCTestCase {
             return ListResponse(results: mockTracks)
         }
 
-        await viewModel.getTracks()
+        await viewModel.loadTracks()
         viewModel.sortTracks()
 
         guard case .success(let sorted) = viewModel.state else {

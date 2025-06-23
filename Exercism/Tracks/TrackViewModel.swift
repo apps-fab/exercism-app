@@ -7,44 +7,73 @@
 
 import ExercismSwift
 import Foundation
+import Combine
 
 @MainActor
 final class TrackViewModel: ObservableObject {
     @Published var state: LoadingState<[Track]> = .idle
-    private var tracks = [Track]()
+    @Published var searchText: String = ""
+    @Published var selectedTags = Set<String>()
+
+    private var allTracks = [Track]()
     private let fetcher: FetchingProtocol
+    private var cancellables = Set<AnyCancellable>()
 
     init(fetcher: FetchingProtocol? = nil) {
         self.fetcher = fetcher ?? Fetcher()
-        Task {
-            await getTracks()
-        }
+        setupListeners()
     }
 
-    func getTracks() async {
+    private func setupListeners() {
+        $searchText
+            .removeDuplicates()
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .sink { [weak self] query in
+                self?.filterBySearchText(query)
+            }.store(in: &cancellables)
+
+        $selectedTags.removeDuplicates()
+            .sink { [weak self] tags in
+                self?.filterByTags(tags)
+            }.store(in: &cancellables)
+    }
+
+    func loadTracks() async {
         state = .loading
         do {
             let fetchedTracks = try await fetcher.getTracks()
-            tracks = fetchedTracks
+            allTracks = fetchedTracks
             state = .success(fetchedTracks)
         } catch {
             state = .failure(error.description)
         }
     }
 
-    func filterTracks(_ searchText: String) {
-        let filtered =  searchText.isEmpty ?
-        tracks : tracks.filter { $0.title.lowercased().contains(searchText) }
-        state = .success(filtered)
-    }
-
-    func filterTags(_ tags: Set<String>) {
-        let filtered =  tracks.filter { $0.tags.contains(tags) }
-        state = .success(filtered)
-    }
-
     func sortTracks() {
-        let sorted = tracks.sorted(by: { $0.lastTouchedAt ?? Date() > $1.lastTouchedAt ?? Date() })
+        guard case .success(let current) = state else { return }
+
+        let sorted = current.sorted {
+            ($0.lastTouchedAt ?? .distantPast) > ($1.lastTouchedAt ?? .distantPast)
+        }
+
         state = .success(sorted)
+    }
+
+    private func filterBySearchText(_ query: String) {
+        guard !query.isEmpty else {
+            state = .success(allTracks)
+            return
+        }
+        let filtered = allTracks.filter { $0.title.lowercased().contains(query.lowercased()) }
+        state = .success(filtered)
+    }
+
+    private func filterByTags(_ tags: Set<String>) {
+        guard !tags.isEmpty else {
+            state = .success(allTracks)
+            return
+        }
+        let filtered = allTracks.filter { !Set($0.tags).isDisjoint(with: tags) }
+        state = .success(filtered)
     }
 }

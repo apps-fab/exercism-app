@@ -12,8 +12,6 @@ struct TracksListView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
     @StateObject private var viewModel = TrackViewModel()
-    @State private var searchText = ""
-    @State private var filters = Set<String>()
 
     private let gridColumns = [GridItem(.flexible()), GridItem(.flexible())]
     private let refreshPublisher = NotificationCenter.default.publisher(for: .didRequestRefresh)
@@ -21,38 +19,34 @@ struct TracksListView: View {
     var body: some View {
         VStack {
             mainContent
+        }.task {
+            await viewModel.loadTracks()
         }
         .toolbar(.hidden)
         .accessibilityLabel("All Tracks")
-        .onChange(of: searchText) { newValue in
-              viewModel.filterTracks(newValue)
-          }
-          .onChange(of: filters) { newValue in
-              viewModel.filterTags(newValue)
-          }
-          .onReceive(refreshPublisher) { _ in
-              Task {
-                  await viewModel.getTracks()
-              }
-          }
+        .onReceive(refreshPublisher) { _ in
+            Task {
+                await viewModel.loadTracks()
+            }
+        }
 #if os(macOS)
-          .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
-              if shouldRefreshFromJoinTrack {
-                  Task {
-                      await viewModel.getTracks()
-                      shouldRefreshFromJoinTrack = false
-                  }
-              }
-          }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
+            if shouldRefreshFromJoinTrack {
+                Task {
+                    await viewModel.loadTracks()
+                    shouldRefreshFromJoinTrack = false
+                }
+            }
+        }
 #else
-          .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-              if shouldRefreshFromJoinTrack {
-                  Task {
-                      await viewModel.getTracks()
-                      shouldRefreshFromJoinTrack = false
-                  }
-              }
-          }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            if shouldRefreshFromJoinTrack {
+                Task {
+                    await viewModel.getTracks()
+                    shouldRefreshFromJoinTrack = false
+                }
+            }
+        }
 #endif
     }
 
@@ -101,8 +95,8 @@ struct TracksListView: View {
             ScrollView {
                 if tracks.isEmpty {
                     EmptyStateView {
-                        searchText = ""
-                        filters = []
+                        viewModel.searchText = ""
+                        viewModel.selectedTags = []
                     }
                 } else {
                     trackGrid(joinedTracks: joinedTracks, unjoinedTracks: unjoinedTracks)
@@ -117,13 +111,13 @@ struct TracksListView: View {
             headerView
                 .padding()
 
-            FilterView(searchText: $searchText,
-                       filters: $filters,
+            FilterView(searchText: $viewModel.searchText,
+                       filters: $viewModel.selectedTags,
                        results: tracks.count) {
                 viewModel.sortTracks()
             }
-            .padding()
-            .frame(maxWidth: .infinity)
+                       .padding()
+                       .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
         .background(Color.appDarkBackground)
@@ -191,7 +185,7 @@ struct TracksListView: View {
     private func handleJoinTrackRefresh() {
         guard shouldRefreshFromJoinTrack else { return }
         Task {
-            await viewModel.getTracks()
+            await viewModel.loadTracks()
             shouldRefreshFromJoinTrack = false
         }
     }

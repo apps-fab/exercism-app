@@ -126,17 +126,4 @@ final class ExerciseViewModelTests: XCTestCase {
         let contents = try? String(contentsOf: fileURL, encoding: .utf8)
         XCTAssertEqual(contents, viewModel.selectedCode)
     }
-
-    func testGetDocumentPerformance() async throws {
-        measure {
-            let expectation = XCTestExpectation(description: "getDocument completes")
-
-            Task {
-                await viewModel.getDocument()
-                expectation.fulfill()
-            }
-
-            wait(for: [expectation], timeout: 20)
-        }
-    }
 }

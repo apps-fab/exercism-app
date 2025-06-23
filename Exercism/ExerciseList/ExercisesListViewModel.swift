@@ -37,6 +37,7 @@ final class ExerciseListViewModel: ObservableObject {
 
     private func setupCombinedListener() {
         Publishers.CombineLatest($searchText, $selectedCategory)
+            .dropFirst()
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
             .sink { [weak self] searchText, category in
                 self?.handleSearchAndCategory(searchText: searchText, category: category)
@@ -53,9 +54,10 @@ final class ExerciseListViewModel: ObservableObject {
             let (exercises, solutionsList) = try await (fetchedExercises, fetchedSolutions)
             self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map { ($0.exercise.slug, $0) })
 
-            self.groupedAllExercises = groupExercises(exercises)
-            self.filteredGroupedExercises = groupedAllExercises
-            state = .success(groupedAllExercises[.allExercises] ?? [])
+            let grouped = groupExercises(exercises)
+            self.groupedAllExercises = grouped
+            self.filteredGroupedExercises = grouped
+            state = .success(exercises)
         } catch let error as ExercismClientError {
             state = .failure(error.description)
         } catch {
@@ -73,7 +75,11 @@ final class ExerciseListViewModel: ObservableObject {
         guard !searchText.isEmpty else { return grouped }
 
         let query = searchText.lowercased()
-        return grouped.mapValues { $0.filter { $0.slug.lowercased().contains(query) } }
+        return grouped.mapValues { exercises in
+            exercises.filter {
+                $0.slug.lowercased().contains(query) || $0.title.lowercased().contains(query)
+            }
+        }
     }
 
     private func groupExercises(_ exercises: [Exercise]) -> [ExerciseCategory: [Exercise]] {

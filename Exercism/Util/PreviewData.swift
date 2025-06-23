@@ -379,6 +379,20 @@ struct PreviewData {
                  "self": "/tracks/awk/exercises/hello-world"
                }
              },
+              {
+                    "slug": "custom-signs",
+                    "type": "concept",
+                    "title": "Cal's Custom Sign Shop",
+                    "icon_url": "https://assets.exercism.org/exercises/custom-signs.svg",
+                    "difficulty": "easy",
+                    "blurb": "Learn about characters by helping a sign company create custom messages for their signs.",
+                    "is_external": true,
+                    "is_unlocked": true,
+                    "is_recommended": false,
+                    "links": {
+                        "self": "/tracks/swift/exercises/custom-signs"
+                    }
+                },
         {
                "slug": "hello-world",
                "type": "tutorial",

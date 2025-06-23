@@ -77,11 +77,9 @@ struct ExercisesList: View {
                     .textCase(.uppercase)
                     .font(.headline)
             }
-        }
-        .task {
+        }.task {
             await viewModel.loadData()
-        }
-        .alert(alertItem.title, isPresented: $alertItem.isPresented) {
+        }.alert(alertItem.title, isPresented: $alertItem.isPresented) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
