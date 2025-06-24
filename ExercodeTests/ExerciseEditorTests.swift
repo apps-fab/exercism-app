@@ -126,4 +126,5 @@ final class ExerciseViewModelTests: XCTestCase {
         let contents = try? String(contentsOf: fileURL, encoding: .utf8)
         XCTAssertEqual(contents, viewModel.selectedCode)
     }
+
 }

@@ -52,6 +52,10 @@ final class EditorActionsTests: XCTestCase {
         PreviewData.shared.getSubmissionResponse()
     }
 
+    private func getCompleteSolutionResponse() -> CompletedSolution {
+        PreviewData.shared.getCompleteSuccess()
+    }
+
     private func mockRunTest() -> TestSubmission {
         PreviewData.shared.runTest()
     }
@@ -138,8 +142,55 @@ final class EditorActionsTests: XCTestCase {
         }
     }
 
-    func testComplete() async {
-        // You can implement this test similarly by mocking client.onCompleteSolution
+    private let mockUUID = "mock-uuid"
+
+    func testCompleteSuccess() async {
+        viewModel.state = .submitSuccess(mockUUID)
+        let completeResponse = getCompleteSolutionResponse()
+
+        client.onCompleteSolution = { _, _, _ in
+            return completeResponse
+        }
+
+        let result = await viewModel.completeExercise(true, nil)
+
+        XCTAssertTrue(result)
+
+        guard case .solutionPublished = viewModel.state else {
+            XCTFail("Expected .failure state, got: \(viewModel.state)")
+            return
+        }
+    }
+
+    func testCompleteError() async {
+        viewModel.state = .submitSuccess(mockUUID)
+        let error = ExercismClientError.apiError(code: .genericError, type: "", message: "")
+        client.onCompleteSolution = { _, _, _ throws(ExercismClientError) in
+            throw error
+        }
+
+        let result = await viewModel.completeExercise(true, nil)
+        XCTAssertFalse(result)
+
+        guard case .actionErrored(let returnedError) = viewModel.state else {
+            XCTFail("Expected .actionErrored state, got: \(viewModel.state)")
+            return
+        }
+
+        XCTAssertEqual(returnedError, error.description)
+        XCTAssertTrue(viewModel.showErrorAlert)
+    }
+
+    func testHandleActionState_setsProperFlags() {
+        viewModel.state = .testInProgress(5)
+        XCTAssertFalse(viewModel.canRunTests)
+
+        viewModel.state = .submitInProgress
+        XCTAssertFalse(viewModel.canSubmitSolution)
+
+        viewModel.state = .submitSuccess(mockUUID)
+        XCTAssertTrue(viewModel.canSubmitSolution)
+        XCTAssertEqual(viewModel.selectedTab, .instruction)
     }
 
     func testRevertToStart() async {

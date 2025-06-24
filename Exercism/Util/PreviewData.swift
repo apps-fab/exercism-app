@@ -751,4 +751,60 @@ struct PreviewData {
             """
         return try! decoder().decode(SubmitSolutionResponse.self, from: Data(data.utf8))
     }
+
+    func getCompleteSuccess() -> CompletedSolution {
+        let data = """
+            {
+                "track": {
+                    "slug": "bash",
+                    "title": "Bash",
+                    "course": false,
+                    "num_concepts": 0,
+                    "num_exercises": 92,
+                    "web_url": "https://exercism.org/tracks/bash",
+                    "icon_url": "https://assets.exercism.org/tracks/bash.svg",
+                    "tags": [
+                        "Interpreted",
+                        "Procedural",
+                        "Linux",
+                        "macOS",
+                        "Windows",
+                        "Weak",
+                        "Scripts"
+                    ],
+                    "last_touched_at": "2025-05-20T18:20:58Z",
+                    "is_new": false,
+                    "links": {
+                        "self": "https://exercism.org/tracks/bash",
+                        "exercises": "https://exercism.org/tracks/bash/exercises",
+                        "concepts": "https://exercism.org/tracks/bash/concepts"
+                    },
+                    "is_joined": true,
+                    "num_learnt_concepts": 0,
+                    "num_completed_exercises": 1,
+                    "num_solutions": 2,
+                    "has_notifications": false
+                },
+                "exercise": {
+                    "slug": "hello-world",
+                    "type": "tutorial",
+                    "title": "Hello World",
+                    "icon_url": "https://assets.exercism.org/exercises/hello-world.svg",
+                    "difficulty": "easy",
+                    "blurb": "Exercism's classic introductory exercise. Just say \\"Hello, World!\\".",
+                    "is_external": false,
+                    "is_unlocked": true,
+                    "is_recommended": false,
+                    "links": {
+                        "self": "/tracks/bash/exercises/hello-world"
+                    }
+                },
+                "unlocked_exercises": [],
+                "unlocked_concepts": [],
+                "concept_progressions": []
+            }
+        """
+
+        return try! decoder().decode(CompletedSolution.self, from: Data(data.utf8))
+    }
 }

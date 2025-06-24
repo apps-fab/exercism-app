@@ -70,25 +70,27 @@ class EditorActionsViewModel: ObservableObject {
 
     func runTests() async {
         selectedTab = .result
-        await executeRunTest()
-    }
-
-    private func executeRunTest() async {
         do {
-            let solutionsData = try getSolutionFileData()
-            let runResult = try await fetcher.runTest(solutionUUID, contents: solutionsData)
-            switch runResult.testStatus {
-            case .queued:
-                saveTestRun(runResult, solutionUUID)
-                try await getTestRun(for: runResult.links)
-            default:
-                return
-            }
+            try         await executeRunTest()
+
         } catch let error as ExercismClientError {
             state = .actionErrored(error.description)
         } catch {
             state = .actionErrored(error.localizedDescription)
         }
+    }
+
+    private func executeRunTest() async throws {
+        let solutionsData = try getSolutionFileData()
+        let runResult = try await fetcher.runTest(solutionUUID, contents: solutionsData)
+        switch runResult.testStatus {
+        case .queued:
+            saveTestRun(runResult, solutionUUID)
+            try await getTestRun(for: runResult.links)
+        default:
+            return
+        }
+
     }
 
     private func getSolutionFileData() throws -> [SolutionFileData] {
@@ -111,7 +113,7 @@ class EditorActionsViewModel: ObservableObject {
                 return
             }
         } else {
-            await executeRunTest()
+            try await executeRunTest()
         }
     }
 
@@ -119,7 +121,7 @@ class EditorActionsViewModel: ObservableObject {
         savedTestSubmission[solutionId] = runResult
     }
 
-    private func getTestRun(for submissionLink: SubmissionLinks) async throws {
+    private func getTestRun(for submissionLink: SubmissionLinks) async throws(ExercismClientError) {
         let result = try await fetcher.getTestRun(submissionLink.testRun)
 
         if let testRun = result.testRun {
@@ -127,7 +129,7 @@ class EditorActionsViewModel: ObservableObject {
         } else {
             let averageTestDuration = Double(result.testRunner.averageTestDuration)
             state = .testInProgress(averageTestDuration)
-            try await Task.sleep(nanoseconds: UInt64((averageTestDuration) * nanosecondsPerSecond))
+            try? await Task.sleep(nanoseconds: UInt64((averageTestDuration) * nanosecondsPerSecond))
             try await self.getTestRun(for: submissionLink)
         }
     }
@@ -148,7 +150,7 @@ class EditorActionsViewModel: ObservableObject {
                 state = .submitWrongSolution
             }
         } catch {
-            state = .actionErrored(error.localizedDescription)
+            state = .actionErrored(error.description)
         }
     }
 
@@ -162,7 +164,7 @@ class EditorActionsViewModel: ObservableObject {
             state = .solutionPublished
             return true
         } catch {
-            state = .actionErrored(error.localizedDescription)
+            state = .actionErrored(error.description)
             return  false
         }
     }
