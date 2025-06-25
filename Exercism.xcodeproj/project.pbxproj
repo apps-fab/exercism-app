@@ -31,6 +31,7 @@
 		FD14592A2DE4EBB50078B93E /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = FD1459292DE4EBB50078B93E /* Splash */; };
 		FD14592D2DE4EBE50078B93E /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FD14592C2DE4EBE50078B93E /* SDWebImageSwiftUI */; };
 		FD1459302DE4EC210078B93E /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = FD14592F2DE4EC210078B93E /* SDWebImageSVGCoder */; };
+		FD1533952E0B115B00B48501 /* ExercismSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD1533942E0B115B00B48501 /* ExercismSwift */; };
 		FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */; };
 		FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26AE4228DCC9C100DC902B /* ExercismTextField.swift */; };
 		FD32367B2DD3A95400CCC6D2 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7DC52F29E0B00700A1EBD9 /* PreviewData.swift */; };
@@ -197,6 +198,7 @@
 				FD403C832C518ED700CD8D81 /* ExercismSwift in Frameworks */,
 				FD14592A2DE4EBB50078B93E /* Splash in Frameworks */,
 				FD86D48D2DE4E8EC0033419F /* KeychainAccess in Frameworks */,
+				FD1533952E0B115B00B48501 /* ExercismSwift in Frameworks */,
 				FDC4F8CA2D7BCC89008CA0DC /* ExercismSwift in Frameworks */,
 				FD86D4932DE4E9B00033419F /* CodeEditor in Frameworks */,
 				FD86D48A2DE4E8D00033419F /* Settings in Frameworks */,
@@ -455,6 +457,7 @@
 				FD1459292DE4EBB50078B93E /* Splash */,
 				FD14592C2DE4EBE50078B93E /* SDWebImageSwiftUI */,
 				FD14592F2DE4EC210078B93E /* SDWebImageSVGCoder */,
+				FD1533942E0B115B00B48501 /* ExercismSwift */,
 			);
 			productName = Exercism;
 			productReference = E0C9672C28732A44004CE7E6 /* Exercode.app */;
@@ -519,7 +522,7 @@
 				FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */,
 				FD14592B2DE4EBE50078B93E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				FD14592E2DE4EBFF0078B93E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
-				FD15335A2E045C5400B48501 /* XCLocalSwiftPackageReference "../ExercismSwift" */,
+				FD1533932E0B115B00B48501 /* XCRemoteSwiftPackageReference "ExercismSwift" */,
 			);
 			productRefGroup = E0C9672D28732A44004CE7E6 /* Products */;
 			projectDirPath = "";
@@ -971,13 +974,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		FD15335A2E045C5400B48501 /* XCLocalSwiftPackageReference "../ExercismSwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../ExercismSwift;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		FD1459282DE4EBB50078B93E /* XCRemoteSwiftPackageReference "Splash" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1001,6 +997,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.8.0;
+			};
+		};
+		FD1533932E0B115B00B48501 /* XCRemoteSwiftPackageReference "ExercismSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apps-fab/ExercismSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		FD86D4882DE4E8D00033419F /* XCRemoteSwiftPackageReference "Settings" */ = {
@@ -1060,6 +1064,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FD14592E2DE4EBFF0078B93E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
+		};
+		FD1533942E0B115B00B48501 /* ExercismSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD1533932E0B115B00B48501 /* XCRemoteSwiftPackageReference "ExercismSwift" */;
+			productName = ExercismSwift;
 		};
 		FD403C822C518ED700CD8D81 /* ExercismSwift */ = {
 			isa = XCSwiftPackageProductDependency;
