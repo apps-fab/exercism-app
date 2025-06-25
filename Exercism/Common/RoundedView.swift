@@ -21,6 +21,6 @@ struct RoundedRect<Background: View>: ViewModifier {
                 RoundedRectangle(cornerRadius: radius, style: .circular)
                     .strokeBorder(borderColor, lineWidth: borderWidth)
                     .background(backgroundView)
-            }.clipShape(RoundedRectangle(cornerRadius: radius))
+            }.clipShape(.rect(cornerRadius: radius))
     }
 }
