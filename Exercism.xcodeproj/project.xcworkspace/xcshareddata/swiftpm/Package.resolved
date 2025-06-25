@@ -1,5 +1,5 @@
 {
-  "originHash" : "fa8757e13fab71d623af3aebddcf3c53627fd562ff92a6c9fd59c898cf613bd3",
+  "originHash" : "73b583ac39aa50d46743f13cc36c5264b54545c1f0fe850d7692213a1d1568db",
   "pins" : [
     {
       "identity" : "codeeditor",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/apps-fab/ExercismSwift.git",
       "state" : {
         "branch" : "main",
-        "revision" : "9b7fa609c23c6fe2eb3e85e921bbfae344bdbbf8"
+        "revision" : "f052402b8063d619f3e95d84fbbf8aa90708e099"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca",
-        "version" : "5.21.0"
+        "revision" : "b62cb63bf4ed1f04c961a56c9c6c9d5ab8524ec6",
+        "version" : "5.21.1"
       }
     },
     {

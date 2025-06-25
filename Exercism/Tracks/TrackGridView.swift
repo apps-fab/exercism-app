@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 struct TrackGridView: View {
     @Environment(\.openURL) private var openURL
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
-    let gradientColors = [Color.appAccent.opacity(0.4),
+    private let gradientColors = [Color.appAccent.opacity(0.4),
                           Color.appAccent.opacity(0.6),
                           Color.appAccent.opacity(0.8),
                           Color.appAccent]

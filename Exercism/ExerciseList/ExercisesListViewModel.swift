@@ -7,81 +7,119 @@
 
 import SwiftUI
 import ExercismSwift
+import Combine
 
 enum LoadingState<Value: Sendable> {
     case idle
     case loading
     case success(Value)
-    case failure(ExercismClientError)
+    case failure(String)
 }
 
 @MainActor
 final class ExerciseListViewModel: ObservableObject {
     @Published var state: LoadingState<[Exercise]> = .idle
     @Published var solutions = [String: Solution]()
-    private var exercises = [Exercise]()
+    @Published var filteredGroupedExercises = [ExerciseCategory: [Exercise]]()
+    @Published var searchText = ""
+    @Published var selectedCategory: ExerciseCategory = .allExercises
+
+    private var groupedAllExercises = [ExerciseCategory: [Exercise]]()
+    private var cancellables = Set<AnyCancellable>()
     private let fetcher: FetchingProtocol
     let track: Track
 
     init(_ track: Track, _ fetcher: FetchingProtocol? = nil) {
         self.track = track
         self.fetcher = fetcher ?? Fetcher()
+        setupCombinedListener()
     }
 
-    func getExercises() async {
+    private func setupCombinedListener() {
+        Publishers.CombineLatest($searchText, $selectedCategory)
+            .dropFirst()
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText, category in
+                self?.handleSearchAndCategory(searchText: searchText, category: category)
+            }
+            .store(in: &cancellables)
+    }
+
+    func loadData() async {
         state = .loading
         do {
-            let fetchedExercises = try await fetcher.getExercises(track)
-            exercises = fetchedExercises
-            state = .success(fetchedExercises)
-        } catch let appError as  ExercismClientError {
-            state = .failure(appError)
+            async let fetchedExercises = fetcher.getExercises(track)
+            async let fetchedSolutions = fetcher.getSolutions(track)
+
+            let (exercises, solutionsList) = try await (fetchedExercises, fetchedSolutions)
+            self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map { ($0.exercise.slug, $0) })
+
+            let grouped = groupExercises(exercises)
+            self.groupedAllExercises = grouped
+            self.filteredGroupedExercises = grouped
+            state = .success(exercises)
+        } catch let error as ExercismClientError {
+            state = .failure(error.description)
         } catch {
-            state = .failure(ExercismClientError.genericError(error))
+            state = .failure("An unknown error occurred.")
         }
     }
 
-    func getSolutions() async throws {
-        let solutionsList = try await fetcher.getSolutions(track)
-        self.solutions = Dictionary(uniqueKeysWithValues: solutionsList.map({($0.exercise.slug, $0)}))
+    private func handleSearchAndCategory(searchText: String, category: ExerciseCategory) {
+        filteredGroupedExercises = makeFilteredGroups(from: groupedAllExercises, searchText: searchText)
+        state = .success(filteredGroupedExercises[category] ?? [])
     }
 
-    func filterExercises(_ searchText: String) {
-        let filtered = searchText.isEmpty ? exercises : exercises.filter { $0.slug.lowercased().contains(searchText) }
-        state = .success(filtered)
+    private func makeFilteredGroups(from grouped: [ExerciseCategory: [Exercise]],
+                                    searchText: String) -> [ExerciseCategory: [Exercise]] {
+        guard !searchText.isEmpty else { return grouped }
+
+        let query = searchText.lowercased()
+        return grouped.mapValues { exercises in
+            exercises.filter {
+                $0.slug.lowercased().contains(query) || $0.title.lowercased().contains(query)
+            }
+        }
     }
 
-    /// Group exercises by category
-    /// - Parameter exercises:
-    /// - Returns: [ExerciseCategory: [Exercise]]
-    func groupExercises(_ exercises: [Exercise]) -> [ExerciseCategory: [Exercise]] {
-        var groupedExercises = [ExerciseCategory: [Exercise]]()
+    private func groupExercises(_ exercises: [Exercise]) -> [ExerciseCategory: [Exercise]] {
+        var grouped = [ExerciseCategory: [Exercise]]()
         for category in ExerciseCategory.allCases {
-            groupedExercises[category] = filterExercises(by: category, exercises: exercises)
+            grouped[category] = filterExercises(exercises: exercises, by: category)
         }
-        return groupedExercises
+        return grouped
     }
 
-    private func filterExercises(by category: ExerciseCategory, exercises: [Exercise]) -> [Exercise] {
-        switch category {
-        case .allExercises:
-            return exercises
-        case .completed:
-            return exercises.filter {
-                getSolution(for: $0)?.status == .completed || getSolution(for: $0)?.status == .published
+    private func filterExercises(exercises: [Exercise], by category: ExerciseCategory) -> [Exercise] {
+        exercises.filter { exercise in
+            switch category {
+            case .allExercises:
+                return true
+            case .completed:
+                guard let solution = getSolution(for: exercise) else { return false }
+                return solution.isCompleted
+            case .inProgress:
+                guard let solution = getSolution(for: exercise) else { return false }
+                return solution .isInProgress
+            case .available:
+                return exercise.isUnlocked && getSolution(for: exercise) == nil
+            case .locked:
+                return !exercise.isUnlocked
             }
-        case .inProgress:
-            return exercises.filter {
-                getSolution(for: $0)?.status == .started || getSolution(for: $0)?.status == .iterated
-            }
-        case .available:
-            return exercises.filter { $0.isUnlocked && getSolution(for: $0) == nil }
-        case .locked:
-            return exercises.filter { !$0.isUnlocked }
         }
     }
 
     func getSolution(for exercise: Exercise) -> Solution? {
         solutions[exercise.slug]
+    }
+}
+
+extension Solution {
+    var isCompleted: Bool {
+        status == .completed || status == .published
+    }
+
+    var isInProgress: Bool {
+        status == .started || status == .iterated
     }
 }

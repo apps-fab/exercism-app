@@ -54,10 +54,10 @@ final class ExerciseViewModel: ObservableObject {
             title = selectedFile.title
             selectedCode = getSelectedCode(for: selectedFile) ?? ""
             state = .success((exerciseFiles, actionsViewModel))
-        } catch let appError as  ExercismClientError {
-            state = .failure(appError)
+        } catch let error as ExercismClientError {
+            state = .failure(error.description)
         } catch {
-            state = .failure(ExercismClientError.genericError(error))
+            state = .failure(error.localizedDescription)
         }
     }
 
@@ -81,7 +81,7 @@ final class ExerciseViewModel: ObservableObject {
         try? String(contentsOf: selectedFile.url, encoding: .utf8)
     }
 
-    private func downloadExerciseDoc() async throws -> ExerciseDocument {
+    private func downloadExerciseDoc() async throws(ExercismClientError) -> ExerciseDocument {
         return try await fetcher.downloadSolutions(track, exercise)
     }
 
@@ -98,7 +98,7 @@ final class ExerciseViewModel: ObservableObject {
 
     // MARK: - Iterations
 
-    func getIterations(for solution: String) async throws -> [Iteration] {
+    func getIterations(for solution: String) async throws(ExercismClientError) -> [Iteration] {
         return try await fetcher.getIterations(solution)
     }
 
