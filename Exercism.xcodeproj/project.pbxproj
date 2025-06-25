@@ -24,6 +24,11 @@
 		E0C9673428732A45004CE7E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673328732A45004CE7E6 /* Assets.xcassets */; };
 		E0C9673728732A45004CE7E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */; };
 		E0F6E9BE2992236D0079CC28 /* TestRunResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */; };
+		FD042C032DF7521D0064C1BD /* TrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD042C022DF7521D0064C1BD /* TrackRowView.swift */; };
+		FD042C7A2DF843E00064C1BD /* StreakManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD042C792DF843E00064C1BD /* StreakManager.swift */; };
+		FD042C7C2DF843EB0064C1BD /* Streak.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD042C7B2DF843EB0064C1BD /* Streak.swift */; };
+		FD042C7E2DF8444A0064C1BD /* StreakPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD042C7D2DF8444A0064C1BD /* StreakPersistence.swift */; };
+		FD042C802DF844A50064C1BD /* StreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD042C7F2DF844A50064C1BD /* StreakView.swift */; };
 		FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */; };
 		FD05C65528FE9ED0002087A9 /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9262FB28F6DAE700C9476C /* FilterTableView.swift */; };
 		FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B06F028F592E000FCA956 /* AppDelegate.swift */; };
@@ -125,6 +130,11 @@
 		E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E0C9673828732A45004CE7E6 /* Exercism.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Exercism.entitlements; sourceTree = "<group>"; };
 		E0F6E9BD2992236D0079CC28 /* TestRunResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunResultView.swift; sourceTree = "<group>"; };
+		FD042C022DF7521D0064C1BD /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
+		FD042C792DF843E00064C1BD /* StreakManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakManager.swift; sourceTree = "<group>"; };
+		FD042C7B2DF843EB0064C1BD /* Streak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Streak.swift; sourceTree = "<group>"; };
+		FD042C7D2DF8444A0064C1BD /* StreakPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakPersistence.swift; sourceTree = "<group>"; };
+		FD042C7F2DF844A50064C1BD /* StreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakView.swift; sourceTree = "<group>"; };
 		FD045F3C2A6AA8DB00A3BE28 /* ExercismCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercismCommands.swift; sourceTree = "<group>"; };
 		FD0B06F028F592E000FCA956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD0B071128F5F77300FCA956 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -276,6 +286,7 @@
 		E0C9672E28732A44004CE7E6 /* Exercism */ = {
 			isa = PBXGroup;
 			children = (
+				FD042C782DF843CD0064C1BD /* Streak */,
 				FDA558A12B9DC8AA006BDE85 /* Info.plist */,
 				CB9DFA7D2AF97A060093566C /* Authentication */,
 				FDC8C07929C495E70079D5F3 /* Models */,
@@ -288,6 +299,7 @@
 				E0C9673828732A45004CE7E6 /* Exercism.entitlements */,
 				FDE27F25298FC5CE00F61A0A /* ProfileTableView.swift */,
 				FD60950A29CC598000944379 /* SideBar.swift */,
+				FD042C022DF7521D0064C1BD /* TrackRowView.swift */,
 				8480F413C4C2527414F3D692 /* SyntaxHighlighter */,
 				FDE4EBFB2A4B009C007ED19E /* EmptyStateView.swift */,
 				FD201DD92A7C1DC9006865CF /* ExercismSettings.swift */,
@@ -301,6 +313,17 @@
 				E0C9673628732A45004CE7E6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FD042C782DF843CD0064C1BD /* Streak */ = {
+			isa = PBXGroup;
+			children = (
+				FD042C792DF843E00064C1BD /* StreakManager.swift */,
+				FD042C7B2DF843EB0064C1BD /* Streak.swift */,
+				FD042C7D2DF8444A0064C1BD /* StreakPersistence.swift */,
+				FD042C7F2DF844A50064C1BD /* StreakView.swift */,
+			);
+			path = Streak;
 			sourceTree = "<group>";
 		};
 		FD368D492CDBE7AD001BA3EE /* Results */ = {
@@ -501,7 +524,6 @@
 					};
 					FD3236642DD387D000CCC6D2 = {
 						CreatedOnToolsVersion = 16.3;
-						TestTargetID = E0C9672B28732A44004CE7E6;
 					};
 				};
 			};
@@ -586,12 +608,14 @@
 				FDE4EBFC2A4B009C007ED19E /* EmptyStateView.swift in Sources */,
 				FDE27F26298FC5CE00F61A0A /* ProfileTableView.swift in Sources */,
 				FD368D462CDBE330001BA3EE /* TestRunProgress.swift in Sources */,
+				FD042C7A2DF843E00064C1BD /* StreakManager.swift in Sources */,
 				FD3F2B142AA750D300ADB248 /* ExercismButton.swift in Sources */,
 				FD045F3D2A6AA8DB00A3BE28 /* ExercismCommands.swift in Sources */,
 				FD0DB1332DD731940007AB91 /* EditorActionsViewModel.swift in Sources */,
 				CB9DFA7F2AF97A1D0093566C /* AuthenticationViewModel.swift in Sources */,
 				FDE72BC82D96B50A008BAA2F /* SelectedTab.swift in Sources */,
 				FD60770D292E28D600A95E17 /* NavigationModel.swift in Sources */,
+				FD042C802DF844A50064C1BD /* StreakView.swift in Sources */,
 				FD0B06F128F592E000FCA956 /* AppDelegate.swift in Sources */,
 				FD26AE4328DCC9C100DC902B /* ExercismTextField.swift in Sources */,
 				FD4078072CEDD1D100587584 /* CollapsibleTestDetailView.swift in Sources */,
@@ -603,7 +627,9 @@
 				FDC9F12128E5DC7F00488CE9 /* KeychainHelper.swift in Sources */,
 				FD6FE8F42A955B380043A89F /* ExerciseViewModel.swift in Sources */,
 				CB4F3C142B5EEB2300829CCD /* AlertModel.swift in Sources */,
+				FD042C7C2DF843EB0064C1BD /* Streak.swift in Sources */,
 				FDB6695E28E1B3320062FC2D /* LoginView.swift in Sources */,
+				FD042C032DF7521D0064C1BD /* TrackRowView.swift in Sources */,
 				FD93F5D728E398770078A062 /* Date+Exercism.swift in Sources */,
 				FD201DDA2A7C1DC9006865CF /* ExercismSettings.swift in Sources */,
 				FD653F902D529B5F0013E732 /* ExercisesListViewModel.swift in Sources */,
@@ -634,6 +660,7 @@
 				FD60950B29CC598000944379 /* SideBar.swift in Sources */,
 				FD73E10F29C451E8001B59D3 /* Fetcher.swift in Sources */,
 				FDFF5A812A66C2E700E36AA4 /* Images.swift in Sources */,
+				FD042C7E2DF8444A0064C1BD /* StreakPersistence.swift in Sources */,
 				FD57BB502930C0C2006D0B9C /* ExerciseGridView.swift in Sources */,
 				FDABC23A292BCC5200A2AB72 /* ExercisesList.swift in Sources */,
 				FDFF5A832A66C31A00E36AA4 /* Strings.swift in Sources */,
@@ -830,8 +857,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apps-fab.exercism";
@@ -878,8 +905,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apps-fab.exercism";
@@ -898,14 +925,13 @@
 		FD32366C2DD387D000CCC6D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S82GZQ59NS;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nnn.ExercodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -915,21 +941,19 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exercode.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Exercode";
 			};
 			name = Debug;
 		};
 		FD32366D2DD387D000CCC6D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S82GZQ59NS;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nnn.ExercodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -938,7 +962,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exercode.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Exercode";
 			};
 			name = Release;
 		};

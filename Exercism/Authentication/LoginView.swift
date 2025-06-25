@@ -24,8 +24,8 @@ struct LoginView: View {
             }
             .background(.white)
             .foregroundStyle(.black)
-            .onChange(of: authenticationVM.authSuccess) { authSuccess in
-                if authSuccess {
+            .onChange(of: authenticationVM.authSuccess) {
+                if authenticationVM.authSuccess {
                     ExercismKeychain.shared.set(authenticationVM.tokenInput, for: Keys.token.rawValue)
                     navigationModel.goToDashboard()
                 }

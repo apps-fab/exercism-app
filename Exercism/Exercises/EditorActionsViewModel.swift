@@ -71,8 +71,7 @@ class EditorActionsViewModel: ObservableObject {
     func runTests() async {
         selectedTab = .result
         do {
-            try         await executeRunTest()
-
+            try await executeRunTest()
         } catch let error as ExercismClientError {
             state = .actionErrored(error.description)
         } catch {

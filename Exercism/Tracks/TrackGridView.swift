@@ -116,14 +116,16 @@ struct TrackGridView: View {
                         .foregroundStyle(.foreground)
                 })
 
-                Label(title: {
-                    Text(String(format: Strings.concepts.localized(), track.numConcepts))
-                        .fontWeight(.medium)
-                }, icon: {
-                    Image.conceptLogo
-                        .renderingMode(.template)
-                        .foregroundStyle(.foreground)
-                })
+                if track.numConcepts > 0 {
+                    Label(title: {
+                        Text(String(format: Strings.concepts.localized(), track.numConcepts))
+                            .fontWeight(.medium)
+                    }, icon: {
+                        Image.conceptLogo
+                            .renderingMode(.template)
+                            .foregroundStyle(.foreground)
+                    })
+                }
             }
 
             if track._isJoined {
