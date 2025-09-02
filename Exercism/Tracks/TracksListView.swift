@@ -31,21 +31,11 @@ struct TracksListView: View {
         }
 #if os(macOS)
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
-            if shouldRefreshFromJoinTrack {
-                Task {
-                    await viewModel.loadTracks()
-                    shouldRefreshFromJoinTrack = false
-                }
-            }
+            handleJoinTrackRefresh()
         }
 #else
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            if shouldRefreshFromJoinTrack {
-                Task {
-                    await viewModel.getTracks()
-                    shouldRefreshFromJoinTrack = false
-                }
-            }
+            handleJoinTrackRefresh()
         }
 #endif
     }
@@ -53,7 +43,7 @@ struct TracksListView: View {
     @ViewBuilder
     private var mainContent: some View {
         switch viewModel.state {
-        case .idle:
+        case .empty:
             EmptyView()
         case .loading:
             loadingView

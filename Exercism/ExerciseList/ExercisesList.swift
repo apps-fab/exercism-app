@@ -16,12 +16,12 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
     case allExercises = "All Exercises"
     case completed
     case inProgress = "In Progress"
-
+    
     case available
     case locked
-
+    
     var id: Self { return self }
-
+    
     var imageName: String {
         switch self {
         case .completed:
@@ -43,16 +43,16 @@ struct ExercisesList: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseListViewModel
     @State private var alertItem = AlertItem()
-
+    
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-
+    
     init(track: Track) {
         _viewModel = StateObject(wrappedValue: ExerciseListViewModel(track))
     }
-
+    
     var body: some View {
         VStack {
             switch viewModel.state {
@@ -66,7 +66,7 @@ struct ExercisesList: View {
                            maxHeight: .infinity)
             case .success(let exercises):
                 exerciseListView(exercises)
-            case .idle:
+            case .empty:
                 EmptyView()
             }
         }.onAppear {
@@ -85,18 +85,18 @@ struct ExercisesList: View {
         } message: {
             Text(alertItem.message)
         }
-
+        
     }
-
+    
     @ViewBuilder
     private func exerciseListView(_ exercises: [Exercise]) -> some View {
         let groupedExercises = viewModel.filteredGroupedExercises
-
+        
         VStack(spacing: 0) {
             HStack {
                 searchField
                     .frame(minWidth: 200)
-
+                
                 CustomPicker(selection: $viewModel.selectedCategory, items: ExerciseCategory.allCases) { option in
                     Label {
                         Text("\(option.rawValue.capitalized) (\((groupedExercises[option] ?? exercises).count))")
@@ -107,9 +107,9 @@ struct ExercisesList: View {
             }
             .padding()
             .background(Color.appDarkBackground)
-
+            
             Divider()
-
+            
             ScrollView {
                 if exercises.isEmpty {
                     EmptyStateView {
@@ -120,7 +120,7 @@ struct ExercisesList: View {
                     LazyVGrid(columns: columns) {
                         ForEach(exercises, id: \.self) { exercise in
                             let solution = viewModel.getSolution(for: exercise)
-
+                            
                             Button {
                                 navigationModel.goToEditor(viewModel.track.slug,
                                                            exercise)
@@ -135,12 +135,12 @@ struct ExercisesList: View {
             }
         }
     }
-
+    
     private var searchField: some View {
         HStack(spacing: 12) {
             Image.magnifyingGlass
                 .imageScale(.large)
-
+            
             TextField(Strings.searchString.localized(),
                       text: $viewModel.searchText)
             .textFieldStyle(.plain)
@@ -153,7 +153,7 @@ struct ExercisesList: View {
     }
 }
 
- #Preview {
+#Preview {
     ExercisesList(track: PreviewData.shared.getTracks()[0])
         .frame(width: 1000, height: 800)
- }
+}

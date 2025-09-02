@@ -10,7 +10,7 @@ import ExercismSwift
 import Combine
 
 enum LoadingState<Value: Sendable> {
-    case idle
+    case empty
     case loading
     case success(Value)
     case failure(String)
@@ -18,7 +18,7 @@ enum LoadingState<Value: Sendable> {
 
 @MainActor
 final class ExerciseListViewModel: ObservableObject {
-    @Published var state: LoadingState<[Exercise]> = .idle
+    @Published var state: LoadingState<[Exercise]> = .loading
     @Published var solutions = [String: Solution]()
     @Published var filteredGroupedExercises = [ExerciseCategory: [Exercise]]()
     @Published var searchText = ""
@@ -46,7 +46,6 @@ final class ExerciseListViewModel: ObservableObject {
     }
 
     func loadData() async {
-        state = .loading
         do {
             async let fetchedExercises = fetcher.getExercises(track)
             async let fetchedSolutions = fetcher.getSolutions(track)

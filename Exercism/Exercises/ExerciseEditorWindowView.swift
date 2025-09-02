@@ -12,16 +12,16 @@ struct ExerciseEditorWindowView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseViewModel
     @Environment(\.streakManager) var streak
-
+    
     init(_ track: String, _ exercise: String) {
         let viewModel = ExerciseViewModel(track, exercise)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
         VStack {
             switch viewModel.state {
-            case .idle:
+            case .empty:
                 EmptyView()
             case .loading:
                 ProgressView()
@@ -53,7 +53,7 @@ struct ExerciseEditorWindowView: View {
             ToolbarItem(placement: .primaryAction) {
                 StreakView()
             }
-
+            
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     Task {
@@ -63,7 +63,7 @@ struct ExerciseEditorWindowView: View {
                     Image.revert
                 }.tooltip(Strings.revertExercise.localized())
             }
-
+            
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     Task {
@@ -79,7 +79,7 @@ struct ExerciseEditorWindowView: View {
                     .fixedSize()
                 }
             }
-
+            
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     Task {

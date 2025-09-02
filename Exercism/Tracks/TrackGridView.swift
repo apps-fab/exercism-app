@@ -13,13 +13,13 @@ struct TrackGridView: View {
     @Environment(\.openURL) private var openURL
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
     private let gradientColors = [Color.appAccent.opacity(0.4),
-                          Color.appAccent.opacity(0.6),
-                          Color.appAccent.opacity(0.8),
-                          Color.appAccent]
-
+                                  Color.appAccent.opacity(0.6),
+                                  Color.appAccent.opacity(0.8),
+                                  Color.appAccent]
+    
     var track: Track
     @State var isHover = false
-
+    
     var body: some View {
         HStack(alignment: .top, spacing: 5) {
             WebImage(url: URL(string: track.iconUrl),
@@ -30,7 +30,7 @@ struct TrackGridView: View {
             .padding([.top, .leading], 10)
             .frame(width: 100, height: 100, alignment: .center)
             .accessibilityHidden(true)
-
+            
             trackView
                 .padding()
         }
@@ -53,13 +53,13 @@ struct TrackGridView: View {
             }
         }
     }
-
+    
     private var trackView: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text(track.title)
                     .font(.title3.bold())
-
+                
                 if track.isNew && track._isJoined {
                     Label(title: {
                         Text(Strings.new.localized())
@@ -73,7 +73,7 @@ struct TrackGridView: View {
                     )
                     .font(.callout.weight(.semibold))
                 }
-
+                
                 if track._isJoined {
                     Spacer()
                     Label {
@@ -99,7 +99,7 @@ struct TrackGridView: View {
                         .font(.system(size: 12, weight: .semibold))
                 }
             }
-
+            
             HStack(spacing: 20) {
                 Label(title: {
                     if track._isJoined {
@@ -115,7 +115,7 @@ struct TrackGridView: View {
                         .renderingMode(.template)
                         .foregroundStyle(.foreground)
                 })
-
+                
                 if track.numConcepts > 0 {
                     Label(title: {
                         Text(String(format: Strings.concepts.localized(), track.numConcepts))
@@ -127,11 +127,11 @@ struct TrackGridView: View {
                     })
                 }
             }
-
+            
             if track._isJoined {
                 let completedExercises = Float(track._numCompletedExercises)
                 let numberOfExercises = Float(track.numExercises)
-
+                
                 Gauge(value: completedExercises, in: 0...numberOfExercises) {
                 } currentValueLabel: {
                     if let lastTouchedAt = track.lastTouchedAt {

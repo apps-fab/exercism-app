@@ -17,7 +17,7 @@ struct InstructionView: View {
     let markdownTheme: MarkdownUI.Theme
     @EnvironmentObject var viewModel: EditorActionsViewModel
     @Binding var presentModal: Bool
-
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -25,7 +25,7 @@ struct InstructionView: View {
                     .markdownTheme(markdownTheme)
                     .markdownCodeSyntaxHighlighter(.splash(theme: theme, language: language))
             }
-
+            
             if case .submitSuccess = viewModel.state {
                 Button {
                     presentModal.toggle()
@@ -53,13 +53,13 @@ struct InstructionView: View {
         plainTextColor: Color.black,
         tokenColors: [TokenType.string: Color.black],
         backgroundColor: Color(white: 0.12, alpha: 1))
-
+    
     let viewModel = EditorActionsViewModel(solutionUUID: "", exerciseItem: nil, iterations: [])
     viewModel.state = .submitSuccess("")
-
+    
     return InstructionView(instruction: "Try this",
-                    theme: theme,
-                    language: "Swift",
-                    markdownTheme: Theme.basic, presentModal: .constant(false))
+                           theme: theme,
+                           language: "Swift",
+                           markdownTheme: Theme.basic, presentModal: .constant(false))
     .environmentObject(viewModel)
 }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CustomPicker<Content: View, Selection: Identifiable&Equatable>: View {
-    @Binding var selection: Selection
     var items: [Selection]
+    @Binding var selection: Selection
     @ViewBuilder let labelContent: (Selection) -> Content
 
     var body: some View {

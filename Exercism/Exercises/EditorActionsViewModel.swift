@@ -25,11 +25,11 @@ class EditorActionsViewModel: ObservableObject {
             handleActionState()
         }
     }
-
+    
     private let nanosecondsPerSecond: Double = 1_000_000_000
     private let fetcher: FetchingProtocol
     var sortedIterations = [Iteration]()
-
+    
     init(fetcher: FetchingProtocol? = nil, solutionUUID: String, exerciseItem: ExerciseItem?, iterations: [Iteration]) {
         self.fetcher = fetcher ?? Fetcher()
         self.solutionUUID = solutionUUID
@@ -37,37 +37,37 @@ class EditorActionsViewModel: ObservableObject {
         sortedIterations = currentSolutionIterations.sorted { $0.idx > $1.idx }
         Task { try? await runSavedTest() }
     }
-
+    
     private func handleActionState() {
         switch state {
         case .testRunSuccess(_, let testRun):
             self.testRun = testRun
             canSubmitSolution = true
             canRunTests = true
-
+            
         case .actionErrored(let message):
             errorMessage = message
             showErrorAlert = true
-
+            
         case .submitSuccess:
             selectedTab = .instruction
             canSubmitSolution = true
-
+            
         case .submitWrongSolution, .solutionPublished, .submitError, .revertSuccess:
             errorMessage = state.description
             showErrorAlert = true
-
+            
         case .testInProgress:
             canRunTests = false
-
+            
         case .submitInProgress:
             canSubmitSolution = false
-
+            
         case .idle, .getTestRunSuccess:
             canRunTests = true
         }
     }
-
+    
     func runTests() async {
         selectedTab = .result
         do {
@@ -78,7 +78,7 @@ class EditorActionsViewModel: ObservableObject {
             state = .actionErrored(error.localizedDescription)
         }
     }
-
+    
     private func executeRunTest() async throws {
         let solutionsData = try getSolutionFileData()
         let runResult = try await fetcher.runTest(solutionUUID, contents: solutionsData)
@@ -89,9 +89,9 @@ class EditorActionsViewModel: ObservableObject {
         default:
             return
         }
-
+        
     }
-
+    
     private func getSolutionFileData() throws -> [SolutionFileData] {
         var solutionsData = [SolutionFileData]()
         if let exercise = exerciseItem {
@@ -102,7 +102,7 @@ class EditorActionsViewModel: ObservableObject {
         }
         return solutionsData
     }
-
+    
     private func runSavedTest() async throws {
         if let savedSubmission = savedTestSubmission[solutionUUID] {
             switch savedSubmission.testStatus {
@@ -115,14 +115,14 @@ class EditorActionsViewModel: ObservableObject {
             try await executeRunTest()
         }
     }
-
+    
     private func saveTestRun(_ runResult: TestSubmission, _ solutionId: String) {
         savedTestSubmission[solutionId] = runResult
     }
-
+    
     private func getTestRun(for submissionLink: SubmissionLinks) async throws(ExercismClientError) {
         let result = try await fetcher.getTestRun(submissionLink.testRun)
-
+        
         if let testRun = result.testRun {
             state = .testRunSuccess(submissionLink, testRun)
         } else {
@@ -132,14 +132,14 @@ class EditorActionsViewModel: ObservableObject {
             try await self.getTestRun(for: submissionLink)
         }
     }
-
+    
     func submitSolution() async {
         selectedTab = .result
         guard case let .testRunSuccess(link, test) = state, test.status == .pass else {
             state = .submitError
             return
         }
-
+        
         do {
             let result = try await fetcher.submitSolution(link.submit)
             switch result.iteration.testsStatus {
@@ -152,12 +152,12 @@ class EditorActionsViewModel: ObservableObject {
             state = .actionErrored(error.description)
         }
     }
-
+    
     func completeExercise(_ publish: Bool, _ selectedIteration: Int?) async -> Bool {
         guard case let .submitSuccess(submissionUUID) = state else {
             return false
         }
-
+        
         do {
             _ = try await fetcher.completeSolution(submissionUUID, publish: publish, iterationIdx: selectedIteration)
             state = .solutionPublished
@@ -167,7 +167,7 @@ class EditorActionsViewModel: ObservableObject {
             return  false
         }
     }
-
+    
     func revertToStart() async -> String {
         do {
             let solution = try await fetcher.revertToStart(solutionUUID)
