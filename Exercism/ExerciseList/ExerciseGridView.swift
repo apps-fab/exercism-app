@@ -26,13 +26,13 @@ struct ExerciseGridView: View {
     @State private var isHover = false
     let exercise: Exercise
     let solution: Solution?
-
+    
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             WebImage(url: URL(string: exercise.iconUrl))
                 .resizable()
                 .frame(width: 64, height: 64)
-
+            
             VStack(alignment: .leading) {
                 Text(exercise.title.capitalized)
                     .font(.title2.bold())
@@ -41,7 +41,7 @@ struct ExerciseGridView: View {
                     .font(.title3)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-
+            
             Group {
                 exercise.isUnlocked ? Image.chevronRight : Image.lock
             }
@@ -67,7 +67,7 @@ struct ExerciseGridView: View {
             }
         }
     }
-
+    
     private var tags: some View {
         HStack {
             Group {
@@ -79,14 +79,14 @@ struct ExerciseGridView: View {
                         color: .green,
                         background: Color.green.opacity(0.2)
                     )
-
+                    
                 case .iterated, .started:
                     simpleTag(
                         text: Strings.inProgress.localized(),
                         color: .blue,
                         background: Color.blue.opacity(0.2)
                     )
-
+                    
                 default:
                     if !exercise.isUnlocked {
                         statusLabel(
@@ -109,7 +109,7 @@ struct ExerciseGridView: View {
                     }
                 }
             }
-
+            
             if let numIterations = solution?.numIterations, numIterations > 0 {
                 statusLabel(
                     text: String(format: Strings.iterations.localized(), numIterations),
@@ -118,7 +118,7 @@ struct ExerciseGridView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private func statusLabel(text: String,
                              icon: Image,
@@ -135,7 +135,7 @@ struct ExerciseGridView: View {
         .font(.callout.weight(.semibold))
         .foregroundStyle(color)
     }
-
+    
     @ViewBuilder
     private func simpleTag(text: String,
                            color: Color = .primary,
@@ -146,7 +146,7 @@ struct ExerciseGridView: View {
             .font(.callout.weight(.semibold))
             .foregroundStyle(color)
     }
-
+    
 }
 
 #Preview("Joined Exercise View") {

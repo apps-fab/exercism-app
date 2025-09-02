@@ -15,7 +15,7 @@ final class ExerciseViewModel: ObservableObject {
     @Published var showTestSubmissionResponseMessage = false
     @Published var title = ""
     @Published var language: String?
-    @Published var state: LoadingState<([ExerciseFile], EditorActionsViewModel)> = .idle
+    @Published var state: LoadingState<([ExerciseFile], EditorActionsViewModel)> = .loading
     @Published var tests: String?
     @Published var selectedTab: SelectedTab = .instruction
     @Published var canRunTests = true
@@ -25,17 +25,16 @@ final class ExerciseViewModel: ObservableObject {
     private let fetcher: FetchingProtocol
     private let track: String
     private let exercise: String
-
+    
     // MARK: - on Appear Operations
-
+    
     init(_ track: String, _ exercise: String, _ fetcher: FetchingProtocol? = nil) {
         self.fetcher = fetcher ?? Fetcher()
         self.exercise = exercise
         self.track = track
     }
-
+    
     func getDocument() async {
-        state = .loading
         do {
             let exerciseDoc = try await downloadExerciseDoc()
             solutionUUID = exerciseDoc.solution.id
@@ -54,67 +53,67 @@ final class ExerciseViewModel: ObservableObject {
             title = selectedFile.title
             selectedCode = getSelectedCode(for: selectedFile) ?? ""
             state = .success((exerciseFiles, actionsViewModel))
-        } catch let appError as  ExercismClientError {
-            state = .failure(appError)
+        } catch let error as ExercismClientError {
+            state = .failure(error.description)
         } catch {
-            state = .failure(ExercismClientError.genericError(error))
+            state = .failure(error.localizedDescription)
         }
     }
-
+    
     private func getLanguage(_ exerciseDoc: ExerciseDocument?) {
         language = exerciseDoc?.solution.exercise.trackLanguage
     }
-
+    
     private func getExerciseTests(_ exerciseDoc: ExerciseDocument) throws {
         guard let testsURL = exerciseDoc.tests.first else { return }
         let tests = try String(contentsOf: testsURL, encoding: .utf8)
         self.tests = tests
     }
-
+    
     private func getExerciseInstructions(_ exerciseDoc: ExerciseDocument) throws {
         guard let instructionURL = exerciseDoc.instructions else { return  }
         let instruction = try String(contentsOf: instructionURL, encoding: .utf8)
         self.instruction = instruction
     }
-
+    
     private func getSelectedCode(for selectedFile: ExerciseFile) -> String? {
         try? String(contentsOf: selectedFile.url, encoding: .utf8)
     }
-
-    private func downloadExerciseDoc() async throws -> ExerciseDocument {
+    
+    private func downloadExerciseDoc() async throws(ExercismClientError) -> ExerciseDocument {
         return try await fetcher.downloadSolutions(track, exercise)
     }
-
+    
     private func createExerciseFile(from exerciseDoc: ExerciseDocument) -> [ExerciseFile] {
         let exerciseFiles = exerciseDoc.solutions.map {
             return ExerciseFile(from: $0)
         }
         return exerciseFiles
     }
-
+    
     private func createExerciseItem(from exerciseFiles: [ExerciseFile]) -> ExerciseItem {
         return ExerciseItem(name: exercise, language: track, files: exerciseFiles)
     }
-
+    
     // MARK: - Iterations
-
-    func getIterations(for solution: String) async throws -> [Iteration] {
+    
+    func getIterations(for solution: String) async throws(ExercismClientError) -> [Iteration] {
         return try await fetcher.getIterations(solution)
     }
-
+    
     func revertToStart() async {
         selectedCode = await actionsVM?.revertToStart() ?? ""
     }
-
+    
     func runTests() async {
         selectedTab = SelectedTab.result
         await actionsVM?.runTests()
     }
-
+    
     func submitSolution() async {
         await actionsVM?.submitSolution()
     }
-
+    
     func updateFile() -> Bool {
         guard !selectedCode.isEmpty else { return false }
         do {

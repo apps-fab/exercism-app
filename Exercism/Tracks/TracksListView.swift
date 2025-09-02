@@ -12,8 +12,6 @@ struct TracksListView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @AppStorage("shouldRefreshFromJoinTrack") private var shouldRefreshFromJoinTrack = false
     @StateObject private var viewModel = TrackViewModel()
-    @State private var searchText = ""
-    @State private var filters = Set<String>()
 
     private let gridColumns = [GridItem(.flexible()), GridItem(.flexible())]
     private let refreshPublisher = NotificationCenter.default.publisher(for: .didRequestRefresh)
@@ -21,37 +19,23 @@ struct TracksListView: View {
     var body: some View {
         VStack {
             mainContent
+        }.task {
+            await viewModel.loadTracks()
         }
         .toolbar(.hidden)
         .accessibilityLabel("All Tracks")
-        .onChange(of: searchText) {
-            viewModel.filterTracks(searchText)
-        }
-        .onChange(of: filters) {
-            viewModel.filterTags(filters)
-        }
         .onReceive(refreshPublisher) { _ in
             Task {
-                await viewModel.getTracks()
+                await viewModel.loadTracks()
             }
         }
 #if os(macOS)
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willBecomeActiveNotification)) { _ in
-            if shouldRefreshFromJoinTrack {
-                Task {
-                    await viewModel.getTracks()
-                    shouldRefreshFromJoinTrack = false
-                }
-            }
+            handleJoinTrackRefresh()
         }
 #else
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            if shouldRefreshFromJoinTrack {
-                Task {
-                    await viewModel.getTracks()
-                    shouldRefreshFromJoinTrack = false
-                }
-            }
+            handleJoinTrackRefresh()
         }
 #endif
     }
@@ -59,7 +43,7 @@ struct TracksListView: View {
     @ViewBuilder
     private var mainContent: some View {
         switch viewModel.state {
-        case .idle:
+        case .empty:
             EmptyView()
         case .loading:
             loadingView
@@ -75,8 +59,8 @@ struct TracksListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private func errorView(_ error: ExercismClientError) -> some View {
-        Text(error.description)
+    private func errorView(_ error: String) -> some View {
+        Text(error)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
@@ -101,8 +85,8 @@ struct TracksListView: View {
             ScrollView {
                 if tracks.isEmpty {
                     EmptyStateView {
-                        searchText = ""
-                        filters = []
+                        viewModel.searchText = ""
+                        viewModel.selectedTags = []
                     }
                 } else {
                     trackGrid(joinedTracks: joinedTracks, unjoinedTracks: unjoinedTracks)
@@ -117,8 +101,8 @@ struct TracksListView: View {
             headerView
                 .padding()
 
-            FilterView(searchText: $searchText,
-                       filters: $filters,
+            FilterView(searchText: $viewModel.searchText,
+                       filters: $viewModel.selectedTags,
                        results: tracks.count) {
                 viewModel.sortTracks()
             }
@@ -191,7 +175,7 @@ struct TracksListView: View {
     private func handleJoinTrackRefresh() {
         guard shouldRefreshFromJoinTrack else { return }
         Task {
-            await viewModel.getTracks()
+            await viewModel.loadTracks()
             shouldRefreshFromJoinTrack = false
         }
     }

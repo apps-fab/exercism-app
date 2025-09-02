@@ -16,12 +16,12 @@ enum ExerciseCategory: String, CaseIterable, Identifiable {
     case allExercises = "All Exercises"
     case completed
     case inProgress = "In Progress"
-
+    
     case available
     case locked
-
+    
     var id: Self { return self }
-
+    
     var imageName: String {
         switch self {
         case .completed:
@@ -42,19 +42,17 @@ struct ExercisesList: View {
     @FocusState private var fieldFocused: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var viewModel: ExerciseListViewModel
-    @State private var exerciseCategory: ExerciseCategory = .allExercises
-    @State private var searchText = ""
     @State private var alertItem = AlertItem()
-
+    
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-
+    
     init(track: Track) {
         _viewModel = StateObject(wrappedValue: ExerciseListViewModel(track))
     }
-
+    
     var body: some View {
         VStack {
             switch viewModel.state {
@@ -68,11 +66,9 @@ struct ExercisesList: View {
                            maxHeight: .infinity)
             case .success(let exercises):
                 exerciseListView(exercises)
-            case .idle:
+            case .empty:
                 EmptyView()
             }
-        }.onChange(of: searchText) {
-            viewModel.filterExercises(searchText)
         }.onAppear {
             fieldFocused = false
         }.toolbar {
@@ -81,39 +77,27 @@ struct ExercisesList: View {
                     .textCase(.uppercase)
                     .font(.headline)
             }
-        }
-        .task {
-            await viewModel.getExercises()
-            await getExercises()
-        }
-        .alert(alertItem.title, isPresented: $alertItem.isPresented) {
+        }.task {
+            await viewModel.loadData()
+        }.alert(alertItem.title, isPresented: $alertItem.isPresented) {
             Button(Strings.ok.localized(), role: .cancel) {
             }
         } message: {
             Text(alertItem.message)
         }
-
+        
     }
-
-    private func getExercises() async {
-        do {
-            try await viewModel.getSolutions()
-        } catch {
-            alertItem = AlertItem(title: "Error", message: error.localizedDescription)
-        }
-    }
-
+    
     @ViewBuilder
     private func exerciseListView(_ exercises: [Exercise]) -> some View {
-        let groupedExercises = viewModel.groupExercises(exercises)
-        let filteredExercises = groupedExercises[exerciseCategory] ?? exercises
-
+        let groupedExercises = viewModel.filteredGroupedExercises
+        
         VStack(spacing: 0) {
             HStack {
                 searchField
                     .frame(minWidth: 200)
-
-                CustomPicker(selection: $exerciseCategory, items: ExerciseCategory.allCases) { option in
+                
+                CustomPicker(selection: $viewModel.selectedCategory, items: ExerciseCategory.allCases) { option in
                     Label {
                         Text("\(option.rawValue.capitalized) (\((groupedExercises[option] ?? exercises).count))")
                     } icon: {
@@ -123,19 +107,20 @@ struct ExercisesList: View {
             }
             .padding()
             .background(Color.appDarkBackground)
-
+            
             Divider()
-
+            
             ScrollView {
-                if filteredExercises.isEmpty {
+                if exercises.isEmpty {
                     EmptyStateView {
-                        searchText = ""
+                        viewModel.searchText = ""
+                        viewModel.selectedCategory = .allExercises
                     }
                 } else {
                     LazyVGrid(columns: columns) {
-                        ForEach(filteredExercises, id: \.self) { exercise in
+                        ForEach(exercises, id: \.self) { exercise in
                             let solution = viewModel.getSolution(for: exercise)
-
+                            
                             Button {
                                 navigationModel.goToEditor(viewModel.track.slug,
                                                            exercise)
@@ -150,14 +135,14 @@ struct ExercisesList: View {
             }
         }
     }
-
+    
     private var searchField: some View {
         HStack(spacing: 12) {
             Image.magnifyingGlass
                 .imageScale(.large)
-
+            
             TextField(Strings.searchString.localized(),
-                      text: $searchText)
+                      text: $viewModel.searchText)
             .textFieldStyle(.plain)
         }.padding(8)
             .roundEdges(
@@ -168,7 +153,7 @@ struct ExercisesList: View {
     }
 }
 
- #Preview {
+#Preview {
     ExercisesList(track: PreviewData.shared.getTracks()[0])
         .frame(width: 1000, height: 800)
- }
+}

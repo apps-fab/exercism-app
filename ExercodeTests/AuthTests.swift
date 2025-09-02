@@ -9,28 +9,34 @@ import XCTest
 @testable import Exercode
 @testable import ExercismSwift
 
+@MainActor
 final class AuthenticationViewModelTests: XCTestCase {
+    private var client: MockExercismClient!
+    private var viewModel: AuthenticationViewModel!
 
-    @MainActor
-    func test_validateToken_withEmptyInput_setsError() async {
-        let viewModel = AuthenticationViewModel()
+    override func tearDown() async throws {
+        viewModel = nil
+        client = nil
+    }
 
+    override func setUp() async throws {
+        client = MockExercismClient()
+        viewModel = AuthenticationViewModel(clientFactory: { _ in self.client })
+    }
+
+    func testEmptyString() async {
         await viewModel.validateToken()
 
         XCTAssertEqual(viewModel.error, Strings.tokenEmptyWarning.localized())
         XCTAssertTrue(viewModel.showAlert)
     }
 
-    @MainActor
-    func test_validateToken_withValidToken_setsAuthSuccess() async {
-        let mockClient = MockExercismClient()
-        mockClient.onValidateToken = { completion in
+    func testAuthSuccess() async {
+        client.onValidateToken = {
             let wrapper = ValidateTokenResponse.StatusWrapper(token: .valid)
-            let response = ValidateTokenResponse(status: wrapper)
-            completion(.success(response))
+            return ValidateTokenResponse(status: wrapper)
         }
 
-        let viewModel = AuthenticationViewModel(clientFactory: { _ in mockClient })
         viewModel.tokenInput = "valid-token"
         await viewModel.validateToken()
 
@@ -39,18 +45,14 @@ final class AuthenticationViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.error)
     }
 
-    @MainActor
-    func test_validateToken_withInvalidToken_setsError() async {
-        let mockClient = MockExercismClient()
+    func testInvalidToken() async {
         let error = ExercismClientError.apiError(code: .invalidToken, type: "", message: "")
 
-        mockClient.onValidateToken = { completion in
-            completion(.failure(error))
+        client.onValidateToken = { () throws(ExercismClientError) in
+            throw error
         }
 
-        let viewModel = AuthenticationViewModel(clientFactory: { _ in mockClient })
-
-        viewModel.tokenInput = "invalid_token"
+        viewModel.tokenInput = "invalid token"
         await viewModel.validateToken()
 
         XCTAssertEqual(viewModel.error, error.description)

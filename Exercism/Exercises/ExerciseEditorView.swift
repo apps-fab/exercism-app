@@ -14,9 +14,9 @@ struct ExerciseEditorView: View {
     @EnvironmentObject private var viewModel: ExerciseViewModel
     @EnvironmentObject private var actionsVM: EditorActionsViewModel
     @AppSettings(\.general) private var general
-
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
     var body: some View {
         ZStack {
             VStack {
@@ -59,7 +59,7 @@ struct ExerciseEditorView: View {
             .onChange(of: viewModel.language) {
                 cachedLanguage = CodeEditor.Language(rawValue: viewModel.language ?? "")
             }
-
+            
         }
     }
 }

@@ -41,28 +41,17 @@ final class ExerciseViewModelTests: XCTestCase {
         let mockDoc = getMockDoc()
         let iterations = getMockIteration()
 
-        client.onDownloadSolution = { _, _, completion in
-            completion(.success(mockDoc))
+        client.onDownloadSolution = { _, _, _  in
+            return mockDoc
         }
 
-        client.onGetIterations = { _, completion in
-            completion(.success(iterations))
+        client.onGetIterations = { _ in
+            return iterations
         }
 
         await viewModel.getDocument()
 
-        let expectation = XCTestExpectation(description: "Wait for .success state")
-
-        for _ in 0..<50 {
-            try? await Task.sleep(nanoseconds: 100_000_000)
-            if case .success = viewModel.state {
-                expectation.fulfill()
-                break
-            }
-        }
-
-        await fulfillment(of: [expectation], timeout: 5)
-
+        // Directly assert the state without manual polling/waiting
         guard case .success(let returnedDoc) = viewModel.state else {
             XCTFail("Expected .success state, got: \(viewModel.state)")
             return
@@ -73,34 +62,22 @@ final class ExerciseViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.language, "Swift")
         XCTAssertEqual(viewModel.selectedFile.id, "Sources/HelloWorld/HelloWorld.swift")
         XCTAssertFalse(viewModel.selectedCode.isEmpty)
-        XCTAssertFalse(((viewModel.instruction?.isEmpty) == nil))
-        XCTAssertFalse(((viewModel.tests?.isEmpty) == nil))
+        XCTAssertNotNil(viewModel.instruction)
+        XCTAssertNotNil(viewModel.tests)
     }
 
     func testGetDocFailure() async {
         let error = ExercismClientError.apiError(code: .genericError, type: "", message: "")
 
-        client.onDownloadSolution = { _, _, completion in
-            completion(.failure(error))
+        client.onDownloadSolution = { _, _, _ throws(ExercismClientError) in
+            throw error
         }
 
-        client.onGetIterations = { _, completion in
-            completion(.failure(error))
+        client.onGetIterations = { _ throws(ExercismClientError) in
+            throw error
         }
 
         await viewModel.getDocument()
-
-        let expectation = XCTestExpectation(description: "Wait for .failure state")
-
-        for _ in 0..<50 {
-            try? await Task.sleep(nanoseconds: 100_000_000)
-            if case .failure = viewModel.state {
-                expectation.fulfill()
-                break
-            }
-        }
-
-        await fulfillment(of: [expectation], timeout: 5)
 
         guard case .failure(let returnedError) = viewModel.state else {
             XCTFail("Expected .failure state, got: \(viewModel.state)")
@@ -149,4 +126,5 @@ final class ExerciseViewModelTests: XCTestCase {
         let contents = try? String(contentsOf: fileURL, encoding: .utf8)
         XCTAssertEqual(contents, viewModel.selectedCode)
     }
+
 }

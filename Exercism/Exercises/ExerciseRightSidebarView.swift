@@ -15,7 +15,7 @@ struct ExerciseRightSidebarView: View {
     @EnvironmentObject var actionsVM: EditorActionsViewModel
     @AppSettings(\.general) private var general
     @State private var showCompleteExerciseModal = false
-
+    
     private var theme: Splash.Theme {
         switch general.appAppearance {
         case .dark:
@@ -28,11 +28,11 @@ struct ExerciseRightSidebarView: View {
             return .sunset(withFont: .init(size: general.fontSize))
         }
     }
-
+    
     private var language: String {
         return viewModel.language ?? Strings.text.localized()
     }
-
+    
     var body: some View {
         CustomTabView(selectedItem: $actionsVM.selectedTab) {
             if let instruction = viewModel.instruction {
@@ -44,7 +44,7 @@ struct ExerciseRightSidebarView: View {
                                 presentModal: $showCompleteExerciseModal)
                 .tabItem(for: SelectedTab.instruction)
             }
-
+            
             if let tests = viewModel.tests, let language = viewModel.language {
                 VStack {
                     TestsView(tests: tests,
